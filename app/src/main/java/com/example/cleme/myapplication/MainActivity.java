@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private int score=0;
     private float positionImg;
 
+    //on vérifie les réponses
+
     public void verifRep(Integer rep, Addition a,ImageView imageJoueur){
         if(rep==a.result()){
             score ++;
