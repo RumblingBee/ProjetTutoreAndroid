@@ -2,4 +2,4 @@
 
 ## AUTHORS
 
-Clement, Maxime, Charlotte et Valentin.
+Clement, Maxime, Charlotte COUSIN et Valentin.
