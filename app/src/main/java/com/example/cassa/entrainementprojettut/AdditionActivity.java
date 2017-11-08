@@ -83,6 +83,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         Point size = new Point();
         display.getSize(size);
         int largeurEcran = size.x;
+        int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
 
              genererAddition();
 
@@ -104,7 +105,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         // On anime l'image représentant l'ordinateur
 
-        TranslateAnimation animationTranslation=new TranslateAnimation(0,largeurEcran,0,0);
+        TranslateAnimation animationTranslation=new TranslateAnimation(0,largeurEcran - largeurImageOrdi,0,0);
         animationTranslation.setFillAfter(true);
         animationTranslation.setDuration(27000);
         mImageOrdi.startAnimation(animationTranslation);
@@ -231,9 +232,21 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+
+    //Enlève le flag qui bloque l'écran allumé
+
     protected void onDestroy(){
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+    @Override
+    public void onBackPressed()
+    {
+        bgPlayer.stop();
+        Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
+        startActivity(ecranMenu);
+        handler.removeCallbacks(avancerOrdinateur);
+        super.onBackPressed();
     }
 
 }
