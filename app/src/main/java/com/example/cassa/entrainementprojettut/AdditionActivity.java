@@ -1,7 +1,5 @@
 package com.example.cassa.entrainementprojettut;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Handler;
