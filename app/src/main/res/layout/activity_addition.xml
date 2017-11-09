@@ -44,7 +44,7 @@
 
 
     <Button
-        android:background="#FEF201"
+        android:background="#ff0000"
         android:id="@+id/activity_addition_rep1_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_marginLeft="50dp"></Button>
 
     <Button
-        android:background="#FE011E"
+        android:background="#00ff00"
         android:id="@+id/activity_addition_rep2_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
     <Button
 
-        android:background="#15FE01"
+        android:background="#0000ff"
         android:id="@+id/activity_addition_rep3_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
         android:layout_marginLeft="250dp"></Button>
 
     <Button
-        android:background="#01D7FE"
+        android:background="#ffff00"
         android:id="@+id/activity_addition_rep4_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

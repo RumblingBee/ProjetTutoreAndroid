@@ -1,6 +1,7 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -50,6 +51,12 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         }
     };
+   protected Runnable activerBoutons=new Runnable() {
+       @Override
+       public void run() {
+           activerBoutons();
+       }
+   };
 
 
 
@@ -189,6 +196,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         int reponseEnvoyee = (int) view.getTag();
 
         verifierReponse(reponseEnvoyee,gReponseCorrecte);
+        griserBoutons();
+        handler.postDelayed(activerBoutons,500);
 
 
     }
@@ -241,6 +250,35 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         Point size = new Point();
         display.getSize(size);
         return size.x;
+    }
+
+    protected void griserBoutons(){
+
+        mButton1.setEnabled(false);
+        mButton2.setEnabled(false);
+        mButton3.setEnabled(false);
+        mButton4.setEnabled(false);
+
+        mButton1.setBackgroundColor(Color.rgb(99,99,99));
+        mButton2.setBackgroundColor(Color.rgb(99,99,99));
+        mButton3.setBackgroundColor(Color.rgb(99,99,99));
+        mButton4.setBackgroundColor(Color.rgb(99,99,99));
+
+
+    }
+    protected void activerBoutons(){
+
+        mButton1.setEnabled(true);
+        mButton2.setEnabled(true);
+        mButton3.setEnabled(true);
+        mButton4.setEnabled(true);
+
+        mButton1.setBackgroundColor(Color.rgb(255,0,0));
+        mButton2.setBackgroundColor(Color.rgb(0,255,0));
+        mButton3.setBackgroundColor(Color.rgb(0,0,255));
+        mButton4.setBackgroundColor(Color.rgb(255,255,0));
+
+
     }
 
 }
