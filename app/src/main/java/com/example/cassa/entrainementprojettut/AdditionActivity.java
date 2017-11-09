@@ -41,14 +41,17 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private MediaPlayer playerEvent;
 
     final Handler handler = new Handler();
+    float positionImageJoueur;
 
-   protected Runnable avancerOrdinateur = new Runnable() {
+   protected Runnable terminerActivite = new Runnable() {
         @Override
         public void run() {
             terminerActivite();
 
         }
     };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +82,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         //On récupère la taille de l'écran
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int largeurEcran = size.x;
+        float largeurEcran = retourTailleEcran();
         int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
 
              genererAddition();
@@ -90,43 +90,28 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         //On lance le chrono, l'enfant perd s'il arrive au bout
 
-     /*   handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        positionImageJoueur = mImagePos1.getX();
 
-                terminerActivite();
-
-
-
-            }
-        }, 27000);*/
-
-     handler.postDelayed(avancerOrdinateur,27000);
+     handler.postDelayed(terminerActivite,27000);
 
         // On anime l'image représentant l'ordinateur
 
-        TranslateAnimation animationTranslation=new TranslateAnimation(0,largeurEcran - largeurImageOrdi,0,0);
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,27000,0);
+
+    }
+
+
+    protected void bougerImage(ImageView pImage,float pDestination,int pDuration,float pPosDepart){
+
+
+        TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
-        animationTranslation.setDuration(27000);
-        mImageOrdi.startAnimation(animationTranslation);
-
-
-
-
-    }
-
-
-    protected void bougerImage(ImageView v,int margin_left,int margin_top,int margin_right,int margin_bottom){
-
-        ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(v.getLayoutParams());
-        marginParams.setMargins(margin_left, margin_top, margin_right, margin_bottom);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-        v.setLayoutParams(layoutParams);
-        gNbReponsesCorectes++;
-
+        animationTranslation.setDuration(pDuration);
+        pImage.startAnimation(animationTranslation);
 
 
     }
+
     protected void genererAddition(){
 
         int nombre1 = (int)(Math.random() * (9) + 1);
@@ -171,21 +156,23 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
-        int marginLeft = 50;
+
+        float largeurEcran = retourTailleEcran();
+
 
         if(reponseCorrecte == reponseEnvoyee){
+            gNbReponsesCorectes++;
+            playerEvent.start();
+
+            bougerImage(mImagePos1,positionImageJoueur+(largeurEcran/10),600,positionImageJoueur);
+            positionImageJoueur = positionImageJoueur + (largeurEcran/10);
+
             if(gNbReponsesCorectes == 10){
 
-                terminerActivite();
+                handler.postDelayed(terminerActivite,650);
 
             }
 
-            marginLeft = gNbReponsesCorectes * marginLeft;
-
-
-            playerEvent.start();
-
-            bougerImage(mImagePos1,marginLeft,0,0,0);
             genererAddition();
             return true;
 
@@ -218,7 +205,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         Intent ecranFin = new Intent(AdditionActivity.this, ResultActivity.class);
 
-        handler.removeCallbacks(avancerOrdinateur);
+        handler.removeCallbacks(terminerActivite);
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
         if(gNbReponsesCorectes == 10) {
@@ -245,8 +232,15 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         bgPlayer.stop();
         Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
         startActivity(ecranMenu);
-        handler.removeCallbacks(avancerOrdinateur);
+        handler.removeCallbacks(terminerActivite);
         super.onBackPressed();
+    }
+
+    public float retourTailleEcran(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
     }
 
 }
