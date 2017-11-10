@@ -25,6 +25,11 @@
         <activity
             android:name=".ResultActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".MysteryWordActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

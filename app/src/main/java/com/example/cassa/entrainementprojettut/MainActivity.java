@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button mAddition;
+    private Button btnMysteryWord;
 
     MediaPlayer player;
     MediaPlayer playerEvent;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         playerEvent= MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
 
         mAddition = (Button)findViewById(R.id.activity_main_addition_btn);
+        btnMysteryWord = (Button)findViewById(R.id.activity_main_mysteryWord_btn);
 
         mAddition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(additionIntent);
 
 
+
+                playerEvent.start();
+            }
+        });
+
+        btnMysteryWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.stop();
+                Intent mysteryWordIntent = new Intent(MainActivity.this, MysteryWordActivity.class);
+                startActivity(mysteryWordIntent);
 
                 playerEvent.start();
             }
