@@ -236,9 +236,11 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
         if(gNbReponsesCorectes == 10) {
+            ecranFin.putExtra("diff",difficulte);
             ecranFin.putExtra("resultat", "Gagné!");
         }
         else{
+            ecranFin.putExtra("diff",difficulte);
             ecranFin.putExtra("resultat", "Perdu!");
         }
 
