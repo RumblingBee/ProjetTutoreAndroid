@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AdditionActivity extends AppCompatActivity implements View.OnClickListener{
@@ -24,6 +26,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private TextView mAffichage;
     private TextView mNombre1;
     private TextView mNombre2;
+    private TextView mSigne;
 
     private Button mButton1;
     private Button mButton2;
@@ -33,9 +36,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private ImageView mImagePos1;
     private ImageView mImageOrdi;
 
+    private operation op;
 
-
-    private int gReponseCorrecte;
     private int gNbReponsesCorectes;
 
     private MediaPlayer bgPlayer;
@@ -44,19 +46,19 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     final Handler handler = new Handler();
     float positionImageJoueur;
 
-   protected Runnable terminerActivite = new Runnable() {
+    protected Runnable terminerActivite = new Runnable() {
         @Override
         public void run() {
             terminerActivite();
 
         }
     };
-   protected Runnable activerBoutons=new Runnable() {
-       @Override
-       public void run() {
-           activerBoutons();
-       }
-   };
+    protected Runnable activerBoutons=new Runnable() {
+        @Override
+        public void run() {
+            activerBoutons();
+        }
+    };
 
 
 
@@ -78,6 +80,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mAffichage = (TextView)findViewById(R.id.activity_addition_affichage_textview);
         mNombre1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
         mNombre2 = (TextView) findViewById(R.id.activity_addition_nombre2_textview);
+        mSigne =(TextView)findViewById(R.id.activity_addition_operateur_textview);
 
         mButton1 = (Button)findViewById(R.id.activity_addition_rep1_btn);
         mButton2 = (Button)findViewById(R.id.activity_addition_rep2_btn);
@@ -92,14 +95,14 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         float largeurEcran = retourTailleEcran();
         int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
 
-             genererAddition();
+        genererAddition();
 
 
         //On lance le chrono, l'enfant perd s'il arrive au bout
 
         positionImageJoueur = mImagePos1.getX();
 
-     handler.postDelayed(terminerActivite,27000);
+        handler.postDelayed(terminerActivite,27000);
 
         // On anime l'image représentant l'ordinateur
 
@@ -121,18 +124,26 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     protected void genererAddition(){
 
-        int nombre1 = (int)(Math.random() * (9) + 1);
-        int nombre2 = (int)(Math.random() * (9) + 1);
 
-        mNombre1.setText(""+nombre1);
-        mNombre2.setText(""+nombre2);
+         op = new operation(3);
 
-        gReponseCorrecte = nombre1 + nombre2;
+        //Affichage de l'opération
+
+        mNombre1.setText(""+op.getTerme1());
+        mNombre2.setText(""+op.getTerme2());
+        mSigne.setText(""+op.getSigne());
+
+
+
 
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
         mButton4.setOnClickListener(this);
+
+
+
+
 
         melangerReponse();
 
@@ -144,20 +155,20 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         Button tabButton[] = {mButton1,mButton2,mButton3,mButton4};
         ArrayList listeReponses = new ArrayList();
 
-        listeReponses.add(gReponseCorrecte-1);
-        listeReponses.add(gReponseCorrecte);
-        listeReponses.add(gReponseCorrecte+1);
-        listeReponses.add(gReponseCorrecte+2);
+        listeReponses.add(op.getReponse()-1);
+        listeReponses.add(op.getReponse());
+        listeReponses.add(op.getReponse()+1);
+        listeReponses.add(op.getReponse()+2);
 
-            int i;
+        int i;
 
 
-         for(i=0;i<4; i++) {
-             int indiceListe = (int) (Math.random() * listeReponses.size());
+        for(i=0;i<4; i++) {
+            int indiceListe = (int) (Math.random() * listeReponses.size());
             tabButton[i].setTag(listeReponses.get(indiceListe));
             tabButton[i].setText("" + listeReponses.get(indiceListe));
             listeReponses.remove(indiceListe);
-         }
+        }
 
 
     }
@@ -195,7 +206,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
 
-        verifierReponse(reponseEnvoyee,gReponseCorrecte);
+        verifierReponse(reponseEnvoyee,op.getReponse());
         griserBoutons();
         handler.postDelayed(activerBoutons,500);
 
@@ -282,5 +293,3 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     }
 
 }
-
-
