@@ -17,6 +17,7 @@ public class choixDifficulteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_difficulte);
 
+
         Intent intent = getIntent();
         String activityToLaunch = intent.getStringExtra("Activity");
 
@@ -84,4 +85,3 @@ public class choixDifficulteActivity extends AppCompatActivity {
         }
     }
 }
-
