@@ -179,5 +179,3 @@ public class MysteryWordActivity extends AppCompatActivity
         startActivity(ecranFin);
     }
 }
-
-
