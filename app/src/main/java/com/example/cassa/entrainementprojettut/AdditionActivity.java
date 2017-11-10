@@ -39,6 +39,9 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private operation op;
 
     private int gNbReponsesCorectes;
+    private int difficulte;
+
+
 
     private MediaPlayer bgPlayer;
     private MediaPlayer playerEvent;
@@ -67,7 +70,10 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
 
+        Intent intent = getIntent();
+        difficulte = intent.getIntExtra("diff",1);
 
+        // int difficulte = Integer.parseInt(mMessage);
 
         bgPlayer = MediaPlayer.create(AdditionActivity.this,R.raw.bensound_retrosoul);
         bgPlayer.start();
@@ -89,6 +95,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
         mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
+
 
         //On récupère la taille de l'écran
 
@@ -125,7 +132,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     protected void genererAddition(){
 
 
-         op = new operation(3);
+         op = new operation(difficulte);
 
         //Affichage de l'opération
 

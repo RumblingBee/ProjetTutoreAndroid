@@ -30,6 +30,7 @@
             android:screenOrientation="landscape"
             android:launchMode="singleTask"/>
 
+        <activity android:name=".choixDifficulteActivity"></activity>
     </application>
 
 </manifest>
