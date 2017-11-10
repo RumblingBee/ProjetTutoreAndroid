@@ -27,6 +27,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String mMessage = intent.getStringExtra("resultat");
+        final int difficulte = intent.getIntExtra("diff",1);
         mTextResultat.setText(mMessage);
 
 
@@ -35,6 +36,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent additionIntent = new Intent(ResultActivity.this, AdditionActivity.class);
+                additionIntent.putExtra("diff",difficulte);
                 startActivity(additionIntent);
             }
         });
