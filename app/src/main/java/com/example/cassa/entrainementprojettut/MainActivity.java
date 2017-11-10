@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 player.stop();
-                Intent additionIntent = new Intent(MainActivity.this, AdditionActivity.class);
+                Intent additionIntent = new Intent(MainActivity.this, choixDifficulteActivity.class);
                 startActivity(additionIntent);
 
 

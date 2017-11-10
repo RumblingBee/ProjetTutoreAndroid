@@ -25,6 +25,7 @@
         <activity
             android:name=".ResultActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".choixDifficulteActivity"></activity>
     </application>
 
 </manifest>
