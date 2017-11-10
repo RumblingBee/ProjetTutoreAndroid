@@ -41,6 +41,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private int gNbReponsesCorectes;
     private int difficulte;
 
+
+
     private MediaPlayer bgPlayer;
     private MediaPlayer playerEvent;
 
@@ -92,6 +94,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
         mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
 
+
         //On récupère la taille de l'écran
 
         float largeurEcran = retourTailleEcran();
@@ -122,7 +125,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     protected void genererAddition(){
 
-         op = new operation(difficulte);
+
+        op = new operation(difficulte);
 
         //Affichage de l'opération
 
