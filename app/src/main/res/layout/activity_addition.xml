@@ -24,14 +24,6 @@
         android:layout_marginLeft="100dp"/>
 
     <TextView
-        android:id="@+id/activity_addition_operateur_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:layout_marginTop="140dp"
-        android:layout_marginLeft="200dp"/>
-
-    <TextView
         android:id="@+id/activity_addition_nombre2_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +31,17 @@
         android:layout_marginTop="140dp"
         android:layout_marginLeft="300dp"/>
 
-
+    <TextView
+        android:id="@+id/activity_addition_operateur_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_addition_nombre1_textview"
+        android:layout_alignBottom="@+id/activity_addition_nombre1_textview"
+        android:layout_alignEnd="@+id/activity_addition_rep2_btn"
+        android:layout_alignRight="@+id/activity_addition_rep2_btn"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:text="TextView" />
 
 
 
@@ -93,6 +95,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/activity_addition_affichage_textview"
         app:srcCompat="@mipmap/ic_launcher_round" />
+
+
 
 
 </RelativeLayout>
