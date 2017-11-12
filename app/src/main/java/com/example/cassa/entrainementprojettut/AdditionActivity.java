@@ -41,8 +41,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private int gNbReponsesCorectes;
     private int difficulte;
 
-
-
     private MediaPlayer bgPlayer;
     private MediaPlayer playerEvent;
 
@@ -62,8 +60,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             activerBoutons();
         }
     };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +92,12 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
         mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
 
-
         //On récupère la taille de l'écran
 
         float largeurEcran = retourTailleEcran();
         int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
 
         genererAddition();
-
 
         //On lance le chrono, l'enfant perd s'il arrive au bout
 
@@ -117,20 +111,16 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
     protected void bougerImage(ImageView pImage,float pDestination,int pDuration,float pPosDepart){
-
 
         TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
         animationTranslation.setDuration(pDuration);
         pImage.startAnimation(animationTranslation);
 
-
     }
 
     protected void genererAddition(){
-
 
          op = new operation(difficulte);
 
@@ -140,22 +130,14 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mNombre2.setText(""+op.getTerme2());
         mSigne.setText(""+op.getSigne());
 
-
-
-
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
         mButton4.setOnClickListener(this);
 
-
-
-
-
         melangerReponse();
 
     }
-
 
     protected void melangerReponse(){
 
@@ -176,8 +158,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             tabButton[i].setText("" + listeReponses.get(indiceListe));
             listeReponses.remove(indiceListe);
         }
-
-
     }
 
     public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
@@ -193,9 +173,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             positionImageJoueur = positionImageJoueur + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-
                 handler.postDelayed(terminerActivite,650);
-
             }
 
             genererAddition();
@@ -222,11 +200,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     public void  terminerActivite(){
 
-
-
         AdditionActivity.this.finish();
         overridePendingTransition(0,0);
-
 
         bgPlayer.stop();
 
@@ -245,7 +220,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
 
         startActivity(ecranFin);
-
 
     }
 
