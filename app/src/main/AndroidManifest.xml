@@ -30,7 +30,9 @@ package="com.example.cassa.entrainementprojettut">
         android:screenOrientation="landscape"
         android:launchMode="singleTask"/>
 
-    <activity android:name=".choixDifficulteActivity"></activity>
+    <activity android:name=".choixDifficulteActivity"
+        android:screenOrientation="landscape"/>
+
 </application>
 
 </manifest>
