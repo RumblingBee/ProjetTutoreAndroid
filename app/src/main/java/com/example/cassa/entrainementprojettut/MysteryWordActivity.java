@@ -1,13 +1,17 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 public class MysteryWordActivity extends AppCompatActivity
 {
@@ -19,6 +23,11 @@ public class MysteryWordActivity extends AppCompatActivity
 
     private ImageView imgPlayer;
     private ImageView imgIA;
+
+    final Handler handler = new Handler();
+    float positionImageJoueur;
+
+    private int gNbReponsesCorrectes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -71,6 +80,58 @@ public class MysteryWordActivity extends AppCompatActivity
             });
         }
 
+        //On récupère la taille de l'écran
+        float largeurEcran = retourTailleEcran();
+        int largeurImageOrdi = imgIA.getDrawable().getIntrinsicWidth();
+
+        //On lance le chrono, l'enfant perd s'il arrive au bout
+        positionImageJoueur = imgPlayer.getX();
+        handler.postDelayed(terminerActivite,27000);
+
+        // On anime l'image représentant l'ordinateur
+        bougerImage(imgIA, largeurEcran - largeurImageOrdi, 27000, 0);
     }
 
+    public float retourTailleEcran()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+    protected Runnable terminerActivite = new Runnable() {
+        @Override
+        public void run() {
+            terminerActivite();
+        }
+    };
+
+    protected void bougerImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart)
+    {
+        TranslateAnimation animationTranslation = new TranslateAnimation(pPosDepart,pDestination,0,0);
+        animationTranslation.setFillAfter(true);
+        animationTranslation.setDuration(pDuration);
+        pImage.startAnimation(animationTranslation);
+    }
+
+    public void terminerActivite()
+    {
+        MysteryWordActivity.this.finish();
+        overridePendingTransition(0,0);
+
+        Intent ecranFin = new Intent(MysteryWordActivity.this, ResultActivity.class);
+
+        handler.removeCallbacks(terminerActivite);
+        ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+        if(gNbReponsesCorrectes == 10)
+            ecranFin.putExtra("resultat", "Gagné!");
+        else
+            ecranFin.putExtra("resultat", "Perdu!");
+
+        startActivity(ecranFin);
+    }
 }
+
+
