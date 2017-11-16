@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MysteryWordActivity extends AppCompatActivity
@@ -23,6 +25,8 @@ public class MysteryWordActivity extends AppCompatActivity
 
     private ImageView imgPlayer;
     private ImageView imgIA;
+
+    private LinearLayout btnLayout;
 
     final Handler handler = new Handler();
     float positionImageJoueur;
@@ -69,6 +73,8 @@ public class MysteryWordActivity extends AppCompatActivity
         imgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
         imgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
 
+        btnLayout = (LinearLayout)findViewById(R.id.activity_mysteryWord_word_linearlayout);
+
         for(int i=0; i<button.length; i++){
             final int tmp = i;
             button[i].setOnClickListener(new View.OnClickListener() {
@@ -88,8 +94,11 @@ public class MysteryWordActivity extends AppCompatActivity
         positionImageJoueur = imgPlayer.getX();
         handler.postDelayed(terminerActivite,27000);
 
-        // On anime l'image représentant l'ordinateur
+        //On anime l'image représentant l'ordinateur
         bougerImage(imgIA, largeurEcran - largeurImageOrdi, 27000, 0);
+
+        //On génère un mot mystère
+        //generateWord();
     }
 
     public float retourTailleEcran()
