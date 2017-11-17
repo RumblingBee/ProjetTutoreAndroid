@@ -191,16 +191,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
-    @Override
-    public void onClick(View view) {
-        int reponseEnvoyee = (int) view.getTag();
-
-        verifierReponse(reponseEnvoyee,op.getReponse());
-        griserBoutons();
-        handler.postDelayed(activerBoutons,500);
-
-
-    }
 
     public void  terminerActivite(){
 
@@ -279,5 +269,27 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+    @Override
+    public void onClick(View view) {
+        int reponseEnvoyee = (int) view.getTag();
+
+        verifierReponse(reponseEnvoyee,op.getReponse());
+        griserBoutons();
+        handler.postDelayed(activerBoutons,500);
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        bgPlayer.stop();
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        bgPlayer.start();
+    }
+
+    
 
 }

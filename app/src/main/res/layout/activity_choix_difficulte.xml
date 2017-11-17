@@ -7,7 +7,7 @@
     android:screenOrientation="landscape"
     android:splitMotionEvents="false"
     android:background="@color/colorPrimary"
-    tools:context="com.example.cassa.entrainementprojettut.choixDifficulteActivity">
+    tools:context="com.example.cassa.entrainementprojettut.LevelChoiceActivity">
 
     <Button
         android:id="@+id/niveau1_btn"

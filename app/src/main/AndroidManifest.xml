@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity
+
             android:name=".AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
@@ -32,7 +33,8 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".choixDifficulteActivity"
+            
+            android:name=".LevelChoiceActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask"/>
 

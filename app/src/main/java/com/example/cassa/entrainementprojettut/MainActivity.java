@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     MediaPlayer player;
     MediaPlayer playerEvent;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 player.stop();
-                Intent additionIntent = new Intent(MainActivity.this, choixDifficulteActivity.class);
+                Intent additionIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
                 additionIntent.putExtra("Activity", "Addition");
                 startActivity(additionIntent);
 
+                
                 playerEvent.start();
             }
         });
@@ -46,17 +48,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                Intent mysteryWordIntent = new Intent(MainActivity.this, choixDifficulteActivity.class);
+                Intent mysteryWordIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
                 mysteryWordIntent.putExtra("Activity", "MysteryWord");
                 startActivity(mysteryWordIntent);
 
                 playerEvent.start();
             }
         });
-    }
-    
+    } 
     protected void onDestroy(){
         super.onDestroy();
         player.stop();
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        player.stop();
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        player.start();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        player.start();
+    }
+
+
+    
 }
