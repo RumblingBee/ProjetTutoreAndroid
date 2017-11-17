@@ -19,14 +19,19 @@
         android:id="@+id/activity_addition_nombre1_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size"
         android:text="3"
+        android:textStyle="bold"
         android:layout_marginTop="140dp"
-        android:layout_marginLeft="100dp"/>
+        android:layout_marginLeft="100dp"
+        />
 
     <TextView
         android:id="@+id/activity_addition_nombre2_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size"
+        android:textStyle="bold"
         android:text="5"
         android:layout_marginTop="140dp"
         android:layout_marginLeft="300dp"/>
@@ -35,6 +40,8 @@
         android:id="@+id/activity_addition_operateur_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size"
+        android:textStyle="bold"
         android:layout_alignBaseline="@+id/activity_addition_nombre1_textview"
         android:layout_alignBottom="@+id/activity_addition_nombre1_textview"
         android:layout_alignEnd="@+id/activity_addition_rep2_btn"

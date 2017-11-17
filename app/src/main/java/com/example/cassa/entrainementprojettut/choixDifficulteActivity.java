@@ -103,5 +103,13 @@ public class choixDifficulteActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         player.stop();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        player.stop();
+        Intent ecranMenu = new Intent(choixDifficulteActivity.this, MainActivity.class);
+        startActivity(ecranMenu);
+        super.onBackPressed();
     } 
 }
