@@ -18,7 +18,8 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="119dp"
-        android:text="1"
+        android:background="@android:color/holo_green_light"
+        android:text="Facile"
         tools:layout_editor_absoluteX="55dp"
         tools:layout_editor_absoluteY="130dp" />
 
@@ -29,7 +30,8 @@
         android:layout_alignBaseline="@+id/niveau1_btn"
         android:layout_alignBottom="@+id/niveau1_btn"
         android:layout_centerHorizontal="true"
-        android:text="2"
+        android:background="@android:color/holo_orange_dark"
+        android:text="Moyen"
         tools:layout_editor_absoluteX="225dp"
         tools:layout_editor_absoluteY="130dp" />
 
@@ -43,7 +45,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="47dp"
         android:layout_marginRight="47dp"
-        android:text="3"
+        android:background="@android:color/holo_red_dark"
+        android:text="Difficile"
         tools:layout_editor_absoluteX="412dp"
         tools:layout_editor_absoluteY="130dp" />
 </RelativeLayout>

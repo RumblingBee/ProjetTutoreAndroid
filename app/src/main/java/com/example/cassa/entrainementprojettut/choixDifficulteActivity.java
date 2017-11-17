@@ -1,6 +1,7 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,18 +13,26 @@ public class choixDifficulteActivity extends AppCompatActivity {
     private Button mButton2;
     private Button mButton3;
 
+    private MediaPlayer player;
+    private MediaPlayer playerEvent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_difficulte);
 
-
         Intent intent = getIntent();
         String activityToLaunch = intent.getStringExtra("Activity");
 
-        mButton1 = (Button)findViewById(R.id.niveau1_btn);
+        player= MediaPlayer.create(choixDifficulteActivity.this,R.raw.bensound_jazzyfrenchy);
+        player.start();
+
+        playerEvent= MediaPlayer.create(choixDifficulteActivity.this,R.raw.envent_sound);
+
+        mButton1 = (Button) findViewById(R.id.niveau1_btn);
         mButton2 = (Button)findViewById(R.id.niveau2_btn);
         mButton3 = (Button)findViewById(R.id.niveau3_btn);
+
 
         if(activityToLaunch.equals("Addition"))
         {
@@ -35,6 +44,8 @@ public class choixDifficulteActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     addition.putExtra("diff",1);
                     startActivity(addition);
+                    player.stop();
+                    playerEvent.start();
 
                 }
             });
@@ -43,6 +54,8 @@ public class choixDifficulteActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     addition.putExtra("diff",2);
                     startActivity(addition);
+                    player.stop();
+                    playerEvent.start();
 
                 }
             });
@@ -51,6 +64,8 @@ public class choixDifficulteActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     addition.putExtra("diff",3);
                     startActivity(addition);
+                    player.stop();
+                    playerEvent.start();
                 }
             });
         }
@@ -84,4 +99,9 @@ public class choixDifficulteActivity extends AppCompatActivity {
             });
         }
     }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        player.stop();
+    } 
 }

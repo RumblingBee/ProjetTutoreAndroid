@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.example.cassa.entrainementprojettut">
+    package="com.example.cassa.entrainementprojettut">
 
     <application
         android:allowBackup="true"
@@ -24,14 +24,18 @@ package="com.example.cassa.entrainementprojettut">
             android:screenOrientation="landscape" />
         <activity
             android:name=".ResultActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".MysteryWordActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".choixDifficulteActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".choixDifficulteActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>
