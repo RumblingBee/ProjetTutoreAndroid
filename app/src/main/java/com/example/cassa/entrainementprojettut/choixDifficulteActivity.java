@@ -5,7 +5,9 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class choixDifficulteActivity extends AppCompatActivity {
 
@@ -15,6 +17,9 @@ public class choixDifficulteActivity extends AppCompatActivity {
 
     private MediaPlayer player;
     private MediaPlayer playerEvent;
+
+    private ImageView mNuage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class choixDifficulteActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.niveau1_btn);
         mButton2 = (Button)findViewById(R.id.niveau2_btn);
         mButton3 = (Button)findViewById(R.id.niveau3_btn);
+
+        mNuage = findViewById(R.id.activity_choix_difficulte_nuage_imageView);
 
 
         if(activityToLaunch.equals("Addition"))
