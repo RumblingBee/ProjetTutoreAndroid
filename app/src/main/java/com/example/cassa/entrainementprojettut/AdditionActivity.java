@@ -106,11 +106,11 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         positionImageJoueur = mImagePos1.getX();
 
-        handler.postDelayed(terminerActivite,27000);
+        handler.postDelayed(terminerActivite,35000);
 
         // On anime l'image représentant l'ordinateur
 
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,27000,0);
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,35000,0);
 
     }
 
@@ -177,7 +177,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             positionImageJoueur = positionImageJoueur + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-                handler.postDelayed(terminerActivite,650);
+                handler.postDelayed(terminerActivite,800);
             }
 
             genererAddition();
