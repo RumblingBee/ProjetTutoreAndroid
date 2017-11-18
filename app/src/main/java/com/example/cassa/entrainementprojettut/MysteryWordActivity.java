@@ -22,15 +22,16 @@ public class MysteryWordActivity extends AppCompatActivity
     private TextView txtOrder;
     private TextView txtSelect;
     private TextView txtAnswer;
-
     private ImageView imgPlayer;
     private ImageView imgIA;
-
     private LinearLayout btnLayout;
 
     final Handler handler = new Handler();
     float positionImageJoueur;
 
+    private WordBank wordBank;
+    private Word currentWord;
+    private char selectedCharaAnswer;
     private int gNbReponsesCorrectes;
 
     @Override
@@ -38,6 +39,9 @@ public class MysteryWordActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
+
+        Intent intent = getIntent();
+        int level = intent.getIntExtra("diff", 1);
 
         button[0] = (Button) findViewById(R.id.activity_mysteryWord_A_button);
         button[1] = (Button) findViewById(R.id.activity_mysteryWord_Z_button);
@@ -82,9 +86,18 @@ public class MysteryWordActivity extends AppCompatActivity
                 public void onClick(View view) {
                     String s = button[tmp].getText().toString();
                     txtSelect.setText(s);
+                    checkAnswer(s);
                 }
             });
         }
+
+        //On génère une collection de 5 mots codés
+        wordBank = new WordBank(level);
+
+        //On récupère le mot et on l'affiche, ainsi que la consigne associée
+        currentWord = wordBank.getWord();
+        displayWord(currentWord);
+        txtOrder.setText(currentWord.get_order());
 
         //On récupère la taille de l'écran
         float largeurEcran = retourTailleEcran();
@@ -96,9 +109,33 @@ public class MysteryWordActivity extends AppCompatActivity
 
         //On anime l'image représentant l'ordinateur
         bougerImage(imgIA, largeurEcran - largeurImageOrdi, 27000, 0);
+    }
 
-        //On génère un mot mystère
-        //generateWord();
+    private void displayWord(Word word)
+    {
+        int i = 0;
+        for(char c : word.get_codedWord().toCharArray())
+        {
+            final int tmp = i;
+            Button button = (Button)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
+            button.setText(String.valueOf(c));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
+                }
+            });
+            btnLayout.addView(button);
+            i++;
+        }
+    }
+
+    private void checkAnswer(String s)
+    {
+        if(s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer)))
+            txtAnswer.setText("Bonne réponse !");
+        else
+            txtAnswer.setText("Essaye encore");
     }
 
     public float retourTailleEcran()
@@ -134,7 +171,7 @@ public class MysteryWordActivity extends AppCompatActivity
         handler.removeCallbacks(terminerActivite);
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-        if(gNbReponsesCorrectes == 10)
+        if(gNbReponsesCorrectes == 5)
             ecranFin.putExtra("resultat", "Gagné!");
         else
             ecranFin.putExtra("resultat", "Perdu!");

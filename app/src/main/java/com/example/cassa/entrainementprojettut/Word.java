@@ -6,66 +6,90 @@ import java.util.Collections;
 
 public class Word
 {
-    private String _word;
+    private String _codedWord;
     private String _answer;
-    private char _sign;
+    private String _order;
 
-    private ArrayList<String> listWords = new ArrayList<String>();
-    private static String listShortWords[] = {"film", "doux", "defi", "flou", "fond", "epis", "epee", "fete", "fil", "gris", "bleu", "loup", "lune", "dent", "chez",
-            "cent", "sol", "toi", "roi", "cle", "six", "coq", "dos", "jus", "ici", "lit"};
-    private static String listMediumWords[] = {"livre", "epine", "ferme", "finir", "fleur", "drole", "fusee", "froid", "futur", "soupe", "veste", "jeune", "vivre", "pomme"};
+    private static String listShortWords[] = {"film", "doux", "defi", "flou", "fond", "epis", "epee",
+            "fete", "fil", "gris", "bleu", "loup", "lune", "dent", "chez", "cent", "sol", "toi",
+            "roi", "cle", "six", "coq", "dos", "jus", "ici", "lit"};
+    private static String listMediumWords[] = {"livre", "epine", "ferme", "finir", "fleur", "drole",
+            "fusee", "froid", "futur", "soupe", "veste", "jeune", "vivre", "pomme"};
     private static String listLongWords[] = {"vendre", "violet", "voisin"};
 
     public Word(int level)
     {
+        ArrayList<String> listWords = new ArrayList<>();
         switch(level){
             case 1 :
-                listWords.addAll(Arrays.asList(listLongWords));
+                listWords.addAll(Arrays.asList(listShortWords));
+                break;
             case 2 :
                 listWords.addAll(Arrays.asList(listShortWords));
                 listWords.addAll(Arrays.asList(listMediumWords));
+                break;
             case 3 :
                 listWords.addAll(Arrays.asList(listMediumWords));
                 listWords.addAll(Arrays.asList(listLongWords));
+                break;
         }
 
         Collections.shuffle(listWords);
 
         this._answer = listWords.get(genererNombre(0, listWords.size() - 1));
-        this._sign = genererSigne();
-        this._word = codedWord(level, this._sign, this._answer);
+        char sign = genererSigne();
+        int codeNumber;
+        if(level == 1)
+            codeNumber = 1;
+        else
+            codeNumber = 2;
+        this._codedWord = codeWord(codeNumber, sign, this._answer);
+        this._order = generateOrder(sign, codeNumber);
     }
 
     // Codage du mot selon le niveau sélectionné
-    private String codedWord(int level, char sign, String word)
+    private String codeWord(int codeNumber, char sign, String word)
     {
+        StringBuilder codedWord = new StringBuilder();
         for (char c : word.toCharArray())
         {
-            if(level == 1)
-                c = codedChar(c, sign, 1);
-            else
-                c = codedChar(c, sign, 2);
+            c = codeChar(c, sign, codeNumber);
+            codedWord.append(c);
         }
-        return word;
+        return codedWord.toString();
     }
 
-    private char codedChar(char c, char sign, int d)
+    // Codage de chaque caractère du mot
+    private char codeChar(char c, char sign, int codeNumber)
     {
         int ascii = (int)c;
         if(sign == '+')
-            ascii = ascii + d;
+            ascii = ascii + codeNumber;
         else
-            ascii = ascii - d;
+            ascii = ascii - codeNumber;
         return (char)ascii;
     }
 
-    protected int genererNombre(int borneSup, int borneInf)
+    private String generateOrder(char sign, int codeNumber)
     {
-        int nombre = borneInf + (int)(Math.random() * ((borneSup - borneInf) + 1));
-        return nombre;
+        String order = "Décale les lettres du mot codé de ";
+        if(sign == '+')
+            order += "- " + codeNumber;
+        else
+            order += "+ " + codeNumber;
+        if(codeNumber == 1)
+            order = order.concat(" lettre dans l'alphabet pour trouver le mot caché");
+        else
+            order = order.concat(" lettres dans l'alphabet pour trouver le mot caché");
+        return  order;
     }
 
-    protected char genererSigne()
+    private int genererNombre(int borneSup, int borneInf)
+    {
+        return borneInf + (int)(Math.random() * ((borneSup - borneInf) + 1));
+    }
+
+    private char genererSigne()
     {
         char signe;
         int cas = genererNombre(1,2);
@@ -84,12 +108,12 @@ public class Word
         return signe;
     }
 
-    public String get_word() {
-        return _word;
+    public String get_codedWord() {
+        return _codedWord;
     }
 
-    public void set_word(String _word) {
-        this._word = _word;
+    public void set_word(String _codedWord) {
+        this._codedWord = _codedWord;
     }
 
     public String get_answer() {
@@ -98,5 +122,13 @@ public class Word
 
     public void set_answer(String _answer) {
         this._answer = _answer;
+    }
+
+    public String get_order() {
+        return _order;
+    }
+
+    public void set_order(String _order) {
+        this._order = _order;
     }
 }

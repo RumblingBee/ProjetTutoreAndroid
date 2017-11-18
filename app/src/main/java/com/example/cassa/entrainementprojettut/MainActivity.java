@@ -15,8 +15,6 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer player;
     MediaPlayer playerEvent;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
                 player.stop();
                 Intent additionIntent = new Intent(MainActivity.this, choixDifficulteActivity.class);
+                additionIntent.putExtra("Activity", "Addition");
                 startActivity(additionIntent);
-
-
 
                 playerEvent.start();
             }
@@ -49,13 +46,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                Intent mysteryWordIntent = new Intent(MainActivity.this, MysteryWordActivity.class);
+                Intent mysteryWordIntent = new Intent(MainActivity.this, choixDifficulteActivity.class);
+                mysteryWordIntent.putExtra("Activity", "MysteryWord");
                 startActivity(mysteryWordIntent);
 
                 playerEvent.start();
             }
         });
     }
-
-
 }
