@@ -78,7 +78,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
-        gNbReponsesCorectes = 1;
+        gNbReponsesCorectes = 0;
 // On recupère les widgets
 
         mAffichage = (TextView)findViewById(R.id.activity_addition_affichage_textview);
@@ -106,11 +106,11 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         positionImageJoueur = mImagePos1.getX();
 
-        handler.postDelayed(terminerActivite,35000);
+        handler.postDelayed(terminerActivite,60000);
 
         // On anime l'image représentant l'ordinateur
 
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,35000,0);
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
 
     }
 
@@ -194,6 +194,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     public void  terminerActivite(){
 
+
+
         AdditionActivity.this.finish();
         overridePendingTransition(0,0);
 
@@ -217,10 +219,12 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+
     //Enlève le flag qui bloque l'écran allumé
 
     protected void onDestroy(){
         super.onDestroy();
+
         bgPlayer.stop();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
