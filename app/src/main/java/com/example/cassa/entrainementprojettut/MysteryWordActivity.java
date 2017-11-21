@@ -87,6 +87,10 @@ public class MysteryWordActivity extends AppCompatActivity
                     String s = button[tmp].getText().toString();
                     txtSelect.setText(s);
                     checkAnswer(s);
+                    if(checkAnswer(s) == true ){
+
+                        button[tmp].setText(s);
+                    }
                 }
             });
         }
@@ -130,12 +134,17 @@ public class MysteryWordActivity extends AppCompatActivity
         }
     }
 
-    private void checkAnswer(String s)
+    private boolean checkAnswer(String s)
     {
-        if(s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer)))
+        boolean res=false;
+        if(s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer))){
             txtAnswer.setText("Bonne réponse !");
-        else
+            res=true;
+        }
+        else{
             txtAnswer.setText("Essaye encore");
+        }
+            return res;
     }
 
     public float retourTailleEcran()
