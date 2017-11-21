@@ -287,7 +287,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     public void onPause() {
         super.onPause();
         bgPlayer.stop();
-        AdditionActivity.this.finish();
+
     }
     @Override
     public void onRestart() {

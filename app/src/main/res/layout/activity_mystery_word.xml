@@ -69,8 +69,8 @@
 
     <LinearLayout
         android:id="@+id/activity_mysteryWord_keyboard_linearlayout"
-        android:layout_width="563dp"
-        android:layout_height="156dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

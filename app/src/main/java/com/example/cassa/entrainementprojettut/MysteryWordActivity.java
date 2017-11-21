@@ -34,6 +34,8 @@ public class MysteryWordActivity extends AppCompatActivity
     private char selectedCharaAnswer;
     private int gNbReponsesCorrectes;
 
+    private Button gselectedLetter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -86,10 +88,10 @@ public class MysteryWordActivity extends AppCompatActivity
                 public void onClick(View view) {
                     String s = button[tmp].getText().toString();
                     txtSelect.setText(s);
-                    checkAnswer(s);
+                    //checkAnswer(s);
                     if(checkAnswer(s) == true ){
 
-                        button[tmp].setText(s);
+                        gselectedLetter.setText(s);
                     }
                 }
             });
@@ -109,10 +111,10 @@ public class MysteryWordActivity extends AppCompatActivity
 
         //On lance le chrono, l'enfant perd s'il arrive au bout
         positionImageJoueur = imgPlayer.getX();
-        handler.postDelayed(terminerActivite,27000);
+        handler.postDelayed(terminerActivite,60000);
 
         //On anime l'image représentant l'ordinateur
-        bougerImage(imgIA, largeurEcran - largeurImageOrdi, 27000, 0);
+        bougerImage(imgIA, largeurEcran - largeurImageOrdi, 60000, 0);
     }
 
     private void displayWord(Word word)
@@ -121,12 +123,13 @@ public class MysteryWordActivity extends AppCompatActivity
         for(char c : word.get_codedWord().toCharArray())
         {
             final int tmp = i;
-            Button button = (Button)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
+            final Button button = (Button)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
             button.setText(String.valueOf(c));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
+                    gselectedLetter = button;
                 }
             });
             btnLayout.addView(button);
@@ -190,7 +193,6 @@ public class MysteryWordActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
         handler.removeCallbacks(terminerActivite);
@@ -199,9 +201,5 @@ public class MysteryWordActivity extends AppCompatActivity
     @Override
     public void onPause() {
         super.onPause();
-
-        MysteryWordActivity.this.finish();
-
-
     }
 }

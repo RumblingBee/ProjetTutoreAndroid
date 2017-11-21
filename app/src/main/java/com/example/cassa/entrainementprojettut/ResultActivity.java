@@ -36,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent additionIntent = new Intent(ResultActivity.this, LevelChoiceActivity.class);
-                additionIntent.putExtra("diff",difficulte);
+                additionIntent.putExtra("Activity", "Addition");
                 startActivity(additionIntent);
             }
         });
