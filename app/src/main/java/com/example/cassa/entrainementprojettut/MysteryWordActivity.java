@@ -178,4 +178,21 @@ public class MysteryWordActivity extends AppCompatActivity
 
         startActivity(ecranFin);
     }
+    @Override
+    public void onBackPressed()
+    {
+
+        Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
+        startActivity(ecranMenu);
+        handler.removeCallbacks(terminerActivite);
+        super.onBackPressed();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        MysteryWordActivity.this.finish();
+
+
+    }
 }

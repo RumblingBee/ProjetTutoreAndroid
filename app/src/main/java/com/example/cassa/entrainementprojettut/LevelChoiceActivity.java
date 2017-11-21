@@ -125,6 +125,9 @@ public class LevelChoiceActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         player.stop();
+        LevelChoiceActivity.this.finish();
+
+
     }
 
     @Override
