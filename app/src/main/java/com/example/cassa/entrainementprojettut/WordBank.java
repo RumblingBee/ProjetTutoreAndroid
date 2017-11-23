@@ -22,8 +22,8 @@ public class WordBank
         _nextWordIndex = 0;
     }
 
-    public Word getWord()
+    public Word getWord(int i)
     {
-        return this._wordList.get(_nextWordIndex + 1);
+        return _wordList.get(i);
     }
 }

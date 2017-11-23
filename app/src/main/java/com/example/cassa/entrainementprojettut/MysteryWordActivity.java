@@ -101,7 +101,7 @@ public class MysteryWordActivity extends AppCompatActivity
         wordBank = new WordBank(level);
 
         //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        currentWord = wordBank.getWord();
+        currentWord = wordBank.getWord(0);
         displayWord(currentWord);
         txtOrder.setText(currentWord.get_order());
 
@@ -179,6 +179,7 @@ public class MysteryWordActivity extends AppCompatActivity
         overridePendingTransition(0,0);
 
         Intent ecranFin = new Intent(MysteryWordActivity.this, ResultActivity.class);
+        ecranFin.putExtra("Activity","MysteryWord");
 
         handler.removeCallbacks(terminerActivite);
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

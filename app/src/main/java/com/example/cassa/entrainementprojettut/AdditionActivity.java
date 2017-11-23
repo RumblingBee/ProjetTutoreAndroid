@@ -202,6 +202,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         bgPlayer.stop();
 
         Intent ecranFin = new Intent(AdditionActivity.this, ResultActivity.class);
+        ecranFin.putExtra("Activity","Addition");
 
         handler.removeCallbacks(terminerActivite);
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
