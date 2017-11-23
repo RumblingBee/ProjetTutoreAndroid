@@ -63,8 +63,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +78,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
-        gNbReponsesCorectes = 1;
+        gNbReponsesCorectes = 0;
 // On recupère les widgets
 
         mAffichage = (TextView)findViewById(R.id.activity_addition_affichage_textview);
@@ -104,28 +102,24 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         genererAddition();
 
-
         //On lance le chrono, l'enfant perd s'il arrive au bout
 
         positionImageJoueur = mImagePos1.getX();
 
-        handler.postDelayed(terminerActivite,27000);
+        handler.postDelayed(terminerActivite,60000);
 
         // On anime l'image représentant l'ordinateur
 
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,27000,0);
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
 
     }
 
-
     protected void bougerImage(ImageView pImage,float pDestination,int pDuration,float pPosDepart){
-
 
         TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
         animationTranslation.setDuration(pDuration);
         pImage.startAnimation(animationTranslation);
-
 
     }
 
@@ -140,22 +134,14 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mNombre2.setText(""+op.getTerme2());
         mSigne.setText(""+op.getSigne());
 
-
-
-
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
         mButton4.setOnClickListener(this);
 
-
-
-
-
         melangerReponse();
 
     }
-
 
     protected void melangerReponse(){
 
@@ -176,8 +162,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             tabButton[i].setText("" + listeReponses.get(indiceListe));
             listeReponses.remove(indiceListe);
         }
-
-
     }
 
     public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
@@ -193,9 +177,7 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
             positionImageJoueur = positionImageJoueur + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-
-                handler.postDelayed(terminerActivite,650);
-
+                handler.postDelayed(terminerActivite,800);
             }
 
             genererAddition();
@@ -209,16 +191,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
-    @Override
-    public void onClick(View view) {
-        int reponseEnvoyee = (int) view.getTag();
-
-        verifierReponse(reponseEnvoyee,op.getReponse());
-        griserBoutons();
-        handler.postDelayed(activerBoutons,500);
-
-
-    }
 
     public void  terminerActivite(){
 
@@ -226,7 +198,6 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         AdditionActivity.this.finish();
         overridePendingTransition(0,0);
-
 
         bgPlayer.stop();
 
@@ -246,13 +217,15 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         startActivity(ecranFin);
 
-
     }
+
 
     //Enlève le flag qui bloque l'écran allumé
 
     protected void onDestroy(){
         super.onDestroy();
+
+        bgPlayer.stop();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
     @Override
@@ -300,5 +273,28 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+    @Override
+    public void onClick(View view) {
+        int reponseEnvoyee = (int) view.getTag();
+
+        verifierReponse(reponseEnvoyee,op.getReponse());
+        griserBoutons();
+        handler.postDelayed(activerBoutons,500);
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        bgPlayer.stop();
+
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        bgPlayer.start();
+    }
+
+    
 
 }

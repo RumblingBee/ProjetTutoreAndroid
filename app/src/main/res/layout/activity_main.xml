@@ -17,6 +17,18 @@
         android:background="#AEEE00"
          />
 
+    <Button
+        android:id="@+id/activity_main_mysteryWord_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot Mystère"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="30dp"
+        android:background="#AEEE00"
+        />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"

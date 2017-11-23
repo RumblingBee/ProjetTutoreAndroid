@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/activity_mysteryWord_order_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consigne"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/activity_mysteryWord_word_linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mysteryWord_order_textview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_mysteryWord_selectedLetter_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mysteryWord_word_linearlayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_mysteryWord_answer_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rép"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mysteryWord_selectedLetter_textview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+        android:id="@+id/acivity_mysteryWord_pos1_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mysteryWord_answer_textview"/>
+
+    <ImageView
+        android:id="@+id/activity_mysteryWord_ordi_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        app:layout_constraintTop_toBottomOf="@+id/acivity_mysteryWord_pos1_img"/>
+
+    <LinearLayout
+        android:id="@+id/activity_mysteryWord_keyboard_linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:id="@+id/activity_mysteryWord_keyboard_row1_linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/activity_mysteryWord_A_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_Z_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Z"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_E_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_R_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_T_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_Y_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Y"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_U_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="U"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_I_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_O_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_P_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_mysteryWord_keyboard_row2_linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/activity_mysteryWord_Q_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_S_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_D_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_F_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_G_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="G"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_H_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="H"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_J_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="J"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_K_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="K"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_L_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_M_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="M"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_mysteryWord_keyboard_row3_linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/activity_mysteryWord_W_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="W"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_X_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_C_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_V_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="V"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_B_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/activity_mysteryWord_N_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
