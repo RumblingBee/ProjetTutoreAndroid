@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     private Button mAddition;
     private Button btnMysteryWord;
+    private Button btnFlagActivity;
 
     MediaPlayer player;
     MediaPlayer playerEvent;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAddition = (Button)findViewById(R.id.activity_main_addition_btn);
         btnMysteryWord = (Button)findViewById(R.id.activity_main_mysteryWord_btn);
+        btnFlagActivity = (Button)findViewById(R.id.activity_main_flagActivity_btn);
 
         mAddition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent mysteryWordIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
                 mysteryWordIntent.putExtra("Activity", "MysteryWord");
                 startActivity(mysteryWordIntent);
+
+                playerEvent.start();
+            }
+        });
+
+        btnFlagActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.stop();
+                Intent flagActivityIntent = new Intent(MainActivity.this, FlagActivity.class);
+
+                startActivity(flagActivityIntent);
 
                 playerEvent.start();
             }

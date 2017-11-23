@@ -19,25 +19,22 @@
             </intent-filter>
         </activity>
         <activity
-
             android:name=".AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ResultActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MysteryWordActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
-
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
-            
             android:name=".LevelChoiceActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
-
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity android:name=".FlagActivity"></activity>
     </application>
 
 </manifest>
