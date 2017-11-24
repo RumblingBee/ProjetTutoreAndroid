@@ -25,6 +25,7 @@ public class MysteryWordActivity extends AppCompatActivity
     private ImageView imgPlayer;
     private ImageView imgIA;
     private LinearLayout btnLayout;
+    private int gNbLettreOk;
 
     final Handler handler = new Handler();
     float positionImageJoueur;
@@ -32,7 +33,7 @@ public class MysteryWordActivity extends AppCompatActivity
     private WordBank wordBank;
     private Word currentWord;
     private char selectedCharaAnswer;
-    private int gNbReponsesCorrectes;
+    private int gNbReponsesCorrectes=0;
 
     private Button gselectedLetter;
 
@@ -90,8 +91,21 @@ public class MysteryWordActivity extends AppCompatActivity
                     txtSelect.setText(s);
                     //checkAnswer(s);
                     if(checkAnswer(s) == true ){
-
+                        gNbLettreOk++;
                         gselectedLetter.setText(s);
+                        if(motFini(currentWord,gNbLettreOk)){
+                            gNbReponsesCorrectes++;
+                            if(gNbReponsesCorrectes==5){
+                                terminerActivite(1);
+                            }else{
+                                currentWord = wordBank.getWord(gNbReponsesCorrectes);
+                                gNbLettreOk=0;
+                                viderLayout();
+                                displayWord(currentWord);
+                                txtOrder.setText(currentWord.get_order());
+                            }
+
+                        }
                     }
                 }
             });
@@ -101,7 +115,8 @@ public class MysteryWordActivity extends AppCompatActivity
         wordBank = new WordBank(level);
 
         //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        currentWord = wordBank.getWord(0);
+        currentWord = wordBank.getWord(gNbReponsesCorrectes);
+        gNbLettreOk=0;
         displayWord(currentWord);
         txtOrder.setText(currentWord.get_order());
 
@@ -136,6 +151,17 @@ public class MysteryWordActivity extends AppCompatActivity
             i++;
         }
     }
+    private void viderLayout(){
+
+        btnLayout.removeAllViews();
+        /*int i=0;
+        for(char c:word.get_codedWord().toCharArray())
+        {
+            final int tmp=i;
+
+
+        }*/
+    }
 
     private boolean checkAnswer(String s)
     {
@@ -161,7 +187,7 @@ public class MysteryWordActivity extends AppCompatActivity
     protected Runnable terminerActivite = new Runnable() {
         @Override
         public void run() {
-            terminerActivite();
+            terminerActivite(0);
         }
     };
 
@@ -173,7 +199,7 @@ public class MysteryWordActivity extends AppCompatActivity
         pImage.startAnimation(animationTranslation);
     }
 
-    public void terminerActivite()
+    public void terminerActivite(int status)
     {
         MysteryWordActivity.this.finish();
         overridePendingTransition(0,0);
@@ -184,7 +210,7 @@ public class MysteryWordActivity extends AppCompatActivity
         handler.removeCallbacks(terminerActivite);
         ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-        if(gNbReponsesCorrectes == 5)
+        if(status!=0)
             ecranFin.putExtra("resultat", "Gagné!");
         else
             ecranFin.putExtra("resultat", "Perdu!");
@@ -202,5 +228,9 @@ public class MysteryWordActivity extends AppCompatActivity
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public boolean motFini(Word motActuel,int i){
+        return(motActuel.get_answer().length()==i);
     }
 }
