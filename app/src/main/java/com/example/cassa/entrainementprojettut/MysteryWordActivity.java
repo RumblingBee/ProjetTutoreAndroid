@@ -1,6 +1,7 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -88,11 +89,20 @@ public class MysteryWordActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     String s = button[tmp].getText().toString();
+                    Runnable colorSwap=new Runnable() {
+                        @Override
+                        public void run() {
+                            button[tmp].setBackgroundColor(Color.rgb(255, 255, 0));
+                        }
+                    };
+                    handler.postDelayed(colorSwap,500);
                     txtSelect.setText(s);
                     //checkAnswer(s);
                     if(checkAnswer(s) == true ){
                         gNbLettreOk++;
                         gselectedLetter.setText(s);
+                        gselectedLetter.setEnabled(false);
+                        gselectedLetter.setBackgroundColor(Color.rgb(0,255,0));
                         if(motFini(currentWord,gNbLettreOk)){
                             gNbReponsesCorrectes++;
                             if(gNbReponsesCorrectes==5){
@@ -106,6 +116,8 @@ public class MysteryWordActivity extends AppCompatActivity
                             }
 
                         }
+                    }else{
+                        gselectedLetter.setBackgroundColor(Color.rgb(99,99,99));
                     }
                 }
             });
@@ -145,6 +157,7 @@ public class MysteryWordActivity extends AppCompatActivity
                 public void onClick(View view) {
                     selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
                     gselectedLetter = button;
+                    gselectedLetter.setBackgroundColor(Color.rgb(255,255,0));
                 }
             });
             btnLayout.addView(button);
