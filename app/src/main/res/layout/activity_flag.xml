@@ -16,6 +16,13 @@
     android:id="@+id/activity_flag_name01-txt"
     android:text="Test"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_flag_score-txt"
+        android:text="Test"
+        android:layout_marginLeft="10dp"/>
+
 
     <ImageView
         android:id="@+id/activity_flag_flag01"
