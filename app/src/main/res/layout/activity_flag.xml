@@ -6,25 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.cassa.entrainementprojettut.FlagActivity">
 
-<LinearLayout
+<android.support.v7.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <ImageView
-        android:id="@+id/activity_choix_difficulte_nuage_imageView"
+        android:id="@+id/activity_flag_flag01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/flag3"
-        android:layout_marginBottom="38dp"
-        android:layout_marginEnd="103dp"
-        android:layout_marginRight="103dp"
-        android:layout_toLeftOf="@+id/niveau2_btn"
-        android:layout_toStartOf="@+id/niveau2_btn"
-        app:srcCompat="@drawable/nuage" />
-
-
-</LinearLayout>
-
+        app:srcCompat="@drawable/o2"
+        tools:layout_editor_absoluteX="113dp"
+        tools:layout_editor_absoluteY="97dp" />
+</android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.constraint.ConstraintLayout>

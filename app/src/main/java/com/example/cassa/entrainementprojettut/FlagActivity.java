@@ -11,14 +11,14 @@ public class FlagActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
 
-      FlagBank flagBank = new FlagBank();
+    FlagBank flagBank = new FlagBank();
 
-        ImageView drapeau3;
+        ImageView drapeau;
 
-        drapeau3 = (ImageView)findViewById(R.id.flag3);
+        drapeau = (ImageView)findViewById(R.id.activity_flag_flag01);
 
 
-        drapeau3.setImageResource(flagBank.getFlag(0).getmRessource());
+        drapeau.setImageResource(flagBank.getFlag(0).getmRessource());
 
 
     }
