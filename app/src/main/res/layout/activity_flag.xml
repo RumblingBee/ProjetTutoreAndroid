@@ -10,14 +10,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/activity_flag_name01-txt"
+    android:text="Test"/>
+
 
     <ImageView
         android:id="@+id/activity_flag_flag01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/o2"
-        tools:layout_editor_absoluteX="113dp"
-        tools:layout_editor_absoluteY="97dp" />
+        app:srcCompat="@drawable/allemagne"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="100dp"
+        />
+
+    <ImageView
+        android:id="@+id/activity_flag_flag02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/albanie"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="100dp" />
+
+
 </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp">
+
+
+        <ImageView
+            android:id="@+id/activity_flag_flag03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/allemagne"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="100dp"
+            />
+
+        <ImageView
+            android:id="@+id/activity_flag_flag04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/albanie"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="100dp" />
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.constraint.ConstraintLayout>
