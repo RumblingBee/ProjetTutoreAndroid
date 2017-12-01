@@ -43,7 +43,7 @@ public class operation {
                 terme1=genererNombre(10,2);
                 terme2=genererNombre(terme1-1,1);
                 break;
-            case '*':
+            case 'x':
                 terme1=genererNombre(10,1);
                 terme2=genererNombre(10,1);
         }
@@ -69,7 +69,7 @@ public class operation {
             case '-':
                 res=terme1 - terme2;
             break;
-            case '*':
+            case 'x':
                 res=terme1*terme2;
             break;
         }
@@ -86,7 +86,7 @@ public class operation {
                 signe='-';
                 break;
             case 3:
-                signe='*';
+                signe='x';
                 break;
             default:
                 signe='+';

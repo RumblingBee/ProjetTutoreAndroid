@@ -276,11 +276,15 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
-
-        verifierReponse(reponseEnvoyee,op.getReponse());
         griserBoutons();
-        handler.postDelayed(activerBoutons,500);
+       if( verifierReponse(reponseEnvoyee,op.getReponse()) == true) {
 
+           handler.postDelayed(activerBoutons, 800);
+       }
+       else{
+           handler.postDelayed(activerBoutons, 2100);
+
+       }
 
     }
     @Override
