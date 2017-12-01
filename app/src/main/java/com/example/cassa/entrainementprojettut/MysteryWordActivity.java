@@ -8,20 +8,20 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
+import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MysteryWordActivity extends AppCompatActivity
 {
-    private Button button[] = new Button[26];
+    private ToggleButton button[] = new ToggleButton[26];
 
     private TextView txtOrder;
-    private TextView txtSelect;
     private TextView txtAnswer;
     private ImageView imgPlayer;
     private ImageView imgIA;
@@ -36,7 +36,16 @@ public class MysteryWordActivity extends AppCompatActivity
     private char selectedCharaAnswer;
     private int gNbReponsesCorrectes=0;
 
-    private Button gselectedLetter;
+    private ToggleButton gselectedLetter;
+    private ToggleButton gpreviousSelectedToggleButton;
+
+    protected Runnable displayWord=new Runnable() {
+        @Override
+        public void run() {
+            viderLayout();
+            displayWord(currentWord);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -47,36 +56,35 @@ public class MysteryWordActivity extends AppCompatActivity
         Intent intent = getIntent();
         int level = intent.getIntExtra("diff", 1);
 
-        button[0] = (Button) findViewById(R.id.activity_mysteryWord_A_button);
-        button[1] = (Button) findViewById(R.id.activity_mysteryWord_Z_button);
-        button[2] = (Button) findViewById(R.id.activity_mysteryWord_E_button);
-        button[3] = (Button) findViewById(R.id.activity_mysteryWord_R_button);
-        button[4] = (Button) findViewById(R.id.activity_mysteryWord_T_button);
-        button[5] = (Button) findViewById(R.id.activity_mysteryWord_Y_button);
-        button[6] = (Button) findViewById(R.id.activity_mysteryWord_U_button);
-        button[7] = (Button) findViewById(R.id.activity_mysteryWord_I_button);
-        button[8] = (Button) findViewById(R.id.activity_mysteryWord_O_button);
-        button[9] = (Button) findViewById(R.id.activity_mysteryWord_P_button);
-        button[10] = (Button) findViewById(R.id.activity_mysteryWord_Q_button);
-        button[11] = (Button) findViewById(R.id.activity_mysteryWord_S_button);
-        button[12] = (Button) findViewById(R.id.activity_mysteryWord_D_button);
-        button[13] = (Button) findViewById(R.id.activity_mysteryWord_F_button);
-        button[14] = (Button) findViewById(R.id.activity_mysteryWord_G_button);
-        button[15] = (Button) findViewById(R.id.activity_mysteryWord_H_button);
-        button[16] = (Button) findViewById(R.id.activity_mysteryWord_J_button);
-        button[17] = (Button) findViewById(R.id.activity_mysteryWord_K_button);
-        button[18] = (Button) findViewById(R.id.activity_mysteryWord_L_button);
-        button[19] = (Button) findViewById(R.id.activity_mysteryWord_M_button);
-        button[20] = (Button) findViewById(R.id.activity_mysteryWord_W_button);
-        button[21] = (Button) findViewById(R.id.activity_mysteryWord_X_button);
-        button[22] = (Button) findViewById(R.id.activity_mysteryWord_C_button);
-        button[23] = (Button) findViewById(R.id.activity_mysteryWord_V_button);
-        button[24] = (Button) findViewById(R.id.activity_mysteryWord_B_button);
-        button[25] = (Button) findViewById(R.id.activity_mysteryWord_N_button);
+        button[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
+        button[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
+        button[2] = (ToggleButton) findViewById(R.id.activity_mysteryWord_E_button);
+        button[3] = (ToggleButton) findViewById(R.id.activity_mysteryWord_R_button);
+        button[4] = (ToggleButton) findViewById(R.id.activity_mysteryWord_T_button);
+        button[5] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Y_button);
+        button[6] = (ToggleButton) findViewById(R.id.activity_mysteryWord_U_button);
+        button[7] = (ToggleButton) findViewById(R.id.activity_mysteryWord_I_button);
+        button[8] = (ToggleButton) findViewById(R.id.activity_mysteryWord_O_button);
+        button[9] = (ToggleButton) findViewById(R.id.activity_mysteryWord_P_button);
+        button[10] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Q_button);
+        button[11] = (ToggleButton) findViewById(R.id.activity_mysteryWord_S_button);
+        button[12] = (ToggleButton) findViewById(R.id.activity_mysteryWord_D_button);
+        button[13] = (ToggleButton) findViewById(R.id.activity_mysteryWord_F_button);
+        button[14] = (ToggleButton) findViewById(R.id.activity_mysteryWord_G_button);
+        button[15] = (ToggleButton) findViewById(R.id.activity_mysteryWord_H_button);
+        button[16] = (ToggleButton) findViewById(R.id.activity_mysteryWord_J_button);
+        button[17] = (ToggleButton) findViewById(R.id.activity_mysteryWord_K_button);
+        button[18] = (ToggleButton) findViewById(R.id.activity_mysteryWord_L_button);
+        button[19] = (ToggleButton) findViewById(R.id.activity_mysteryWord_M_button);
+        button[20] = (ToggleButton) findViewById(R.id.activity_mysteryWord_W_button);
+        button[21] = (ToggleButton) findViewById(R.id.activity_mysteryWord_X_button);
+        button[22] = (ToggleButton) findViewById(R.id.activity_mysteryWord_C_button);
+        button[23] = (ToggleButton) findViewById(R.id.activity_mysteryWord_V_button);
+        button[24] = (ToggleButton) findViewById(R.id.activity_mysteryWord_B_button);
+        button[25] = (ToggleButton) findViewById(R.id.activity_mysteryWord_N_button);
 
         txtAnswer = (TextView) findViewById(R.id.activity_mysteryWord_answer_textview);
         txtOrder = (TextView) findViewById(R.id.activity_mysteryWord_order_textview);
-        txtSelect = (TextView) findViewById(R.id.activity_mysteryWord_selectedLetter_textview);
 
         imgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
         imgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
@@ -89,39 +97,29 @@ public class MysteryWordActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     String s = button[tmp].getText().toString();
-                    Runnable colorSwap=new Runnable() {
-                        @Override
-                        public void run() {
-                            button[tmp].setBackgroundColor(Color.rgb(255, 255, 0));
-                        }
-                    };
-                    handler.postDelayed(colorSwap,500);
-                    txtSelect.setText(s);
-                    //checkAnswer(s);
-                    if(checkAnswer(s) == true ){
+                    if(checkAnswer(s)){
                         gNbLettreOk++;
                         gselectedLetter.setText(s);
                         gselectedLetter.setEnabled(false);
-                        gselectedLetter.setBackgroundColor(Color.rgb(0,255,0));
+                        initClavier();
                         if(motFini(currentWord,gNbLettreOk)){
                             gNbReponsesCorrectes++;
-                            if(gNbReponsesCorrectes==5){
+                            if(gNbReponsesCorrectes == 5){
                                 terminerActivite(1);
                             }else{
                                 currentWord = wordBank.getWord(gNbReponsesCorrectes);
-                                gNbLettreOk=0;
-                                viderLayout();
-                                displayWord(currentWord);
+                                gNbLettreOk = 0;
+                                handler.postDelayed(displayWord,800);
                                 txtOrder.setText(currentWord.get_order());
                             }
-
                         }
                     }else{
-                        gselectedLetter.setBackgroundColor(Color.rgb(99,99,99));
+                        button[tmp].setEnabled(false);
                     }
                 }
             });
         }
+
 
         //On génère une collection de 5 mots codés
         wordBank = new WordBank(level);
@@ -150,14 +148,15 @@ public class MysteryWordActivity extends AppCompatActivity
         for(char c : word.get_codedWord().toCharArray())
         {
             final int tmp = i;
-            final Button button = (Button)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
+            final ToggleButton button = (ToggleButton)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
             button.setText(String.valueOf(c));
+            button.setTextOff(String.valueOf(c));
+            button.setTextOn(String.valueOf(c));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
                     gselectedLetter = button;
-                    gselectedLetter.setBackgroundColor(Color.rgb(255,255,0));
                 }
             });
             btnLayout.addView(button);
@@ -165,15 +164,7 @@ public class MysteryWordActivity extends AppCompatActivity
         }
     }
     private void viderLayout(){
-
         btnLayout.removeAllViews();
-        /*int i=0;
-        for(char c:word.get_codedWord().toCharArray())
-        {
-            final int tmp=i;
-
-
-        }*/
     }
 
     private boolean checkAnswer(String s)
@@ -244,6 +235,14 @@ public class MysteryWordActivity extends AppCompatActivity
     }
 
     public boolean motFini(Word motActuel,int i){
-        return(motActuel.get_answer().length()==i);
+        return(motActuel.get_answer().length() == i);
+    }
+
+    public void initClavier(){
+        for(ToggleButton button:button){
+            txtAnswer.setText("");
+            button.setEnabled(true);
+            button.setChecked(false);
+        }
     }
 }
