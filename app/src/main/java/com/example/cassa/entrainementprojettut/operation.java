@@ -34,21 +34,77 @@ public class operation {
     }
 
     public operation(int difficulte){
-        signe=genererSigne(difficulte);
-        switch(signe){
-            case '+':
-                terme1=genererNombre(10,1);
-                terme2=genererNombre(10,1);
+
+        switch (difficulte) {
+            case 1:
+            signe = genererSigne(difficulte);
+            switch (signe) {
+                case '+':
+                    terme1 = genererNombre(10, 1);
+                    terme2 = genererNombre(10, 1);
+                    break;
+            }
+
+            reponse=calculerResultat(signe);
+            break;
+
+
+
+            case 2:
+                signe = genererSigne(difficulte);
+                switch (signe) {
+                    case '+':
+                        terme1 = genererNombre(10, 1);
+                        terme2 = genererNombre(10, 1);
+                        break;
+                    case '-':
+                        terme1 = genererNombre(10, 2);
+                        terme2 = genererNombre(10, 2);
+                        break;
+                }
+                reponse=calculerResultat(signe);
                 break;
-            case '-':
-                terme1=genererNombre(10,2);
-                terme2=genererNombre(terme1-1,1);
+
+            case 4:
+                signe = genererSigne(difficulte);
+                switch (signe) {
+                    case '+':
+                        terme1 = genererNombre(10, 1);
+                        terme2 = genererNombre(10, 1);
+                        break;
+                    case '-':
+                        terme1 = genererNombre(10, 2);
+                        terme2 = genererNombre(terme1, 1);
+                        break;
+                    case 'x':
+                        terme1 = genererNombre(10, 0);
+                        terme2 = genererNombre(10, 0);
+                        break;
+                }
+                reponse=calculerResultat(signe);
                 break;
-            case 'x':
-                terme1=genererNombre(10,1);
-                terme2=genererNombre(10,1);
+            case 5:
+                signe = genererSigne(difficulte);
+                switch (signe) {
+                    case '+':
+                        terme1 = genererNombre(10, 1);
+                        terme2 = genererNombre(10, 1);
+                        break;
+                    case '-':
+                        terme1 = genererNombre(10, 2);
+                        terme2 = genererNombre(terme1, 1);
+                        break;
+                    case 'x':
+                        terme1 = genererNombre(10, 1);
+                        terme2 = genererNombre(10, 1);
+                        break;
+                }
+
+                reponse=calculerResultat(signe);
+                break;
         }
-        reponse=calculerResultat(signe);
+
+
     }
 
 
@@ -87,6 +143,9 @@ public class operation {
                 signe='-';
                 break;
             case 3:
+                signe='x';
+                break;
+            case 4:
                 signe='x';
                 break;
             default:

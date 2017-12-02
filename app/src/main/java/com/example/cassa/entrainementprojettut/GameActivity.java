@@ -750,6 +750,13 @@ protected void lancerCourse(final Activity srcActivity){
         Button mButtonNiveau4 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl4_btn);
         Button mButtonNiveau5 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl5_btn);
 
+
+        mButtonNiveau1.setText("CP");
+        mButtonNiveau2.setText("CE1");
+        mButtonNiveau3.setText("CE2");
+        mButtonNiveau4.setText("CM1");
+        mButtonNiveau5.setText("CM2");
+
         mButtonNiveau1.setTag(1);
         mButtonNiveau2.setTag(2);
         mButtonNiveau3.setTag(3);
