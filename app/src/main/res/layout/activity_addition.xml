@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:screenOrientation="landscape"
     android:splitMotionEvents="false"
+    android:id="@+id/activity_addition_relativelayout"
     tools:context="com.example.cassa.entrainementprojettut.AdditionActivity">
 
     <TextView

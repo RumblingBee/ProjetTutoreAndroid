@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:columnCount="10"
+    android:background="@color/colorPrimary"
+    android:clickable="true">
+<TextView
+   android:text="Choisissez votre niveau"
+    android:layout_row="1"
+    android:layout_columnSpan="4"
+    />
+
+    <Button
+        android:padding="10dp"
+        android:id="@+id/level_popup_activity_lvl1-btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_row="2"
+        android:layout_gravity="center"
+        android:text="Niveau 1"
+        android:clickable="true"/>
+
+    <Button
+        android:id="@+id/level_popup_activity_lvl2-btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_row="2"
+        android:layout_gravity="center"
+        android:text="Niveau 2" />
+
+    <Button
+        android:id="@+id/level_popup_activity_lvl3-btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_column="3"
+        android:layout_row="2"
+        android:text="Niveau 3" />
+    <Button
+        android:id="@+id/level_popup_activity_lvl4-btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_row="2"
+        android:layout_column="4"
+        android:text="Niveau 4" />
+    <Button
+        android:id="@+id/level_popup_activity_lvl5-btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_row="2"
+        android:layout_column="5"
+        android:text="Niveau 5" />
+
+
+</GridLayout>

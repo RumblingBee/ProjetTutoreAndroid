@@ -1,29 +1,23 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class AdditionActivity extends AppCompatActivity implements View.OnClickListener{
+public class AdditionActivity extends GameActivity implements View.OnClickListener{
 
-    private TextView mAffichage;
     private TextView mNombre1;
     private TextView mNombre2;
     private TextView mSigne;
@@ -33,29 +27,15 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     private Button mButton3;
     private Button mButton4;
 
-    private ImageView mImagePos1;
-    private ImageView mImageOrdi;
+
+
 
     private operation op;
 
     private int gNbReponsesCorectes;
-    private int difficulte;
 
-
-
-    private MediaPlayer bgPlayer;
     private MediaPlayer playerEvent;
 
-    final Handler handler = new Handler();
-    float positionImageJoueur;
-
-    protected Runnable terminerActivite = new Runnable() {
-        @Override
-        public void run() {
-            terminerActivite();
-
-        }
-    };
     protected Runnable activerBoutons=new Runnable() {
         @Override
         public void run() {
@@ -63,25 +43,47 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
 
         Intent intent = getIntent();
-        difficulte = intent.getIntExtra("diff",1);
 
-        // int difficulte = Integer.parseInt(mMessage);
 
-        bgPlayer = MediaPlayer.create(AdditionActivity.this,R.raw.bensound_retrosoul);
-        bgPlayer.start();
+
+        lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
+        afficherChoix(AdditionActivity.this);
+        lancerCourse(AdditionActivity.this);
+
+
+    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        @Override
+        public void onDismiss(DialogInterface dialogInterface) {
+            if (niveauChoisi != 0) {
+
+                genererAddition();
+            } else {
+                AdditionActivity.this.onStop();
+               dialog.show();
+            }
+            afficherTexte("" + niveauChoisi);
+        }
+    });
+
+
+
+
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
         gNbReponsesCorectes = 0;
 // On recupère les widgets
 
-        mAffichage = (TextView)findViewById(R.id.activity_addition_affichage_textview);
+
         mNombre1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
         mNombre2 = (TextView) findViewById(R.id.activity_addition_nombre2_textview);
         mSigne =(TextView)findViewById(R.id.activity_addition_operateur_textview);
@@ -91,42 +93,16 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         mButton3 = (Button)findViewById(R.id.activity_addition_rep3_btn);
         mButton4 = (Button)findViewById(R.id.activity_addition_rep4_btn);
 
-        mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
-        mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
 
 
-        //On récupère la taille de l'écran
-
-        float largeurEcran = retourTailleEcran();
-        int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
-
-        genererAddition();
-
-        //On lance le chrono, l'enfant perd s'il arrive au bout
-
-        positionImageJoueur = mImagePos1.getX();
-
-        handler.postDelayed(terminerActivite,60000);
-
-        // On anime l'image représentant l'ordinateur
-
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
 
     }
 
-    protected void bougerImage(ImageView pImage,float pDestination,int pDuration,float pPosDepart){
 
-        TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
-        animationTranslation.setFillAfter(true);
-        animationTranslation.setDuration(pDuration);
-        pImage.startAnimation(animationTranslation);
-
-    }
 
     protected void genererAddition(){
 
-
-         op = new operation(difficulte);
+         op = new operation(niveauChoisi);
 
         //Affichage de l'opération
 
@@ -164,20 +140,23 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
     public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
 
         float largeurEcran = retourTailleEcran();
 
 
         if(reponseCorrecte == reponseEnvoyee){
+
             gNbReponsesCorectes++;
+            afficherTexte("Bravo!");
             playerEvent.start();
 
             bougerImage(mImagePos1,positionImageJoueur+(largeurEcran/10),600,positionImageJoueur);
             positionImageJoueur = positionImageJoueur + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-                handler.postDelayed(terminerActivite,800);
+                gagnerActivite(AdditionActivity.this);
             }
 
             genererAddition();
@@ -185,39 +164,13 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         }
         else{
-            mAffichage.setText("Dommage!");
+            afficherTexte("Dommage, la réponse était " + reponseCorrecte);
             genererAddition();
             return false;
         }
 
     }
 
-    public void  terminerActivite(){
-
-
-
-        AdditionActivity.this.finish();
-        overridePendingTransition(0,0);
-
-        bgPlayer.stop();
-
-        Intent ecranFin = new Intent(AdditionActivity.this, ResultActivity.class);
-
-        handler.removeCallbacks(terminerActivite);
-        ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-        if(gNbReponsesCorectes == 10) {
-            ecranFin.putExtra("diff",difficulte);
-            ecranFin.putExtra("resultat", "Gagné!");
-        }
-        else{
-            ecranFin.putExtra("diff",difficulte);
-            ecranFin.putExtra("resultat", "Perdu!");
-        }
-
-        startActivity(ecranFin);
-
-    }
 
 
     //Enlève le flag qui bloque l'écran allumé
@@ -234,16 +187,13 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
         bgPlayer.stop();
         Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
         startActivity(ecranMenu);
-        handler.removeCallbacks(terminerActivite);
+        if(perdreActivite!=null) {
+            handler.removeCallbacks(perdreActivite);
+        }
         super.onBackPressed();
     }
 
-    public float retourTailleEcran(){
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size.x;
-    }
+
 
     protected void griserBoutons(){
 

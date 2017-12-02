@@ -36,7 +36,8 @@
             
             android:name=".LevelChoiceActivity"
             android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            />
 
     </application>
 

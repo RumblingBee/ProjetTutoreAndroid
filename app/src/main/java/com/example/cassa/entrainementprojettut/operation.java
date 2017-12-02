@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class operation {
 
+
     protected int terme1;
     protected int terme2;
     protected int reponse;

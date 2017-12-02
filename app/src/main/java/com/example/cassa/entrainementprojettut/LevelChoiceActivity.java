@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ public class LevelChoiceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_difficulte);
 
@@ -41,6 +43,7 @@ public class LevelChoiceActivity extends AppCompatActivity {
         mButton3 = (Button)findViewById(R.id.niveau3_btn);
 
         mNuage = findViewById(R.id.activity_choix_difficulte_nuage_imageView);
+
 
 
         if(activityToLaunch.equals("Addition"))
