@@ -121,7 +121,25 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
     protected void melangerReponse(){
 
+        int positionReponse=(int)(Math.random() * 4);
+        afficherTexte(""+positionReponse);
+
         Button tabButton[] = {mButton1,mButton2,mButton3,mButton4};
+        int tabReponse[] = new int[4];
+        int i;
+
+        for(i = 0;i<4;i++){
+            if(i< positionReponse){
+                tabReponse[i] = op.getReponse() - (positionReponse - i);
+            }
+            else if(i == positionReponse){
+                tabReponse[i] = op.getReponse();
+            }
+            else{
+               tabReponse[i] = op.getReponse() + (i - positionReponse);
+            }
+        }
+
         ArrayList listeReponses = new ArrayList();
 
         listeReponses.add(op.getReponse()-1);
@@ -129,14 +147,14 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         listeReponses.add(op.getReponse()+1);
         listeReponses.add(op.getReponse()+2);
 
-        int i;
 
+        i = 0;
 
         for(i=0;i<4; i++) {
-            int indiceListe = (int) (Math.random() * listeReponses.size());
-            tabButton[i].setTag(listeReponses.get(indiceListe));
-            tabButton[i].setText("" + listeReponses.get(indiceListe));
-            listeReponses.remove(indiceListe);
+            //int indiceListe = (int) (Math.random() * listeReponses.size());
+            tabButton[i].setTag(tabReponse[i]);
+            tabButton[i].setText("" + tabReponse[i]);
+
         }
     }
 
