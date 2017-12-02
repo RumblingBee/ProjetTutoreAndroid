@@ -107,7 +107,7 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 }
             });
         }
-        else if(activityToLaunch.equals("FlagActivity")){
+        else if(activityToLaunch.equals("Flag")){
             final Intent flagActivity = new Intent(LevelChoiceActivity.this, FlagActivity.class);
             flagActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 

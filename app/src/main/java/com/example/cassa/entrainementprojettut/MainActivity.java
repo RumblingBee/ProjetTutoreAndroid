@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 player.stop();
                 Intent flagActivityIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
-                flagActivityIntent.putExtra("Activity", "FlagActivity");
+                flagActivityIntent.putExtra("Activity", "Flag");
                 startActivity(flagActivityIntent);
 
                 playerEvent.start();
