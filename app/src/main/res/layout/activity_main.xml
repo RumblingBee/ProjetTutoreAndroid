@@ -45,7 +45,8 @@
         android:layout_alignLeft="@+id/activity_main_mysteryWord_btn"
         android:layout_alignStart="@+id/activity_main_mysteryWord_btn"
         android:layout_below="@+id/activity_main_mysteryWord_btn"
-        android:layout_marginTop="41dp"
-        android:text="Button" />
+        android:layout_marginTop="10dp"
+        android:text="Pays"
+        android:background="#AEEE00"/>
 
 </RelativeLayout>

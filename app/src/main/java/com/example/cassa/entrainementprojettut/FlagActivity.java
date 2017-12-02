@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class FlagActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView mDrapeau1;
     ImageView mDrapeau2;
@@ -21,6 +23,7 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
     String gBonneReponse;
 
     int gScore,gNbBonneReponse;
+    int diff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
         mNomPays = (TextView)findViewById(R.id.activity_flag_name01_txt);
         mScore = (TextView)findViewById(R.id.activity_flag_score_txt);
 
+        diff = getIntent().getIntExtra("diff", 1);
+
         // On initialise le score à 0
         gScore = 0;
         gNbBonneReponse = 0;
@@ -56,7 +61,7 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
     }
     protected void genererPartie(){
 
-        FlagBank flagBank = new FlagBank();
+        FlagBank flagBank = new FlagBank(diff);
 
 
         ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
@@ -68,9 +73,14 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
         mDrapeau3.setEnabled(true);
         mDrapeau4.setEnabled(true);
 
-//On génère le nom du pays
+        mDrapeau1.setColorFilter(0);
+        mDrapeau2.setColorFilter(0);
+        mDrapeau3.setColorFilter(0);
+        mDrapeau4.setColorFilter(0);
 
-        int numPaysMystere = (int)(Math.random() * (3) + 0);
+//On génère le nom du pays
+        Random rand = new Random();
+        int numPaysMystere = rand.nextInt(4);
 
         mNomPays.setText(flagBank.getFlag(numPaysMystere).getmNameCountry());
         gBonneReponse = flagBank.getFlag(numPaysMystere).getmNameCountry();
@@ -84,7 +94,7 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-protected  void verifierReponse(View v,String pPays){
+protected  void verifierReponse(ImageView v,String pPays){
     int duration = Toast.LENGTH_SHORT;
     Toast toast;
         if(pPays == gBonneReponse ){
@@ -110,26 +120,26 @@ protected  void verifierReponse(View v,String pPays){
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);
             mScore.setText(""+gScore);
+            v.setColorFilter(R.color.material_grey_600);
         }
     toast.show();
 
 }
     public void  terminerActivite(){
 
-
-
         FlagActivity.this.finish();
 
         Intent ecranFin = new Intent(FlagActivity.this, ResultActivity.class);
         ecranFin.putExtra("resultat", ""+gScore);
         startActivity(ecranFin);
-
     }
+
+
     @Override
     public void onClick(View view) {
 
         String paysSelectione = (String) view.getTag();
 
-        verifierReponse(view,paysSelectione);
+        verifierReponse((ImageView) view,paysSelectione);
     }
 }

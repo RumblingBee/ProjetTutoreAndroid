@@ -12,8 +12,7 @@ public class Flag {
     /**
      * l'adresse de l'image du drapeau
      */
-   private int mRessource;
-
+    private int mRessource;
 
 
 
