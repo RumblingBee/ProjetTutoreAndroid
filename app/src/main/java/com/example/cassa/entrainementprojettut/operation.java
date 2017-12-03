@@ -61,7 +61,7 @@ public class operation {
                         break;
                     case '-':
                         terme1 = genererNombre(10, 4);
-                        terme2 = genererNombre(terme1, 1);
+                        terme2 = genererNombre(terme1-3, 1);
                         break;
                 }
                 reponse=calculerResultat(signe);
@@ -89,7 +89,7 @@ public class operation {
                        int indiceTabProduit = genererNombre(2,0);
 
                         terme1 = tabProduit[indiceTabProduit];
-                        terme2 = genererNombre(10, 0);
+                        terme2 = genererNombre(10, 1);
                         break;
                 }
                 reponse=calculerResultat(signe);
@@ -107,8 +107,8 @@ public class operation {
                         terme2 = genererNombre(terme1-3, 1);
                         break;
                     case 'x':
-                        terme1 = genererNombre(10, 0);
-                        terme2 = genererNombre(10, 0);
+                        terme1 = genererNombre(10, 1);
+                        terme2 = genererNombre(10, 1);
                         break;
                 }
                 reponse=calculerResultat(signe);

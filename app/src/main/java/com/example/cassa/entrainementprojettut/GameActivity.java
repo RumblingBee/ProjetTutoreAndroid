@@ -62,6 +62,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -655,6 +656,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         niveauChoisi = 0;
         srcActivity.finish();
     }
+
     protected void gagnerActivite(Activity srcActivity){
         if(perdreActivite != null) {
             handler.removeCallbacks(perdreActivite);
@@ -677,7 +679,7 @@ protected void lancerCourse(final Activity srcActivity){
      perdreActivite = new Runnable() {
         @Override
         public void run() {
-            perdreActivite(srcActivity);
+            afficherEcranFin(srcActivity,false,false,0);
 
         }
     };
@@ -782,7 +784,7 @@ protected void lancerCourse(final Activity srcActivity){
             @Override
             public void onClick(View view) {
                 niveauChoisi = (int)view.getTag();
-                afficherTexte("" + view.getTag());
+
                 dialog.dismiss();
 
             }
@@ -791,7 +793,7 @@ protected void lancerCourse(final Activity srcActivity){
             @Override
             public void onClick(View view) {
                 niveauChoisi = (int)view.getTag();
-                afficherTexte("" + view.getTag());
+
                 dialog.dismiss();
             }
         });
@@ -799,7 +801,7 @@ protected void lancerCourse(final Activity srcActivity){
             @Override
             public void onClick(View view) {
                 niveauChoisi = (int)view.getTag();
-                afficherTexte("" + view.getTag());
+
                 dialog.dismiss();
             }
         });
@@ -807,7 +809,7 @@ protected void lancerCourse(final Activity srcActivity){
             @Override
             public void onClick(View view) {
                 niveauChoisi = (int)view.getTag();
-                afficherTexte("" + view.getTag());
+
                 dialog.dismiss();
 
             }
@@ -816,7 +818,7 @@ protected void lancerCourse(final Activity srcActivity){
             @Override
             public void onClick(View view) {
                 niveauChoisi = (int)view.getTag();
-                afficherTexte("" + view.getTag());
+
                 dialog.dismiss();
             }
         });
@@ -845,6 +847,70 @@ protected void lancerCourse(final Activity srcActivity){
         pw.showAtLocation(this.findViewById(R.id.activity_addition_relativelayout), Gravity.CENTER, 0, 0);
 
       popupWindow.showAtLocation(this.findViewById(R.id.activity_addition_relativelayout),Gravity.CENTER,0,0);*/
+    }
+
+    protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
+        niveauChoisi = 0;
+
+        if(perdreActivite != null) {
+            handler.removeCallbacks(perdreActivite);
+        }
+
+        niveauChoisi = 0;
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
+
+
+        View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
+
+        Button mButtonRejouer = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
+        Button mButtonMenu = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
+        TextView mTextViewMessage = (TextView)resultView.findViewById(R.id.resultat_popup_messace_textView);
+
+        mBuilder.setView(resultView);
+        dialog = mBuilder.create();
+        dialog.show();
+
+        //On prend les caracs de l'écran
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+
+        //On l'applique au dialogue
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        
+//Affichage du message
+if(aUnScore == false) {
+    if (gagne == true) {
+        mTextViewMessage.setText("Bravo, tu as gagné!");
+    } else {
+        mTextViewMessage.setText("Dommage, tu as perdu.");
+    }
+}
+else{
+    mTextViewMessage.setText("Ton score est de" +score);
+}
+        mButtonRejouer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activite.recreate();
+                dialog.dismiss();
+
+            }
+        });
+        mButtonMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent additionIntent = new Intent(activite, MainActivity.class);
+                startActivity(additionIntent);
+                activite.finish();
+
+            }
+        });
+
     }
 
     protected void bougerImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart){

@@ -11,7 +11,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,9 +26,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     private Button mButton3;
     private Button mButton4;
 
-
-
-
     private operation op;
 
     private int gNbReponsesCorectes;
@@ -42,9 +38,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             activerBoutons();
         }
     };
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +64,14 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
                 AdditionActivity.this.onStop();
                dialog.show();
             }
-            afficherTexte("" + niveauChoisi);
+
         }
     });
-
-
-
-
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
         gNbReponsesCorectes = 0;
 // On recupère les widgets
-
 
         mNombre1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
         mNombre2 = (TextView) findViewById(R.id.activity_addition_nombre2_textview);
@@ -94,12 +82,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton3 = (Button)findViewById(R.id.activity_addition_rep3_btn);
         mButton4 = (Button)findViewById(R.id.activity_addition_rep4_btn);
 
-
-
-
     }
-
-
 
     protected void genererAddition(){
 
@@ -123,7 +106,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     protected void melangerReponse(){
 
         int positionReponse=(int)(Math.random() * 4);
-        afficherTexte(""+positionReponse);
 
         Button tabButton[] = {mButton1,mButton2,mButton3,mButton4};
         int tabReponse[] = new int[4];
@@ -159,7 +141,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
     }
 
-
     public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
 
         float largeurEcran = retourTailleEcran();
@@ -175,7 +156,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             positionImageJoueur = positionImageJoueur + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-                gagnerActivite(AdditionActivity.this);
+                afficherEcranFin(AdditionActivity.this,true,false,0);
             }
 
             genererAddition();
@@ -189,9 +170,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
 
     }
-
-
-
     //Enlève le flag qui bloque l'écran allumé
 
     protected void onDestroy(){
@@ -212,8 +190,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         super.onBackPressed();
     }
 
-
-
     protected void griserBoutons(){
 
         mButton1.setEnabled(false);
@@ -225,9 +201,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton2.setBackgroundColor(Color.rgb(99,99,99));
         mButton3.setBackgroundColor(Color.rgb(99,99,99));
         mButton4.setBackgroundColor(Color.rgb(99,99,99));
-
-
     }
+
     protected void activerBoutons(){
 
         mButton1.setEnabled(true);
@@ -239,9 +214,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton2.setBackgroundColor(Color.rgb(0,255,0));
         mButton3.setBackgroundColor(Color.rgb(0,0,255));
         mButton4.setBackgroundColor(Color.rgb(255,255,0));
-
-
     }
+
     @Override
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
@@ -256,12 +230,14 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
        }
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
         bgPlayer.stop();
 
     }
+
     @Override
     public void onRestart() {
         super.onRestart();
