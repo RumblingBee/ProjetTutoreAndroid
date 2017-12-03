@@ -32,7 +32,6 @@
         android:id="@+id/activity_mysteryWord_answer_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
         android:textSize="25sp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/activity_mysteryWord_word_linearlayout"
