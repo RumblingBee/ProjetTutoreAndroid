@@ -36,6 +36,8 @@ public class operation {
     public operation(int difficulte){
 
         switch (difficulte) {
+
+            //CP
             case 1:
             signe = genererSigne(difficulte);
             switch (signe) {
@@ -49,7 +51,7 @@ public class operation {
             break;
 
 
-
+            //CE1
             case 2:
                 signe = genererSigne(difficulte);
                 switch (signe) {
@@ -58,14 +60,14 @@ public class operation {
                         terme2 = genererNombre(10, 1);
                         break;
                     case '-':
-                        terme1 = genererNombre(10, 2);
-                        terme2 = genererNombre(10, 2);
+                        terme1 = genererNombre(10, 4);
+                        terme2 = genererNombre(terme1, 1);
                         break;
                 }
                 reponse=calculerResultat(signe);
                 break;
-
-            case 4:
+            //CE2
+            case 3:
                 signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
@@ -73,8 +75,36 @@ public class operation {
                         terme2 = genererNombre(10, 1);
                         break;
                     case '-':
-                        terme1 = genererNombre(10, 2);
-                        terme2 = genererNombre(terme1, 1);
+                        terme1 = genererNombre(10, 4);
+                        terme2 = genererNombre(terme1-3, 1);
+                        break;
+                    case 'x':
+                        //On souhaite générer des multiplications qu'avec 2,5,10
+
+                        int tabProduit[] = new int[3];
+                        tabProduit[0] = 2;
+                        tabProduit[1] = 5;
+                        tabProduit[2] = 10;
+
+                       int indiceTabProduit = genererNombre(2,0);
+
+                        terme1 = tabProduit[indiceTabProduit];
+                        terme2 = genererNombre(10, 0);
+                        break;
+                }
+                reponse=calculerResultat(signe);
+                break;
+            //CM1
+            case 4:
+                signe = genererSigne(difficulte);
+                switch (signe) {
+                    case '+':
+                        terme1 = genererNombre(12, 1);
+                        terme2 = genererNombre(12, 1);
+                        break;
+                    case '-':
+                        terme1 = genererNombre(10, 4);
+                        terme2 = genererNombre(terme1-3, 1);
                         break;
                     case 'x':
                         terme1 = genererNombre(10, 0);
@@ -83,16 +113,18 @@ public class operation {
                 }
                 reponse=calculerResultat(signe);
                 break;
+
+            //CM2
             case 5:
                 signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
-                        terme1 = genererNombre(10, 1);
-                        terme2 = genererNombre(10, 1);
+                        terme1 = genererNombre(15, 1);
+                        terme2 = genererNombre(15, 1);
                         break;
                     case '-':
-                        terme1 = genererNombre(10, 2);
-                        terme2 = genererNombre(terme1, 1);
+                        terme1 = genererNombre(15, 4);
+                        terme2 = genererNombre(terme1-3, 1);
                         break;
                     case 'x':
                         terme1 = genererNombre(10, 1);

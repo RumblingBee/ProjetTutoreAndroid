@@ -57,7 +57,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
         afficherChoix(AdditionActivity.this);
-        lancerCourse(AdditionActivity.this);
+
 
 
     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -66,6 +66,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             if (niveauChoisi != 0) {
 
                 genererAddition();
+                lancerCourse(AdditionActivity.this);
             } else {
                 AdditionActivity.this.onStop();
                dialog.show();
