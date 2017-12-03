@@ -674,39 +674,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
     }
 
 
-protected void lancerCourse(final Activity srcActivity){
 
-     perdreActivite = new Runnable() {
-        @Override
-        public void run() {
-            afficherEcranFin(srcActivity,false,false,0);
-
-        }
-    };
-
-
-    handler.postDelayed(perdreActivite,60000);
-
-
-    mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
-    mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
-    //On récupère la taille de l'écran
-
-    float largeurEcran = retourTailleEcran();
-    int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
-
-
-
-    //On lance le chrono, l'enfant perd s'il arrive au bout
-
-    positionImageJoueur = mImagePos1.getX();
-
-
-
-    // On anime l'image représentant l'ordinateur
-
-    bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
-}
 
     protected  void afficherTexte(String text){
 
@@ -723,17 +691,7 @@ protected void lancerCourse(final Activity srcActivity){
 
     protected AlertDialog dialog;
 
-    protected void lancerBgMusique(Activity selfActivity, int idMusic){
 
-
-
-        if(bgPlayer != null){ bgPlayer.stop();}
-
-        bgPlayer = MediaPlayer.create(selfActivity,idMusic);
-        bgPlayer.start();
-
-
-    }
     protected void afficherChoix(final Activity activite) {
 
 
@@ -881,7 +839,7 @@ protected void lancerCourse(final Activity srcActivity){
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
 
-        
+
 //Affichage du message
 if(aUnScore == false) {
     if (gagne == true) {
@@ -923,9 +881,56 @@ else{
     }
 
 
+    protected void lancerBgMusique(Activity selfActivity, int idMusic){
 
 
 
+        if(bgPlayer != null){ bgPlayer.stop();}
 
+        bgPlayer = MediaPlayer.create(selfActivity,idMusic);
+        bgPlayer.start();
+
+
+    }
+
+
+    protected void lancerCourse(final Activity srcActivity){
+
+
+        lancerDecompteFinPartie(srcActivity,60000);
+
+        mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
+        mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
+        //On récupère la taille de l'écran
+
+        float largeurEcran = retourTailleEcran();
+        int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
+
+
+
+        //On lance le chrono, l'enfant perd s'il arrive au bout
+
+        positionImageJoueur = mImagePos1.getX();
+
+
+
+        // On anime l'image représentant l'ordinateur
+
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
+    }
+
+
+    protected void lancerDecompteFinPartie(final Activity srcActivity,int temps){
+        perdreActivite = new Runnable() {
+            @Override
+            public void run() {
+                afficherEcranFin(srcActivity,false,false,0);
+
+            }
+        };
+
+
+        handler.postDelayed(perdreActivite,temps);
+    }
 
 }
