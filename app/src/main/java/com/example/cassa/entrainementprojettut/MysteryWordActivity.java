@@ -102,6 +102,9 @@ public class MysteryWordActivity extends AppCompatActivity
                         if(motFini(currentWord, gNbLettreOk)){
                             txtAnswer.setText("Bravo !");
                             gNbReponsesCorrectes++;
+                            float largeurEcran=retourTailleEcran();
+                            bougerImage(imgPlayer,positionImageJoueur+(largeurEcran/5),600,positionImageJoueur);
+                            positionImageJoueur = positionImageJoueur + (largeurEcran/5);
                             if(gNbReponsesCorrectes == 5){
                                 terminerActivite(1);
                             }
@@ -276,4 +279,6 @@ public class MysteryWordActivity extends AppCompatActivity
     public void onPause() {
         super.onPause();
     }
+
+
 }
