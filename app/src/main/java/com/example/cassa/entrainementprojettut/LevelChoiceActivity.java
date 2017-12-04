@@ -110,6 +110,32 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 }
             });
         }
+        else if(activityToLaunch.equals("Flag")){
+            final Intent flagActivity = new Intent(LevelChoiceActivity.this, FlagActivity.class);
+            flagActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+            mButton1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    flagActivity.putExtra("diff", 1);
+                    startActivity(flagActivity);
+                }
+            });
+            mButton2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    flagActivity.putExtra("diff", 2);
+                    startActivity(flagActivity);
+                }
+            });
+            mButton3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    flagActivity.putExtra("diff", 3);
+                    startActivity(flagActivity);
+                }
+            });
+        }
     }
     @Override
     protected void onDestroy(){
