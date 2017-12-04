@@ -1,5 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class FlagActivity extends AppCompatActivity implements View.OnClickListener {
+public class FlagActivity extends GameActivity implements View.OnClickListener {
     ImageView mDrapeau1;
     ImageView mDrapeau2;
     ImageView mDrapeau3;
@@ -29,10 +30,6 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
-
-
-
-
 
         mDrapeau1 = (ImageView)findViewById(R.id.activity_flag_flag01);
         mDrapeau2 = (ImageView)findViewById(R.id.activity_flag_flag02);
@@ -55,7 +52,21 @@ public class FlagActivity extends AppCompatActivity implements View.OnClickListe
 
         mScore.setText("0");
 
-        genererPartie();
+        afficherChoixNiveaux(FlagActivity.this,"listeNiveau");
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (niveauChoisi != 0) {
+
+                    genererPartie();
+
+                } else {
+                    FlagActivity.this.onStop();
+                    dialog.show();
+                }
+
+            }
+        });
 
 
     }
@@ -107,7 +118,7 @@ protected  void verifierReponse(ImageView v,String pPays){
 
            if(gNbBonneReponse == 10 ){
 
-               terminerActivite();
+               afficherEcranFin(FlagActivity.this,true,true,gScore);
            }
 
 

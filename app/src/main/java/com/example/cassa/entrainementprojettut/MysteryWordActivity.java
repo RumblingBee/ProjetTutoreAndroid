@@ -217,40 +217,11 @@ public class MysteryWordActivity extends GameActivity
         }
     }
 
-
-
-    protected Runnable terminerActivite = new Runnable() {
-        @Override
-        public void run() {
-            terminerActivite(0);
-        }
-    };
-
-    public void terminerActivite(int status)
-    {
-        MysteryWordActivity.this.finish();
-        overridePendingTransition(0,0);
-
-        Intent ecranFin = new Intent(MysteryWordActivity.this, ResultActivity.class);
-        ecranFin.putExtra("Activity","MysteryWord");
-
-        handler.removeCallbacks(terminerActivite);
-        ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-        if(status != 0)
-            ecranFin.putExtra("resultat", "Gagné!");
-        else
-            ecranFin.putExtra("resultat", "Perdu!");
-
-        startActivity(ecranFin);
-    }
-
     @Override
     public void onBackPressed()
     {
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
-        handler.removeCallbacks(terminerActivite);
         super.onBackPressed();
     }
 

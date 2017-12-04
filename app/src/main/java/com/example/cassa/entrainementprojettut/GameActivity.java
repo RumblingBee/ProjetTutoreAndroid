@@ -692,7 +692,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
     protected AlertDialog dialog;
 
 
-    protected void afficherChoix(final Activity activite) {
+    protected void afficherChoixNiveaux(final Activity activite,String typeDeNiveau) {
 
 
       //  LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -702,20 +702,29 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         View lvlChoiceView = getLayoutInflater().inflate(R.layout.level_choice_popup, null);
 
 
-
-
         Button mButtonNiveau1 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl1_btn);
         Button mButtonNiveau2 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl2_btn);
         Button mButtonNiveau3 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl3_btn);
         Button mButtonNiveau4 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl4_btn);
         Button mButtonNiveau5 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl5_btn);
 
+        TextView mMessage = (TextView) lvlChoiceView.findViewById(R.id.level_popup_message_textView);
 
-        mButtonNiveau1.setText("CP");
-        mButtonNiveau2.setText("CE1");
-        mButtonNiveau3.setText("CE2");
-        mButtonNiveau4.setText("CM1");
-        mButtonNiveau5.setText("CM2");
+        if(typeDeNiveau == "listeClasse") {
+            mButtonNiveau1.setText("CP");
+            mButtonNiveau2.setText("CE1");
+            mButtonNiveau3.setText("CE2");
+            mButtonNiveau4.setText("CM1");
+            mButtonNiveau5.setText("CM2");
+        }
+        else{
+            mMessage.setText("Choisi le niveau de difficulté");
+            mButtonNiveau1.setText("Niveau 1");
+            mButtonNiveau2.setText("Niveau 2");
+            mButtonNiveau3.setText("Niveau 3");
+            mButtonNiveau4.setText("Niveau 4");
+            mButtonNiveau5.setText("Niveau 5");
+        }
 
         mButtonNiveau1.setTag(1);
         mButtonNiveau2.setTag(2);
@@ -781,30 +790,6 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
             }
         });
 
-
-
-
-
-
-      /*  LayoutInflater layoutInflater
-                = (LayoutInflater) getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.level_choice_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView,
-                LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT);
-
-
-
-
-
-
-
-      /*  pw=new PopupWindow(inflater.inflate(R.layout.level_choice_popup, null, false),400,400,false);
-        pw.showAtLocation(this.findViewById(R.id.activity_addition_relativelayout), Gravity.CENTER, 0, 0);
-
-      popupWindow.showAtLocation(this.findViewById(R.id.activity_addition_relativelayout),Gravity.CENTER,0,0);*/
     }
 
     protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
