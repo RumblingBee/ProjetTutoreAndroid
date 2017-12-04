@@ -44,9 +44,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
 
-        Intent intent = getIntent();
-
-
 
         lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
         afficherChoixNiveaux(AdditionActivity.this,"listeClasse");

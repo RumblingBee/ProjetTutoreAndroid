@@ -1,5 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -49,8 +50,7 @@ public class MysteryWordActivity extends GameActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
-        Intent intent = getIntent();
-        int level = intent.getIntExtra("diff", 1);
+
 
         keyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
         keyboard[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
@@ -143,16 +143,31 @@ public class MysteryWordActivity extends GameActivity
             });
         }
 
-        //On génère une collection de 5 mots codés
-        wordBank = new WordBank(level);
+        afficherChoixNiveaux(MysteryWordActivity.this,"listeNiveau");
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (niveauChoisi != 0) {
+                    //On génère une collection de 5 mots codés
+                    wordBank = new WordBank(niveauChoisi);
 
-        //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        currentWord = wordBank.getWord(gNbReponsesCorrectes);
-        gNbLettreOk = 0;
-        displayWord(currentWord);
-        txtOrder.setText(currentWord.get_order());
+                    //On récupère le mot et on l'affiche, ainsi que la consigne associée
+                    currentWord = wordBank.getWord(gNbReponsesCorrectes);
+                    gNbLettreOk = 0;
+                    displayWord(currentWord);
+                    txtOrder.setText(currentWord.get_order());
 
-        lancerCourse(MysteryWordActivity.this,60000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
+                    lancerCourse(MysteryWordActivity.this,60000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
+
+
+                } else {
+                    MysteryWordActivity.this.onStop();
+                    dialog.show();
+                }
+
+            }
+        });
+
 
     }
 
