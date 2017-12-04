@@ -894,13 +894,13 @@ else{
     }
 
 
-    protected void lancerCourse(final Activity srcActivity){
+    protected void lancerCourse(final Activity srcActivity,int dureeArriveeRobot,int imageJoueur,int imageOrdinateur){
 
 
-        lancerDecompteFinPartie(srcActivity,60000);
+        lancerDecompteFinPartie(srcActivity,dureeArriveeRobot);
 
-        mImagePos1 = (ImageView)findViewById(R.id.acivity_addition_pos1_img);
-        mImageOrdi = (ImageView)findViewById(R.id.activity_addition_ordi_img);
+        mImagePos1 = (ImageView)findViewById(imageJoueur);
+        mImageOrdi = (ImageView)findViewById(imageOrdinateur);
         //On récupère la taille de l'écran
 
         float largeurEcran = retourTailleEcran();
@@ -916,7 +916,7 @@ else{
 
         // On anime l'image représentant l'ordinateur
 
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,60000,0);
+        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,dureeArriveeRobot,0);
     }
 
 

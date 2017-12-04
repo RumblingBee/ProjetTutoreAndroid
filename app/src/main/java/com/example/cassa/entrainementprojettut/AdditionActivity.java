@@ -59,7 +59,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             if (niveauChoisi != 0) {
 
                 genererAddition();
-                lancerCourse(AdditionActivity.this);
+                lancerCourse(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
             } else {
                 AdditionActivity.this.onStop();
                dialog.show();

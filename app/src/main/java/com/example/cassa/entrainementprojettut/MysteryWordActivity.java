@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MysteryWordActivity extends AppCompatActivity
+public class MysteryWordActivity extends GameActivity
 {
     private TextView txtOrder;
     private TextView txtAnswer;
@@ -106,7 +106,8 @@ public class MysteryWordActivity extends AppCompatActivity
                             bougerImage(imgPlayer,positionImageJoueur+(largeurEcran/5),600,positionImageJoueur);
                             positionImageJoueur = positionImageJoueur + (largeurEcran/5);
                             if(gNbReponsesCorrectes == 5){
-                                terminerActivite(1);
+                                afficherEcranFin(MysteryWordActivity.this,true,false,0);
+
                             }
                             else{
                                 currentWord = wordBank.getWord(gNbReponsesCorrectes);
@@ -151,16 +152,8 @@ public class MysteryWordActivity extends AppCompatActivity
         displayWord(currentWord);
         txtOrder.setText(currentWord.get_order());
 
-        //On récupère la taille de l'écran
-        float largeurEcran = retourTailleEcran();
-        int largeurImageOrdi = imgIA.getDrawable().getIntrinsicWidth();
+        lancerCourse(MysteryWordActivity.this,60000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
 
-        //On lance le chrono, l'enfant perd s'il arrive au bout
-        positionImageJoueur = imgPlayer.getX();
-        handler.postDelayed(terminerActivite,60000);
-
-        //On anime l'image représentant l'ordinateur
-        bougerImage(imgIA, largeurEcran - largeurImageOrdi, 60000, 0);
     }
 
     private void displayWord(Word word)
@@ -224,21 +217,7 @@ public class MysteryWordActivity extends AppCompatActivity
         }
     }
 
-    public float retourTailleEcran()
-    {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size.x;
-    }
 
-    protected void bougerImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart)
-    {
-        TranslateAnimation animationTranslation = new TranslateAnimation(pPosDepart,pDestination,0,0);
-        animationTranslation.setFillAfter(true);
-        animationTranslation.setDuration(pDuration);
-        pImage.startAnimation(animationTranslation);
-    }
 
     protected Runnable terminerActivite = new Runnable() {
         @Override
