@@ -692,10 +692,9 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
     protected AlertDialog dialog;
 
 
-    protected void afficherChoixNiveaux(final Activity activite,String typeDeNiveau) {
+    protected void afficherChoixNiveaux(final Activity activite,String typeDeNiveau,int nombreNiveau) {
 
 
-      //  LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
 
 
@@ -709,6 +708,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         Button mButtonNiveau5 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl5_btn);
 
         TextView mMessage = (TextView) lvlChoiceView.findViewById(R.id.level_popup_message_textView);
+
 
         if(typeDeNiveau == "listeClasse") {
             mButtonNiveau1.setText("CP");
@@ -731,6 +731,15 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         mButtonNiveau3.setTag(3);
         mButtonNiveau4.setTag(4);
         mButtonNiveau5.setTag(5);
+
+     /*   Button tabButton[] = {mButtonNiveau1,mButtonNiveau2,mButtonNiveau3,mButtonNiveau4};
+        for(int i=1;i<=nombreNiveau; i++) {
+          if(i >nombreNiveau){
+              afficherTexte(""+i);
+              tabButton[i].setEnabled(false);
+          }
+
+        }*/
 
 
         mBuilder.setView(lvlChoiceView);

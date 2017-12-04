@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                Intent mysteryWordIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
-                mysteryWordIntent.putExtra("Activity", "MysteryWord");
+                Intent mysteryWordIntent = new Intent(MainActivity.this, MysteryWordActivity.class);
                 startActivity(mysteryWordIntent);
 
                 playerEvent.start();
@@ -61,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                Intent flagActivityIntent = new Intent(MainActivity.this, LevelChoiceActivity.class);
-                flagActivityIntent.putExtra("Activity", "Flag");
+                Intent flagActivityIntent = new Intent(MainActivity.this, FlagActivity.class);
                 startActivity(flagActivityIntent);
 
                 playerEvent.start();

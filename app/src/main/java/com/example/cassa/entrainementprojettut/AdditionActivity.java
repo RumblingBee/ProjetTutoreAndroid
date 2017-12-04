@@ -46,7 +46,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
 
         lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
-        afficherChoixNiveaux(AdditionActivity.this,"listeClasse");
+        afficherChoixNiveaux(AdditionActivity.this,"listeClasse",5);
 
 
 

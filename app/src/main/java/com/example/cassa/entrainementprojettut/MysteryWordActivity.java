@@ -143,7 +143,7 @@ public class MysteryWordActivity extends GameActivity
             });
         }
 
-        afficherChoixNiveaux(MysteryWordActivity.this,"listeNiveau");
+        afficherChoixNiveaux(MysteryWordActivity.this,"listeNiveau",3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {

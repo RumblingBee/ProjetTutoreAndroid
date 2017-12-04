@@ -52,7 +52,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
         mScore.setText("0");
 
-        afficherChoixNiveaux(FlagActivity.this,"listeNiveau");
+        afficherChoixNiveaux(FlagActivity.this,"listeNiveau",3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -72,7 +72,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     }
     protected void genererPartie(){
 
-        FlagBank flagBank = new FlagBank(diff);
+        FlagBank flagBank = new FlagBank(niveauChoisi);
 
 
         ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
