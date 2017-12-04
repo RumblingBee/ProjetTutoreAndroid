@@ -27,17 +27,15 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String mMessage = intent.getStringExtra("resultat");
-        final int difficulte = intent.getIntExtra("diff",1);
+        final String activityToLaunch = intent.getStringExtra("Activity");
         mTextResultat.setText(mMessage);
 
 
         mButtonRejouer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent additionIntent = new Intent(ResultActivity.this, LevelChoiceActivity.class);
-                additionIntent.putExtra("Activity", "Addition");
-                startActivity(additionIntent);
+                Intent backToLevelChoice = RetourLevelChoice(activityToLaunch);
+                startActivity(backToLevelChoice);
             }
         });
         mButtonMenu.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +47,14 @@ public class ResultActivity extends AppCompatActivity {
         });
 
 
+    }
+    public Intent RetourLevelChoice(String activite){
+        Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+        if(!activite.isEmpty()){
+            intent = new Intent(ResultActivity.this, LevelChoiceActivity.class);
+            intent.putExtra("Activity",activite);
+        }
+        return intent;
     }
 
 
