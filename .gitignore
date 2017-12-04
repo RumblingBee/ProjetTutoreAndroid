@@ -17,3 +17,6 @@ build/
 .navigation/
 captures/
 .externalNativeBuild
+.settings
+.classpath
+.project
