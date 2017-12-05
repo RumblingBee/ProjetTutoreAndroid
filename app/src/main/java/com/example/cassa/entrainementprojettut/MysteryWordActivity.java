@@ -17,8 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MysteryWordActivity extends GameActivity
-{
+public class MysteryWordActivity extends GameActivity {
     private TextView txtOrder;
     private TextView txtAnswer;
     private ImageView imgPlayer;
@@ -46,11 +45,9 @@ public class MysteryWordActivity extends GameActivity
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
-
 
 
         keyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
@@ -86,35 +83,24 @@ public class MysteryWordActivity extends GameActivity
         imgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
         imgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
 
-        btnLayout = (LinearLayout)findViewById(R.id.activity_mysteryWord_word_linearlayout);
+        btnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
 
-        for(int i = 0; i < keyboard.length; i++){
+        for (int i = 0; i < keyboard.length; i++) {
             final int tmp = i;
             keyboard[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    validRep(keyboard[tmp],gselectedLetter);
+                    validRep(keyboard[tmp], gselectedLetter);
                 }
             });
         }
 
-        afficherChoixNiveaux(MysteryWordActivity.this,"listeNiveau",3);
+        afficherChoixNiveaux(MysteryWordActivity.this, "listeNiveau", 3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (niveauChoisi != 0) {
-                    //On génère une collection de 5 mots codés
-                    wordBank = new WordBank(niveauChoisi);
-
-                    //On récupère le mot et on l'affiche, ainsi que la consigne associée
-                    currentWord = wordBank.getWord(gNbReponsesCorrectes);
-                    gNbLettreOk = 0;
-                    displayWord(currentWord);
-                    txtOrder.setText(currentWord.get_order());
-
-                    lancerCourse(MysteryWordActivity.this,120000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
-
-
+                    lancerPartie();
                 } else {
                     MysteryWordActivity.this.onStop();
                     dialog.show();
@@ -126,14 +112,12 @@ public class MysteryWordActivity extends GameActivity
 
     }
 
-    private void displayWord(Word word)
-    {
+    private void displayWord(Word word) {
         int i = 0;
         final int wordLength = word.get_codedWord().length();
-        for(char c : word.get_codedWord().toCharArray())
-        {
+        for (char c : word.get_codedWord().toCharArray()) {
             final int tmp = i;
-            final ToggleButton button = (ToggleButton)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
+            final ToggleButton button = (ToggleButton) this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
             button.setText(String.valueOf(c));
             button.setTextOff(String.valueOf(c));
             button.setTextOn(String.valueOf(c));
@@ -143,53 +127,51 @@ public class MysteryWordActivity extends GameActivity
                     txtAnswer.setText("");
                     selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
                     gselectedLetter = button;
-                    for(int j = 0; j < wordLength; j++){
-                        ToggleButton letter = (ToggleButton)btnLayout.getChildAt(j);
-                        if(letter.isChecked() && letter.isEnabled() && letter != view){
+                    for (int j = 0; j < wordLength; j++) {
+                        ToggleButton letter = (ToggleButton) btnLayout.getChildAt(j);
+                        if (letter.isChecked() && letter.isEnabled() && letter != view) {
                             letter.setChecked(false);
                         }
                     }
                 }
             });
             btnLayout.addView(button);
-            ToggleButton firstLetter = (ToggleButton)btnLayout.getChildAt(0);
+            ToggleButton firstLetter = (ToggleButton) btnLayout.getChildAt(0);
             firstLetter.setChecked(true);
             selectedCharaAnswer = currentWord.get_answer().charAt(0);
             gselectedLetter = firstLetter;
             i++;
         }
     }
-    private void viderLayout(){
+
+    private void viderLayout() {
         btnLayout.removeAllViews();
     }
 
-    private boolean checkAnswer(String s)
-    {
+    private boolean checkAnswer(String s) {
         boolean res = false;
-        if(s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer))){
+        if (s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer))) {
             res = true;
             txtAnswer.setText("Bonne réponse, continue !");
-        }
-        else{
+        } else {
             txtAnswer.setText("Essaye encore !");
         }
         return res;
     }
 
-    public boolean motFini(Word motActuel, int i){
-        return(motActuel.get_answer().length() == i);
+    public boolean motFini(Word motActuel, int i) {
+        return (motActuel.get_answer().length() == i);
     }
 
-    public void reinitClavier(){
-        for(ToggleButton button : keyboard){
+    public void reinitClavier() {
+        for (ToggleButton button : keyboard) {
             button.setEnabled(true);
             button.setChecked(false);
         }
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
         super.onBackPressed();
@@ -202,51 +184,48 @@ public class MysteryWordActivity extends GameActivity
     }
 
     //TODO Placer en classe mère
-    public void desactiverBouton(Button btn, String s){
+    public void desactiverBouton(Button btn, String s) {
         btn.setText(s);
         btn.setEnabled(false);
-        btn.setTextColor(Color.rgb(60,60,60));
+        btn.setTextColor(Color.rgb(60, 60, 60));
     }
 
 
-    public void validRep(Button btn,Button btnSelec){
+    public void validRep(Button btn, Button btnSelec) {
         String s = btn.getText().toString();
-        if(checkAnswer(s)){
+        if (checkAnswer(s)) {
             gNbLettreOk++;
-            desactiverBouton(btnSelec,s);
+            desactiverBouton(btnSelec, s);
             reinitClavier();
-            validMot(currentWord,gNbLettreOk,txtAnswer);
-        }else{
+            validMot(currentWord, gNbLettreOk, txtAnswer);
+        } else {
             btn.setEnabled(false);
         }
     }
 
 
-    public void validMot(Word w,int i,TextView reponse){
-        if(motFini(w, i)){
+    public void validMot(Word w, int i, TextView reponse) {
+        if (motFini(w, i)) {
             reponse.setText("Bravo !");
             gNbReponsesCorrectes++;
-            float largeurEcran=retourTailleEcran();
-            bougerImage(imgPlayer,positionImageJoueur+(largeurEcran/5),600,positionImageJoueur);
-            positionImageJoueur = positionImageJoueur + (largeurEcran/5);
-            partieFinie(5,wordBank);
-        }
-        else
-        {
+            float largeurEcran = retourTailleEcran();
+            bougerImage(imgPlayer, positionImageJoueur + (largeurEcran / 5), 600, positionImageJoueur);
+            positionImageJoueur = positionImageJoueur + (largeurEcran / 5);
+            partieFinie(5);
+        } else {
             int indexCurrentLetter = btnLayout.indexOfChild(gselectedLetter);
             int indexNextLetter;
-            if(indexCurrentLetter == currentWord.get_codedWord().length() - 1 ||
-                    !btnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()){
+            if (indexCurrentLetter == currentWord.get_codedWord().length() - 1 ||
+                    !btnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()) {
                 int j = 0;
-                while(!btnLayout.getChildAt(j).isEnabled()){
+                while (!btnLayout.getChildAt(j).isEnabled()) {
                     j++;
                 }
                 indexNextLetter = j;
-            }
-            else{
+            } else {
                 indexNextLetter = indexCurrentLetter + 1;
             }
-            ToggleButton nextLetter = (ToggleButton)btnLayout.getChildAt(indexNextLetter);
+            ToggleButton nextLetter = (ToggleButton) btnLayout.getChildAt(indexNextLetter);
             nextLetter.setChecked(true);
             selectedCharaAnswer = currentWord.get_answer().charAt(indexNextLetter);
             gselectedLetter = nextLetter;
@@ -254,18 +233,42 @@ public class MysteryWordActivity extends GameActivity
     }
 
 
-    public void partieFinie(int nbMot,WordBank lexique){
-        if(gNbReponsesCorrectes == nbMot){
-            afficherEcranFin(MysteryWordActivity.this,true,false,0);
+    public void partieFinie(int nbMot) {
+        if (gNbReponsesCorrectes == nbMot) {
+            afficherEcranFin(MysteryWordActivity.this, true, false, 0);
 
+        } else {
+            currentWord = motSuivant(wordBank);
         }
-        else
-        {
-            currentWord = lexique.getWord(gNbReponsesCorrectes);
-            gNbLettreOk = 0;
-            handler.postDelayed(displayWord,1000);
-            txtOrder.setText(currentWord.get_order());
-        }
+    }
+
+
+    public void lancerPartie() {
+        //On génère une collection de 5 mots codés
+        wordBank = new WordBank(niveauChoisi);
+
+        //On récupère le mot et on l'affiche, ainsi que la consigne associée
+        currentWord = wordBank.getWord(0);
+        gNbLettreOk = 0;
+        displayWord(currentWord);
+        txtOrder.setText(currentWord.get_order());
+
+        lancerCourse(MysteryWordActivity.this,
+                120000, R.id.acivity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
+
+    }
+
+    /**
+     * @param lexique
+     * @return Word motSuivant
+     */
+
+    public Word motSuivant(WordBank lexique) {
+        Word motSuivant = lexique.getWord(gNbReponsesCorrectes);
+        gNbLettreOk = 0;
+        handler.postDelayed(displayWord, 1000);
+        txtOrder.setText(currentWord.get_order());
+        return motSuivant;
     }
 
 
