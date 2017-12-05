@@ -640,22 +640,6 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
     protected ImageView mImageOrdi;
     protected Runnable perdreActivite;
 
-    protected void perdreActivite(Activity srcActivity){
-
-        Intent ecranFin = new Intent(srcActivity, ResultActivity.class);
-        ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-        afficherTexte("Perdu!");
-        if(perdreActivite != null) {
-            handler.removeCallbacks(perdreActivite);
-        }
-        ecranFin.putExtra("diff",niveauChoisi);
-        ecranFin.putExtra("resultat", "Perdu!");
-        startActivity(ecranFin);
-
-        niveauChoisi = 0;
-        srcActivity.finish();
-    }
 
     protected void gagnerActivite(Activity srcActivity){
         if(perdreActivite != null) {
@@ -803,7 +787,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
 
     protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
         niveauChoisi = 0;
-
+        final boolean[] peutQuitter = {false};
         if(perdreActivite != null) {
             handler.removeCallbacks(perdreActivite);
         }
@@ -834,34 +818,49 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         window.setAttributes(lp);
 
 
-//Affichage du message
-if(aUnScore == false) {
-    if (gagne == true) {
-        mTextViewMessage.setText("Bravo, tu as gagné!");
-    } else {
-        mTextViewMessage.setText("Dommage, tu as perdu.");
-    }
-}
-else{
-    mTextViewMessage.setText("Ton score est de" +score);
-}
-        mButtonRejouer.setOnClickListener(new View.OnClickListener() {
+        //Affichage du message
+         if(aUnScore == false) {
+            if (gagne == true) {
+                mTextViewMessage.setText("Bravo, tu as gagné!");
+            } else {
+                mTextViewMessage.setText("Dommage, tu as perdu.");
+            }
+        }
+        else{
+            mTextViewMessage.setText("Ton score est de" +score);
+        }
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View view) {
-                activite.recreate();
-                dialog.dismiss();
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (peutQuitter[0] == true) {
+                    dialog.dismiss();
+
+                }
+                else{
+                    dialog.show();
+                }
 
             }
         });
-        mButtonMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent additionIntent = new Intent(activite, MainActivity.class);
-                startActivity(additionIntent);
-                activite.finish();
+                mButtonRejouer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        peutQuitter[0] = true;
+                        activite.recreate();
+                        dialog.dismiss();
 
-            }
-        });
+                    }
+                });
+                mButtonMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        peutQuitter[0] = true;
+                        Intent additionIntent = new Intent(activite, MainActivity.class);
+                        startActivity(additionIntent);
+                        activite.finish();
+
+                        }
+                });
 
     }
 
