@@ -157,7 +157,7 @@ public class MysteryWordActivity extends GameActivity
                     displayWord(currentWord);
                     txtOrder.setText(currentWord.get_order());
 
-                    lancerCourse(MysteryWordActivity.this,60000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
+                    lancerCourse(MysteryWordActivity.this,120000,R.id.acivity_mysteryWord_pos1_img,R.id.activity_mysteryWord_ordi_img);
 
 
                 } else {
