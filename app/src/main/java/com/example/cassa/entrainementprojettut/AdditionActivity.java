@@ -44,7 +44,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
 
-
+        initialiserPartie();
         lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
         afficherChoixNiveaux(AdditionActivity.this,"listeClasse",5);
 
@@ -181,6 +181,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         bgPlayer.stop();
         Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
         startActivity(ecranMenu);
+
         if(perdreActivite!=null) {
             handler.removeCallbacks(perdreActivite);
         }
