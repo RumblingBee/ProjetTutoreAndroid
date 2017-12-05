@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,53 +93,7 @@ public class MysteryWordActivity extends GameActivity
             keyboard[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String s = keyboard[tmp].getText().toString();
-                    if(checkAnswer(s)){
-                        gNbLettreOk++;
-                        gselectedLetter.setText(s);
-                        gselectedLetter.setEnabled(false);
-                        gselectedLetter.setTextColor(Color.rgb(60,60,60));
-                        reinitClavier();
-                        if(motFini(currentWord, gNbLettreOk)){
-                            txtAnswer.setText("Bravo !");
-                            gNbReponsesCorrectes++;
-                            float largeurEcran=retourTailleEcran();
-                            bougerImage(imgPlayer,positionImageJoueur+(largeurEcran/5),600,positionImageJoueur);
-                            positionImageJoueur = positionImageJoueur + (largeurEcran/5);
-                            if(gNbReponsesCorrectes == 5){
-                                afficherEcranFin(MysteryWordActivity.this,true,false,0);
-
-                            }
-                            else{
-                                currentWord = wordBank.getWord(gNbReponsesCorrectes);
-                                gNbLettreOk = 0;
-                                handler.postDelayed(displayWord,1000);
-                                txtOrder.setText(currentWord.get_order());
-                            }
-                        }
-                        else{
-                            int indexCurrentLetter = btnLayout.indexOfChild(gselectedLetter);
-                            int indexNextLetter;
-                            if(indexCurrentLetter == currentWord.get_codedWord().length() - 1 ||
-                                    !btnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()){
-                                int j = 0;
-                                while(!btnLayout.getChildAt(j).isEnabled()){
-                                    j++;
-                                }
-                                indexNextLetter = j;
-                            }
-                            else{
-                                indexNextLetter = indexCurrentLetter + 1;
-                            }
-                            ToggleButton nextLetter = (ToggleButton)btnLayout.getChildAt(indexNextLetter);
-                            nextLetter.setChecked(true);
-                            selectedCharaAnswer = currentWord.get_answer().charAt(indexNextLetter);
-                            gselectedLetter = nextLetter;
-                        }
-                    }
-                    else{
-                        keyboard[tmp].setEnabled(false);
-                    }
+                    validRep(keyboard[tmp],gselectedLetter);
                 }
             });
         }
@@ -242,7 +197,75 @@ public class MysteryWordActivity extends GameActivity
 
     @Override
     public void onPause() {
+
         super.onPause();
+    }
+
+    //TODO Placer en classe mère
+    public void desactiverBouton(Button btn, String s){
+        btn.setText(s);
+        btn.setEnabled(false);
+        btn.setTextColor(Color.rgb(60,60,60));
+    }
+
+
+    public void validRep(Button btn,Button btnSelec){
+        String s = btn.getText().toString();
+        if(checkAnswer(s)){
+            gNbLettreOk++;
+            desactiverBouton(btnSelec,s);
+            reinitClavier();
+            validMot(currentWord,gNbLettreOk,txtAnswer);
+        }else{
+            btn.setEnabled(false);
+        }
+    }
+
+
+    public void validMot(Word w,int i,TextView reponse){
+        if(motFini(w, i)){
+            reponse.setText("Bravo !");
+            gNbReponsesCorrectes++;
+            float largeurEcran=retourTailleEcran();
+            bougerImage(imgPlayer,positionImageJoueur+(largeurEcran/5),600,positionImageJoueur);
+            positionImageJoueur = positionImageJoueur + (largeurEcran/5);
+            partieFinie(5,wordBank);
+        }
+        else
+        {
+            int indexCurrentLetter = btnLayout.indexOfChild(gselectedLetter);
+            int indexNextLetter;
+            if(indexCurrentLetter == currentWord.get_codedWord().length() - 1 ||
+                    !btnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()){
+                int j = 0;
+                while(!btnLayout.getChildAt(j).isEnabled()){
+                    j++;
+                }
+                indexNextLetter = j;
+            }
+            else{
+                indexNextLetter = indexCurrentLetter + 1;
+            }
+            ToggleButton nextLetter = (ToggleButton)btnLayout.getChildAt(indexNextLetter);
+            nextLetter.setChecked(true);
+            selectedCharaAnswer = currentWord.get_answer().charAt(indexNextLetter);
+            gselectedLetter = nextLetter;
+        }
+    }
+
+
+    public void partieFinie(int nbMot,WordBank lexique){
+        if(gNbReponsesCorrectes == nbMot){
+            afficherEcranFin(MysteryWordActivity.this,true,false,0);
+
+        }
+        else
+        {
+            currentWord = lexique.getWord(gNbReponsesCorrectes);
+            gNbLettreOk = 0;
+            handler.postDelayed(displayWord,1000);
+            txtOrder.setText(currentWord.get_order());
+        }
     }
 
 
