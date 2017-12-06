@@ -843,7 +843,7 @@ if(aUnScore == false) {
     }
 }
 else{
-    mTextViewMessage.setText("Ton score est de" +score);
+    mTextViewMessage.setText("Ton score est de " +score);
 }
         mButtonRejouer.setOnClickListener(new View.OnClickListener() {
             @Override
