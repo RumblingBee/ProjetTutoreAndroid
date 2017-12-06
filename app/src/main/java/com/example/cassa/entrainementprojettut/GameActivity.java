@@ -769,6 +769,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         window.setAttributes(lp);
 
 
+
         //Affichage du message
          if(aUnScore == false) {
             if (gagne == true) {
@@ -778,7 +779,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
             }
         }
         else{
-            mTextViewMessage.setText("Ton score est de" +score);
+            mTextViewMessage.setText("Ton score est de " +score);
         }
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
