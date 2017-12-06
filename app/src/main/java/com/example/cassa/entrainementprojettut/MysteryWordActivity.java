@@ -128,11 +128,13 @@ public class MysteryWordActivity extends GameActivity {
                     reinitClavier();
                     gTxtAnswer.setText("");
                     gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(tmp);
-                    gSelectedLetter = button;
+                    gSelectedLetter = (ToggleButton)pView;
+                    pView.setClickable(false);
                     for (int j = 0; j < wordLength; j++) {
                         ToggleButton letter = (ToggleButton) gBtnLayout.getChildAt(j);
                         if (letter.isChecked() && letter.isEnabled() && letter != pView) {
                             letter.setChecked(false);
+                            letter.setClickable(true);
                         }
                     }
                 }
