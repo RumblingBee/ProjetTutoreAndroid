@@ -120,6 +120,7 @@ public class MysteryWordActivity extends GameActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View pView) {
+                    reinitClavier();
                     gTxtAnswer.setText("");
                     gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(tmp);
                     gSelectedLetter = button;
