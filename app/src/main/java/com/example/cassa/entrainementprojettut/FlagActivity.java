@@ -136,14 +136,6 @@ protected  void verifierReponse(ImageView v,String pPays){
     toast.show();
 
 }
-    public void  terminerActivite(){
-
-        FlagActivity.this.finish();
-
-        Intent ecranFin = new Intent(FlagActivity.this, ResultActivity.class);
-        ecranFin.putExtra("resultat", ""+gScore);
-        startActivity(ecranFin);
-    }
 
 
     @Override
