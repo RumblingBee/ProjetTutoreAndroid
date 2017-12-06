@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ToggleButton;
@@ -179,8 +180,16 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
+
+    protected void onDestroy(){
+        super.onDestroy();
+
+        bgPlayer.stop();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
     @Override
     public void onBackPressed() {
+        bgPlayer.stop();
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
         super.onBackPressed();
@@ -188,8 +197,14 @@ public class MysteryWordActivity extends GameActivity {
 
     @Override
     public void onPause() {
-
+        bgPlayer.stop();
         super.onPause();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        bgPlayer.start();
     }
 
     //TODO Placer en classe mère

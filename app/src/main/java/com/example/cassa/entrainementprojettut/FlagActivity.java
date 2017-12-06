@@ -147,4 +147,23 @@ protected  void verifierReponse(ImageView v,String pPays){
 
         verifierReponse((ImageView) view,paysSelectione);
     }
+
+    @Override
+    public void onBackPressed(){
+        bgPlayer.stop();
+        Intent ecranMenu = new Intent(FlagActivity.this, MainActivity.class);
+        startActivity(ecranMenu);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        bgPlayer.stop();
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        bgPlayer.start();
+    }
 }
