@@ -49,6 +49,8 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
+        lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
+
 
 
         keyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);

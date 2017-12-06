@@ -31,6 +31,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
 
+        lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
+
         mDrapeau1 = (ImageView)findViewById(R.id.activity_flag_flag01);
         mDrapeau2 = (ImageView)findViewById(R.id.activity_flag_flag02);
         mDrapeau3 = (ImageView)findViewById(R.id.activity_flag_flag03);
