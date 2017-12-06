@@ -1,205 +1,279 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
-import android.view.Display;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MysteryWordActivity extends AppCompatActivity
-{
-    private Button button[] = new Button[26];
+public class MysteryWordActivity extends GameActivity {
+    private TextView gTxtOrder;
+    private TextView gTxtAnswer;
+    private ImageView gImgPlayer;
+    private ImageView gImgIA;
+    private LinearLayout gBtnLayout;
 
-    private TextView txtOrder;
-    private TextView txtSelect;
-    private TextView txtAnswer;
-    private ImageView imgPlayer;
-    private ImageView imgIA;
-    private LinearLayout btnLayout;
+    private ToggleButton gKeyboard[] = new ToggleButton[26];
+    float gPositionImageJoueur;
+    private WordBank gWordBank;
+    private Word gCurrentWord;
+    private char gSelectedCharaAnswer;
+    private int gNbReponsesCorrectes = 0;
+    private int gNbLettreOk;
+    private ToggleButton gSelectedLetter;
 
-    final Handler handler = new Handler();
-    float positionImageJoueur;
+    final Handler gHandler = new Handler();
 
-    private WordBank wordBank;
-    private Word currentWord;
-    private char selectedCharaAnswer;
-    private int gNbReponsesCorrectes;
 
-    private Button gselectedLetter;
+    protected Runnable gDisplayWord = new Runnable() {
+        @Override
+        public void run() {
+            viderLayout();
+            gTxtAnswer.setText("");
+            displayWord(gCurrentWord);
+        }
+    };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
-        Intent intent = getIntent();
-        int level = intent.getIntExtra("diff", 1);
+        gKeyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
+        gKeyboard[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
+        gKeyboard[2] = (ToggleButton) findViewById(R.id.activity_mysteryWord_E_button);
+        gKeyboard[3] = (ToggleButton) findViewById(R.id.activity_mysteryWord_R_button);
+        gKeyboard[4] = (ToggleButton) findViewById(R.id.activity_mysteryWord_T_button);
+        gKeyboard[5] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Y_button);
+        gKeyboard[6] = (ToggleButton) findViewById(R.id.activity_mysteryWord_U_button);
+        gKeyboard[7] = (ToggleButton) findViewById(R.id.activity_mysteryWord_I_button);
+        gKeyboard[8] = (ToggleButton) findViewById(R.id.activity_mysteryWord_O_button);
+        gKeyboard[9] = (ToggleButton) findViewById(R.id.activity_mysteryWord_P_button);
+        gKeyboard[10] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Q_button);
+        gKeyboard[11] = (ToggleButton) findViewById(R.id.activity_mysteryWord_S_button);
+        gKeyboard[12] = (ToggleButton) findViewById(R.id.activity_mysteryWord_D_button);
+        gKeyboard[13] = (ToggleButton) findViewById(R.id.activity_mysteryWord_F_button);
+        gKeyboard[14] = (ToggleButton) findViewById(R.id.activity_mysteryWord_G_button);
+        gKeyboard[15] = (ToggleButton) findViewById(R.id.activity_mysteryWord_H_button);
+        gKeyboard[16] = (ToggleButton) findViewById(R.id.activity_mysteryWord_J_button);
+        gKeyboard[17] = (ToggleButton) findViewById(R.id.activity_mysteryWord_K_button);
+        gKeyboard[18] = (ToggleButton) findViewById(R.id.activity_mysteryWord_L_button);
+        gKeyboard[19] = (ToggleButton) findViewById(R.id.activity_mysteryWord_M_button);
+        gKeyboard[20] = (ToggleButton) findViewById(R.id.activity_mysteryWord_W_button);
+        gKeyboard[21] = (ToggleButton) findViewById(R.id.activity_mysteryWord_X_button);
+        gKeyboard[22] = (ToggleButton) findViewById(R.id.activity_mysteryWord_C_button);
+        gKeyboard[23] = (ToggleButton) findViewById(R.id.activity_mysteryWord_V_button);
+        gKeyboard[24] = (ToggleButton) findViewById(R.id.activity_mysteryWord_B_button);
+        gKeyboard[25] = (ToggleButton) findViewById(R.id.activity_mysteryWord_N_button);
 
-        button[0] = (Button) findViewById(R.id.activity_mysteryWord_A_button);
-        button[1] = (Button) findViewById(R.id.activity_mysteryWord_Z_button);
-        button[2] = (Button) findViewById(R.id.activity_mysteryWord_E_button);
-        button[3] = (Button) findViewById(R.id.activity_mysteryWord_R_button);
-        button[4] = (Button) findViewById(R.id.activity_mysteryWord_T_button);
-        button[5] = (Button) findViewById(R.id.activity_mysteryWord_Y_button);
-        button[6] = (Button) findViewById(R.id.activity_mysteryWord_U_button);
-        button[7] = (Button) findViewById(R.id.activity_mysteryWord_I_button);
-        button[8] = (Button) findViewById(R.id.activity_mysteryWord_O_button);
-        button[9] = (Button) findViewById(R.id.activity_mysteryWord_P_button);
-        button[10] = (Button) findViewById(R.id.activity_mysteryWord_Q_button);
-        button[11] = (Button) findViewById(R.id.activity_mysteryWord_S_button);
-        button[12] = (Button) findViewById(R.id.activity_mysteryWord_D_button);
-        button[13] = (Button) findViewById(R.id.activity_mysteryWord_F_button);
-        button[14] = (Button) findViewById(R.id.activity_mysteryWord_G_button);
-        button[15] = (Button) findViewById(R.id.activity_mysteryWord_H_button);
-        button[16] = (Button) findViewById(R.id.activity_mysteryWord_J_button);
-        button[17] = (Button) findViewById(R.id.activity_mysteryWord_K_button);
-        button[18] = (Button) findViewById(R.id.activity_mysteryWord_L_button);
-        button[19] = (Button) findViewById(R.id.activity_mysteryWord_M_button);
-        button[20] = (Button) findViewById(R.id.activity_mysteryWord_W_button);
-        button[21] = (Button) findViewById(R.id.activity_mysteryWord_X_button);
-        button[22] = (Button) findViewById(R.id.activity_mysteryWord_C_button);
-        button[23] = (Button) findViewById(R.id.activity_mysteryWord_V_button);
-        button[24] = (Button) findViewById(R.id.activity_mysteryWord_B_button);
-        button[25] = (Button) findViewById(R.id.activity_mysteryWord_N_button);
+        gTxtAnswer = (TextView) findViewById(R.id.activity_mysteryWord_answer_textview);
+        gTxtOrder = (TextView) findViewById(R.id.activity_mysteryWord_order_textview);
 
-        txtAnswer = (TextView) findViewById(R.id.activity_mysteryWord_answer_textview);
-        txtOrder = (TextView) findViewById(R.id.activity_mysteryWord_order_textview);
-        txtSelect = (TextView) findViewById(R.id.activity_mysteryWord_selectedLetter_textview);
+        gImgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
+        gImgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
 
-        imgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
-        imgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
+        gBtnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
 
-        btnLayout = (LinearLayout)findViewById(R.id.activity_mysteryWord_word_linearlayout);
-
-        for(int i=0; i<button.length; i++){
+        for (int i = 0; i < gKeyboard.length; i++) {
             final int tmp = i;
-            button[i].setOnClickListener(new View.OnClickListener() {
+            gKeyboard[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String s = button[tmp].getText().toString();
-                    txtSelect.setText(s);
-                    //checkAnswer(s);
-                    if(checkAnswer(s) == true ){
-
-                        gselectedLetter.setText(s);
-                    }
+                    validRep(gKeyboard[tmp], gSelectedLetter);
                 }
             });
         }
 
-        //On génère une collection de 5 mots codés
-        wordBank = new WordBank(level);
 
-        //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        currentWord = wordBank.getWord();
-        displayWord(currentWord);
-        txtOrder.setText(currentWord.get_order());
+        afficherChoixNiveaux(MysteryWordActivity.this, "listeNiveau", 3);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
-        //On récupère la taille de l'écran
-        float largeurEcran = retourTailleEcran();
-        int largeurImageOrdi = imgIA.getDrawable().getIntrinsicWidth();
+            @Override
+            public void onDismiss(DialogInterface dialogInterface){
+                if (niveauChoisi != 0) {
 
-        //On lance le chrono, l'enfant perd s'il arrive au bout
-        positionImageJoueur = imgPlayer.getX();
-        handler.postDelayed(terminerActivite,60000);
+                    lancerPartie();
+                } else {
 
-        //On anime l'image représentant l'ordinateur
-        bougerImage(imgIA, largeurEcran - largeurImageOrdi, 60000, 0);
+                    MysteryWordActivity.this.onStop();
+                    dialog.show();
+                }
+
+            }
+        });
+
+
     }
 
-    private void displayWord(Word word)
-    {
+    private void displayWord(Word pWord) {
+
         int i = 0;
-        for(char c : word.get_codedWord().toCharArray())
-        {
+        final int wordLength = pWord.get_codedWord().length();
+        for (char c : pWord.get_codedWord().toCharArray()) {
             final int tmp = i;
-            final Button button = (Button)this.getLayoutInflater().inflate(R.layout.mystery_word_button, btnLayout, false);
+            final ToggleButton button = (ToggleButton) this.getLayoutInflater().inflate(R.layout.mystery_word_button, gBtnLayout, false);
             button.setText(String.valueOf(c));
+            button.setTextOff(String.valueOf(c));
+            button.setTextOn(String.valueOf(c));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    selectedCharaAnswer = currentWord.get_answer().charAt(tmp);
-                    gselectedLetter = button;
+                public void onClick(View pView) {
+                    reinitClavier();
+                    gTxtAnswer.setText("");
+                    gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(tmp);
+                    gSelectedLetter = (ToggleButton)pView;
+                    pView.setClickable(false);
+                    for (int j = 0; j < wordLength; j++) {
+                        ToggleButton letter = (ToggleButton) gBtnLayout.getChildAt(j);
+                        if (letter.isChecked() && letter.isEnabled() && letter != pView) {
+                            letter.setChecked(false);
+                            letter.setClickable(true);
+                        }
+                    }
                 }
             });
-            btnLayout.addView(button);
+            gBtnLayout.addView(button);
+            ToggleButton firstLetter = (ToggleButton) gBtnLayout.getChildAt(0);
+            firstLetter.setChecked(true);
+            gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(0);
+            gSelectedLetter = firstLetter;
             i++;
         }
     }
 
-    private boolean checkAnswer(String s)
-    {
-        boolean res=false;
-        if(s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer))){
-            txtAnswer.setText("Bonne réponse !");
-            res=true;
+    private void viderLayout() {
+        gBtnLayout.removeAllViews();
+    }
+
+    private boolean checkAnswer(String pString) {
+        boolean res = false;
+        if (pString.equalsIgnoreCase(String.valueOf(gSelectedCharaAnswer))) {
+            res = true;
+            gTxtAnswer.setText("Bonne réponse, continue !");
+        } else {
+            gTxtAnswer.setText("Essaye encore !");
         }
-        else{
-            txtAnswer.setText("Essaye encore");
+        return res;
+    }
+
+    public boolean motFini(Word sMotActuel, int i) {
+        return (sMotActuel.get_answer().length() == i);
+    }
+
+    public void reinitClavier() {
+        for (ToggleButton button : gKeyboard) {
+            button.setEnabled(true);
+            button.setChecked(false);
         }
-            return res;
     }
 
-    public float retourTailleEcran()
-    {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size.x;
-    }
-
-    protected Runnable terminerActivite = new Runnable() {
-        @Override
-        public void run() {
-            terminerActivite();
-        }
-    };
-
-    protected void bougerImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart)
-    {
-        TranslateAnimation animationTranslation = new TranslateAnimation(pPosDepart,pDestination,0,0);
-        animationTranslation.setFillAfter(true);
-        animationTranslation.setDuration(pDuration);
-        pImage.startAnimation(animationTranslation);
-    }
-
-    public void terminerActivite()
-    {
-        MysteryWordActivity.this.finish();
-        overridePendingTransition(0,0);
-
-        Intent ecranFin = new Intent(MysteryWordActivity.this, ResultActivity.class);
-
-        handler.removeCallbacks(terminerActivite);
-        ecranFin.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-        if(gNbReponsesCorrectes == 5)
-            ecranFin.putExtra("resultat", "Gagné!");
-        else
-            ecranFin.putExtra("resultat", "Perdu!");
-
-        startActivity(ecranFin);
-    }
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
-        handler.removeCallbacks(terminerActivite);
         super.onBackPressed();
     }
+
     @Override
     public void onPause() {
+
         super.onPause();
     }
+
+    //TODO Placer en classe mère
+    public void desactiverBouton(Button pBtn, String pString) {
+        pBtn.setText(pString);
+        pBtn.setEnabled(false);
+        pBtn.setTextColor(Color.rgb(60, 60, 60));
+    }
+
+
+    public void validRep(Button pBtn, Button pBtnSelec) {
+        String s = pBtn.getText().toString();
+        if (checkAnswer(s)) {
+            gNbLettreOk++;
+            desactiverBouton(pBtnSelec, s);
+            reinitClavier();
+            validMot(gCurrentWord, gNbLettreOk, gTxtAnswer);
+        } else {
+            pBtn.setEnabled(false);
+        }
+    }
+
+
+    public void validMot(Word pWord, int pInt, TextView pReponse) {
+        if (motFini(pWord, pInt)) {
+            pReponse.setText("Bravo !");
+            gNbReponsesCorrectes++;
+            float largeurEcran = retourTailleEcran();
+            bougerImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+            gPositionImageJoueur = gPositionImageJoueur + (largeurEcran / 5);
+            partieFinie(5);
+        } else {
+            int indexCurrentLetter = gBtnLayout.indexOfChild(gSelectedLetter);
+            int indexNextLetter;
+            if (indexCurrentLetter == gCurrentWord.get_codedWord().length() - 1 ||
+                    !gBtnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()) {
+                int j = 0;
+                while (!gBtnLayout.getChildAt(j).isEnabled()) {
+                    j++;
+                }
+                indexNextLetter = j;
+            } else {
+                indexNextLetter = indexCurrentLetter + 1;
+            }
+            ToggleButton nextLetter = (ToggleButton) gBtnLayout.getChildAt(indexNextLetter);
+            nextLetter.setChecked(true);
+            gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(indexNextLetter);
+            gSelectedLetter = nextLetter;
+        }
+    }
+
+
+    public void partieFinie(int pNbMot) {
+        if (gNbReponsesCorrectes == pNbMot) {
+            afficherEcranFin(MysteryWordActivity.this, true, false, 0);
+
+        } else {
+            gCurrentWord = motSuivant(gWordBank);
+        }
+    }
+
+
+    public void lancerPartie() {
+        //On génère une collection de 5 mots codés
+        gWordBank = new WordBank(niveauChoisi);
+
+        //On récupère le mot et on l'affiche, ainsi que la consigne associée
+        gCurrentWord = gWordBank.getWord(0);
+        gNbLettreOk = 0;
+        displayWord(gCurrentWord);
+        gTxtOrder.setText(gCurrentWord.get_order());
+
+        lancerCourse(MysteryWordActivity.this,
+                120000, R.id.acivity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
+
+    }
+
+    /**
+     * @param pLexique
+     * @return Word motSuivant
+     */
+
+    public Word motSuivant(WordBank pLexique) {
+        Word motSuivant = pLexique.getWord(gNbReponsesCorrectes);
+        gNbLettreOk = 0;
+        gHandler.postDelayed(gDisplayWord, 1000);
+        gTxtOrder.setText(gCurrentWord.get_order());
+        return motSuivant;
+    }
+
+
 }
