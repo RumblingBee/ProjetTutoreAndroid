@@ -49,10 +49,8 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/feature/refactorCode
+
         keyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
         keyboard[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
         keyboard[2] = (ToggleButton) findViewById(R.id.activity_mysteryWord_E_button);
@@ -98,35 +96,17 @@ public class MysteryWordActivity extends GameActivity {
             });
         }
 
-<<<<<<< HEAD
-        afficherChoixNiveaux(MysteryWordActivity.this,"listeNiveau",3);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
-=======
+
         afficherChoixNiveaux(MysteryWordActivity.this, "listeNiveau", 3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
->>>>>>> origin/feature/refactorCode
+
             @Override
             public void onDismiss(DialogInterface dialogInterface){
                 if (niveauChoisi != 0) {
-<<<<<<< HEAD
-                    //On génère une collection de 5 mots codés
-                    wordBank = new WordBank(niveauChoisi);
 
-                    //On récupère le mot et on l'affiche, ainsi que la consigne associée
-                    currentWord = wordBank.getWord(gNbReponsesCorrectes);
-                    gNbLettreOk = 0;
-                    displayWord(currentWord);
-                    txtOrder.setText(currentWord.get_order());
-
-                    lancerCourse(MysteryWordActivity.this,120000, R.id.acivity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
-
-
-                }
-                else{
-=======
                     lancerPartie();
                 } else {
->>>>>>> origin/feature/refactorCode
+
                     MysteryWordActivity.this.onStop();
                     dialog.show();
                 }
@@ -137,11 +117,8 @@ public class MysteryWordActivity extends GameActivity {
 
     }
 
-<<<<<<< HEAD
-    private void displayWord(Word word){
-=======
     private void displayWord(Word word) {
->>>>>>> origin/feature/refactorCode
+
         int i = 0;
         final int wordLength = word.get_codedWord().length();
         for (char c : word.get_codedWord().toCharArray()) {
@@ -177,11 +154,8 @@ public class MysteryWordActivity extends GameActivity {
         btnLayout.removeAllViews();
     }
 
-<<<<<<< HEAD
-    private boolean checkAnswer(String s){
-=======
+
     private boolean checkAnswer(String s) {
->>>>>>> origin/feature/refactorCode
         boolean res = false;
         if (s.equalsIgnoreCase(String.valueOf(selectedCharaAnswer))) {
             res = true;
@@ -204,23 +178,15 @@ public class MysteryWordActivity extends GameActivity {
     }
 
     @Override
-<<<<<<< HEAD
-    public void onBackPressed(){
-=======
     public void onBackPressed() {
->>>>>>> origin/feature/refactorCode
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
         super.onBackPressed();
     }
 
     @Override
-<<<<<<< HEAD
-    public void onPause(){
-=======
     public void onPause() {
 
->>>>>>> origin/feature/refactorCode
         super.onPause();
     }
 
