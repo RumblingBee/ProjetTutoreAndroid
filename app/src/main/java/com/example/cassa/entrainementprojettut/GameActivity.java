@@ -23,7 +23,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +63,7 @@ import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -675,6 +678,11 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
 
     protected AlertDialog dialog;
 
+    protected void initialiserPartie(){
+        niveauChoisi = 0;
+
+    }
+
 
     protected void afficherChoixNiveaux(final Activity activite,String typeDeNiveau,int nombreNiveau) {
 
@@ -684,47 +692,34 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
 
         View lvlChoiceView = getLayoutInflater().inflate(R.layout.level_choice_popup, null);
 
+        String tabClasses[] = {"CP", "CE1", "CE2", "CM1", "CM2"};
+        String tabNiveaux[] = {"Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4", "Niveau 5"};
+        String tabCouleurs[] = {"#77dd6c", "#eebf38", "#ee3838", "#c847ea", "#47aaea"};
 
-        Button mButtonNiveau1 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl1_btn);
-        Button mButtonNiveau2 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl2_btn);
-        Button mButtonNiveau3 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl3_btn);
-        Button mButtonNiveau4 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl4_btn);
-        Button mButtonNiveau5 = (Button) lvlChoiceView.findViewById(R.id.level_popup_activity_lvl5_btn);
+        LinearLayout conteneur = (LinearLayout)lvlChoiceView.findViewById(R.id.level_popup_activity_linearlayout);
+        for(int i = 0; i < nombreNiveau; i++){
+            final Button lvlButton = (Button)this.getLayoutInflater().inflate(R.layout.level_choice_button, conteneur, false);
+            if(typeDeNiveau.equalsIgnoreCase( "listeClasse")){
+                lvlButton.setText(tabClasses[i]);
+            }
+            else{
+                lvlButton.setText(tabNiveaux[i]);
+            }
+            lvlButton.setTag(i + 1);
+            lvlButton.getBackground().setColorFilter(Color.parseColor(tabCouleurs[i]), PorterDuff.Mode.MULTIPLY);
+            lvlButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    niveauChoisi = (int)view.getTag();
+                    dialog.dismiss();
+                }
+            });
+            if(conteneur != null) {
+                conteneur.addView(lvlButton);
+            }
+        }
 
         TextView mMessage = (TextView) lvlChoiceView.findViewById(R.id.level_popup_message_textView);
-
-
-        if(typeDeNiveau == "listeClasse") {
-            mButtonNiveau1.setText("CP");
-            mButtonNiveau2.setText("CE1");
-            mButtonNiveau3.setText("CE2");
-            mButtonNiveau4.setText("CM1");
-            mButtonNiveau5.setText("CM2");
-        }
-        else{
-            mMessage.setText("Choisi le niveau de difficulté");
-            mButtonNiveau1.setText("Niveau 1");
-            mButtonNiveau2.setText("Niveau 2");
-            mButtonNiveau3.setText("Niveau 3");
-            mButtonNiveau4.setText("Niveau 4");
-            mButtonNiveau5.setText("Niveau 5");
-        }
-
-        mButtonNiveau1.setTag(1);
-        mButtonNiveau2.setTag(2);
-        mButtonNiveau3.setTag(3);
-        mButtonNiveau4.setTag(4);
-        mButtonNiveau5.setTag(5);
-
-     /*   Button tabButton[] = {mButtonNiveau1,mButtonNiveau2,mButtonNiveau3,mButtonNiveau4};
-        for(int i=1;i<=nombreNiveau; i++) {
-          if(i >nombreNiveau){
-              afficherTexte(""+i);
-              tabButton[i].setEnabled(false);
-          }
-
-        }*/
-
 
         mBuilder.setView(lvlChoiceView);
         dialog = mBuilder.create();
@@ -739,50 +734,6 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
-
-        mButtonNiveau1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                niveauChoisi = (int)view.getTag();
-
-                dialog.dismiss();
-
-            }
-        });
-        mButtonNiveau2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                niveauChoisi = (int)view.getTag();
-
-                dialog.dismiss();
-            }
-        });
-        mButtonNiveau3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                niveauChoisi = (int)view.getTag();
-
-                dialog.dismiss();
-            }
-        });
-        mButtonNiveau4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                niveauChoisi = (int)view.getTag();
-
-                dialog.dismiss();
-
-            }
-        });
-        mButtonNiveau5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                niveauChoisi = (int)view.getTag();
-
-                dialog.dismiss();
-            }
-        });
-
     }
 
     protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
@@ -925,5 +876,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
 
         handler.postDelayed(perdreActivite,temps);
     }
+
+
 
 }
