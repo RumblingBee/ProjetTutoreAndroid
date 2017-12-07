@@ -251,6 +251,7 @@ public class MysteryWordActivity extends GameActivity {
             }
             ToggleButton nextLetter = (ToggleButton) btnLayout.getChildAt(indexNextLetter);
             nextLetter.setChecked(true);
+            nextLetter.setClickable(false);
             selectedCharaAnswer = currentWord.get_answer().charAt(indexNextLetter);
             gselectedLetter = nextLetter;
         }
