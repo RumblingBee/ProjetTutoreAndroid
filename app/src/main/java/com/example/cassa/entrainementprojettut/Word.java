@@ -10,12 +10,21 @@ public class Word
     private String _answer;
     private String _order;
 
+    //3-4
     private static String listShortWords[] = {"film", "doux", "defi", "flou", "fond", "epis", "epee",
             "fete", "fil", "gris", "bleu", "loup", "lune", "dent", "chez", "cent", "sol", "toi",
-            "roi", "cle", "six", "coq", "dos", "jus", "ici", "lit"};
+            "roi", "cle", "six", "coq", "dos", "jus", "ici", "lit", "vis", "noir", "sac", "kiwi",
+            "huit", "cube", "robe", "ours", "rue", "bras", "main", "bus", "nez", "rire"};
+    //5
     private static String listMediumWords[] = {"livre", "epine", "ferme", "finir", "fleur", "drole",
-            "fusee", "froid", "futur", "soupe", "veste", "jeune", "vivre", "pomme"};
-    private static String listLongWords[] = {"vendre", "violet", "voisin"};
+            "fusee", "froid", "futur", "soupe", "veste", "jaune", "vivre", "pomme", "hiver", "porte",
+            "botte", "chaud", "lampe", "voler", "tasse", "renne", "chien", "chat", "avion", "barbe",
+            "aigle", "pelle", "lapin", "jambe", "panda", "pieds", "verre", "genou"};
+    //6-7
+    private static String listLongWords[] = {"vendre", "violet", "voisin", "dauphin", "patate",
+            "requin", "baleine", "laitue", "maison", "triangle", "tambour", "sucette", "crayon",
+            "poisson", "cercle", "robinet", "fantome", "lunette", "guitare", "canard", "manger",
+            "jardin", "volant", "souris", "quatre"};
 
     public Word(int level)
     {
@@ -32,17 +41,20 @@ public class Word
                 listWords.addAll(Arrays.asList(listMediumWords));
                 listWords.addAll(Arrays.asList(listLongWords));
                 break;
+            case 4 :
+                listWords.addAll(Arrays.asList(listMediumWords));
+                listWords.addAll(Arrays.asList(listLongWords));
+                break;
+            case 5 :
+                listWords.addAll(Arrays.asList(listLongWords));
+                break;
         }
 
         Collections.shuffle(listWords);
 
         this._answer = listWords.get(genererNombre(0, listWords.size() - 1));
-        char sign = genererSigne();
-        int codeNumber;
-        if(level == 1)
-            codeNumber = 1;
-        else
-            codeNumber = 2;
+        char sign = genererSigne(level);
+        int codeNumber = genererDecalage(level);
         this._codedWord = codeWord(codeNumber, sign, this._answer);
         this._order = generateOrder(sign, codeNumber);
     }
@@ -89,23 +101,43 @@ public class Word
         return borneInf + (int)(Math.random() * ((borneSup - borneInf) + 1));
     }
 
-    private char genererSigne()
+    private char genererSigne(int level)
     {
         char signe;
-        int cas = genererNombre(1,2);
-        switch(cas)
+        switch(level)
         {
-            case 1:
-                signe = '+';
-                break;
-            case 2:
+            case 1: case 2: case 3:
                 signe = '-';
+                break;
+            case 4: case 5:
+                signe = '+';
                 break;
             default:
                 signe = '+';
                 break;
         }
         return signe;
+    }
+
+    private int genererDecalage(int level)
+    {
+        int decalage;
+        switch(level)
+        {
+            case 1: case 4:
+                decalage = 1;
+                break;
+            case 2: case 5:
+                decalage = 2;
+                break;
+            case 3:
+                decalage = 3;
+                break;
+            default:
+                decalage = 1;
+                break;
+        }
+        return decalage;
     }
 
     public String get_codedWord() {
