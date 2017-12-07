@@ -31,6 +31,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
 
+        lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
+
         mDrapeau1 = (ImageView)findViewById(R.id.activity_flag_flag01);
         mDrapeau2 = (ImageView)findViewById(R.id.activity_flag_flag02);
         mDrapeau3 = (ImageView)findViewById(R.id.activity_flag_flag03);
@@ -144,5 +146,24 @@ protected  void verifierReponse(ImageView v,String pPays){
         String paysSelectione = (String) view.getTag();
 
         verifierReponse((ImageView) view,paysSelectione);
+    }
+
+    @Override
+    public void onBackPressed(){
+        bgPlayer.stop();
+        Intent ecranMenu = new Intent(FlagActivity.this, MainActivity.class);
+        startActivity(ecranMenu);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        bgPlayer.stop();
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        bgPlayer.start();
     }
 }

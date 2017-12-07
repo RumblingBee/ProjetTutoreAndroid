@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
@@ -45,6 +47,8 @@ public class MysteryWordActivity extends GameActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
+
+        lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
 
         gKeyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
         gKeyboard[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
@@ -174,8 +178,16 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
+
+    protected void onDestroy(){
+        super.onDestroy();
+
+        bgPlayer.stop();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
     @Override
     public void onBackPressed() {
+        bgPlayer.stop();
         Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
         startActivity(ecranMenu);
         super.onBackPressed();
@@ -183,8 +195,14 @@ public class MysteryWordActivity extends GameActivity {
 
     @Override
     public void onPause() {
-
+        bgPlayer.stop();
         super.onPause();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        bgPlayer.start();
     }
 
     //TODO Placer en classe mère
@@ -233,6 +251,7 @@ public class MysteryWordActivity extends GameActivity {
             nextLetter.setChecked(true);
             gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(indexNextLetter);
             gSelectedLetter = nextLetter;
+            nextLetter.setClickable(false);
         }
     }
 

@@ -32,17 +32,13 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".LevelChoiceActivity"
-            android:screenOrientation="landscape"
             android:launchMode="singleTask"
-            />
-
-
-
-        <activity android:name=".FlagActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
-
-
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".FlagActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ReverseFlagActivity"></activity>
     </application>
 
 </manifest>
