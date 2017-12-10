@@ -5,21 +5,26 @@ import java.util.ArrayList;
 public class WordBank
 {
     private ArrayList<Word> _wordList;
-    private int _nextWordIndex;
 
     public WordBank(int level)
     {
         Word w;
+        int j;
+        boolean existe;
         _wordList = new ArrayList<Word>(5);
         for(int i = 0; i < 5; i++)
         {
-            w = new Word(level);
-            while(_wordList.contains(w))
+            do{
                 w = new Word(level);
+                j = 0;
+                existe = false;
+                while(j < _wordList.size() && !existe){
+                    existe = _wordList.get(j).get_answer().equalsIgnoreCase(w.get_answer());
+                    j++;
+                }
+            }while(existe);
             _wordList.add(w);
         }
-
-        _nextWordIndex = 0;
     }
 
     public Word getWord(int i)
