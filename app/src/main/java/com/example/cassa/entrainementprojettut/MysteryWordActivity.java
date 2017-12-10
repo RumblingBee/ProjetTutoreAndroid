@@ -178,6 +178,7 @@ public class MysteryWordActivity extends GameActivity {
         bgPlayer.stop();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+
     @Override
     public void onBackPressed() {
         bgPlayer.stop();
