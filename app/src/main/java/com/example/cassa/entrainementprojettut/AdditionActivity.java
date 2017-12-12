@@ -60,6 +60,15 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         }
     });
+    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialogInterface) {
+
+            Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
+            startActivity(ecranMenu);
+        }
+    });
+
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
@@ -175,6 +184,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     public void onBackPressed()
     {
         bgPlayer.stop();
+
+
         Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
         startActivity(ecranMenu);
 
