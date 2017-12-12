@@ -3,16 +3,12 @@ package com.example.cassa.entrainementprojettut;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
@@ -64,6 +60,15 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         }
     });
+    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialogInterface) {
+
+            Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
+            startActivity(ecranMenu);
+        }
+    });
+
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
@@ -179,6 +184,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     public void onBackPressed()
     {
         bgPlayer.stop();
+
+
         Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
         startActivity(ecranMenu);
 
