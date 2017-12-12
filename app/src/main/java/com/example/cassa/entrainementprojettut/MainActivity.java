@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mAddition;
     private Button btnMysteryWord;
     private Button btnFlagActivity;
+    private Button btnReverseFlagActivity;
 
     MediaPlayer player;
     MediaPlayer playerEvent;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mAddition = (Button)findViewById(R.id.activity_main_addition_btn);
         btnMysteryWord = (Button)findViewById(R.id.activity_main_mysteryWord_btn);
         btnFlagActivity = (Button)findViewById(R.id.activity_main_flagActivity_btn);
+        btnReverseFlagActivity = (Button) findViewById(R.id.activity_reverse_flagActivity_btn);
 
         mAddition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 player.stop();
                 Intent flagActivityIntent = new Intent(MainActivity.this, FlagActivity.class);
                 startActivity(flagActivityIntent);
+
+                playerEvent.start();
+            }
+        });
+
+        btnReverseFlagActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.stop();
+                Intent reverseFlagActivityIntent = new Intent(MainActivity.this, ReverseFlagActivity.class);
+                startActivity(reverseFlagActivityIntent);
 
                 playerEvent.start();
             }

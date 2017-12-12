@@ -3,6 +3,7 @@ package com.example.cassa.entrainementprojettut;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         setContentView(R.layout.activity_flag);
 
         lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
+        //  lancerCourse(FlagActivity.this, R.drawable.);
 
         mDrapeau1 = (ImageView)findViewById(R.id.activity_flag_flag01);
         mDrapeau2 = (ImageView)findViewById(R.id.activity_flag_flag02);
@@ -108,34 +110,25 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     }
 protected  void verifierReponse(ImageView v,String pPays){
-    int duration = Toast.LENGTH_SHORT;
-    Toast toast;
-        if(pPays == gBonneReponse ){
 
-           toast  = Toast.makeText(getApplicationContext(), "Bravo!", duration);
-           gScore = gScore + 5;
-           gNbBonneReponse = gNbBonneReponse + 1;
-           mScore.setText(""+gScore);
-            genererPartie();
-
-           if(gNbBonneReponse == 10 ){
-
-               afficherEcranFin(FlagActivity.this,true,true,gScore);
-           }
-
-
-
+    if(pPays == gBonneReponse ){
+        afficherTexte("Bravo");
+        gScore = gScore + 5;
+        gNbBonneReponse = gNbBonneReponse + 1;
+        mScore.setText(""+gScore);
+        genererPartie();
+        if(gNbBonneReponse == 10 ){
+           afficherEcranFin(FlagActivity.this,true,true,gScore);
         }
-        else{
-
-            toast  = Toast.makeText(getApplicationContext(), "Dommage", duration);
-            gScore = gScore - 2;
-            v.setBackgroundColor(Color.argb(150,200,200,200));
-            v.setEnabled(false);
-            mScore.setText(""+gScore);
-            v.setColorFilter(R.color.material_grey_600);
-        }
-    toast.show();
+    }
+    else{
+        afficherTexte("Dommage");
+        gScore = gScore - 2;
+        v.setBackgroundColor(Color.argb(150,200,200,200));
+        v.setEnabled(false);
+        mScore.setText(""+gScore);
+        v.setColorFilter(R.color.material_grey_600);
+    }
 
 }
 

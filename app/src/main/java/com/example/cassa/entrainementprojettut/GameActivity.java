@@ -90,6 +90,7 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
     private AppCompatDelegate mDelegate;
     private int mThemeId = 0;
     private Resources mResources;
+    Toast toast;
 
     public GameActivity() {
         dialog = null;
@@ -669,8 +670,16 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        toast = Toast.makeText(context, text, duration);
         toast.show();
+
+        Handler toastStop = new Handler();
+        toastStop.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, 500);
     }
 
     protected int niveauChoisi = 0;
