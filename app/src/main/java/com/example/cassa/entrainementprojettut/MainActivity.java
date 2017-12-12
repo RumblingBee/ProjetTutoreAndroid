@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mAddition;
     private Button btnMysteryWord;
     private Button btnFlagActivity;
+    private Button btnGeographyTag;
 
     MediaPlayer player;
     MediaPlayer playerEvent;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mAddition = (Button)findViewById(R.id.activity_main_addition_btn);
         btnMysteryWord = (Button)findViewById(R.id.activity_main_mysteryWord_btn);
         btnFlagActivity = (Button)findViewById(R.id.activity_main_flagActivity_btn);
+        btnGeographyTag=findViewById(R.id.acivity_main_geographyTag);
 
         mAddition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 playerEvent.start();
             }
         });
+
+        btnGeographyTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.stop();
+                Intent geographyActivityIntent = new Intent(MainActivity.this, GeographyTag.class);
+                startActivity(geographyActivityIntent);
+
+                playerEvent.start();
+            }
+        });
+
     } 
     protected void onDestroy(){
         super.onDestroy();
