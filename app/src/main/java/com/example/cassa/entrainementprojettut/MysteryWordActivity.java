@@ -95,7 +95,7 @@ public class MysteryWordActivity extends GameActivity {
         gTxtAnswer = (TextView) findViewById(R.id.activity_mysteryWord_answer_textview);
         gTxtOrder = (TextView) findViewById(R.id.activity_mysteryWord_order_textview);
 
-        gImgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
+        gImgPlayer = (ImageView) findViewById(R.id.activity_mysteryWord_pos1_img);
 
         gBtnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
 
@@ -280,7 +280,7 @@ public class MysteryWordActivity extends GameActivity {
                 break;
         }
         lancerCourse(MysteryWordActivity.this,
-                duree, R.id.acivity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
+                duree, R.id.activity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
 
     }
 
