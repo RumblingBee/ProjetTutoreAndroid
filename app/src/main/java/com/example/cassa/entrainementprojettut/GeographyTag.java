@@ -19,24 +19,25 @@ import android.widget.Toast;
 
 public class GeographyTag extends GameActivity {
 
-    private Etiquette e;
     private ViewGroup mainLayout;
+    private TextView image;
+
+    private int xDelta;
+    private int yDelta;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geographytag);
-        mainLayout=findViewById(R.id.geographyTag_Layout);
-        int[] vx=new int[2];
-        vx[0]=10;
-        vx[1]=100;
-        int[] vy=new int[2];
-        vy[0]=10;
-        vy[1]=100;
+        mainLayout = (RelativeLayout) findViewById(R.id.main);
+        image = (TextView) findViewById(R.id.image);
 
-        TextView etiquette=(TextView)findViewById(R.id.Etiquette);
-        e=new Etiquette("Etiquette",(int)etiquette.getX(),(int)etiquette.getY(),vx,vy,R.id.Etiquette);
-        etiquette.setOnTouchListener(onTouchListener());
+        if(image!=null) {
+
+            image.setOnTouchListener(onTouchListener());
+        }else{
+            System.out.println("C'est la merde");
+        }
     }
 
     private View.OnTouchListener onTouchListener(){
@@ -45,23 +46,42 @@ public class GeographyTag extends GameActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                final int x=(int) motionEvent.getRawX();
+                final int y=(int) motionEvent.getRawY();
+
                 switch(motionEvent.getAction()& MotionEvent.ACTION_MASK){
                     case MotionEvent.ACTION_DOWN:
-                        view.setX(motionEvent.getX());
-                        view.setY(motionEvent.getY());
+                        RelativeLayout.LayoutParams lParams=(RelativeLayout.LayoutParams)view.getLayoutParams();
+
+                        xDelta=x-lParams.leftMargin;
+                        yDelta=y-lParams.topMargin;
+                        break;
 
                     case MotionEvent.ACTION_MOVE:
-
-                        view.setX(motionEvent.getX());
-                        view.setY(motionEvent.getY());
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        layoutParams.leftMargin=x-xDelta;
+                        layoutParams.topMargin=y-yDelta;
+                        layoutParams.rightMargin = 0;
+                        layoutParams.bottomMargin = 0;
+                        view.setLayoutParams(layoutParams);
+                        break;
 
                     case MotionEvent.ACTION_UP:
                         Toast toast;
-                        toast=Toast.makeText(getApplicationContext(),"x="+e.getX()+" y="+e.getY(),Toast.LENGTH_SHORT);
+                        toast=Toast.makeText(getApplicationContext(),"x="+(x-xDelta)+" y="+(y-yDelta),Toast.LENGTH_SHORT);
                         toast.show();
                 }
+                mainLayout.invalidate();
                 return true;
             }
         };
+    }
+
+    public float[] getPosition(MotionEvent me){
+        float[] pos=new float[2];
+        pos[0]=me.getRawX()-xDelta;
+        pos[1]=me.getRawY()-yDelta;
+        return pos;
     }
 }
