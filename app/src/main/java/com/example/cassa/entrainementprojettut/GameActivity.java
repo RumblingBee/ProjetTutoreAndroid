@@ -636,6 +636,12 @@ public class GameActivity extends FragmentActivity implements AppCompatCallback,
         display.getSize(size);
         return size.x;
     }
+    public float getHauteurEcran(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
+    }
 
     final Handler handler = new Handler();
     float positionImageJoueur;

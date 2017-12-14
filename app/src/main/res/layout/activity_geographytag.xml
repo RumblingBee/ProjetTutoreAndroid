@@ -17,4 +17,16 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_launcher_background" />
 
+    <TextView
+        android:id="@+id/activity_geographytag_etiquette2-textView"
+        android:text="etiquette2"
+        android:layout_marginTop="70dp"
+        android:layout_width="wrap_content"
+        android:background="@color/orange"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher_background" />
+
 </RelativeLayout>
