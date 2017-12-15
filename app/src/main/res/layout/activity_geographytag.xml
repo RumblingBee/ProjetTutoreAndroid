@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/image"
+        android:id="@+id/activity_geographytag_etiquette1-textView"
         android:layout_width="50dp"
         android:background="@color/colorPrimary"
         android:layout_height="50dp"
@@ -23,6 +23,30 @@
         android:layout_marginTop="70dp"
         android:layout_width="wrap_content"
         android:background="@color/orange"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/activity_geographytag_etiquette3-textView"
+        android:text="etiquette2"
+        android:layout_marginTop="140dp"
+        android:layout_width="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/activity_geographytag_etiquette4-textView"
+        android:text="etiquette2"
+        android:layout_marginTop="210dp"
+        android:layout_width="wrap_content"
+        android:background="@color/colorAccent"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"

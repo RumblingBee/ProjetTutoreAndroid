@@ -2,19 +2,13 @@ package com.example.cassa.entrainementprojettut;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by clement on 07/12/17.
@@ -23,8 +17,10 @@ import org.w3c.dom.Text;
 public class GeographyTag extends GameActivity {
 
     private ViewGroup mainLayout;
-    private TextView image;
+    private TextView mEtiquette1;
     private TextView mEtiquette2;
+    private TextView mEtiquette3;
+    private TextView mEtiquette4;
 
     private int xDelta;
     private int yDelta;
@@ -35,42 +31,46 @@ public class GeographyTag extends GameActivity {
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.main);
 
-        image = (TextView) findViewById(R.id.image);
+        mEtiquette1 = (TextView) findViewById(R.id.activity_geographytag_etiquette1_textView);
         mEtiquette2 = (TextView) findViewById(R.id.activity_geographytag_etiquette2_textView);
+        mEtiquette3 = (TextView) findViewById(R.id.activity_geographytag_etiquette3_textView);
+        mEtiquette4 = (TextView) findViewById(R.id.activity_geographytag_etiquette4_textView);
 
-        image.setText("Amerique du Nord");
+
 
         //On crée les étiquettes
+        Etiquette etiquette1 = new Etiquette("Amerique du Nord",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
         Etiquette etiquette2 = new Etiquette("Afrique",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
+        Etiquette etiquette3 = new Etiquette("Europe",retourTailleEcran()*3/8,retourTailleEcran()/2,getHauteurEcran()/5,getHauteurEcran()/2);
+        Etiquette etiquette4 = new Etiquette("Asie",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
 
 
         //On attribue la zone de victoire à la textView
+        mEtiquette1.setTag(etiquette1.getZoneVictoire());
         mEtiquette2.setTag(etiquette2.getZoneVictoire());
+        mEtiquette3.setTag(etiquette3.getZoneVictoire());
+        mEtiquette4.setTag(etiquette4.getZoneVictoire());
+
+        //On leur met un nom
+        mEtiquette1.setText(etiquette1.getNom());
+        mEtiquette2.setText(etiquette2.getNom());
+        mEtiquette3.setText(etiquette3.getNom());
+        mEtiquette4.setText(etiquette4.getNom());
+
 
         //On lui met le nom de l'étiquette
+        mEtiquette1.setText(etiquette2.getNom());
         mEtiquette2.setText(etiquette2.getNom());
+        mEtiquette3.setText(etiquette3.getNom());
+        mEtiquette4.setText(etiquette4.getNom());
 
         //On rend la textView "dragable"
+        mEtiquette1.setOnTouchListener(onTouchListener());
         mEtiquette2.setOnTouchListener(onTouchListener());
+        mEtiquette3.setOnTouchListener(onTouchListener());
+        mEtiquette4.setOnTouchListener(onTouchListener());
 
 
-        float[] tabZoneVictoire = new float[4];
-        tabZoneVictoire[0] = 0; // xMin
-        tabZoneVictoire[1] = retourTailleEcran()/4;  //xMax
-        tabZoneVictoire[2] = 0;
-        tabZoneVictoire[3] = getHauteurEcran()/3;
-
-        image.setTag(tabZoneVictoire);
-
-
-
-
-        if(image!=null) {
-
-            image.setOnTouchListener(onTouchListener());
-        }else{
-            System.out.println("C'est la merde");
-        }
     }
 
     private View.OnTouchListener onTouchListener(){
@@ -107,7 +107,9 @@ public class GeographyTag extends GameActivity {
 
                        if (verifierZone((float[])view.getTag(),(x-xDelta),(y-yDelta))){
                            view.setEnabled(false);
-                           view.setBackgroundColor(Color.argb(150,200,200,200));
+
+                           view.setBackgroundColor(Color.GREEN);
+
                        }
 
                 }
@@ -119,7 +121,7 @@ public class GeographyTag extends GameActivity {
 
     private boolean verifierZone(float[]zoneVictoireEtiquette,int positionX, int positionY){
         if( positionX >= zoneVictoireEtiquette[0] && positionX <= zoneVictoireEtiquette[1] && positionY>= zoneVictoireEtiquette[2] && positionY <= zoneVictoireEtiquette[3]){
-         afficherTexte("Victoire!");
+         afficherTexte("Bravo!");
             return true;
         }
 
