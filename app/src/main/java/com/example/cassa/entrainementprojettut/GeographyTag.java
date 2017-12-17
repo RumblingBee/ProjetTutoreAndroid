@@ -22,6 +22,7 @@ public class GeographyTag extends GameActivity {
     private TextView mEtiquette3;
     private TextView mEtiquette4;
 
+    private int nbBonneReponse;
     private int xDelta;
     private int yDelta;
 
@@ -36,7 +37,7 @@ public class GeographyTag extends GameActivity {
         mEtiquette3 = (TextView) findViewById(R.id.activity_geographytag_etiquette3_textView);
         mEtiquette4 = (TextView) findViewById(R.id.activity_geographytag_etiquette4_textView);
 
-
+        nbBonneReponse=0;
 
         //On crée les étiquettes
         Etiquette etiquette1 = new Etiquette("Amerique du Nord",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
@@ -122,17 +123,14 @@ public class GeographyTag extends GameActivity {
     private boolean verifierZone(float[]zoneVictoireEtiquette,int positionX, int positionY){
         if( positionX >= zoneVictoireEtiquette[0] && positionX <= zoneVictoireEtiquette[1] && positionY>= zoneVictoireEtiquette[2] && positionY <= zoneVictoireEtiquette[3]){
          afficherTexte("Bravo!");
+            nbBonneReponse++;
+            if(nbBonneReponse==4){
+                afficherEcranFin(GeographyTag.this,true,false,0);
+            }
             return true;
         }
 
 
         return false;
-    }
-
-    public float[] getPosition(MotionEvent me){
-        float[] pos=new float[2];
-        pos[0]=me.getRawX()-xDelta;
-        pos[1]=me.getRawY()-yDelta;
-        return pos;
     }
 }
