@@ -42,7 +42,7 @@ public class GeographyTag extends GameActivity {
         //On crée les étiquettes
         Etiquette etiquette1 = new Etiquette("Amerique du Nord",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
         Etiquette etiquette2 = new Etiquette("Afrique",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
-        Etiquette etiquette3 = new Etiquette("Europe",retourTailleEcran()*3/8,retourTailleEcran()/2,getHauteurEcran()/5,getHauteurEcran()/2);
+        Etiquette etiquette3 = new Etiquette("Europe",retourTailleEcran()*5/12,retourTailleEcran()*7/12,getHauteurEcran()/6,getHauteurEcran()*3/12);
         Etiquette etiquette4 = new Etiquette("Asie",retourTailleEcran()/3,retourTailleEcran()/2,getHauteurEcran()/3,getHauteurEcran());
 
 
@@ -103,7 +103,7 @@ public class GeographyTag extends GameActivity {
 
                     case MotionEvent.ACTION_UP:
                         Toast toast;
-                        toast=Toast.makeText(getApplicationContext(),"x="+(x-xDelta)+" y="+(y-yDelta),Toast.LENGTH_SHORT);
+                        toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*6)/getHauteurEcran()+"/6",Toast.LENGTH_SHORT);
                         toast.show();
 
                        if (verifierZone((float[])view.getTag(),(x-xDelta),(y-yDelta))){
