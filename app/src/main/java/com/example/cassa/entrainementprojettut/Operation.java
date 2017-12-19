@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by prax on 10/11/17.
  */
 
-public class operation {
+public class Operation {
 
 
     protected int terme1;
@@ -33,27 +33,17 @@ public class operation {
         return terme2;
     }
 
-    public operation(int difficulte){
-
+    public Operation(int difficulte){
+        signe = genererSigne(difficulte);
         switch (difficulte) {
-
             //CP
             case 1:
-            signe = genererSigne(difficulte);
-            switch (signe) {
-                case '+':
-                    terme1 = genererNombre(10, 1);
-                    terme2 = genererNombre(10, 1);
-                    break;
-            }
-
-            reponse=calculerResultat(signe);
-            break;
-
+                terme1 = genererNombre(10, 1);
+                terme2 = genererNombre(4, 1);
+                break;
 
             //CE1
             case 2:
-                signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
                         terme1 = genererNombre(10, 1);
@@ -64,11 +54,10 @@ public class operation {
                         terme2 = genererNombre(terme1-3, 1);
                         break;
                 }
-                reponse=calculerResultat(signe);
                 break;
+
             //CE2
             case 3:
-                signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
                         terme1 = genererNombre(10, 1);
@@ -92,11 +81,10 @@ public class operation {
                         terme2 = genererNombre(10, 1);
                         break;
                 }
-                reponse=calculerResultat(signe);
                 break;
+
             //CM1
             case 4:
-                signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
                         terme1 = genererNombre(12, 1);
@@ -111,12 +99,10 @@ public class operation {
                         terme2 = genererNombre(10, 1);
                         break;
                 }
-                reponse=calculerResultat(signe);
                 break;
 
             //CM2
             case 5:
-                signe = genererSigne(difficulte);
                 switch (signe) {
                     case '+':
                         terme1 = genererNombre(15, 1);
@@ -131,11 +117,9 @@ public class operation {
                         terme2 = genererNombre(10, 1);
                         break;
                 }
-
-                reponse=calculerResultat(signe);
                 break;
         }
-
+        reponse=calculerResultat(signe);
 
     }
 
@@ -164,6 +148,7 @@ public class operation {
         }
         return res;
     }
+
     protected char genererSigne(int diff){
         char signe;
         int cas=(int)(Math.random() * (diff) + 1);
@@ -181,14 +166,10 @@ public class operation {
                 signe='x';
                 break;
             default:
-                signe='+';
+                signe='x';
                 break;
         }
         return signe;
     }
 
-
-
-    }
-
-
+}

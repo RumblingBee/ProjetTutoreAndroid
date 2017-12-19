@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import java.util.ArrayList;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
 
@@ -22,7 +21,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     private Button mButton3;
     private Button mButton4;
 
-    private operation op;
+    private Operation op;
 
     private int gNbReponsesCorectes;
 
@@ -88,7 +87,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
     protected void genererAddition(){
 
-         op = new operation(niveauChoisi);
+         op = new Operation(niveauChoisi);
 
         //Affichage de l'opération
 
@@ -125,16 +124,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             }
         }
 
-        ArrayList listeReponses = new ArrayList();
-
-        listeReponses.add(op.getReponse()-1);
-        listeReponses.add(op.getReponse());
-        listeReponses.add(op.getReponse()+1);
-        listeReponses.add(op.getReponse()+2);
-
-
-        i = 0;
-
         for(i=0;i<4; i++) {
             //int indiceListe = (int) (Math.random() * listeReponses.size());
             tabButton[i].setTag(tabReponse[i]);
@@ -160,8 +149,10 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             if(gNbReponsesCorectes == 10){
                 afficherEcranFin(AdditionActivity.this,true,false,0);
             }
+            else{
+                genererAddition();
+            }
 
-            genererAddition();
             return true;
 
         }
@@ -225,7 +216,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
         griserBoutons();
-       if( verifierReponse(reponseEnvoyee,op.getReponse()) == true) {
+       if(verifierReponse(reponseEnvoyee,op.getReponse())) {
 
            handler.postDelayed(activerBoutons, 800);
        }
