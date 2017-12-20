@@ -19,7 +19,6 @@ public class MysteryWordActivity extends GameActivity {
     private TextView gTxtOrder;
     private TextView gTxtAnswer;
     private ImageView gImgPlayer;
-    private ImageView gImgIA;
     private LinearLayout gBtnLayout;
 
     private ToggleButton gKeyboard[] = new ToggleButton[26];
@@ -49,6 +48,22 @@ public class MysteryWordActivity extends GameActivity {
         setContentView(R.layout.activity_mystery_word);
 
         lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
+
+        afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialogInterface){
+                if (niveauChoisi != 0) {
+                    lancerPartie();
+                }
+                else {
+                    MysteryWordActivity.this.onStop();
+                    dialog.show();
+                }
+            }
+        });
 
         gKeyboard[0] = (ToggleButton) findViewById(R.id.activity_mysteryWord_A_button);
         gKeyboard[1] = (ToggleButton) findViewById(R.id.activity_mysteryWord_Z_button);
@@ -80,8 +95,7 @@ public class MysteryWordActivity extends GameActivity {
         gTxtAnswer = (TextView) findViewById(R.id.activity_mysteryWord_answer_textview);
         gTxtOrder = (TextView) findViewById(R.id.activity_mysteryWord_order_textview);
 
-        gImgIA = (ImageView) findViewById(R.id.activity_mysteryWord_ordi_img);
-        gImgPlayer = (ImageView) findViewById(R.id.acivity_mysteryWord_pos1_img);
+        gImgPlayer = (ImageView) findViewById(R.id.activity_mysteryWord_pos1_img);
 
         gBtnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
 
@@ -94,26 +108,6 @@ public class MysteryWordActivity extends GameActivity {
                 }
             });
         }
-
-
-        afficherChoixNiveaux(MysteryWordActivity.this, "listeNiveau", 3);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-            @Override
-            public void onDismiss(DialogInterface dialogInterface){
-                if (niveauChoisi != 0) {
-
-                    lancerPartie();
-                } else {
-
-                    MysteryWordActivity.this.onStop();
-                    dialog.show();
-                }
-
-            }
-        });
-
-
     }
 
     private void displayWord(Word pWord) {
@@ -178,13 +172,13 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
-
     protected void onDestroy(){
         super.onDestroy();
 
         bgPlayer.stop();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+
     @Override
     public void onBackPressed() {
         bgPlayer.stop();
@@ -212,7 +206,6 @@ public class MysteryWordActivity extends GameActivity {
         pBtn.setTextColor(Color.rgb(60, 60, 60));
     }
 
-
     public void validRep(Button pBtn, Button pBtnSelec) {
         String s = pBtn.getText().toString();
         if (checkAnswer(s)) {
@@ -224,7 +217,6 @@ public class MysteryWordActivity extends GameActivity {
             pBtn.setEnabled(false);
         }
     }
-
 
     public void validMot(Word pWord, int pInt, TextView pReponse) {
         if (motFini(pWord, pInt)) {
@@ -255,16 +247,14 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
-
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
             afficherEcranFin(MysteryWordActivity.this, true, false, 0);
-
-        } else {
+        }
+        else {
             gCurrentWord = motSuivant(gWordBank);
         }
     }
-
 
     public void lancerPartie() {
         //On génère une collection de 5 mots codés
@@ -276,8 +266,21 @@ public class MysteryWordActivity extends GameActivity {
         displayWord(gCurrentWord);
         gTxtOrder.setText(gCurrentWord.get_order());
 
+        int duree;
+        switch(niveauChoisi)
+        {
+            case 1: case 2: case 3:
+                duree = 120000;
+                break;
+            case 4: case 5:
+                duree = 180000;
+                break;
+            default:
+                duree = 120000;
+                break;
+        }
         lancerCourse(MysteryWordActivity.this,
-                120000, R.id.acivity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
+                duree, R.id.activity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
 
     }
 
@@ -293,6 +296,4 @@ public class MysteryWordActivity extends GameActivity {
         gTxtOrder.setText(gCurrentWord.get_order());
         return motSuivant;
     }
-
-
 }

@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/activity_main_addition_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="Addition"
         android:layout_marginTop="100dp"
@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/activity_main_mysteryWord_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="Mot Mystère"
         android:paddingRight="10dp"
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/activity_main_flagActivity_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/activity_main_mysteryWord_btn"
         android:layout_alignStart="@+id/activity_main_mysteryWord_btn"
