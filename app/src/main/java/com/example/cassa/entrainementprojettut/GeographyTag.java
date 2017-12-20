@@ -179,4 +179,12 @@ public class GeographyTag extends GameActivity {
         bgPlayer.stop();
 
     }
+
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(GeographyTag.this,R.raw.geography_music);
+        }
+        super.onResume();
+    }
 }

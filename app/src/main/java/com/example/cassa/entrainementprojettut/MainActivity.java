@@ -106,17 +106,23 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         player.stop();
+
     }
     @Override
     public void onRestart() {
         super.onRestart();
-        player.start();
+        if(player != null) {
+            player.start();
+        }
     }
     @Override
     public void onResume() {
         super.onResume();
-        player.start();
+        if(player != null) {
+            player.start();
+        }
     }
+
 
 
     

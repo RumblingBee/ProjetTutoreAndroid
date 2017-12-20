@@ -1,5 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -59,14 +60,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         }
     });
-    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-        @Override
-        public void onCancel(DialogInterface dialogInterface) {
 
-            Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
-            startActivity(ecranMenu);
-        }
-    });
+
 
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
@@ -238,6 +233,13 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     public void onRestart() {
         super.onRestart();
         bgPlayer.start();
+    }
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
+        }
+        super.onResume();
     }
 
     
