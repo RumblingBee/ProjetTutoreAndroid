@@ -296,4 +296,11 @@ public class MysteryWordActivity extends GameActivity {
         gTxtOrder.setText(gCurrentWord.get_order());
         return motSuivant;
     }
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
+        }
+        super.onResume();
+    }
 }

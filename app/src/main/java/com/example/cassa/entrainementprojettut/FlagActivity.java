@@ -159,4 +159,11 @@ protected  void verifierReponse(ImageView v,String pPays){
         super.onRestart();
         bgPlayer.start();
     }
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
+        }
+        super.onResume();
+    }
 }

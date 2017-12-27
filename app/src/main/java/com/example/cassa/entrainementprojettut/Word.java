@@ -75,10 +75,17 @@ public class Word
     private char codeChar(char c, char sign, int codeNumber)
     {
         int ascii = (int)c;
+
         if(sign == '+')
             ascii = ascii + codeNumber;
         else
             ascii = ascii - codeNumber;
+        if(ascii > 122){
+            ascii = ascii - 26;
+        }
+        else if(ascii < 97){
+            ascii = ascii + 26;
+        }
         return (char)ascii;
     }
 

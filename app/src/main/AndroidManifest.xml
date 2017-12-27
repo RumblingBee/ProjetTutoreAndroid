@@ -38,7 +38,9 @@
             android:name=".FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".ReverseFlagActivity"></activity>
+        <activity android:name=".ReverseFlagActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".GeographyTag"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>

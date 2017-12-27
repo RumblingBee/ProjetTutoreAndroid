@@ -143,5 +143,12 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         super.onRestart();
         bgPlayer.start();
     }
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(ReverseFlagActivity.this, R.raw.bensound_goinghigher);
+        }
+        super.onResume();
+    }
 
 }

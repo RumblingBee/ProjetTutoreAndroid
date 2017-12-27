@@ -181,6 +181,19 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
+
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+
+                Context c = getApplicationContext();
+
+
+                Intent ecranMenu = new Intent(c, MainActivity.class);
+                startActivity(ecranMenu);
+            }
+        });
     }
 
     protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
@@ -321,6 +334,8 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
         handler.postDelayed(perdreActivite,temps);
     }
+
+
 
 
 
