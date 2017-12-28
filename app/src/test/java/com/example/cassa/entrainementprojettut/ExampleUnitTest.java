@@ -2,6 +2,8 @@ package com.example.cassa.entrainementprojettut;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -13,5 +15,37 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void flagGetName() {
+        Flag flag = new Flag("France", R.drawable.france);
+        assertEquals("France", flag.getmNameCountry());
+    }
+
+    @Test
+    public void flagGetRessource() {
+        Flag flag = new Flag("France", R.drawable.france);
+        assertEquals(2131099758, flag.getmRessource());
+    }
+
+    @Test
+    public void flagBankGetFlag(){
+        ArrayList<Flag> listFlag = new ArrayList<>();
+        Flag france = new Flag("France", R.drawable.france);
+        Flag allemagne = new Flag("Allemagne", R.drawable.allemagne);
+        listFlag.add(france);
+        listFlag.add(allemagne);
+
+        FlagBank flagBank = new FlagBank(listFlag);
+        Flag flag = flagBank.getFlag(1);
+
+        assertEquals(flag.getmNameCountry(), allemagne.getmNameCountry());
+        assertEquals(flag.getmRessource(), allemagne.getmRessource());
+    }
+
+    @Test
+    public void wordGetCodeWord(){
+        //En attende de révisions du code
     }
 }

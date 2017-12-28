@@ -21,9 +21,7 @@ public class Flag {
         this.mRessource= adresseImage;
     }
 
-    public int getmRessource(){
-        return this.mRessource;
-    }
+    public int getmRessource(){ return this.mRessource; }
 
     public String getmNameCountry(){
         return this.mNameCountry;

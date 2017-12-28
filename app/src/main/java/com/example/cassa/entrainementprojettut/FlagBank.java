@@ -28,6 +28,10 @@ public class FlagBank {
     //Rand de séléction de pays
     private Random rand = new Random();
 
+    public FlagBank(ArrayList<Flag> listFlag){
+        mListFlag = listFlag;
+    }
+
    public FlagBank(int diff){
 
 
