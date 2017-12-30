@@ -69,6 +69,26 @@ public class ExampleUnitTest {
         assertEquals(4,flagBank.mListFlag.size());
     }
 
+    //  Jeu Etiquette
+
+
+    @Test
+    public void etiquetteGetNom(){
+        Etiquette etiquette = new Etiquette("nomEtiquette",0,0,0,0);
+        assertEquals("nomEtiquette",etiquette.getNom());
+    }
+    @Test
+    public void etiquetteGetZone(){
+        Etiquette etiquette = new Etiquette("nomEtiquette",10,20,30,40);
+        float[]tabZoneVictoire;
+        tabZoneVictoire = etiquette.getZoneVictoire();
+
+        assertEquals(10,tabZoneVictoire[0],0);
+        assertEquals(20,tabZoneVictoire[1],0);
+        assertEquals(30,tabZoneVictoire[2],0);
+        assertEquals(40,tabZoneVictoire[3],0);
+    }
+
     @Test
     public void wordGetCodeWord(){
         //En attende de révisions du code
