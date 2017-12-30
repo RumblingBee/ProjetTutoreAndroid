@@ -45,6 +45,31 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void flagBankLvl1NotEmpty() {
+        FlagBank flagBank = new FlagBank(1);
+
+        assertTrue(flagBank.mListNomPays.size() >=0);
+    }
+    @Test
+    public void flagBankLvl2NotEmpty() {
+        FlagBank flagBank = new FlagBank(2);
+
+        assertTrue(flagBank.mListNomPays.size() >=0);
+    }
+    @Test
+    public void flagBankLvl3NotEmpty() {
+        FlagBank flagBank = new FlagBank(3);
+
+        assertTrue(flagBank.mListNomPays.size() >=0);
+    }
+
+    @Test
+    public void showOnly4Flags() {
+        FlagBank flagBank = new FlagBank(1);
+        assertEquals(4,flagBank.mListFlag.size());
+    }
+
+    @Test
     public void wordGetCodeWord(){
         //En attende de révisions du code
     }
