@@ -23,6 +23,5 @@ public class AdditionTest {
             addition.genererOperation(10,1,4,1);
             assertEquals((addition.getTerme2() + addition.getTerme1()), addition.afficherResultat());
         }
-
     }
 }

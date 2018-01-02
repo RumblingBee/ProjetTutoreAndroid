@@ -20,7 +20,7 @@ public class SetOperationCE1 implements SetOperation {
         return operations;
     }
 
-    public SetOperationCE1() {
+    SetOperationCE1() {
         this.operations=genererSetOperation();
     }
 
@@ -38,13 +38,23 @@ public class SetOperationCE1 implements SetOperation {
     public Ioperation genererUneOperation() {
         int operateur=(int)(Math.random() * (2) + 1);
         if(operateur==1){
-            Addition addition=new Addition();
-            addition.genererOperation(10,1,10,1);
-            return addition;
+            return genererAddition();
         }else{
-            Soustraction soustraction=new Soustraction();
-            soustraction.genererOperation(10,1,10,1);
-            return soustraction;
+            return genererSoustraction();
         }
+    }
+
+    @Override
+    public Ioperation genererAddition() {
+        Addition addition=new Addition();
+        addition.genererOperation(10,1,10,1);
+        return addition;
+    }
+
+    @Override
+    public Ioperation genererSoustraction() {
+        Soustraction soustraction=new Soustraction();
+        soustraction.genererOperation(10,1,10,1);
+        return soustraction;
     }
 }

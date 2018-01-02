@@ -25,6 +25,17 @@ public class Multiplication implements Ioperation {
         this.terme2=genererNombre(borneSupTerme2, borneInfTerme2);
     }
 
+    public void genererOperation(int terme1,int terme2) {
+        this.terme1=terme1;
+        this.terme2=terme2;
+    }
+
+    public void genererOperation(int terme1,int borneSupTerme2, int borneInfTerme2) {
+        this.terme1=terme1;
+        this.terme2=genererNombre(borneSupTerme2,borneInfTerme2);
+    }
+
+
     @Override
     public int afficherResultat() {
         return terme1*terme2;

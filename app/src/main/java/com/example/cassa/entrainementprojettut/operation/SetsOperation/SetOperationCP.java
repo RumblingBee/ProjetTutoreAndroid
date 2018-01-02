@@ -32,8 +32,18 @@ public class SetOperationCP implements SetOperation {
     }
 
     public Ioperation genererUneOperation() {
+        return genererAddition();
+    }
+
+    @Override
+    public Ioperation genererAddition() {
         Ioperation ioperation =new Addition();
         ioperation.genererOperation(10,1,4,1);
         return ioperation;
+    }
+
+    @Override
+    public Ioperation genererSoustraction() {
+        return null;
     }
 }

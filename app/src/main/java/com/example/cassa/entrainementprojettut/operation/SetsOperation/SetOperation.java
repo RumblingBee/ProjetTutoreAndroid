@@ -16,4 +16,8 @@ public interface SetOperation {
 
     Ioperation genererUneOperation();
 
+    Ioperation genererAddition();
+
+    Ioperation genererSoustraction();
+
 }
