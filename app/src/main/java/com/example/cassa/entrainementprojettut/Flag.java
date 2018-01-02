@@ -17,8 +17,10 @@ public class Flag {
 
 
     public Flag(String name, int adresseImage){
-        this.mNameCountry=name;
-        this.mRessource= adresseImage;
+        if(name != null) {
+            this.mNameCountry = name;
+            this.mRessource = adresseImage;
+        }
     }
 
     public int getmRessource(){ return this.mRessource; }

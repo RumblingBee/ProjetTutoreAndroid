@@ -66,7 +66,7 @@ public class ExampleUnitTest {
     @Test
     public void showOnly4Flags() {
         FlagBank flagBank = new FlagBank(1);
-        assertEquals(4,flagBank.mListFlag.size());
+        assertEquals(4,flagBank.mListChoixFlag.size());
     }
 
     //  Jeu Etiquette
