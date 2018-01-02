@@ -4,10 +4,16 @@ package com.example.cassa.entrainementprojettut.operation;
  * Created by clement on 02/01/18.
  */
 
-public class Addition implements Ioperation {
+public class Addition implements I_operation {
 
     private int terme1;
     private int terme2;
+    private char signe='+';
+
+    @Override
+    public char getSigne() {
+        return signe;
+    }
 
     @Override
     public int getTerme1() {

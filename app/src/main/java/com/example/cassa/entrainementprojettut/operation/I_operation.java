@@ -4,10 +4,11 @@ package com.example.cassa.entrainementprojettut.operation;
  * Created by clement on 02/01/18.
  */
 
-public interface Ioperation {
+public interface I_operation {
 
     int getTerme1();
     int getTerme2();
+    char getSigne();
 
     void genererOperation(int borneSupTerme1, int borneInfTerme1, int borneSupTerme2, int borneInfTerme2);
 

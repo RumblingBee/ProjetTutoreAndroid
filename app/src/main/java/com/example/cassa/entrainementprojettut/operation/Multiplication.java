@@ -4,10 +4,16 @@ package com.example.cassa.entrainementprojettut.operation;
  * Created by clement on 02/01/18.
  */
 
-public class Multiplication implements Ioperation {
+public class Multiplication implements I_operation {
 
     private int terme1;
     private int terme2;
+    private char signe='x';
+
+    @Override
+    public char getSigne() {
+        return signe;
+    }
 
     @Override
     public int getTerme1() {

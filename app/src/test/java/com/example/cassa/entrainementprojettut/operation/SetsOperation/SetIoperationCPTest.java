@@ -1,6 +1,6 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.operation.Ioperation;
+import com.example.cassa.entrainementprojettut.operation.I_operation;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class SetIoperationCPTest {
     public void testEtendueOperation() throws Exception {
         for (int i = 0; i <100; i++) {
             SetOperationCP setOperationCP=new SetOperationCP();
-            for (Ioperation ioperation :setOperationCP.getOperations()) {
+            for (I_operation ioperation :setOperationCP.getOperations()) {
                 int res= ioperation.afficherResultat();
                 assertEquals(true, 2<=res && res<=14);
             }

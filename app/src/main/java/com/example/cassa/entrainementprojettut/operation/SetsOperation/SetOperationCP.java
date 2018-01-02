@@ -1,7 +1,7 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
 import com.example.cassa.entrainementprojettut.operation.Addition;
-import com.example.cassa.entrainementprojettut.operation.Ioperation;
+import com.example.cassa.entrainementprojettut.operation.I_operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,40 +10,40 @@ import java.util.List;
  * Created by clement on 02/01/18.
  */
 
-public class SetOperationCP implements SetOperation {
+public class SetOperationCP implements I_SetOperation {
 
-    private List<Ioperation> operations;
+    private List<I_operation> operations;
 
-    public List<Ioperation> getOperations() {
+    public List<I_operation> getOperations() {
         return operations;
+    }
+
+    @Override
+    public I_operation getUneOperation(int i) {
+        return operations.get(i);
     }
 
     public SetOperationCP() {
         this.operations = genererSetOperation();
     }
 
-    public List<Ioperation> genererSetOperation() {
-        List<Ioperation> resultat = new ArrayList<>();
+    public List<I_operation> genererSetOperation() {
+        List<I_operation> resultat = new ArrayList<>();
         for (int i = 0; i <10 ; i++) {
-            Ioperation ioperation =genererUneOperation();
+            I_operation ioperation =genererUneOperation();
             resultat.add(ioperation);
         }
         return resultat;
     }
 
-    public Ioperation genererUneOperation() {
+    public I_operation genererUneOperation() {
         return genererAddition();
     }
 
-    @Override
-    public Ioperation genererAddition() {
-        Ioperation ioperation =new Addition();
+    public I_operation genererAddition() {
+        I_operation ioperation =new Addition();
         ioperation.genererOperation(10,1,4,1);
         return ioperation;
     }
 
-    @Override
-    public Ioperation genererSoustraction() {
-        return null;
-    }
 }
