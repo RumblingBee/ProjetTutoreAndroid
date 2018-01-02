@@ -14,7 +14,7 @@ public class SetIoperationCPTest {
     public void testTailleSet() throws Exception {
         for (int i = 0; i <100; i++) {
             SetOperationCP setOperationCP=new SetOperationCP();
-            assertEquals(setOperationCP.getIoperations().size(), 10);
+            assertEquals(setOperationCP.getOperations().size(), 10);
         }
     }
 
@@ -22,7 +22,7 @@ public class SetIoperationCPTest {
     public void testEtendueOperation() throws Exception {
         for (int i = 0; i <100; i++) {
             SetOperationCP setOperationCP=new SetOperationCP();
-            for (Ioperation ioperation :setOperationCP.getIoperations()) {
+            for (Ioperation ioperation :setOperationCP.getOperations()) {
                 int res= ioperation.afficherResultat();
                 assertEquals(true, 2<=res && res<=14);
             }

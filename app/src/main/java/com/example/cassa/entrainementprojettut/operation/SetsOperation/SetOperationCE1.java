@@ -1,7 +1,9 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
+import com.example.cassa.entrainementprojettut.Operation;
 import com.example.cassa.entrainementprojettut.operation.Addition;
 import com.example.cassa.entrainementprojettut.operation.Ioperation;
+import com.example.cassa.entrainementprojettut.operation.Soustraction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by clement on 02/01/18.
  */
 
-public class SetOperationCP implements SetOperation {
+public class SetOperationCE1 implements SetOperation {
 
     private List<Ioperation> operations;
 
@@ -18,10 +20,11 @@ public class SetOperationCP implements SetOperation {
         return operations;
     }
 
-    public SetOperationCP() {
-        this.operations = genererSetOperation();
+    public SetOperationCE1() {
+        this.operations=genererSetOperation();
     }
 
+    @Override
     public List<Ioperation> genererSetOperation() {
         List<Ioperation> resultat = new ArrayList<>();
         for (int i = 0; i <10 ; i++) {
@@ -31,9 +34,17 @@ public class SetOperationCP implements SetOperation {
         return resultat;
     }
 
+    @Override
     public Ioperation genererUneOperation() {
-        Ioperation ioperation =new Addition();
-        ioperation.genererOperation(10,1,4,1);
-        return ioperation;
+        int operateur=(int)(Math.random() * (2) + 1);
+        if(operateur==1){
+            Addition addition=new Addition();
+            addition.genererOperation(10,1,10,1);
+            return addition;
+        }else{
+            Soustraction soustraction=new Soustraction();
+            soustraction.genererOperation(10,1,10,1);
+            return soustraction;
+        }
     }
 }

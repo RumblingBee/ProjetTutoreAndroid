@@ -12,6 +12,8 @@ public interface SetOperation {
 
     List<Ioperation> genererSetOperation();
 
+    List<Ioperation> getOperations();
+
     Ioperation genererUneOperation();
 
 }
