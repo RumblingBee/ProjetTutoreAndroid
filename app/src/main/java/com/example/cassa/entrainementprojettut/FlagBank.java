@@ -29,7 +29,7 @@ public class FlagBank {
 
 
     public FlagBank(ArrayList<Flag> listFlag){
-        if(listFlag != null && listFlag.size() == 4) {
+        if(listFlag.size() > 0) {
             mListChoixFlag = listFlag;
         }else{
             initialisationImagesPays();
