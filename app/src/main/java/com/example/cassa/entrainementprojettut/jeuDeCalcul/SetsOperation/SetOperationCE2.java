@@ -1,11 +1,11 @@
-package com.example.cassa.entrainementprojettut.operation.SetsOperation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
 
 import android.support.annotation.NonNull;
 
-import com.example.cassa.entrainementprojettut.operation.Addition;
-import com.example.cassa.entrainementprojettut.operation.I_Operation;
-import com.example.cassa.entrainementprojettut.operation.Multiplication;
-import com.example.cassa.entrainementprojettut.operation.Soustraction;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Multiplication;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
 
 /**
  * Created by clement on 02/01/18.
@@ -21,6 +21,21 @@ public class SetOperationCE2 implements I_SetOperation {
 
     public I_Operation getOperation() {
         return operation;
+    }
+
+    @Override
+    public int getTerme1Operation() {
+        return operation.getTerme1();
+    }
+
+    @Override
+    public int getTerme2Operation() {
+        return operation.getTerme2();
+    }
+
+    @Override
+    public char getSigneOperation() {
+        return operation.getSigne();
     }
 
 

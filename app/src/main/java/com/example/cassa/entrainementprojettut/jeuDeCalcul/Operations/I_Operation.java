@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut.operation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
 
 /**
  * Created by clement on 02/01/18.

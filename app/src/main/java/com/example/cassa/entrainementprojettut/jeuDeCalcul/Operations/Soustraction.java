@@ -1,14 +1,14 @@
-package com.example.cassa.entrainementprojettut.operation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
 
 /**
  * Created by clement on 02/01/18.
  */
 
-public class Addition implements I_Operation {
+public class Soustraction implements I_Operation {
 
     private int terme1;
     private int terme2;
-    private char signe='+';
+    private char signe='-';
 
     @Override
     public char getSigne() {
@@ -27,13 +27,15 @@ public class Addition implements I_Operation {
 
     @Override
     public void genererOperation(int borneSupTerme1, int borneInfTerme1, int borneSupTerme2, int borneInfTerme2) {
-        this.terme1=genererNombre(borneSupTerme1,borneInfTerme1);
-        this.terme2=genererNombre(borneSupTerme2,borneInfTerme2);
+        do {
+            this.terme1 = genererNombre(borneSupTerme1, borneInfTerme1);
+            this.terme2 = genererNombre(borneSupTerme2, borneInfTerme2);
+        }while (terme1-terme2<=0);
     }
 
-
-    public int afficherResultat(){
-        return terme1+terme2;
+    @Override
+    public int afficherResultat() {
+        return terme1-terme2;
     }
 
     @Override

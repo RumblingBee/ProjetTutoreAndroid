@@ -1,6 +1,6 @@
-package com.example.cassa.entrainementprojettut.operation.SetsOperation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.operation.I_Operation;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
 
 import org.junit.Before;
 import org.junit.Test;
