@@ -2,7 +2,6 @@ package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
 import com.example.cassa.entrainementprojettut.operation.Addition;
 import com.example.cassa.entrainementprojettut.operation.I_Operation;
-import com.example.cassa.entrainementprojettut.operation.Multiplication;
 import com.example.cassa.entrainementprojettut.operation.Soustraction;
 
 import org.junit.Before;
@@ -11,26 +10,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by clement on 02/01/18.
+ * Created by clement on 03/01/18.
  */
-public class SetOperationCE2Test {
+public class SetOperationCM2Test {
 
     private I_SetOperation setOperation;
     private I_Operation operation;
 
     @Before
     public void setUp() throws Exception {
-        setOperation=new SetOperationCE2();
-    }
-
-    @Test
-    public void testMultiplicationValides() throws Exception {
-        for (int i = 0; i <1000; i++) {
-            operation=setOperation.genererUneOperation();
-            if (operation.getClass()==Multiplication.class){
-                assertEquals(true,operation.getTerme1()==10 || operation.getTerme1()==2 ||operation.getTerme1()==5);
-            }
-        }
+        setOperation=new SetOperationCM2();
     }
 
     @Test
@@ -48,4 +37,5 @@ public class SetOperationCE2Test {
         }
         assertEquals(true,nbAddition>0 && nbSoustraction>0 && nbMultiplication>0);
     }
+
 }

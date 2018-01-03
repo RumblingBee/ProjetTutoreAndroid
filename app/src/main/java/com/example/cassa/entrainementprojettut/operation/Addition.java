@@ -4,7 +4,7 @@ package com.example.cassa.entrainementprojettut.operation;
  * Created by clement on 02/01/18.
  */
 
-public class Addition implements I_operation {
+public class Addition implements I_Operation {
 
     private int terme1;
     private int terme2;

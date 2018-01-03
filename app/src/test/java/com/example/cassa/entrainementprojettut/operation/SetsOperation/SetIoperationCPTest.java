@@ -1,7 +1,8 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.operation.I_operation;
+import com.example.cassa.entrainementprojettut.operation.I_Operation;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,22 +11,20 @@ import static org.junit.Assert.*;
  * Created by clement on 02/01/18.
  */
 public class SetIoperationCPTest {
-    @Test
-    public void testTailleSet() throws Exception {
-        for (int i = 0; i <100; i++) {
-            SetOperationCP setOperationCP=new SetOperationCP();
-            assertEquals(setOperationCP.getOperations().size(), 10);
-        }
+
+    private SetOperationCP setOperationCP;
+
+    @Before
+    public void setUp() throws Exception {
+        setOperationCP=new SetOperationCP();
     }
 
     @Test
     public void testEtendueOperation() throws Exception {
         for (int i = 0; i <100; i++) {
-            SetOperationCP setOperationCP=new SetOperationCP();
-            for (I_operation ioperation :setOperationCP.getOperations()) {
-                int res= ioperation.afficherResultat();
-                assertEquals(true, 2<=res && res<=14);
-            }
+            I_Operation operation=setOperationCP.genererUneOperation();
+            int res= operation.afficherResultat();
+            assertEquals(true, 2<=res && res<=14);
         }
     }
 

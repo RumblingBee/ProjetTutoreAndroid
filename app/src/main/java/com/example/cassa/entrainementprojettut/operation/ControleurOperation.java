@@ -36,15 +36,4 @@ public class ControleurOperation {
         }
     }
 
-    public int getTerme1Operation(I_operation operation){
-        return operation.getTerme1();
-    }
-    public int getTerme2Operation(I_operation operation){
-        return operation.getTerme2();
-    }
-    public char getSigneOperation(I_operation operation){
-        return operation.getSigne();
-    }
-
-
 }

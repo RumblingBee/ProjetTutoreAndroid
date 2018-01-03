@@ -1,8 +1,6 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.operation.I_operation;
-
-import java.util.List;
+import com.example.cassa.entrainementprojettut.operation.I_Operation;
 
 /**
  * Created by clement on 02/01/18.
@@ -10,12 +8,8 @@ import java.util.List;
 
 public interface I_SetOperation {
 
-    List<I_operation> genererSetOperation();
+    I_Operation genererUneOperation();
 
-    List<I_operation> getOperations();
-
-    I_operation getUneOperation(int i);
-
-    I_operation genererUneOperation();
+    I_Operation getOperation();
 
 }

@@ -4,7 +4,7 @@ package com.example.cassa.entrainementprojettut.operation;
  * Created by clement on 02/01/18.
  */
 
-public interface I_operation {
+public interface I_Operation {
 
     int getTerme1();
     int getTerme2();

@@ -1,7 +1,8 @@
 package com.example.cassa.entrainementprojettut.operation.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.operation.I_operation;
+import com.example.cassa.entrainementprojettut.operation.I_Operation;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,22 +12,18 @@ import static org.junit.Assert.*;
  */
 public class SetOperationCE1Test {
 
-    @Test
-    public void testValiditeOperation() throws Exception {
-        for (int i = 0; i <1000; i++) {
-            I_SetOperation setOperation=new SetOperationCE1();
-            int taille=setOperation.getOperations().size();
-            assertEquals(true,taille==10);
-        }
+    private I_SetOperation setOperation;
+
+    @Before
+    public void setUp() throws Exception {
+        setOperation=new SetOperationCE1();
     }
 
     @Test
     public void testValiditeSoustraction() throws Exception {
         for (int i = 0; i <1000; i++) {
-            I_SetOperation setOperation=new SetOperationCE1();
-            for (I_operation ioperation:setOperation.getOperations()) {
-                assertEquals(true,ioperation.afficherResultat()>=0);
-            }
+            I_Operation operation=setOperation.genererUneOperation();
+            assertEquals(true,operation.afficherResultat()>=0);
         }
     }
 }
