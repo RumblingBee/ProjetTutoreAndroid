@@ -25,15 +25,12 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     String gBonneReponse;
 
     int gScore,gNbBonneReponse;
-    int diff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
         lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
-
-        diff = getIntent().getIntExtra("diff", 1);
 
         initialisationDrapeaux();
 
