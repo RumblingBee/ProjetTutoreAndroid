@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Created by clement on 07/12/17.
@@ -18,19 +21,16 @@ import android.widget.Toast;
 public class GeographyTag extends GameActivity {
 
     private ViewGroup mainLayout;
-    private TextView mEtiquette1;
-    private TextView mEtiquette2;
-    private TextView mEtiquette3;
-    private TextView mEtiquette4;
-    private TextView mEtiquette5;
-    private TextView mEtiquette6;
-    private TextView mEtiquette7;
+    private List<Etiquette> etiquetteList;
 
     private int nbBonneReponse;
+    private int nbEtiquette;
     private int xDelta;
     private int yDelta;
 
+
     private MediaPlayer playerEvent;
+    private  TextView[] tabTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,28 +38,32 @@ public class GeographyTag extends GameActivity {
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.main);
 
-        mEtiquette1 = (TextView) findViewById(R.id.activity_geographytag_etiquette1_textView);
+
+        EtiquetteBank etiquetteBank = new EtiquetteBank(1,retourTailleEcran(),getHauteurEcran());
+        etiquetteList = etiquetteBank.getEtiquetteList();
+        nbEtiquette = etiquetteList.size();
+
+        genererTextView();
+        genererNomEtiquette();
+        genererTagEtiquette();
+
+
+
+      /*  mEtiquette1 = (TextView) findViewById(R.id.activity_geographytag_etiquette1_textView);
         mEtiquette2 = (TextView) findViewById(R.id.activity_geographytag_etiquette2_textView);
         mEtiquette3 = (TextView) findViewById(R.id.activity_geographytag_etiquette3_textView);
         mEtiquette4 = (TextView) findViewById(R.id.activity_geographytag_etiquette4_textView);
         mEtiquette5 = (TextView) findViewById(R.id.activity_geographytag_etiquette5_textView);
         mEtiquette6 = (TextView) findViewById(R.id.activity_geographytag_etiquette6_textView);
-        mEtiquette7 = (TextView) findViewById(R.id.activity_geographytag_etiquette7_textView);
+        mEtiquette7 = (TextView) findViewById(R.id.activity_geographytag_etiquette7_textView);*/
 
         nbBonneReponse=0;
 
         //On crée les étiquettes
-        Etiquette etiquette1 = new Etiquette("Amerique du Nord",retourTailleEcran()*8/48,retourTailleEcran()*3/12,getHauteurEcran()*1/12,getHauteurEcran()*5/24);
-        Etiquette etiquette2 = new Etiquette("Afrique",retourTailleEcran()/2,retourTailleEcran()*7/12,getHauteurEcran()*9/24,getHauteurEcran()*11/24);
-        Etiquette etiquette3 = new Etiquette("Europe",retourTailleEcran()*11/24,retourTailleEcran()*13/24,getHauteurEcran()/12,getHauteurEcran()*2/12);
-        Etiquette etiquette4 = new Etiquette("Asie",retourTailleEcran()*8/12,retourTailleEcran()*18/24,getHauteurEcran()*2/12,getHauteurEcran()*5/24);
-        Etiquette etiquette5 = new Etiquette("Amerique du Sud",retourTailleEcran()*3/12,retourTailleEcran()*4/12,getHauteurEcran()*5/12,getHauteurEcran()*13/24);
-        Etiquette etiquette6 = new Etiquette("Océanie",retourTailleEcran()*19/24,retourTailleEcran()*21/24,getHauteurEcran()*13/24,getHauteurEcran()*15/24);
-        Etiquette etiquette7 = new Etiquette("Antarctique",retourTailleEcran()*3/12,retourTailleEcran()*17/24,getHauteurEcran()*10/12,getHauteurEcran()*11/12);
 
 
         //On attribue la zone de victoire à la textView
-        mEtiquette1.setTag(etiquette1.getZoneVictoire());
+     /*   mEtiquette1.setTag(etiquette1.getZoneVictoire());
         mEtiquette2.setTag(etiquette2.getZoneVictoire());
         mEtiquette3.setTag(etiquette3.getZoneVictoire());
         mEtiquette4.setTag(etiquette4.getZoneVictoire());
@@ -84,16 +88,16 @@ public class GeographyTag extends GameActivity {
         mEtiquette4.setText(etiquette4.getNom());
         mEtiquette5.setText(etiquette5.getNom());
         mEtiquette6.setText(etiquette6.getNom());
-        mEtiquette7.setText(etiquette7.getNom());
+        mEtiquette7.setText(etiquette7.getNom());*/
 
         //On rend la textView "dragable"
-        mEtiquette1.setOnTouchListener(onTouchListener());
+        /*mEtiquette1.setOnTouchListener(onTouchListener());
         mEtiquette2.setOnTouchListener(onTouchListener());
         mEtiquette3.setOnTouchListener(onTouchListener());
         mEtiquette4.setOnTouchListener(onTouchListener());
         mEtiquette5.setOnTouchListener(onTouchListener());
         mEtiquette6.setOnTouchListener(onTouchListener());
-        mEtiquette7.setOnTouchListener(onTouchListener());
+        mEtiquette7.setOnTouchListener(onTouchListener());*/
 
         //On lance la musique
         lancerBgMusique(GeographyTag.this,R.raw.geography_music);
@@ -103,6 +107,7 @@ public class GeographyTag extends GameActivity {
 
 
     }
+
 
     private View.OnTouchListener onTouchListener(){
         return new View.OnTouchListener() {
@@ -164,6 +169,37 @@ public class GeographyTag extends GameActivity {
 
         return false;
     }
+    public void genererTextView(){
+
+         tabTextView = new TextView[etiquetteList.size()];
+
+        for(int i = 0; i<etiquetteList.size(); i++){
+
+            RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            textViewParams.setMargins(10, i*50, 0, 0);
+
+            tabTextView[i] = new TextView(this);
+            tabTextView[i].setLayoutParams(textViewParams);
+            tabTextView[i].setBackgroundColor(Color.GREEN);
+            tabTextView[i].setOnTouchListener(onTouchListener());
+
+
+
+            mainLayout.addView(tabTextView[i],textViewParams);
+        }
+    }
+    private void genererTagEtiquette() {
+        for(int i = 0; i<etiquetteList.size(); i++){
+            tabTextView[i].setTag(etiquetteList.get(i).getZoneVictoire());
+        }
+    }
+
+    private void genererNomEtiquette() {
+        for(int i = 0; i<etiquetteList.size(); i++){
+             tabTextView[i].setText(etiquetteList.get(i).getNom());
+        }
+    }
+
 
     @Override
     public void onBackPressed()
