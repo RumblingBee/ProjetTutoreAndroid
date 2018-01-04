@@ -81,7 +81,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
         reactiverNomPays();
 
-        generetReponse(flagBank);
+        genererReponse(flagBank);
 
         genererChoix(flagBank, mListeButton);
 
@@ -97,7 +97,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     }
 
 
-    private void generetReponse(FlagBank flagBank) {
+    private void genererReponse(FlagBank flagBank) {
         Random mRand = new Random();
         int mNumReponse = mRand.nextInt(4);
 
