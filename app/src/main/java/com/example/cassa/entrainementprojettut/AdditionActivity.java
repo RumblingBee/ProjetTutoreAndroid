@@ -1,6 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.ControleurOperation;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
 
@@ -22,7 +24,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     private Button mButton3;
     private Button mButton4;
 
-    private Operation op;
+    private ControleurOperation ctrl;
 
     private int gNbReponsesCorectes;
 
@@ -80,15 +82,18 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
     }
 
+    @SuppressLint("SetTextI18n")
     protected void genererAddition(){
 
-         op = new Operation(niveauChoisi);
+         ctrl = new ControleurOperation(niveauChoisi);
 
         //Affichage de l'opération
 
-        mNombre1.setText(""+op.getTerme1());
-        mNombre2.setText(""+op.getTerme2());
-        mSigne.setText(""+op.getSigne());
+        int[] termesOperation=ctrl.getTermesOperation();
+
+        mNombre1.setText(""+termesOperation[0]);
+        mNombre2.setText(""+termesOperation[1]);
+        mSigne.setText(""+ctrl.getSigneOperation());
 
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
@@ -109,13 +114,13 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         for(i = 0;i<4;i++){
             if(i< positionReponse){
-                tabReponse[i] = op.getReponse() - (positionReponse - i);
+                tabReponse[i] = ctrl.getReponse() - (positionReponse - i);
             }
             else if(i == positionReponse){
-                tabReponse[i] = op.getReponse();
+                tabReponse[i] = ctrl.getReponse();
             }
             else{
-               tabReponse[i] = op.getReponse() + (i - positionReponse);
+               tabReponse[i] = ctrl.getReponse() + (i - positionReponse);
             }
         }
 
@@ -127,12 +132,12 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
     }
 
-    public boolean verifierReponse(int reponseEnvoyee,int reponseCorrecte ){
+    public boolean verifierReponse(int reponseEnvoyee){
 
         float largeurEcran = retourTailleEcran();
 
 
-        if(reponseCorrecte == reponseEnvoyee){
+        if(ctrl.verifierReponse(reponseEnvoyee)){
 
             gNbReponsesCorectes++;
             afficherTexte("Bravo!");
@@ -152,7 +157,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         }
         else{
-            afficherTexte("Dommage, la réponse était " + reponseCorrecte);
+            afficherTexte("Dommage, la réponse était " + ctrl.getReponse());
             genererAddition();
             return false;
         }
@@ -211,7 +216,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
         griserBoutons();
-       if(verifierReponse(reponseEnvoyee,op.getReponse())) {
+       if(verifierReponse(reponseEnvoyee)) {
 
            handler.postDelayed(activerBoutons, 800);
        }

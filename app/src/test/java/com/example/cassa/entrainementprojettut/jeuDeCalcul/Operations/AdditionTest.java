@@ -1,4 +1,6 @@
-package com.example.cassa.entrainementprojettut.operation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
+
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,5 @@ public class AdditionTest {
             addition.genererOperation(10,1,4,1);
             assertEquals((addition.getTerme2() + addition.getTerme1()), addition.afficherResultat());
         }
-
     }
 }

@@ -1,6 +1,7 @@
-package com.example.cassa.entrainementprojettut.operation;
+package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
 
-import org.junit.Assert;
+import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,8 @@ public class SoustractionTest {
     public void testPasDeNegatif() throws Exception {
         for(int i=0;i<1000;i++){
             soustraction.genererOperation(10,1,10,1);
-            assertEquals(true, soustraction.afficherResultat() >= 0);
+            System.out.println(soustraction.afficherResultat());
+            assertEquals(true, soustraction.afficherResultat() > 0);
         }
     }
 
