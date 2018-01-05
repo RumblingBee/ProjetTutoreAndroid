@@ -166,21 +166,6 @@ public class GeographyTag extends GameActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
-
-    @Override
     protected void onResume() {
         if(bgPlayer != null){
             lancerBgMusique(GeographyTag.this,R.raw.geography_music);

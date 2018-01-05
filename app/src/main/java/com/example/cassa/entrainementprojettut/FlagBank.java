@@ -9,9 +9,9 @@ import java.util.Random;
  */
 
 public class FlagBank {
-    ArrayList<Flag> mListChoixFlag;
-    ArrayList<Integer> mListAdresseImage;
-    ArrayList<String> mListNomPays;
+    private ArrayList<Flag> mListChoixFlag;
+    private ArrayList<Integer> mListAdresseImage;
+    private ArrayList<String> mListNomPays;
     private static String[] mPays = {"France", "Allemagne", "Italie", "Espagne", "Pays-Bas", "Portugal", "Suisse", "Royaume-Uni", "Belgique", "Russie",
             "Canada", "Etats-Unis", "Brésil", "Chine", "Australie", "Afrique Du Sud", "Japon", "Argentine", "Algérie", "Mexique",
             "Autriche", "Maroc", "Tunisie", "Turquie", "Nouvelle-Zélande", "Inde", "Pérou", "Corée Du Sud", "Egypte", "Chili"};
@@ -92,17 +92,17 @@ public class FlagBank {
     private void initialisationNomPays(int diff) {
         switch (diff){
             case 1:
-                for(int i=0; i<10; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(10);
             case 2:
-                for (int i=0; i<20; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(20);
             case 3:
-                for (int i=0; i<30; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(30);
+        }
+    }
+
+    private void addPays(int max) {
+        for (int i=0; i<max; i++){
+            mListNomPays.add(mPays[i]);
         }
     }
 

@@ -223,18 +223,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        bgPlayer.start();
-    }
-    @Override
     protected void onResume() {
         if(bgPlayer != null){
             lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);

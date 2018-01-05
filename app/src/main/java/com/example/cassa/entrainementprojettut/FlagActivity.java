@@ -163,24 +163,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     }
 
     @Override
-    public void onBackPressed(){
-        bgPlayer.stop();
-        Intent ecranMenu = new Intent(FlagActivity.this, MainActivity.class);
-        startActivity(ecranMenu);
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        bgPlayer.stop();
-    }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        bgPlayer.start();
-    }
-    @Override
     protected void onResume() {
         if(bgPlayer != null){
             lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);

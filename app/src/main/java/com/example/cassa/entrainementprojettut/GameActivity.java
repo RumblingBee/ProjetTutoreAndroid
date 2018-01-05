@@ -336,7 +336,29 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bgPlayer.stop();
+    }
 
+    @Override
+    public void onBackPressed(){
+        bgPlayer.stop();
+        Intent back = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(back);
+        super.onBackPressed();
+    }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        bgPlayer.stop();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        bgPlayer.start();
+    }
 }
