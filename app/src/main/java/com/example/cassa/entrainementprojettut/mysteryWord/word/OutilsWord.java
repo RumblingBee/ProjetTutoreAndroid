@@ -27,6 +27,13 @@ public abstract class OutilsWord implements I_Word {
         return (char)ascii;
     }
 
+    protected char coderLettreEnPositif(char c, int i) {
+        int ascii=(int)c;
+        ascii+=i;
+        ascii = ajustementValeurDuCaractere(ascii);
+        return (char)ascii;
+    }
+
     public int ajustementValeurDuCaractere(int ascii) {
         if(ascii > 122){
             ascii = ascii - 26;
