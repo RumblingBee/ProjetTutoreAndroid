@@ -12,4 +12,5 @@ public interface I_Word {
 
     void coderMot(int i);
 
+    String getConsigne();
 }

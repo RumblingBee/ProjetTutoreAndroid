@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface I_WordBank {
 
+    List<I_Word> getSetMots();
+
     void genererListeMots();
 
 }

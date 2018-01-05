@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cassa.entrainementprojettut.mysteryWord.ControleurMysteryWord;
+import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
+
 public class MysteryWordActivity extends GameActivity {
     private TextView gTxtOrder;
     private TextView gTxtAnswer;
@@ -23,8 +26,10 @@ public class MysteryWordActivity extends GameActivity {
 
     private ToggleButton gKeyboard[] = new ToggleButton[26];
     float gPositionImageJoueur;
-    private WordBank gWordBank;
-    private Word gCurrentWord;
+
+    private ControleurMysteryWord ctrl;
+    private I_Word motEnCour;
+
     private char gSelectedCharaAnswer;
     private int gNbReponsesCorrectes = 0;
     private int gNbLettreOk;
@@ -38,7 +43,7 @@ public class MysteryWordActivity extends GameActivity {
         public void run() {
             viderLayout();
             gTxtAnswer.setText("");
-            displayWord(gCurrentWord);
+            displayWord(motEnCour);
         }
     };
 
@@ -110,11 +115,11 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
-    private void displayWord(Word pWord) {
+    private void displayWord(I_Word pWord) {
 
         int i = 0;
-        final int wordLength = pWord.get_codedWord().length();
-        for (char c : pWord.get_codedWord().toCharArray()) {
+        final int wordLength = pWord.getMotCode().length();
+        for (char c : pWord.getMotCode().toCharArray()) {
             final int tmp = i;
             final ToggleButton button = (ToggleButton) this.getLayoutInflater().inflate(R.layout.mystery_word_button, gBtnLayout, false);
             button.setText(String.valueOf(c));
@@ -125,7 +130,7 @@ public class MysteryWordActivity extends GameActivity {
                 public void onClick(View pView) {
                     reinitClavier();
                     gTxtAnswer.setText("");
-                    gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(tmp);
+                    gSelectedCharaAnswer = motEnCour.getMot().charAt(tmp);
                     gSelectedLetter = (ToggleButton)pView;
                     pView.setClickable(false);
                     for (int j = 0; j < wordLength; j++) {
@@ -140,7 +145,7 @@ public class MysteryWordActivity extends GameActivity {
             gBtnLayout.addView(button);
             ToggleButton firstLetter = (ToggleButton) gBtnLayout.getChildAt(0);
             firstLetter.setChecked(true);
-            gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(0);
+            gSelectedCharaAnswer = motEnCour.getMot().charAt(0);
             gSelectedLetter = firstLetter;
             i++;
         }
@@ -161,8 +166,8 @@ public class MysteryWordActivity extends GameActivity {
         return res;
     }
 
-    public boolean motFini(Word sMotActuel, int i) {
-        return (sMotActuel.get_answer().length() == i);
+    public boolean motFini(I_Word sMotActuel, int i) {
+        return (sMotActuel.getMot().length() == i);
     }
 
     public void reinitClavier() {
@@ -212,13 +217,13 @@ public class MysteryWordActivity extends GameActivity {
             gNbLettreOk++;
             desactiverBouton(pBtnSelec, s);
             reinitClavier();
-            validMot(gCurrentWord, gNbLettreOk, gTxtAnswer);
+            validMot(motEnCour, gNbLettreOk, gTxtAnswer);
         } else {
             pBtn.setEnabled(false);
         }
     }
 
-    public void validMot(Word pWord, int pInt, TextView pReponse) {
+    public void validMot(I_Word pWord, int pInt, TextView pReponse) {
         if (motFini(pWord, pInt)) {
             pReponse.setText("Bravo !");
             gNbReponsesCorrectes++;
@@ -229,7 +234,7 @@ public class MysteryWordActivity extends GameActivity {
         } else {
             int indexCurrentLetter = gBtnLayout.indexOfChild(gSelectedLetter);
             int indexNextLetter;
-            if (indexCurrentLetter == gCurrentWord.get_codedWord().length() - 1 ||
+            if (indexCurrentLetter == motEnCour.getMotCode().length() - 1 ||
                     !gBtnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()) {
                 int j = 0;
                 while (!gBtnLayout.getChildAt(j).isEnabled()) {
@@ -241,7 +246,7 @@ public class MysteryWordActivity extends GameActivity {
             }
             ToggleButton nextLetter = (ToggleButton) gBtnLayout.getChildAt(indexNextLetter);
             nextLetter.setChecked(true);
-            gSelectedCharaAnswer = gCurrentWord.get_answer().charAt(indexNextLetter);
+            gSelectedCharaAnswer = motEnCour.getMotCode().charAt(indexNextLetter);
             gSelectedLetter = nextLetter;
             nextLetter.setClickable(false);
         }
@@ -252,19 +257,19 @@ public class MysteryWordActivity extends GameActivity {
             afficherEcranFin(MysteryWordActivity.this, true, false, 0);
         }
         else {
-            gCurrentWord = motSuivant(gWordBank);
+            motEnCour = motSuivant(ctrl);
         }
     }
 
     public void lancerPartie() {
         //On génère une collection de 5 mots codés
-        gWordBank = new WordBank(niveauChoisi);
+        ctrl = new ControleurMysteryWord(niveauChoisi);
 
         //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        gCurrentWord = gWordBank.getWord(0);
+        motEnCour = ctrl.getUnMot(0);
         gNbLettreOk = 0;
-        displayWord(gCurrentWord);
-        gTxtOrder.setText(gCurrentWord.get_order());
+        displayWord(motEnCour);
+        gTxtOrder.setText(motEnCour.getConsigne());
 
         int duree;
         switch(niveauChoisi)
@@ -286,14 +291,14 @@ public class MysteryWordActivity extends GameActivity {
 
     /**
      * @param pLexique
-     * @return Word motSuivant
+     * @return I_Word motSuivant
      */
 
-    public Word motSuivant(WordBank pLexique) {
-        Word motSuivant = pLexique.getWord(gNbReponsesCorrectes);
+    public I_Word motSuivant(ControleurMysteryWord pLexique) {
+        I_Word motSuivant = pLexique.getUnMot(gNbReponsesCorrectes);
         gNbLettreOk = 0;
         gHandler.postDelayed(gDisplayWord, 1000);
-        gTxtOrder.setText(gCurrentWord.get_order());
+        gTxtOrder.setText(motSuivant.getConsigne());
         return motSuivant;
     }
     @Override
