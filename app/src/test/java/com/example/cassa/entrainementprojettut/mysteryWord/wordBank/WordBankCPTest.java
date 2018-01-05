@@ -13,22 +13,22 @@ import static org.junit.Assert.*;
 /**
  * Created by clement on 04/01/18.
  */
-public class WordBankFacileTest {
+public class WordBankCPTest {
 
-    private WordBankFacile wordBankFacile;
+    private WordBankCP wordBankCP;
 
 
     @Before
     public void setUp() throws Exception {
-        wordBankFacile=new WordBankFacile();
+        wordBankCP =new WordBankCP();
     }
 
     @Test
     public void testPasDeDoublon() throws Exception {
         for (int j = 0; j <1000; j++) {
             List<String> liste=new ArrayList<>();
-            wordBankFacile.genererListeMots();
-            List<I_Word> words=wordBankFacile.getSetMots();
+            wordBankCP.genererListeMots();
+            List<I_Word> words= wordBankCP.getSetMots();
             for (I_Word word:words) {
                 liste.add(word.getMot());
             }
@@ -49,8 +49,8 @@ public class WordBankFacileTest {
     public void testTailleDesWordsBank() throws Exception {
         List<I_Word> list;
         for (int i = 0; i <1000; i++) {
-            wordBankFacile.genererListeMots();
-            list=wordBankFacile.getSetMots();
+            wordBankCP.genererListeMots();
+            list= wordBankCP.getSetMots();
             assertEquals (5,list.size());
         }
     }
@@ -59,8 +59,8 @@ public class WordBankFacileTest {
     public void testFonctionnementStandard() throws Exception {
 
         for (int i = 0; i <1000; i++) {
-            wordBankFacile.genererListeMots();
-            List<I_Word>list=wordBankFacile.getSetMots();
+            wordBankCP.genererListeMots();
+            List<I_Word>list= wordBankCP.getSetMots();
             for (I_Word word:list) {
                 StringBuilder codedWord = new StringBuilder();
                 for (char c:word.getMot().toCharArray()) {

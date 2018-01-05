@@ -10,6 +10,6 @@ public interface I_Word {
     String getMotCode();
     int ajustementValeurDuCaractere(int ascii);
 
-    void coderMot();
+    void coderMot(int i);
 
 }
