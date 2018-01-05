@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.geographie;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -1,9 +1,15 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.geographie;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.cassa.entrainementprojettut.GameActivity;
+import com.example.cassa.entrainementprojettut.R;
 
 import java.util.List;
 
@@ -20,11 +29,10 @@ import java.util.List;
 
 public class GeographyTag extends GameActivity {
 
-    private ViewGroup mainLayout;
+    private ViewGroup       mainLayout;
     private List<Etiquette> etiquetteList;
 
     private int nbBonneReponse;
-    private int nbEtiquette;
     private int xDelta;
     private int yDelta;
 
@@ -38,75 +46,43 @@ public class GeographyTag extends GameActivity {
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.main);
 
+        afficherChoixNiveaux(GeographyTag.this,"",3);
 
-        EtiquetteBank etiquetteBank = new EtiquetteBank(1,retourTailleEcran(),getHauteurEcran());
-        etiquetteList = etiquetteBank.getEtiquetteList();
-        nbEtiquette = etiquetteList.size();
-
-        genererTextView();
-        genererNomEtiquette();
-        genererTagEtiquette();
-
-
-
-      /*  mEtiquette1 = (TextView) findViewById(R.id.activity_geographytag_etiquette1_textView);
-        mEtiquette2 = (TextView) findViewById(R.id.activity_geographytag_etiquette2_textView);
-        mEtiquette3 = (TextView) findViewById(R.id.activity_geographytag_etiquette3_textView);
-        mEtiquette4 = (TextView) findViewById(R.id.activity_geographytag_etiquette4_textView);
-        mEtiquette5 = (TextView) findViewById(R.id.activity_geographytag_etiquette5_textView);
-        mEtiquette6 = (TextView) findViewById(R.id.activity_geographytag_etiquette6_textView);
-        mEtiquette7 = (TextView) findViewById(R.id.activity_geographytag_etiquette7_textView);*/
-
-        nbBonneReponse=0;
-
-        //On crée les étiquettes
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                        @Override
+                                        public void onDismiss(DialogInterface dialogInterface) {
+                                            if (niveauChoisi != 0) {
+                                                EtiquetteBank etiquetteBank = new EtiquetteBank(niveauChoisi, retourTailleEcran(), getHauteurEcran());
+                                                etiquetteList = etiquetteBank.getEtiquetteList();
 
 
-        //On attribue la zone de victoire à la textView
-     /*   mEtiquette1.setTag(etiquette1.getZoneVictoire());
-        mEtiquette2.setTag(etiquette2.getZoneVictoire());
-        mEtiquette3.setTag(etiquette3.getZoneVictoire());
-        mEtiquette4.setTag(etiquette4.getZoneVictoire());
-        mEtiquette5.setTag(etiquette5.getZoneVictoire());
-        mEtiquette6.setTag(etiquette6.getZoneVictoire());
-        mEtiquette7.setTag(etiquette7.getZoneVictoire());
+                                                genererTextView();
+                                                genererNomEtiquette();
+                                                genererTagEtiquette();
 
-        //On leur met un nom
-        mEtiquette1.setText(etiquette1.getNom());
-        mEtiquette2.setText(etiquette2.getNom());
-        mEtiquette3.setText(etiquette3.getNom());
-        mEtiquette4.setText(etiquette4.getNom());
-        mEtiquette5.setText(etiquette5.getNom());
-        mEtiquette6.setText(etiquette6.getNom());
-        mEtiquette7.setText(etiquette7.getNom());
+                                                genererZoneSurImage();
+                                                genererImageDeFond();
+                                            } else {
+                                                afficherChoixNiveaux(GeographyTag.this, "", 3);
+                                            }
 
 
-        //On lui met le nom de l'étiquette
-        mEtiquette1.setText(etiquette1.getNom());
-        mEtiquette2.setText(etiquette2.getNom());
-        mEtiquette3.setText(etiquette3.getNom());
-        mEtiquette4.setText(etiquette4.getNom());
-        mEtiquette5.setText(etiquette5.getNom());
-        mEtiquette6.setText(etiquette6.getNom());
-        mEtiquette7.setText(etiquette7.getNom());*/
+                                        }
+                                    });
 
-        //On rend la textView "dragable"
-        /*mEtiquette1.setOnTouchListener(onTouchListener());
-        mEtiquette2.setOnTouchListener(onTouchListener());
-        mEtiquette3.setOnTouchListener(onTouchListener());
-        mEtiquette4.setOnTouchListener(onTouchListener());
-        mEtiquette5.setOnTouchListener(onTouchListener());
-        mEtiquette6.setOnTouchListener(onTouchListener());
-        mEtiquette7.setOnTouchListener(onTouchListener());*/
+            nbBonneReponse=0;
 
-        //On lance la musique
-        lancerBgMusique(GeographyTag.this,R.raw.geography_music);
+            lancerBgMusique(GeographyTag.this, R.raw.geography_music);
+
+            playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
 
 
-        playerEvent= MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
+
 
 
     }
+
+
 
 
     private View.OnTouchListener onTouchListener(){
@@ -137,9 +113,9 @@ public class GeographyTag extends GameActivity {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        /*Toast toast;
+                        Toast toast;
                         toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
-                        toast.show();*/
+                        toast.show();
 
                        if (verifierZone((float[])view.getTag(),(x-xDelta),(y-yDelta))){
                            view.setEnabled(false);
@@ -160,7 +136,7 @@ public class GeographyTag extends GameActivity {
         if( positionX >= zoneVictoireEtiquette[0] && positionX <= zoneVictoireEtiquette[1] && positionY>= zoneVictoireEtiquette[2] && positionY <= zoneVictoireEtiquette[3]){
          afficherTexte("Bravo!");
             nbBonneReponse++;
-            if(nbBonneReponse==7){
+            if(nbBonneReponse==etiquetteList.size()){
                 afficherEcranFin(GeographyTag.this,true,false,0);
             }
             return true;
@@ -169,24 +145,34 @@ public class GeographyTag extends GameActivity {
 
         return false;
     }
-    public void genererTextView(){
+    private void genererTextView(){
+        int nbEtiquetteColonne = getNombreMaxEtiquetteParColonne();
+        int numeroColonne = 0;
+
 
          tabTextView = new TextView[etiquetteList.size()];
-
+        ;
         for(int i = 0; i<etiquetteList.size(); i++){
 
             RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            textViewParams.setMargins(10, i*50, 0, 0);
 
             tabTextView[i] = new TextView(this);
-            tabTextView[i].setLayoutParams(textViewParams);
-            tabTextView[i].setBackgroundColor(Color.GREEN);
-            tabTextView[i].setOnTouchListener(onTouchListener());
+            tabTextView[i].setPadding(10,10,10,10);
 
+            if (((i+1) % nbEtiquetteColonne) == 0 ) {
+                numeroColonne +=1;
+            }
+            textViewParams.setMargins((numeroColonne*350)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
+
+            tabTextView[i].setGravity(Gravity.LEFT);
+            tabTextView[i].setLayoutParams(textViewParams);
+            tabTextView[i].setBackgroundColor(Color.BLUE);
+            tabTextView[i].setOnTouchListener(onTouchListener());
 
 
             mainLayout.addView(tabTextView[i],textViewParams);
         }
+
     }
     private void genererTagEtiquette() {
         for(int i = 0; i<etiquetteList.size(); i++){
@@ -200,6 +186,27 @@ public class GeographyTag extends GameActivity {
         }
     }
 
+    private void genererImageDeFond() {
+        if(niveauChoisi == 1) {
+            mainLayout.setBackgroundResource(R.drawable.continent);
+        }
+        else {
+            mainLayout.setBackgroundResource(R.drawable.occitanie);
+        }
+    }
+
+    private void genererZoneSurImage(){
+
+
+    }
+    private int getNombreMaxEtiquetteParColonne(){
+        int i = 0;
+        while(i*100<= getHauteurEcran() * 0.8){
+            i++;
+        }
+
+        return i;
+    }
 
     @Override
     public void onBackPressed()
@@ -223,4 +230,5 @@ public class GeographyTag extends GameActivity {
         }
         super.onResume();
     }
+
 }

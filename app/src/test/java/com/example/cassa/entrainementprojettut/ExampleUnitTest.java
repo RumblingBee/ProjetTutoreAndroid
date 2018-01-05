@@ -1,5 +1,7 @@
 package com.example.cassa.entrainementprojettut;
 
+import com.example.cassa.entrainementprojettut.geographie.Etiquette;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
