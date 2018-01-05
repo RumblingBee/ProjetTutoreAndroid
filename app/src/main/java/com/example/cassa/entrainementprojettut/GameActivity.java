@@ -285,6 +285,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     }
 
+    protected int mMusique = 0;
 
     protected void lancerBgMusique(Activity selfActivity, int idMusic){
 
@@ -360,5 +361,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     protected void onRestart() {
         super.onRestart();
         bgPlayer.start();
+    }
+
+    @Override
+    protected void onResume() {
+        if(bgPlayer != null){
+            lancerBgMusique(GameActivity.this, mMusique);
+        }
+        super.onResume();
     }
 }

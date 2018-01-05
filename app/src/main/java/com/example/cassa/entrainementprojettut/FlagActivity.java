@@ -30,7 +30,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
-        lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
+        mMusique = R.raw.bensound_funnysong;
+        lancerBgMusique(FlagActivity.this, mMusique);
 
         initialisationDrapeaux();
 
@@ -160,13 +161,5 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         String paysSelectione = (String) view.getTag();
 
         verifierReponse((ImageView) view,paysSelectione);
-    }
-
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(FlagActivity.this, R.raw.bensound_funnysong);
-        }
-        super.onResume();
     }
 }

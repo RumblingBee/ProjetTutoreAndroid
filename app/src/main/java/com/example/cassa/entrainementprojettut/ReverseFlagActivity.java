@@ -27,8 +27,8 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
-
-        lancerBgMusique(ReverseFlagActivity.this, R.raw.bensound_goinghigher);
+        mMusique = R.raw.bensound_goinghigher;
+        lancerBgMusique(ReverseFlagActivity.this, mMusique);
 
         initialisationNomPays();
 
@@ -142,14 +142,6 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         String mNomPays = (String) view.getTag();
 
         verifierReponse((Button) view, mNomPays);
-    }
-
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(ReverseFlagActivity.this, R.raw.bensound_goinghigher);
-        }
-        super.onResume();
     }
 
 }

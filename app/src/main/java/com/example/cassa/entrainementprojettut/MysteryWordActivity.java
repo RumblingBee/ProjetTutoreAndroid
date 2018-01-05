@@ -46,8 +46,8 @@ public class MysteryWordActivity extends GameActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
-
-        lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
+        mMusique = R.raw.bensound_cute;
+        lancerBgMusique(MysteryWordActivity.this, mMusique);
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
 
@@ -295,14 +295,5 @@ public class MysteryWordActivity extends GameActivity {
         gHandler.postDelayed(gDisplayWord, 1000);
         gTxtOrder.setText(gCurrentWord.get_order());
         return motSuivant;
-    }
-
-
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
-        }
-        super.onResume();
     }
 }
