@@ -47,7 +47,7 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
         mMusique = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, mMusique);
+        lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
 
@@ -177,26 +177,6 @@ public class MysteryWordActivity extends GameActivity {
 
         bgPlayer.stop();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
-
-    @Override
-    public void onBackPressed() {
-        bgPlayer.stop();
-        Intent ecranMenu = new Intent(MysteryWordActivity.this, MainActivity.class);
-        startActivity(ecranMenu);
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        bgPlayer.stop();
-        super.onPause();
-    }
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        bgPlayer.start();
     }
 
     //TODO Placer en classe mère
