@@ -110,6 +110,7 @@ public class MysteryWordActivity extends GameActivity {
                 @Override
                 public void onClick(View view) {
                     validRep(gKeyboard[tmp], gSelectedLetter);
+                    System.out.println(gSelectedCharaAnswer);
                 }
             });
         }
@@ -246,7 +247,7 @@ public class MysteryWordActivity extends GameActivity {
             }
             ToggleButton nextLetter = (ToggleButton) gBtnLayout.getChildAt(indexNextLetter);
             nextLetter.setChecked(true);
-            gSelectedCharaAnswer = motEnCour.getMotCode().charAt(indexNextLetter);
+            gSelectedCharaAnswer = motEnCour.getMot().charAt(indexNextLetter);
             gSelectedLetter = nextLetter;
             nextLetter.setClickable(false);
         }

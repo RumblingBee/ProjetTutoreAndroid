@@ -9,7 +9,7 @@ public class WordCE1 extends OutilsWord implements I_Word{
     public WordCE1(String mot) {
         this.mot = mot;
         coderMot(2);
-        consigne="Décale les lettres du mot codé de -2 lettre dans l'alphabet pour trouver le mot caché";
+        consigne="Décale les lettres du mot codé de +2 lettre dans l'alphabet pour trouver le mot caché";
     }
 
     @Override
