@@ -223,6 +223,7 @@ public class GeographyTag extends GameActivity {
             rect = new RectF(xMin, yMin, xMax, yMax);
 
             canvas.drawRect(rect, paint);
+
         }
     }
 

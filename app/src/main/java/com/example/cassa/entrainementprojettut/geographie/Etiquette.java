@@ -33,4 +33,5 @@ public class Etiquette {
         this.zoneVictoire[2] = yMin;
         this.zoneVictoire[3] = yMax;
     }
+
 }
