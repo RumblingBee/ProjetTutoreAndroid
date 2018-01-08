@@ -47,7 +47,7 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
         mMusique = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
+        lancerBgMusique(MysteryWordActivity.this, mMusique);
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
 
