@@ -28,10 +28,9 @@ public class Etiquette {
 
     public Etiquette(String nom, float xMin, float xMax, float yMin, float yMax) {
         this.nom = nom;
-
         this.zoneVictoire[0] = xMin;
         this.zoneVictoire[1] = xMax;
         this.zoneVictoire[2] = yMin;
         this.zoneVictoire[3] = yMax;
     }
-    }
+}
