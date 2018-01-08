@@ -43,9 +43,21 @@ public class EtiquetteBank {
 
                 break;
             case 3:
-                mListEtiquette.add(new Etiquette("Islande", largeurEcran*26/100, largeurEcran*34/100, hauteurEcran*6/100, hauteurEcran*13/100));
-                mListEtiquette.add(new Etiquette("Irlande", largeurEcran*27/100, largeurEcran*35/100, hauteurEcran*41/100, hauteurEcran*49/100));
-                mListEtiquette.add(new Etiquette("Royaume-\nUni", largeurEcran*34/100, largeurEcran*41/100, hauteurEcran*45/100, hauteurEcran*52/100));
+                mListEtiquette.add(new Etiquette("Islande", largeurEcran*27/100, largeurEcran*34/100, hauteurEcran*6/100, hauteurEcran*13/100));
+                mListEtiquette.add(new Etiquette("Irlande", largeurEcran*27/100, largeurEcran*34/100, hauteurEcran*41/100, hauteurEcran*48/100));
+                mListEtiquette.add(new Etiquette("Royaume-\nUni", largeurEcran*33/100, largeurEcran*42/100, hauteurEcran*45/100, hauteurEcran*55/100));
+                mListEtiquette.add(new Etiquette("France", largeurEcran*36/100, largeurEcran*43/100, hauteurEcran*61/100, hauteurEcran*68/100));
+                mListEtiquette.add(new Etiquette("Espagne", largeurEcran*28/100, largeurEcran*36/100, hauteurEcran*76/100, hauteurEcran*83/100));
+                mListEtiquette.add(new Etiquette("Portugal", largeurEcran*19/100, largeurEcran*27/100, hauteurEcran*76/100, hauteurEcran*83/100));
+                mListEtiquette.add(new Etiquette("Italie", largeurEcran*49/100, largeurEcran*55/100, hauteurEcran*77/100, hauteurEcran*84/100));
+                mListEtiquette.add(new Etiquette("Allemagne", largeurEcran*45/100, largeurEcran*54/100, hauteurEcran*51/100, hauteurEcran*58/100));
+                mListEtiquette.add(new Etiquette("Pologne", largeurEcran*55/100, largeurEcran*63/100, hauteurEcran*49/100, hauteurEcran*56/100));
+                mListEtiquette.add(new Etiquette("Russie", largeurEcran*70/100, largeurEcran*77/100, hauteurEcran*33/100, hauteurEcran*40/100));
+                mListEtiquette.add(new Etiquette("Norvège", largeurEcran*45/100, largeurEcran*53/100, hauteurEcran*27/100, hauteurEcran*34/100));
+                mListEtiquette.add(new Etiquette("Suède", largeurEcran*53/100, largeurEcran*60/100, hauteurEcran*14/100, hauteurEcran*21/100));
+                mListEtiquette.add(new Etiquette("Finlande", largeurEcran*59/100, largeurEcran*67/100, hauteurEcran*22/100, hauteurEcran*29/100));
+                mListEtiquette.add(new Etiquette("Turquie", largeurEcran*74/100, largeurEcran*81/100, hauteurEcran*82/100, hauteurEcran*89/100));
+                mListEtiquette.add(new Etiquette("Ukraine", largeurEcran*69/100, largeurEcran*76/100, hauteurEcran*54/100, hauteurEcran*61/100));
                 break;
         }
     }
