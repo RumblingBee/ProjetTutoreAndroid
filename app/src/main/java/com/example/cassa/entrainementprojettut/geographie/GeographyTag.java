@@ -61,43 +61,22 @@ public class GeographyTag extends GameActivity {
                                                 EtiquetteBank etiquetteBank = new EtiquetteBank(niveauChoisi, retourTailleEcran(), getHauteurEcran());
                                                 etiquetteList = etiquetteBank.getEtiquetteList();
 
+                                                genererImageDeFond();
+                                                genererEmplacementsSurImage();
+
                                                 genererTextView();
                                                 genererNomEtiquette();
                                                 genererTagEtiquette();
-
-                                                genererZoneSurImage();
-                                                genererImageDeFond();
                                             } else {
                                                 afficherChoixNiveaux(GeographyTag.this, "", 3);
                                             }
                                         }
                                     });
 
-            nbBonneReponse=0;
+        nbBonneReponse=0;
 
-            lancerBgMusique(GeographyTag.this, R.raw.geography_music);
-
-            playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
-
-        // Provisoire, à bouger dans genererZoneSurImage, test création dynamique Rectangle ----------
-        RectF rect = new RectF(retourTailleEcran()*26/100, getHauteurEcran()*6/100, retourTailleEcran()*34/100, getHauteurEcran()*13/100);
-        RectF rect2 = new RectF(retourTailleEcran()*27/100, getHauteurEcran()*41/100, retourTailleEcran()*35/100, getHauteurEcran()*49/100);
-        Paint paint = new Paint();
-        paint.setColor(Color.GRAY);
-        paint.setAlpha(85);
-
-        Bitmap b = Bitmap.createBitmap((int)retourTailleEcran(), (int)getHauteurEcran(), Bitmap.Config.ARGB_8888);
-
-        View conteneurRect = getLayoutInflater().inflate(R.layout.geographytag_conteneur_rect, mainLayout, false);
-        mainLayout.addView(conteneurRect);
-
-        ImageView drawRectangle = findViewById(R.id.geography_conteneur_rect);
-        drawRectangle.setImageBitmap(b);
-
-        Canvas c = new Canvas(b);
-        c.drawRect(rect, paint);
-        c.drawRect(rect2, paint);
-        // -------------------------
+        lancerBgMusique(GeographyTag.this, R.raw.geography_music);
+        playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
     }
 
     private View.OnTouchListener onTouchListener(){
@@ -220,9 +199,31 @@ public class GeographyTag extends GameActivity {
         }
     }
 
-    private void genererZoneSurImage(){
+    private void genererEmplacementsSurImage(){
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setAlpha(85);
 
+        Bitmap b = Bitmap.createBitmap((int)retourTailleEcran(), (int)getHauteurEcran(), Bitmap.Config.ARGB_8888);
 
+        View conteneurRect = getLayoutInflater().inflate(R.layout.geographytag_conteneur_rect, mainLayout, false);
+        mainLayout.addView(conteneurRect);
+
+        ImageView drawRectangle = findViewById(R.id.geography_conteneur_rect);
+        drawRectangle.setImageBitmap(b);
+
+        Canvas canvas = new Canvas(b);
+        RectF rect;
+
+        for(Etiquette etiquette : etiquetteList){
+            float xMin = etiquette.getZoneVictoire()[0];
+            float xMax = etiquette.getZoneVictoire()[1];
+            float yMin = etiquette.getZoneVictoire()[2];
+            float yMax = etiquette.getZoneVictoire()[3];
+            rect = new RectF(xMin, yMin, xMax, yMax);
+
+            canvas.drawRect(rect, paint);
+        }
     }
 
     private int getNombreMaxEtiquetteParColonne(){
