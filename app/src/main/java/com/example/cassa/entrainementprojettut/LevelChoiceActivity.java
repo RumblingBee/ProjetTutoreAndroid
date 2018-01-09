@@ -32,9 +32,6 @@ public class LevelChoiceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String activityToLaunch = intent.getStringExtra("Activity");
 
-        player= MediaPlayer.create(LevelChoiceActivity.this,R.raw.bensound_jazzyfrenchy);
-        player.start();
-
         playerEvent= MediaPlayer.create(LevelChoiceActivity.this,R.raw.envent_sound);
 
         mButton1 = (Button) findViewById(R.id.niveau1_btn);
@@ -135,38 +132,6 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        player.stop();
-    }
-    @Override
-    public void onBackPressed()
-    {
-        player.stop();
-        Intent ecranMenu = new Intent(LevelChoiceActivity.this, MainActivity.class);
-        startActivity(ecranMenu);
-        super.onBackPressed();
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        player.stop();
-        LevelChoiceActivity.this.finish();
-
-
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        player.start();
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        player.start();
     }
 
 

@@ -1,17 +1,17 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
+import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
+import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -25,35 +25,21 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     private Button mNomPays3;
     private Button mNomPays4;
 
-    private int diff;
     private String gBonneReponse;
     private int gScore, gNbBonneReponse;
+
+    private ControllerFlagBank controllerFlagBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
+        mMusique = R.raw.bensound_goinghigher;
+        lancerBgMusique(ReverseFlagActivity.this, mMusique);
 
-        lancerBgMusique(ReverseFlagActivity.this, R.raw.bensound_goinghigher);
+        initialisationNomPays();
 
-        mFlag = (ImageView) findViewById(R.id.activity_reverse_flag_drapeau);
-        mScore = (TextView) findViewById(R.id.activity_reverse_flag_score);
-
-        mNomPays1 = (Button) findViewById(R.id.activity_reverse_flag_name1);
-        mNomPays2 = (Button) findViewById(R.id.activity_reverse_flag_name2);
-        mNomPays3 = (Button) findViewById(R.id.activity_reverse_flag_name3);
-        mNomPays4 = (Button) findViewById(R.id.activity_reverse_flag_name4);
-
-        mNomPays1.setOnClickListener(this);
-        mNomPays2.setOnClickListener(this);
-        mNomPays3.setOnClickListener(this);
-        mNomPays4.setOnClickListener(this);
-
-        diff = getIntent().getIntExtra("diff", 1);
-
-        gScore=0;
-        gNbBonneReponse=0;
-        mScore.setText("0");
+        initialisationReponseEtScore();
 
         afficherChoixNiveaux(ReverseFlagActivity.this, "listeNiveau", 3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -69,32 +55,76 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         });
     }
 
+
+
+    private void initialisationReponseEtScore() {
+        mFlag = (ImageView) findViewById(R.id.activity_reverse_flag_drapeau);
+        mScore = (TextView) findViewById(R.id.activity_reverse_flag_score);
+
+        gScore=0;
+        gNbBonneReponse=0;
+        mScore.setText("0");
+    }
+
+
+
+    private void initialisationNomPays() {
+        mNomPays1 = (Button) findViewById(R.id.activity_reverse_flag_name1);
+        mNomPays2 = (Button) findViewById(R.id.activity_reverse_flag_name2);
+        mNomPays3 = (Button) findViewById(R.id.activity_reverse_flag_name3);
+        mNomPays4 = (Button) findViewById(R.id.activity_reverse_flag_name4);
+
+        mNomPays1.setOnClickListener(this);
+        mNomPays2.setOnClickListener(this);
+        mNomPays3.setOnClickListener(this);
+        mNomPays4.setOnClickListener(this);
+    }
+
+
+
     protected void genererPartie(){
-        FlagBank flagBank = new FlagBank(niveauChoisi);
+
+        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+
 
         Button[] mListeButton = {mNomPays1, mNomPays2, mNomPays3, mNomPays4};
-        mNomPays1.setEnabled(true);
-        mNomPays2.setEnabled(true);
-        mNomPays3.setEnabled(true);
-        mNomPays4.setEnabled(true);
 
-        //mNomPays1.
+        reactiverNomPays();
 
+        genererReponse(controllerFlagBank);
+
+        genererChoix(controllerFlagBank, mListeButton);
+
+
+    }
+
+
+    private void genererChoix(ControllerFlagBank flagBank, Button[] mListeButton) {
+        for(int i = 0; i<4; i++){
+            mListeButton[i].setText(flagBank.getFlag(i).getmNameCountry());
+            mListeButton[i].setTag(flagBank.getFlag(i).getmNameCountry());
+        }
+    }
+
+
+    private void genererReponse(ControllerFlagBank flagBank) {
         Random mRand = new Random();
         int mNumReponse = mRand.nextInt(4);
 
         gBonneReponse = flagBank.getFlag(mNumReponse).getmNameCountry();
         mFlag.setImageResource(flagBank.getFlag(mNumReponse).getmRessource());
-        System.out.println("Reponse = "+ gBonneReponse);
-
-
-        for(int i = 0; i<4; i++){
-            mListeButton[i].setText(flagBank.getFlag(i).getmNameCountry());
-            mListeButton[i].setTag(flagBank.getFlag(i).getmNameCountry());
-        }
-
-
     }
+
+
+
+    private void reactiverNomPays() {
+        mNomPays1.setEnabled(true);
+        mNomPays2.setEnabled(true);
+        mNomPays3.setEnabled(true);
+        mNomPays4.setEnabled(true);
+    }
+
+
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
@@ -122,33 +152,6 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         String mNomPays = (String) view.getTag();
 
         verifierReponse((Button) view, mNomPays);
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        bgPlayer.stop();
-    }
-
-    @Override
-    public void onBackPressed(){
-        bgPlayer.stop();
-        Intent back = new Intent(ReverseFlagActivity.this, MainActivity.class);
-        startActivity(back);
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        bgPlayer.start();
-    }
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(ReverseFlagActivity.this, R.raw.bensound_goinghigher);
-        }
-        super.onResume();
     }
 
 }

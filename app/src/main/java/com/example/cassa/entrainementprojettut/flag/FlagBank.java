@@ -1,4 +1,7 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.flag;
+
+import com.example.cassa.entrainementprojettut.R;
+import com.example.cassa.entrainementprojettut.flag.Flag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,19 +12,13 @@ import java.util.Random;
  */
 
 public class FlagBank {
-    ArrayList<Flag> mListChoixFlag;
-    ArrayList<Integer> mListAdresseImage;
-    ArrayList<String> mListNomPays;
+    private ArrayList<Flag> mListChoixFlag;
+    private ArrayList<Integer> mListAdresseImage;
+    private ArrayList<String> mListNomPays;
     private static String[] mPays = {"France", "Allemagne", "Italie", "Espagne", "Pays-Bas", "Portugal", "Suisse", "Royaume-Uni", "Belgique", "Russie",
             "Canada", "Etats-Unis", "Brésil", "Chine", "Australie", "Afrique Du Sud", "Japon", "Argentine", "Algérie", "Mexique",
             "Autriche", "Maroc", "Tunisie", "Turquie", "Nouvelle-Zélande", "Inde", "Pérou", "Corée Du Sud", "Egypte", "Chili"};
 
-
-
-
-
-
-    private Flag mFLag;
 
     //Rand de séléction de pays
     private Random rand = new Random();
@@ -58,44 +55,60 @@ public class FlagBank {
         //ArrayList pour éviter les doublons
         ArrayList<Integer> dispo = new ArrayList<Integer>();
         for(int i=0; i <4;i++){
-            int x=0;
-            //J'ai essayé avec un switch ça c'est pas très bien passé
-            //Je sais pas pourquoi il passait dans tous les cas
-            if(diff == 1){
-                x = rand.nextInt(10);
-            }else if(diff == 2){
-                x = rand.nextInt(20);
-            }else if(diff == 3){
-                x = rand.nextInt(30);
-            }
 
-            mFLag = new Flag(mListNomPays.get(x),mListAdresseImage.get(x));
-            //Pour éviter d'ajouter deux fois le même Flag
-            if(dispo.contains(x)) {
-                i--;
-            }else {
-                mListChoixFlag.add(mFLag);
-                dispo.add(x);
-            }
+            int x = random(diff);
+
+            i = gererDoublon(dispo, i, x);
         }
 
         Collections.shuffle(mListChoixFlag);
     }
 
+
+    private int random(int diff) {
+        int x=0;
+        if(diff == 1){
+            x = rand.nextInt(10);
+        }else if(diff == 2){
+            x = rand.nextInt(20);
+        }else if(diff == 3){
+            x = rand.nextInt(30);
+        }
+        return x;
+    }
+
+
+    private int gererDoublon(ArrayList<Integer> dispo, int i, int x) {
+        Flag mFLag = new Flag(mListNomPays.get(x),mListAdresseImage.get(x));
+        //Pour éviter d'ajouter deux fois le même Flag
+        if(dispo.contains(x)) {
+            i--;
+        }else {
+            mListChoixFlag.add(mFLag);
+            dispo.add(x);
+        }
+        return i;
+    }
+
+
+
     private void initialisationNomPays(int diff) {
         switch (diff){
             case 1:
-                for(int i=0; i<10; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(10);
+                break;
             case 2:
-                for (int i=0; i<20; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(20);
+                break;
             case 3:
-                for (int i=0; i<30; i++){
-                    mListNomPays.add(mPays[i]);
-                }
+                addPays(30);
+                break;
+        }
+    }
+
+    private void addPays(int max) {
+        for (int i=0; i<max; i++){
+            mListNomPays.add(mPays[i]);
         }
     }
 
@@ -139,6 +152,6 @@ public class FlagBank {
     }
 
 
-    Flag getFlag(int i){ return  mListChoixFlag.get(i); }
+    public Flag getFlag(int i){ return  mListChoixFlag.get(i); }
 
 }

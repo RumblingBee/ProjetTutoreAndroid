@@ -40,7 +40,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
-        android:id="@+id/acivity_mysteryWord_pos1_img"
+        android:id="@+id/activity_mysteryWord_pos1_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/acivity_mysteryWord_pos1_img"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mysteryWord_pos1_img"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <LinearLayout

@@ -96,7 +96,8 @@ public class GeographyTag extends GameActivity {
         mEtiquette7.setOnTouchListener(onTouchListener());
 
         //On lance la musique
-        lancerBgMusique(GeographyTag.this,R.raw.geography_music);
+        mMusique = R.raw.geography_music;
+        lancerBgMusique(GeographyTag.this,mMusique);
 
 
         playerEvent= MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
@@ -163,28 +164,5 @@ public class GeographyTag extends GameActivity {
 
 
         return false;
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
-
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(GeographyTag.this,R.raw.geography_music);
-        }
-        super.onResume();
     }
 }

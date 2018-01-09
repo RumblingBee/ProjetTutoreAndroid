@@ -43,7 +43,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         setContentView(R.layout.activity_addition);
 
         initialiserPartie();
-        lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
+        mMusique = R.raw.bensound_retrosoul;
+        lancerBgMusique(AdditionActivity.this,mMusique);
         afficherChoixNiveaux(AdditionActivity.this,"listeClasse",5);
 
 
@@ -163,28 +164,6 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
 
     }
-    //Enlève le flag qui bloque l'écran allumé
-
-    protected void onDestroy(){
-        super.onDestroy();
-
-        bgPlayer.stop();
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
-    @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-
-        Intent ecranMenu = new Intent(AdditionActivity.this, MainActivity.class);
-        startActivity(ecranMenu);
-
-        if(perdreActivite!=null) {
-            handler.removeCallbacks(perdreActivite);
-        }
-        super.onBackPressed();
-    }
 
     protected void griserBoutons(){
 
@@ -226,27 +205,4 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
        }
 
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        bgPlayer.start();
-    }
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-            lancerBgMusique(AdditionActivity.this,R.raw.bensound_retrosoul);
-        }
-        super.onResume();
-    }
-
-    
-
 }
