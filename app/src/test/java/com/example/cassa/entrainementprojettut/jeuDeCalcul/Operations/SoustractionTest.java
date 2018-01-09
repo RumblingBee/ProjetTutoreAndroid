@@ -23,7 +23,6 @@ public class SoustractionTest {
     public void testPasDeNegatif() throws Exception {
         for(int i=0;i<1000;i++){
             soustraction.genererOperation(10,1,10,1);
-            System.out.println(soustraction.afficherResultat());
             assertEquals(true, soustraction.afficherResultat() > 0);
         }
     }

@@ -14,26 +14,26 @@ import java.util.List;
  * Created by clement on 04/01/18.
  */
 
-public class ControleurMysteryWord {
+public class FactoryWordBank {
 
     private I_WordBank wordBank;
 
-    public ControleurMysteryWord(int difficulte) {
+    public void createI_WordBank(int difficulte) {
         switch (difficulte) {
             case 1:
-                wordBank = new WordBankCP();
+                wordBank= new WordBankCP();
                 break;
             case 2:
-                wordBank = new WordBankCE1();
+                wordBank= new WordBankCE1();
                 break;
             case 3:
-                wordBank = new WordBankCE2();
+                wordBank= new WordBankCE2();
                 break;
             case 4:
-                wordBank = new WordBankCM1();
+                wordBank= new WordBankCM1();
                 break;
             default:
-                wordBank = new WordBankCM2();
+                wordBank= new WordBankCM2();
                 break;
         }
 

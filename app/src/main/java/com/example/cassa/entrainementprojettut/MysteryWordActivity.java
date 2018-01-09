@@ -8,14 +8,13 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.ControleurMysteryWord;
+import com.example.cassa.entrainementprojettut.mysteryWord.FactoryWordBank;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 
 public class MysteryWordActivity extends GameActivity {
@@ -24,10 +23,10 @@ public class MysteryWordActivity extends GameActivity {
     private ImageView gImgPlayer;
     private LinearLayout gBtnLayout;
 
-    private ToggleButton gKeyboard[] = new ToggleButton[26];
+    private ToggleButton gKeyboard[];
     float gPositionImageJoueur;
 
-    private ControleurMysteryWord ctrl;
+    private FactoryWordBank factoryWordBank;
     private I_Word motEnCour;
 
     private char gSelectedCharaAnswer;
@@ -51,7 +50,8 @@ public class MysteryWordActivity extends GameActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
-
+        gKeyboard= new ToggleButton[26];
+        factoryWordBank=new FactoryWordBank();
         lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
@@ -258,16 +258,16 @@ public class MysteryWordActivity extends GameActivity {
             afficherEcranFin(MysteryWordActivity.this, true, false, 0);
         }
         else {
-            motEnCour = motSuivant(ctrl);
+            motEnCour = motSuivant(factoryWordBank);
         }
     }
 
     public void lancerPartie() {
         //On génère une collection de 5 mots codés
-        ctrl = new ControleurMysteryWord(niveauChoisi);
+        factoryWordBank.createI_WordBank(niveauChoisi);
 
         //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        motEnCour = ctrl.getUnMot(0);
+        motEnCour = factoryWordBank.getUnMot(0);
         gNbLettreOk = 0;
         displayWord(motEnCour);
         gTxtOrder.setText(motEnCour.getConsigne());
@@ -295,7 +295,7 @@ public class MysteryWordActivity extends GameActivity {
      * @return I_Word motSuivant
      */
 
-    public I_Word motSuivant(ControleurMysteryWord pLexique) {
+    public I_Word motSuivant(FactoryWordBank pLexique) {
         I_Word motSuivant = pLexique.getUnMot(gNbReponsesCorrectes);
         gNbLettreOk = 0;
         gHandler.postDelayed(gDisplayWord, 1000);
