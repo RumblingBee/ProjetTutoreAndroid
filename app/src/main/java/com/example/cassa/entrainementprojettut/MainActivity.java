@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(additionIntent);
 
                 playerEvent.start();
+                finish();
             }
         });
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mysteryWordIntent);
 
                 playerEvent.start();
+                finish();
             }
         });
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(flagActivityIntent);
 
                 playerEvent.start();
+                finish();
             }
         });
 
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 player.stop();
                 Intent reverseFlagActivityIntent = new Intent(MainActivity.this, ReverseFlagActivity.class);
                 startActivity(reverseFlagActivityIntent);
+                finish();
 
             }
         });
@@ -87,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(geographyActivityIntent);
 
                 playerEvent.start();
+                finish();
             }
         });
     }
