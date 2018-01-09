@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.geographie;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,12 +26,13 @@ public class Etiquette {
         return nom;
     }
 
-    public Etiquette(String nom, float xMin, float xMax, float yMin, float yMax) {
-        this.nom = nom;
 
+    public Etiquette(String nom, float xMin, float yMin, float tailleCote) {
+        this.nom = nom;
         this.zoneVictoire[0] = xMin;
-        this.zoneVictoire[1] = xMax;
+        this.zoneVictoire[1] = xMin + tailleCote;
         this.zoneVictoire[2] = yMin;
-        this.zoneVictoire[3] = yMax;
+        this.zoneVictoire[3] = yMin + tailleCote;
     }
-    }
+
+}

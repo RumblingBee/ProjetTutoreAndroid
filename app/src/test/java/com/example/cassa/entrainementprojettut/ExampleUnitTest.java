@@ -1,6 +1,5 @@
 package com.example.cassa.entrainementprojettut;
 
-import android.widget.FrameLayout;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
 import com.example.cassa.entrainementprojettut.flag.Flag;
@@ -14,7 +13,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -80,6 +80,7 @@ public class ExampleUnitTest {
         I_FlagBank flagBank = new FlagBankFacile();
         assertEquals(4,flagBank.getChoixFlag().size());
     }
+
 
     @Test
     public void showOnly4FlagsLvl2() {
@@ -180,24 +181,7 @@ public class ExampleUnitTest {
         }
     }
 
-    //  Jeu Etiquette
 
-    @Test
-    public void etiquetteGetNom(){
-        Etiquette etiquette = new Etiquette("nomEtiquette",0,0,0,0);
-        assertEquals("nomEtiquette",etiquette.getNom());
-    }
-    @Test
-    public void etiquetteGetZone(){
-        Etiquette etiquette = new Etiquette("nomEtiquette",10,20,30,40);
-        float[]tabZoneVictoire;
-        tabZoneVictoire = etiquette.getZoneVictoire();
-
-        assertEquals(10,tabZoneVictoire[0],0);
-        assertEquals(20,tabZoneVictoire[1],0);
-        assertEquals(30,tabZoneVictoire[2],0);
-        assertEquals(40,tabZoneVictoire[3],0);
-    }
 
     @Test
     public void wordGetCodeWord(){

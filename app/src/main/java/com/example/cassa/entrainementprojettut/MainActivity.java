@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.cassa.entrainementprojettut.geographie.GeographyTag;
+
 public class MainActivity extends AppCompatActivity {
 
     private AnimationDrawable mAnimationChouettes;
