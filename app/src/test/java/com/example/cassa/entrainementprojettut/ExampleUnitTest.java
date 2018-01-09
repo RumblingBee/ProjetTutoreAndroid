@@ -1,5 +1,15 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.widget.FrameLayout;
+
+import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
+import com.example.cassa.entrainementprojettut.flag.Flag;
+import com.example.cassa.entrainementprojettut.flag.FlagBank;
+import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
+import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -46,31 +56,131 @@ public class ExampleUnitTest {
 
     @Test
     public void flagBankLvl1NotEmpty() {
-        FlagBank flagBank = new FlagBank(1);
+        I_FlagBank flagBank = new FlagBankFacile();
 
-        assertTrue(flagBank.mListNomPays.size() >=0);
+        assertTrue(flagBank.getChoixFlag().size() >=0);
     }
+
+
     @Test
     public void flagBankLvl2NotEmpty() {
-        FlagBank flagBank = new FlagBank(2);
+        I_FlagBank flagBank = new FlagBankMoyenne();
 
-        assertTrue(flagBank.mListNomPays.size() >=0);
+        assertTrue(flagBank.getChoixFlag().size() >=0);
     }
     @Test
     public void flagBankLvl3NotEmpty() {
-        FlagBank flagBank = new FlagBank(3);
+        I_FlagBank flagBank = new FlagBankDifficile();
 
-        assertTrue(flagBank.mListNomPays.size() >=0);
+        assertTrue(flagBank.getChoixFlag().size() >=0);
     }
 
     @Test
-    public void showOnly4Flags() {
-        FlagBank flagBank = new FlagBank(1);
-        assertEquals(4,flagBank.mListChoixFlag.size());
+    public void showOnly4FlagsLvl1() {
+        I_FlagBank flagBank = new FlagBankFacile();
+        assertEquals(4,flagBank.getChoixFlag().size());
+    }
+
+    @Test
+    public void showOnly4FlagsLvl2() {
+        I_FlagBank flagBank = new FlagBankMoyenne();
+        assertEquals(4,flagBank.getChoixFlag().size());
+    }
+
+    @Test
+    public void showOnly4FlagsLvl3() {
+        I_FlagBank flagBank = new FlagBankDifficile();
+        assertEquals(4,flagBank.getChoixFlag().size());
+    }
+
+    @Test
+    public void controllerGetFlagBank(){
+        ControllerFlagBank controllerFlagBank = new ControllerFlagBank(1);
+        I_FlagBank flagBank = controllerFlagBank.getFlagBank();
+        assertTrue(flagBank.getFlag(3) != null);
+    }
+
+    @Test
+    public void controllerNiveau1GetFlagBankNotEmpty(){
+        for (int i=0; i<1000; i++) {
+
+            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(1);
+            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
+
+            assertTrue(flagBank.getFlag(0) != null);
+            assertTrue(flagBank.getFlag(1) != null);
+            assertTrue(flagBank.getFlag(2) != null);
+            assertTrue(flagBank.getFlag(3) != null);
+        }
+    }
+
+    @Test
+    public void controllerNiveau2GetFlagBankNotEmpty(){
+        for (int i=0; i<1000; i++) {
+
+            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(2);
+            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
+
+            assertTrue(flagBank.getFlag(0) != null);
+            assertTrue(flagBank.getFlag(1) != null);
+            assertTrue(flagBank.getFlag(2) != null);
+            assertTrue(flagBank.getFlag(3) != null);
+        }
+    }
+
+    @Test
+    public void controllerNiveau3GetFlagBankNotEmpty(){
+        for (int i=0; i<1000; i++) {
+
+            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(3);
+            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
+
+            assertTrue(flagBank.getFlag(0) != null);
+            assertTrue(flagBank.getFlag(1) != null);
+            assertTrue(flagBank.getFlag(2) != null);
+            assertTrue(flagBank.getFlag(3) != null);
+        }
+    }
+
+    @Test
+    public void controllerNiveau1(){
+        for (int i=0; i<1000; i++){
+            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(1);
+
+            Flag flag0 = controllerFlagBank.getFlag(0);
+            Flag flag1 = controllerFlagBank.getFlag(1);
+            Flag flag2 = controllerFlagBank.getFlag(2);
+            Flag flag3 = controllerFlagBank.getFlag(3);
+
+            //Argentine est u pays de niveau 2
+            assertTrue(flag0.getmNameCountry() != "Argentine");
+            assertTrue(flag1.getmNameCountry() != "Argentine");
+            assertTrue(flag2.getmNameCountry() != "Argentine");
+            assertTrue(flag3.getmNameCountry() != "Argentine");
+
+        }
+    }
+
+    @Test
+    public void controllerNiveau2(){
+        for (int i=0; i<1000; i++){
+            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(2);
+
+            Flag flag0 = controllerFlagBank.getFlag(0);
+            Flag flag1 = controllerFlagBank.getFlag(1);
+            Flag flag2 = controllerFlagBank.getFlag(2);
+            Flag flag3 = controllerFlagBank.getFlag(3);
+
+            //Maroc est un pays de niveau 3
+            assertTrue(flag0.getmNameCountry() != "Maroc");
+            assertTrue(flag1.getmNameCountry() != "Maroc");
+            assertTrue(flag2.getmNameCountry() != "Maroc");
+            assertTrue(flag3.getmNameCountry() != "Maroc");
+
+        }
     }
 
     //  Jeu Etiquette
-
 
     @Test
     public void etiquetteGetNom(){

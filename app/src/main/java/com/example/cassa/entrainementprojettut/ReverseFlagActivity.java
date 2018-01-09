@@ -1,12 +1,17 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
+import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
+import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -22,6 +27,8 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     private String gBonneReponse;
     private int gScore, gNbBonneReponse;
+
+    private ControllerFlagBank controllerFlagBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,20 +83,23 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
 
     protected void genererPartie(){
-        FlagBank flagBank = new FlagBank(niveauChoisi);
+
+        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+
+
         Button[] mListeButton = {mNomPays1, mNomPays2, mNomPays3, mNomPays4};
 
         reactiverNomPays();
 
-        genererReponse(flagBank);
+        genererReponse(controllerFlagBank);
 
-        genererChoix(flagBank, mListeButton);
+        genererChoix(controllerFlagBank, mListeButton);
 
 
     }
 
 
-    private void genererChoix(FlagBank flagBank, Button[] mListeButton) {
+    private void genererChoix(ControllerFlagBank flagBank, Button[] mListeButton) {
         for(int i = 0; i<4; i++){
             mListeButton[i].setText(flagBank.getFlag(i).getmNameCountry());
             mListeButton[i].setTag(flagBank.getFlag(i).getmNameCountry());
@@ -97,7 +107,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     }
 
 
-    private void genererReponse(FlagBank flagBank) {
+    private void genererReponse(ControllerFlagBank flagBank) {
         Random mRand = new Random();
         int mNumReponse = mRand.nextInt(4);
 

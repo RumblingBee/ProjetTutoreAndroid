@@ -1,4 +1,7 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.flag;
+
+import com.example.cassa.entrainementprojettut.R;
+import com.example.cassa.entrainementprojettut.flag.Flag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,10 +96,13 @@ public class FlagBank {
         switch (diff){
             case 1:
                 addPays(10);
+                break;
             case 2:
                 addPays(20);
+                break;
             case 3:
                 addPays(30);
+                break;
         }
     }
 
@@ -146,6 +152,6 @@ public class FlagBank {
     }
 
 
-    Flag getFlag(int i){ return  mListChoixFlag.get(i); }
+    public Flag getFlag(int i){ return  mListChoixFlag.get(i); }
 
 }

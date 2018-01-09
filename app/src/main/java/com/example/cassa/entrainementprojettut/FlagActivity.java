@@ -1,30 +1,34 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
+import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
+import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
+import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
 public class FlagActivity extends GameActivity implements View.OnClickListener {
-    ImageView mDrapeau1;
-    ImageView mDrapeau2;
-    ImageView mDrapeau3;
-    ImageView mDrapeau4;
+    private  ImageView mDrapeau1;
+    private ImageView mDrapeau2;
+    private ImageView mDrapeau3;
+    private ImageView mDrapeau4;
 
-    TextView mNomPays;
-    TextView mScore;
+    private  TextView mNomPays;
+    private TextView mScore;
 
-    String gBonneReponse;
+    private String gBonneReponse;
 
-    int gScore,gNbBonneReponse;
+    private ControllerFlagBank controllerFlagBank;
+
+    private int gScore,gNbBonneReponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,36 +88,37 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     protected void genererPartie(){
 
-        FlagBank flagBank = new FlagBank(niveauChoisi);
+        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+
         ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
 
         //On réactive tous les drapeaux
         reactivationDrapeaux();
         //On génère le nom du pays à trouver
-        generationPaysATrouver(flagBank);
+        generationPaysATrouver(controllerFlagBank);
 
         //On génère les drapeaux
-        generationChoixDrapeaux(flagBank, listeDrapeau);
+        generationChoixDrapeaux(controllerFlagBank, listeDrapeau);
 
     }
 
 
 
-    private void generationChoixDrapeaux(FlagBank flagBank, ImageView[] listeDrapeau) {
+    private void generationChoixDrapeaux(ControllerFlagBank controllerFlagBank, ImageView[] listeDrapeau) {
         for(int i=0; i <4;i++) {
-            listeDrapeau[i].setImageResource(flagBank.getFlag(i).getmRessource());
-            listeDrapeau[i].setTag(flagBank.getFlag(i).getmNameCountry());
+            listeDrapeau[i].setImageResource(controllerFlagBank.getFlag(i).getmRessource());
+            listeDrapeau[i].setTag(controllerFlagBank.getFlag(i).getmNameCountry());
         }
     }
 
 
 
-    private void generationPaysATrouver(FlagBank flagBank) {
+    private void generationPaysATrouver(ControllerFlagBank controllerFlagBank) {
         Random rand = new Random();
         int numPaysMystere = rand.nextInt(4);
 
-        mNomPays.setText(flagBank.getFlag(numPaysMystere).getmNameCountry());
-        gBonneReponse = flagBank.getFlag(numPaysMystere).getmNameCountry();
+        mNomPays.setText(controllerFlagBank.getFlag(numPaysMystere).getmNameCountry());
+        gBonneReponse = controllerFlagBank.getFlag(numPaysMystere).getmNameCountry();
     }
 
 
