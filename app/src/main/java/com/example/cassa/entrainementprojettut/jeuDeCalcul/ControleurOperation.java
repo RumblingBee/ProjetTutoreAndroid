@@ -16,25 +16,9 @@ public class ControleurOperation {
 
     private I_SetOperation setOperation;
 
-    public ControleurOperation(int difficulte) {
-
-        switch (difficulte){
-            case 1:
-                setOperation=new SetOperationCP();
-                break;
-            case 2:
-                setOperation=new SetOperationCE1();
-                break;
-            case 3:
-                setOperation=new SetOperationCE2();
-                break;
-            case 4:
-                setOperation=new SetOperationCM1();
-                break;
-            default:
-                setOperation=new SetOperationCM2();
-                break;
-        }
+    public ControleurOperation(int diff) {
+        FactorySetOperation factorySetOperation =new FactorySetOperation();
+        setOperation=factorySetOperation.createSetOperation(diff);
     }
 
     public char getSigneOperation(){
