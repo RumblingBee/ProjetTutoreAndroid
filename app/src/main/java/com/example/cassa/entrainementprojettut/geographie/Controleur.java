@@ -1,5 +1,7 @@
 package com.example.cassa.entrainementprojettut.geographie;
 
+import com.example.cassa.entrainementprojettut.geographie.GenerateurDePartie.I_Set;
+
 import java.util.List;
 
 /**
@@ -8,29 +10,12 @@ import java.util.List;
 
 public class Controleur {
 
-private I_Set nouveauNiveau;
+    private I_Set nouveauNiveau;
 
     public Controleur(int difficulte) {
 
-
-
-        switch (difficulte){
-            case 1:
-                nouveauNiveau = new SetMonde();
-                break;
-
-            case 2:
-                nouveauNiveau = new SetEurope();
-                break;
-
-            case 3:
-                nouveauNiveau = new SetOccitanie();
-
-                break;
-            default:
-                nouveauNiveau = new SetMonde();
-                break;
-        }
+        Factory factory = new Factory();
+        nouveauNiveau = factory.createNouveauNiveau(difficulte);
 
     }
 

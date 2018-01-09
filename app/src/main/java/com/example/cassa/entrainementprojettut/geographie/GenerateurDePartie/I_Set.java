@@ -1,4 +1,6 @@
-package com.example.cassa.entrainementprojettut.geographie;
+package com.example.cassa.entrainementprojettut.geographie.GenerateurDePartie;
+
+import com.example.cassa.entrainementprojettut.geographie.Etiquette;
 
 import java.util.ArrayList;
 import java.util.List;
