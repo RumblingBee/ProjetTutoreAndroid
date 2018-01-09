@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.FactoryWordBank;
+import com.example.cassa.entrainementprojettut.mysteryWord.ControleurWordBank;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 
 public class MysteryWordActivity extends GameActivity {
@@ -26,7 +26,7 @@ public class MysteryWordActivity extends GameActivity {
     private ToggleButton gKeyboard[];
     float gPositionImageJoueur;
 
-    private FactoryWordBank factoryWordBank;
+    private ControleurWordBank controleurWordBank;
     private I_Word motEnCour;
 
     private char gSelectedCharaAnswer;
@@ -51,7 +51,7 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
         gKeyboard= new ToggleButton[26];
-        factoryWordBank=new FactoryWordBank();
+        controleurWordBank =new ControleurWordBank(niveauChoisi);
         lancerBgMusique(MysteryWordActivity.this, R.raw.bensound_cute);
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
@@ -258,16 +258,13 @@ public class MysteryWordActivity extends GameActivity {
             afficherEcranFin(MysteryWordActivity.this, true, false, 0);
         }
         else {
-            motEnCour = motSuivant(factoryWordBank);
+            motEnCour = motSuivant();
         }
     }
 
     public void lancerPartie() {
-        //On génère une collection de 5 mots codés
-        factoryWordBank.createI_WordBank(niveauChoisi);
-
         //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        motEnCour = factoryWordBank.getUnMot(0);
+        motEnCour = controleurWordBank.getUnMot(0);
         gNbLettreOk = 0;
         displayWord(motEnCour);
         gTxtOrder.setText(motEnCour.getConsigne());
@@ -291,12 +288,11 @@ public class MysteryWordActivity extends GameActivity {
     }
 
     /**
-     * @param pLexique
      * @return I_Word motSuivant
      */
 
-    public I_Word motSuivant(FactoryWordBank pLexique) {
-        I_Word motSuivant = pLexique.getUnMot(gNbReponsesCorrectes);
+    public I_Word motSuivant() {
+        I_Word motSuivant = controleurWordBank.getUnMot(gNbReponsesCorrectes);
         gNbLettreOk = 0;
         gHandler.postDelayed(gDisplayWord, 1000);
         gTxtOrder.setText(motSuivant.getConsigne());

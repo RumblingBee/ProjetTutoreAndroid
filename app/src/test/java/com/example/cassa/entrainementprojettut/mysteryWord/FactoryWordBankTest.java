@@ -9,8 +9,6 @@ import com.example.cassa.entrainementprojettut.mysteryWord.word.WordCP;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by clement on 09/01/18.
  */

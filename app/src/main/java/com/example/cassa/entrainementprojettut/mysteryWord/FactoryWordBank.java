@@ -16,9 +16,10 @@ import java.util.List;
 
 public class FactoryWordBank {
 
-    private I_WordBank wordBank;
 
-    public void createI_WordBank(int difficulte) {
+
+    public I_WordBank createI_WordBank(int difficulte) {
+        I_WordBank wordBank;
         switch (difficulte) {
             case 1:
                 wordBank= new WordBankCP();
@@ -36,15 +37,6 @@ public class FactoryWordBank {
                 wordBank= new WordBankCM2();
                 break;
         }
-
-    }
-
-    public List<I_Word> getWords() {
-        return wordBank.getSetMots();
-    }
-
-    public I_Word getUnMot(int i){
-        List<I_Word> setMots = wordBank.getSetMots();
-        return setMots.get(i);
+        return wordBank;
     }
 }
