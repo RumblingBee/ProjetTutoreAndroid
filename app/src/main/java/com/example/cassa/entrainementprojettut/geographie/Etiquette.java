@@ -33,5 +33,12 @@ public class Etiquette {
         this.zoneVictoire[2] = yMin;
         this.zoneVictoire[3] = yMax;
     }
+    public Etiquette(String nom, float xMin, float yMin, float tailleCote) {
+        this.nom = nom;
+        this.zoneVictoire[0] = xMin;
+        this.zoneVictoire[1] = xMin + tailleCote;
+        this.zoneVictoire[2] = yMin;
+        this.zoneVictoire[3] = yMin + tailleCote;
+    }
 
 }

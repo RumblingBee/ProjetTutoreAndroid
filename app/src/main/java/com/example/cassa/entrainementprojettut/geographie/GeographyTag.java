@@ -44,6 +44,7 @@ public class GeographyTag extends GameActivity {
 
     private MediaPlayer playerEvent;
     private  TextView[] tabTextView;
+    private Controleur controleur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,9 @@ public class GeographyTag extends GameActivity {
                                         @Override
                                         public void onDismiss(DialogInterface dialogInterface) {
                                             if (niveauChoisi != 0) {
-                                                EtiquetteBank etiquetteBank = new EtiquetteBank(niveauChoisi, retourTailleEcran(), getHauteurEcran());
-                                                etiquetteList = etiquetteBank.getEtiquetteList();
+
+                                                controleur = new Controleur(niveauChoisi);
+                                                etiquetteList = controleur.getListEtiquette();
 
                                                 genererImageDeFond();
                                                 genererEmplacementsSurImage();
@@ -77,6 +79,8 @@ public class GeographyTag extends GameActivity {
 
         lancerBgMusique(GeographyTag.this, R.raw.geography_music);
         playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
+
+
     }
 
     private View.OnTouchListener onTouchListener(){
@@ -188,15 +192,9 @@ public class GeographyTag extends GameActivity {
     }
 
     private void genererImageDeFond() {
-        if(niveauChoisi == 1) {
-            mainLayout.setBackgroundResource(R.drawable.continent);
-        }
-        else if(niveauChoisi == 2){
-            mainLayout.setBackgroundResource(R.drawable.occitanie);
-        }
-        else{
-            mainLayout.setBackgroundResource(R.drawable.carte_europe);
-        }
+
+            mainLayout.setBackgroundResource(controleur.getImageFond());
+
     }
 
     private void genererEmplacementsSurImage(){
