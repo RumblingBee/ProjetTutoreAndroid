@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface I_Set {
 
-    List<Etiquette> listEtiquette = new ArrayList<>();
+
 
 
     //SETTERS

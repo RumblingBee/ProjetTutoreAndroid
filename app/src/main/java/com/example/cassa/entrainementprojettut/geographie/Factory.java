@@ -13,29 +13,22 @@ public class Factory {
 
     public I_Set createNouveauNiveau(int difficulte){
 
-
         I_Set nouveauNiveau;
         switch (difficulte){
             case 1:
                 nouveauNiveau = new SetMonde();
                 break;
-
             case 2:
-                nouveauNiveau = new SetEurope();
-                break;
-
-            case 3:
                 nouveauNiveau = new SetOccitanie();
-
+                break;
+            case 3:
+                nouveauNiveau = new SetEurope();
                 break;
             default:
                 nouveauNiveau = new SetMonde();
                 break;
         }
         return nouveauNiveau;
-
-
-        }
-
+    }
 
 }

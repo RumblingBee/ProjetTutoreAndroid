@@ -1,25 +1,20 @@
 package com.example.cassa.entrainementprojettut.geographie;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -137,6 +132,8 @@ public class GeographyTag extends GameActivity {
 
     private boolean verifierZone(float[]zoneVictoireEtiquette, float coteGaucheTxtView, float coteDroitTxtView,
                                  float coteSuperieurTxtView, float coteInferieurTxtView){
+
+
         if( coteGaucheTxtView >= zoneVictoireEtiquette[0] && coteGaucheTxtView <= zoneVictoireEtiquette[1]
                 && coteDroitTxtView >= zoneVictoireEtiquette[0] && coteDroitTxtView <= zoneVictoireEtiquette[1]
                 && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
@@ -212,17 +209,33 @@ public class GeographyTag extends GameActivity {
 
         Canvas canvas = new Canvas(b);
         RectF rect;
+        float[] etiquetteCoordonnees;
 
         for(Etiquette etiquette : etiquetteList){
-            float xMin = etiquette.getZoneVictoire()[0];
-            float xMax = etiquette.getZoneVictoire()[1];
-            float yMin = etiquette.getZoneVictoire()[2];
-            float yMax = etiquette.getZoneVictoire()[3];
-            rect = new RectF(xMin, yMin, xMax, yMax);
+
+            etiquetteCoordonnees = resizeEtiquette(etiquette.getZoneVictoire());
+
+            rect = new RectF(etiquetteCoordonnees[0], etiquetteCoordonnees[2], etiquetteCoordonnees[1],
+                    etiquetteCoordonnees[3]);
 
             canvas.drawRect(rect, paint);
 
         }
+    }
+
+    private float[] resizeEtiquette(float[] tabValeurEtiquette) {
+
+
+
+        tabValeurEtiquette[0] = tabValeurEtiquette[0] * retourTailleEcran();
+        tabValeurEtiquette[1] = tabValeurEtiquette[1] * retourTailleEcran();
+        tabValeurEtiquette[2]  = tabValeurEtiquette[2] * getHauteurEcran();
+        tabValeurEtiquette[3]  = tabValeurEtiquette[3] * getHauteurEcran();
+
+
+        return  tabValeurEtiquette;
+
+
     }
 
     private int getNombreMaxEtiquetteParColonne(){
@@ -233,6 +246,7 @@ public class GeographyTag extends GameActivity {
 
         return i;
     }
+
 
     @Override
     public void onBackPressed()

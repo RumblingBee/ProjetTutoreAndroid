@@ -3,6 +3,7 @@ package com.example.cassa.entrainementprojettut.geographie.GenerateurDePartie;
 import com.example.cassa.entrainementprojettut.R;
 import com.example.cassa.entrainementprojettut.geographie.Etiquette;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,10 @@ import java.util.List;
 
 public class SetEurope implements I_Set{
     private  int imageFond;
+    private List<Etiquette> listEtiquette;
 
     public SetEurope(){
+       listEtiquette  = new ArrayList<>();
 
     setImageFond();
     setListEtiquette();
@@ -36,15 +39,24 @@ public class SetEurope implements I_Set{
 
     @Override
     public void setListEtiquette() {
-        float tailleCote = 1/12;
+        float tailleCote = 9/100F;
 
-        listEtiquette.add(new Etiquette("Amerique \n du Nord",10/48,7/24,tailleCote));
-        listEtiquette.add(new Etiquette("Afrique",1/2,9/24,tailleCote));
-        listEtiquette.add(new Etiquette("Europe",25/48,7/48,tailleCote));
-        listEtiquette.add(new Etiquette("Asie",33/48,4/24,tailleCote));
-        listEtiquette.add(new Etiquette("Amerique\n du Sud",15/48,13/24,tailleCote));
-        listEtiquette.add(new Etiquette("Océanie",10/12,15/24,tailleCote));
-        listEtiquette.add(new Etiquette("Antarctique",6/12,11/12,tailleCote));
+        listEtiquette.add(new Etiquette("Islande", 27/100F, 6/100F,tailleCote));
+        listEtiquette.add(new Etiquette("Irlande", 27/100F, 41/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Royaume-\nUni", 33/100F, 45/100F, tailleCote));
+        listEtiquette.add(new Etiquette("France", 36/100F, 61/100F,tailleCote));
+        listEtiquette.add(new Etiquette("Espagne", 29/100F, 78/100F,tailleCote));
+        listEtiquette.add(new Etiquette("Portugal", 18/100F, 74/100F,tailleCote));
+        listEtiquette.add(new Etiquette("Italie", 49/100F, 77/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Allemagne", 45/100F, 51/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Pologne", 55/100F, 49/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Russie", 70/100F, 33/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Norvège", 45/100F, 27/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Suède", 53/100F, 14/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Finlande", 59/100F,22/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Turquie", 74/100F, 82/100F, tailleCote));
+        listEtiquette.add(new Etiquette("Ukraine", 69/100F, 54/100F, tailleCote));
+
 
     }
 }
