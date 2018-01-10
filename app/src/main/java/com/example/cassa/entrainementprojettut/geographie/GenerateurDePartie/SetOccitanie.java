@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SetOccitanie implements I_Set {
 
-    int imageFond;
+    private int imageFond;
     private List<Etiquette> listEtiquette;
 
     public SetOccitanie(){
