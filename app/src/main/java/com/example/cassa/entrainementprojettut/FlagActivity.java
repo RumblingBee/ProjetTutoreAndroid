@@ -8,10 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
-import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
-import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -34,18 +30,18 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
-        mMusique = R.raw.bensound_funnysong;
-        lancerBgMusique(FlagActivity.this, mMusique);
+        music = R.raw.bensound_funnysong;
+        startBackgroundMusic(FlagActivity.this, music);
 
         initialisationDrapeaux();
 
         initialisationNomPaysEtScore();
 
-        afficherChoixNiveaux(FlagActivity.this,"listeNiveau",3);
+        showLevelChoice(FlagActivity.this,"listeNiveau",3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if (niveauChoisi != 0) {
+                if (levelChosen != 0) {
                     genererPartie();
                 } else {
                     FlagActivity.this.onStop();
@@ -88,7 +84,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     protected void genererPartie(){
 
-        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+        controllerFlagBank = new ControllerFlagBank(levelChosen);
 
         ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
 
@@ -140,17 +136,17 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected  void verifierReponse(ImageView v,String pPays){
 
         if(pPays == gBonneReponse ){
-            afficherTexte("Bravo");
+            showText("Bravo");
             gScore = gScore + 5;
             gNbBonneReponse = gNbBonneReponse + 1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10 ){
-                afficherEcranFin(FlagActivity.this,true,true,gScore);
+                showResultScren(FlagActivity.this,true,true,gScore);
             }
         }
         else{
-            afficherTexte("Dommage");
+            showText("Dommage");
             gScore = gScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);

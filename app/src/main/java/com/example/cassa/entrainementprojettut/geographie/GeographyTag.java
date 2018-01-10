@@ -44,19 +44,19 @@ public class GeographyTag extends GameActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMusique = R.raw.geography_music;
+        music = R.raw.geography_music;
         modeFullscreen();
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
-        afficherChoixNiveaux(GeographyTag.this,"",3);
+        showLevelChoice(GeographyTag.this,"",3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                         @Override
                                         public void onDismiss(DialogInterface dialogInterface) {
-                                            if (niveauChoisi != 0) {
+                                            if (levelChosen != 0) {
 
-                                                controleur = new Controleur(niveauChoisi);
+                                                controleur = new Controleur(levelChosen);
                                                 etiquetteList = controleur.getListEtiquette();
 
                                                 genererImageDeFond();
@@ -66,14 +66,14 @@ public class GeographyTag extends GameActivity {
                                                 genererNomEtiquette();
                                                 genererTagEtiquette();
                                             } else {
-                                                afficherChoixNiveaux(GeographyTag.this, "", 3);
+                                                showLevelChoice(GeographyTag.this, "", 3);
                                             }
                                         }
                                     });
 
         nbBonneReponse=0;
 
-        lancerBgMusique(GeographyTag.this, R.raw.geography_music);
+        startBackgroundMusic(GeographyTag.this, R.raw.geography_music);
         playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
 
 
@@ -106,7 +106,7 @@ public class GeographyTag extends GameActivity {
 
                 case MotionEvent.ACTION_UP:
                     Toast toast;
-                    toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
+                    toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/ getScreenWidth()+"/12 y="+((y-yDelta)*12)/ getScreenHeight()+"/12",Toast.LENGTH_SHORT);
                     toast.show();
 
                     int coordonneesEtiquette[] = new int[2];
@@ -139,10 +139,10 @@ public class GeographyTag extends GameActivity {
                 && coteDroitTxtView >= zoneVictoireEtiquette[0] && coteDroitTxtView <= zoneVictoireEtiquette[1]
                 && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
                 && coteInferieurTxtView >= zoneVictoireEtiquette[2] && coteInferieurTxtView <= zoneVictoireEtiquette[3]){
-         afficherTexte("Bravo!");
+         showText("Bravo!");
             nbBonneReponse++;
             if(nbBonneReponse==etiquetteList.size()){
-                afficherEcranFin(GeographyTag.this,true,false,0);
+                showResultScren(GeographyTag.this,true,false,0);
             }
             return true;
         }
@@ -200,7 +200,7 @@ public class GeographyTag extends GameActivity {
         paint.setColor(Color.GRAY);
         paint.setAlpha(85);
 
-        Bitmap b = Bitmap.createBitmap((int)retourTailleEcran(), (int)getHauteurEcran(), Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap((int) getScreenWidth(), (int) getScreenHeight(), Bitmap.Config.ARGB_8888);
 
         View conteneurRect = getLayoutInflater().inflate(R.layout.geographytag_conteneur_rect, mainLayout, false);
         mainLayout.addView(conteneurRect);
@@ -228,10 +228,10 @@ public class GeographyTag extends GameActivity {
 
 
 
-        tabValeurEtiquette[0] = tabValeurEtiquette[0] * retourTailleEcran();
-        tabValeurEtiquette[1] = tabValeurEtiquette[1] * retourTailleEcran();
-        tabValeurEtiquette[2]  = tabValeurEtiquette[2] * getHauteurEcran();
-        tabValeurEtiquette[3]  = tabValeurEtiquette[3] * getHauteurEcran();
+        tabValeurEtiquette[0] = tabValeurEtiquette[0] * getScreenWidth();
+        tabValeurEtiquette[1] = tabValeurEtiquette[1] * getScreenWidth();
+        tabValeurEtiquette[2]  = tabValeurEtiquette[2] * getScreenHeight();
+        tabValeurEtiquette[3]  = tabValeurEtiquette[3] * getScreenHeight();
 
 
         return  tabValeurEtiquette;
@@ -241,7 +241,7 @@ public class GeographyTag extends GameActivity {
 
     private int getNombreMaxEtiquetteParColonne(){
         int i = 0;
-        while(i*100<= getHauteurEcran() * 0.8){
+        while(i*100<= getScreenHeight() * 0.8){
             i++;
         }
 
