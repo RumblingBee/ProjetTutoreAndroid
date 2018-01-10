@@ -117,7 +117,7 @@ public class GeographyActivity extends GameActivity {
                     float upperSide = tagCoord[1];
                     float downSide = upperSide + view.getHeight();
 
-                    if (checkVictoryArea((float[])view.getTag(),leftSide, rightSide, upperSide, downSide)){
+                    if (checkVictoryBox((float[])view.getTag(),leftSide, rightSide, upperSide, downSide)){
                        view.setEnabled(false);
 
                        view.setBackgroundColor(Color.GREEN);
@@ -132,8 +132,8 @@ public class GeographyActivity extends GameActivity {
         };
     }
 
-    private boolean checkVictoryArea(float[]victoryBox, float leftSideTextView, float rightSideTextView,
-                                     float upperSideTextView, float lowerSideTextView){
+    private boolean checkVictoryBox(float[]victoryBox, float leftSideTextView, float rightSideTextView,
+                                    float upperSideTextView, float lowerSideTextView){
 
 
         if( leftSideTextView >= victoryBox[0] && leftSideTextView <= victoryBox[1]
@@ -239,12 +239,12 @@ public class GeographyActivity extends GameActivity {
     }
 
     private int getMaxTagInAColumn(){
-        int mNombreEtiquetteParColonne = 0;
-        while(mNombreEtiquetteParColonne*100<= getHauteurEcran() * 0.8){
-            mNombreEtiquetteParColonne++;
+        int maxTagInACol = 0;
+        while(maxTagInACol*100<= getHauteurEcran() * 0.8){
+            maxTagInACol++;
         }
 
-        return mNombreEtiquetteParColonne;
+        return maxTagInACol;
     }
 
     @Override
