@@ -16,10 +16,10 @@ public class Flag {
 
 
 
-    public Flag(String name, int adresseImage){
+    public Flag(String name, int pictureAdress){
         if(name != null) {
             this.mNameCountry = name;
-            this.mRessource = adresseImage;
+            this.mRessource = pictureAdress;
         }
     }
 

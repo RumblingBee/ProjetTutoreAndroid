@@ -6,21 +6,21 @@ package com.example.cassa.entrainementprojettut.flag;
 
 public class FactoryFlagBank {
 
-    public I_FlagBank genererFlagBank(int niveauChoisi){
+    public I_FlagBank genererFlagBank(int selectedLevel){
         I_FlagBank flagBank;
 
-        switch (niveauChoisi){
+        switch (selectedLevel){
             case 1:
-                flagBank = new FlagBankFacile();
+                flagBank = new FlagBankEasy();
                 break;
             case 2:
-                flagBank = new FlagBankMoyenne();
+                flagBank = new FlagBankNormal();
                 break;
             case 3:
-                flagBank = new FlagBankDifficile();
+                flagBank = new FlagBankHard();
                 break;
             default:
-                flagBank = new FlagBankFacile();
+                flagBank = new FlagBankEasy();
                 break;
         }
         return flagBank;
