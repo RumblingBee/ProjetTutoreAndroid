@@ -229,10 +229,10 @@ public class GeographyTag extends GameActivity {
     }
 
     private float[] toleranceVictoryBox(float[] zoneVictoireEtiquette) {
-        zoneVictoireEtiquette[0] -= 10;
-        zoneVictoireEtiquette[1] += 10;
-        zoneVictoireEtiquette[2] -= 10;
-        zoneVictoireEtiquette[3] += 10;
+        zoneVictoireEtiquette[0] -= 8;
+        zoneVictoireEtiquette[1] += 8;
+        zoneVictoireEtiquette[2] -= 8;
+        zoneVictoireEtiquette[3] += 8;
 
         return zoneVictoireEtiquette;
     }
@@ -262,20 +262,6 @@ public class GeographyTag extends GameActivity {
     }
 
 
-    @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
 
     @Override
     protected void onResume() {
