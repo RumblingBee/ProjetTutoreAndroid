@@ -2,12 +2,10 @@ package com.example.cassa.entrainementprojettut;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,8 +41,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         setContentView(R.layout.activity_addition);
 
         initialiserPartie();
-        mMusique = R.raw.bensound_retrosoul;
-        lancerBgMusique(AdditionActivity.this,mMusique);
+        music = R.raw.bensound_retrosoul;
+        lancerBgMusique(AdditionActivity.this, music);
         afficherChoixNiveaux(AdditionActivity.this,"listeClasse",5);
 
 
@@ -52,7 +50,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
         @Override
         public void onDismiss(DialogInterface dialogInterface) {
-            if (niveauChoisi != 0) {
+            if (levelChosen != 0) {
 
                 genererAddition();
                 lancerCourse(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
@@ -86,7 +84,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     @SuppressLint("SetTextI18n")
     protected void genererAddition(){
 
-         ctrl = new ControleurOperation(niveauChoisi);
+         ctrl = new ControleurOperation(levelChosen);
 
         //Affichage de l'opération
 

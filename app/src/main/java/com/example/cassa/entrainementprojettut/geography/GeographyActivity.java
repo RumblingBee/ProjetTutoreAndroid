@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut.geographie;
+package com.example.cassa.entrainementprojettut.geography;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -28,36 +28,36 @@ import java.util.List;
  * Created by clement on 07/12/17.
  */
 
-public class GeographyTag extends GameActivity {
+public class GeographyActivity extends GameActivity {
 
-    private ViewGroup       mainLayout;
-    private List<Etiquette> etiquetteList;
+    private ViewGroup mainLayout;
+    private List<Tag> tagList;
 
-    private int nbBonneReponse;
-    private int xDelta;
-    private int yDelta;
+    private int rightAnswerCounter;
+    private int deltaX;
+    private int deltaY;
 
-    private MediaPlayer playerEvent;
-    private  TextView[] tabTextView;
-    private Controleur controleur;
+    private MediaPlayer mediaPlayer;
+    private  TextView[] textViewTab;
+    private Controler controler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMusique = R.raw.geography_music;
-        modeFullscreen();
+        music = R.raw.geography_music;
+        modePleinEcran();
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
-        afficherChoixNiveaux(GeographyTag.this,"",3);
+        afficherChoixNiveaux(GeographyActivity.this,"",3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                         @Override
                                         public void onDismiss(DialogInterface dialogInterface) {
-                                            if (niveauChoisi != 0) {
+                                            if (levelChosen != 0) {
 
-                                                controleur = new Controleur(niveauChoisi);
-                                                etiquetteList = controleur.getListEtiquette();
+                                                controler = new Controler(levelChosen);
+                                                tagList = controler.getTagList();
 
                                                 genererImageDeFond();
                                                 genererEmplacementsSurImage();
@@ -66,15 +66,15 @@ public class GeographyTag extends GameActivity {
                                                 genererNomEtiquette();
                                                 genererTagEtiquette();
                                             } else {
-                                                afficherChoixNiveaux(GeographyTag.this, "", 3);
+                                                afficherChoixNiveaux(GeographyActivity.this, "", 3);
                                             }
                                         }
                                     });
 
-        nbBonneReponse=0;
+        rightAnswerCounter =0;
 
-        lancerBgMusique(GeographyTag.this, R.raw.geography_music);
-        playerEvent=MediaPlayer.create(GeographyTag.this,R.raw.envent_sound);
+        lancerBgMusique(GeographyActivity.this, R.raw.geography_music);
+        mediaPlayer =MediaPlayer.create(GeographyActivity.this,R.raw.envent_sound);
 
 
     }
@@ -92,21 +92,21 @@ public class GeographyTag extends GameActivity {
             switch(motionEvent.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     RelativeLayout.LayoutParams lParams=(RelativeLayout.LayoutParams)view.getLayoutParams();
-                    xDelta=x-lParams.leftMargin;
-                    yDelta=y-lParams.topMargin;
+                    deltaX =x-lParams.leftMargin;
+                    deltaY =y-lParams.topMargin;
 
                     break;
 
                 case MotionEvent.ACTION_MOVE:
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                    layoutParams.leftMargin=x-xDelta;
-                    layoutParams.topMargin=y-yDelta;
+                    layoutParams.leftMargin=x- deltaX;
+                    layoutParams.topMargin=y- deltaY;
                     view.setLayoutParams(layoutParams);
                     break;
 
                 case MotionEvent.ACTION_UP:
                     Toast toast;
-                    toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
+                    toast=Toast.makeText(getApplicationContext(),"x="+((x- deltaX)*12)/retourTailleEcran()+"/12 y="+((y- deltaY)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
                     toast.show();
 
                     int coordonneesEtiquette[] = new int[2];
@@ -120,7 +120,7 @@ public class GeographyTag extends GameActivity {
                        view.setEnabled(false);
 
                        view.setBackgroundColor(Color.GREEN);
-                       playerEvent.start();
+                       mediaPlayer.start();
 
                     }
 
@@ -140,9 +140,9 @@ public class GeographyTag extends GameActivity {
                 && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
                 && coteInferieurTxtView >= zoneVictoireEtiquette[2] && coteInferieurTxtView <= zoneVictoireEtiquette[3]){
          afficherTexte("Bravo!");
-            nbBonneReponse++;
-            if(nbBonneReponse==etiquetteList.size()){
-                afficherEcranFin(GeographyTag.this,true,false,0);
+            rightAnswerCounter++;
+            if(rightAnswerCounter == tagList.size()){
+                afficherEcranFin(GeographyActivity.this,true,false,0);
             }
             return true;
         }
@@ -151,47 +151,47 @@ public class GeographyTag extends GameActivity {
     }
 
     private void genererTextView(){
-        int nbEtiquetteColonne = getNombreMaxEtiquetteParColonne();
+        int nbEtiquetteColonne = recupererNombreMaxEtiquetteParColonne();
         int numeroColonne = 0;
 
-        tabTextView = new TextView[etiquetteList.size()];
+        textViewTab = new TextView[tagList.size()];
 
-        for(int i = 0; i<etiquetteList.size(); i++){
+        for(int i = 0; i< tagList.size(); i++){
 
             RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-            tabTextView[i] = new TextView(this);
-            tabTextView[i].setPadding(10,10,10,10);
+            textViewTab[i] = new TextView(this);
+            textViewTab[i].setPadding(10,10,10,10);
 
             if (((i+1) % nbEtiquetteColonne) == 0 ) {
                 numeroColonne +=1;
             }
             textViewParams.setMargins((numeroColonne*350)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
 
-            tabTextView[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-            tabTextView[i].setLayoutParams(textViewParams);
-            tabTextView[i].setBackgroundColor(Color.BLUE);
-            tabTextView[i].setOnTouchListener(onTouchListener());
+            textViewTab[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+            textViewTab[i].setLayoutParams(textViewParams);
+            textViewTab[i].setBackgroundColor(Color.BLUE);
+            textViewTab[i].setOnTouchListener(onTouchListener());
 
-            mainLayout.addView(tabTextView[i],textViewParams);
+            mainLayout.addView(textViewTab[i],textViewParams);
         }
     }
 
     private void genererTagEtiquette() {
-        for(int i = 0; i<etiquetteList.size(); i++){
-            tabTextView[i].setTag(etiquetteList.get(i).getZoneVictoire());
+        for(int i = 0; i< tagList.size(); i++){
+            textViewTab[i].setTag(tagList.get(i).getVictoryBox());
         }
     }
 
     private void genererNomEtiquette() {
-        for(int i = 0; i<etiquetteList.size(); i++){
-            tabTextView[i].setText(etiquetteList.get(i).getNom());
+        for(int i = 0; i< tagList.size(); i++){
+            textViewTab[i].setText(tagList.get(i).getName());
         }
     }
 
     private void genererImageDeFond() {
 
-            mainLayout.setBackgroundResource(controleur.getImageFond());
+            mainLayout.setBackgroundResource(controler.getBackgroundImage());
 
     }
 
@@ -212,9 +212,9 @@ public class GeographyTag extends GameActivity {
         RectF rect;
         float[] etiquetteCoordonnees;
 
-        for(Etiquette etiquette : etiquetteList){
+        for(Tag tag : tagList){
 
-            etiquetteCoordonnees = resizeEtiquette(etiquette.getZoneVictoire());
+            etiquetteCoordonnees = redimentionerEtiquette(tag.getVictoryBox());
 
             rect = new RectF(etiquetteCoordonnees[0], etiquetteCoordonnees[2], etiquetteCoordonnees[1],
                     etiquetteCoordonnees[3]);
@@ -224,7 +224,7 @@ public class GeographyTag extends GameActivity {
         }
     }
 
-    private float[] resizeEtiquette(float[] tabValeurEtiquette) {
+    private float[] redimentionerEtiquette(float[] tabValeurEtiquette) {
 
 
 
@@ -239,38 +239,22 @@ public class GeographyTag extends GameActivity {
 
     }
 
-    private int getNombreMaxEtiquetteParColonne(){
-        int i = 0;
-        while(i*100<= getHauteurEcran() * 0.8){
-            i++;
+    private int recupererNombreMaxEtiquetteParColonne(){
+        int mNombreEtiquetteParColonne = 0;
+        while(mNombreEtiquetteParColonne*100<= getHauteurEcran() * 0.8){
+            mNombreEtiquetteParColonne++;
         }
 
-        return i;
-    }
-
-
-    @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
+        return mNombreEtiquetteParColonne;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        modeFullscreen();
+        modePleinEcran();
     }
 
-    private void modeFullscreen(){
+    private void modePleinEcran(){
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
