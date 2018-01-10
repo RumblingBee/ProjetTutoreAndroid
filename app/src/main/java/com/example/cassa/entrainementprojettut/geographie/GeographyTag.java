@@ -143,22 +143,28 @@ public class GeographyTag extends GameActivity {
             RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             tabTextView[i] = new TextView(this);
-            tabTextView[i].setPadding(10,10,10,10);
 
-            if (((i+1) % nbEtiquetteColonne) == 0 ) {
+
+
+            if (isPlacedInTheNextCol(nbEtiquetteColonne, numeroColonne, i) == true){
                 numeroColonne +=1;
             }
-            textViewParams.setMargins((numeroColonne*350)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
+            textViewParams.setMargins((numeroColonne*150)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
 
             tabTextView[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             tabTextView[i].setLayoutParams(textViewParams);
             tabTextView[i].setBackgroundColor(Color.parseColor("#f3f0e8"));
-            tabTextView[i].setTextSize(getHauteurEcran()*0.01F);
+            tabTextView[i].setTextSize(getHauteurEcran()*0.02F);
 
             tabTextView[i].setOnTouchListener(onTouchListener());
 
             mainLayout.addView(tabTextView[i],textViewParams);
         }
+    }
+
+    private Boolean isPlacedInTheNextCol(int nbEtiquetteColonne, int numeroColonne, int idTag) {
+        return (((((idTag + 1) + numeroColonne) % (nbEtiquetteColonne)) == 0));
+
     }
 
     private void genererTagEtiquette() {
@@ -254,7 +260,7 @@ public class GeographyTag extends GameActivity {
 
     private int getNombreMaxEtiquetteParColonne(){
         int i = 0;
-        while(i*100<= getHauteurEcran() * 0.8){
+        while(i*100<= getHauteurEcran() * 0.9){
             i++;
         }
 
