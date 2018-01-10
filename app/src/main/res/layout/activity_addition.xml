@@ -83,7 +83,7 @@ android:layout_marginTop="200dp"
             android:layout_column="4"
             android:layout_row="3"
             android:id="@+id/activity_addition_relativelayout"
-            tools:context="com.example.cassa.projetAndroid.AdditionActivity"
+            tools:context="com.example.cassa.entrainementprojettut.AdditionActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
