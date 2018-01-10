@@ -1,6 +1,4 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
-
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+package com.example.cassa.entrainementprojettut.operationGame.Operations;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,16 +20,16 @@ public class SoustractionTest {
     @Test
     public void testPasDeNegatif() throws Exception {
         for(int i=0;i<1000;i++){
-            soustraction.genererOperation(10,1,10,1);
-            assertEquals(true, soustraction.afficherResultat() > 0);
+            soustraction.generateOperation(10,1,10,1);
+            assertEquals(true, soustraction.displayResult() > 0);
         }
     }
 
     @Test
     public void testStandardSoustraction() throws Exception {
         for (int i = 0; i <1000; i++) {
-            soustraction.genererOperation(10,1,10,1);
-            assertEquals(soustraction.afficherResultat(),soustraction.getTerme1()-soustraction.getTerme2());
+            soustraction.generateOperation(10,1,10,1);
+            assertEquals(soustraction.displayResult(),soustraction.getTerme1()-soustraction.getTerme2());
         }
     }
 }

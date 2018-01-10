@@ -1,6 +1,4 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
-
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Multiplication;
+package com.example.cassa.entrainementprojettut.operationGame.Operations;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +20,8 @@ public class MultiplicationTest {
     @Test
     public void testStandardMultiplication() throws Exception {
         for (int i = 0; i <1000; i++) {
-            multiplication.genererOperation(5,1,5,1);
-            assertEquals(multiplication.afficherResultat(), (multiplication.getTerme1() * multiplication.getTerme2()));
+            multiplication.generateOperation(5,1,5,1);
+            assertEquals(multiplication.displayResult(), (multiplication.getTerme1() * multiplication.getTerme2()));
         }
     }
 }

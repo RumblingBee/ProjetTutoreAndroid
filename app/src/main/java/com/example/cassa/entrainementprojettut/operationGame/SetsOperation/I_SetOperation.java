@@ -1,6 +1,6 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
 
 /**
  * Created by clement on 02/01/18.
@@ -8,7 +8,7 @@ import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operatio
 
 public interface I_SetOperation {
 
-    I_Operation genererUneOperation();
+    I_Operation createAnOperation();
 
     I_Operation getOperation();
 

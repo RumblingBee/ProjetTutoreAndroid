@@ -1,6 +1,6 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +22,8 @@ public class SetOperationCE1Test {
     @Test
     public void testValiditeSoustraction() throws Exception {
         for (int i = 0; i <1000; i++) {
-            I_Operation operation=setOperation.genererUneOperation();
-            assertEquals(true,operation.afficherResultat()>=0);
+            I_Operation operation=setOperation.createAnOperation();
+            assertEquals(true,operation.displayResult()>=0);
         }
     }
 }

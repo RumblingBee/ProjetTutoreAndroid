@@ -8,10 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
-import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
-import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -35,13 +31,13 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
         mMusique = R.raw.bensound_funnysong;
-        lancerBgMusique(FlagActivity.this, mMusique);
+        launchBackgroundMusic(FlagActivity.this, mMusique);
 
         initialisationDrapeaux();
 
         initialisationNomPaysEtScore();
 
-        afficherChoixNiveaux(FlagActivity.this,"listeNiveau",3);
+        displayLevelChoice(FlagActivity.this,"listeNiveau",3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -140,17 +136,17 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected  void verifierReponse(ImageView v,String pPays){
 
         if(pPays == gBonneReponse ){
-            afficherTexte("Bravo");
+            displayText("Bravo");
             gScore = gScore + 5;
             gNbBonneReponse = gNbBonneReponse + 1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10 ){
-                afficherEcranFin(FlagActivity.this,true,true,gScore);
+                displayEndScreen(FlagActivity.this,true,true,gScore);
             }
         }
         else{
-            afficherTexte("Dommage");
+            displayText("Dommage");
             gScore = gScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);

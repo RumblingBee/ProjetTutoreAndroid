@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,13 +51,13 @@ public class MysteryWordActivity extends GameActivity {
         setContentView(R.layout.activity_mystery_word);
 
         mMusique = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, mMusique);
+        launchBackgroundMusic(MysteryWordActivity.this, mMusique);
 
         gKeyboard= new ToggleButton[26];
         controleurWordBank =new ControleurWordBank(niveauChoisi);
 
 
-        afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
+        displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
@@ -212,8 +211,8 @@ public class MysteryWordActivity extends GameActivity {
         if (motFini(pWord, pInt)) {
             pReponse.setText("Bravo !");
             gNbReponsesCorrectes++;
-            float largeurEcran = retourTailleEcran();
-            bougerImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+            float largeurEcran = getScreenSize();
+            movePicture(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
             gPositionImageJoueur = gPositionImageJoueur + (largeurEcran / 5);
             partieFinie(5);
         } else {
@@ -239,7 +238,7 @@ public class MysteryWordActivity extends GameActivity {
 
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
-            afficherEcranFin(MysteryWordActivity.this, true, false, 0);
+            displayEndScreen(MysteryWordActivity.this, true, false, 0);
         }
         else {
             motEnCour = motSuivant();

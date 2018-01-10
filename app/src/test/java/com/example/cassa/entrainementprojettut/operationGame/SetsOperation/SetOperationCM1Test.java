@@ -1,32 +1,32 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Addition;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Soustraction;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by clement on 03/01/18.
  */
-public class SetOperationCM2Test {
+public class SetOperationCM1Test {
 
     private I_SetOperation setOperation;
     private I_Operation operation;
 
     @Before
     public void setUp() throws Exception {
-        setOperation=new SetOperationCM2();
+        setOperation=new SetOperationCM1();
     }
 
     @Test
     public void testPresenceDesTroisOperations() throws Exception {
         int nbAddition=0,nbSoustraction=0,nbMultiplication=0;
         for (int i = 0; i <10000 ; i++) {
-            operation=setOperation.genererUneOperation();
+            operation=setOperation.createAnOperation();
             if(operation.getClass()== Addition.class){
                 nbAddition++;
             }else if(operation.getClass()== Soustraction.class){

@@ -1,6 +1,4 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations;
-
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
+package com.example.cassa.entrainementprojettut.operationGame.Operations;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +20,8 @@ public class AdditionTest {
     @Test
     public void testStandardAddition() throws Exception {
         for (int i = 0; i <1000; i++) {
-            addition.genererOperation(10,1,4,1);
-            assertEquals((addition.getTerme2() + addition.getTerme1()), addition.afficherResultat());
+            addition.generateOperation(10,1,4,1);
+            assertEquals((addition.getTerme2() + addition.getTerme1()), addition.displayResult());
         }
     }
 }

@@ -8,10 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
-import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
-import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -35,13 +31,13 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
         mMusique = R.raw.bensound_goinghigher;
-        lancerBgMusique(ReverseFlagActivity.this, mMusique);
+        launchBackgroundMusic(ReverseFlagActivity.this, mMusique);
 
         initialisationNomPays();
 
         initialisationReponseEtScore();
 
-        afficherChoixNiveaux(ReverseFlagActivity.this, "listeNiveau", 3);
+        displayLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -128,16 +124,16 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
-            afficherTexte("Bravo");
+            displayText("Bravo");
             gScore+=5;
             gNbBonneReponse+=1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10){
-                afficherEcranFin(ReverseFlagActivity.this, true, true, gScore);
+                displayEndScreen(ReverseFlagActivity.this, true, true, gScore);
             }
         }else{
-            afficherTexte("Dommage");
+            displayText("Dommage");
             gScore-=2;
             button.setEnabled(false);
             mScore.setText(""+gScore);
