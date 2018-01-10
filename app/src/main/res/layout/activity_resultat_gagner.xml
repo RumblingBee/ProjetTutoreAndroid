@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="landscape"
-    tools:context="com.example.cassa.entrainementprojettut.ResultActivity">
+    tools:context="com.example.cassa.projetAndroid.ResultActivity">
     <TextView
         android:id="@+id/activity_win_resultat_textView"
         android:layout_width="match_parent"

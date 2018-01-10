@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cassa.entrainementprojettut">
+    package="com.example.cassa.projetAndroid">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.cassa.projetAndroid.MainActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask">
             <intent-filter>
@@ -20,29 +20,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdditionActivity"
+            android:name="com.example.cassa.projetAndroid.AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResultActivity"
+            android:name="com.example.cassa.projetAndroid.ResultActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MysteryWordActivity"
+            android:name="com.example.cassa.projetAndroid.MysteryWordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LevelChoiceActivity"
+            android:name="com.example.cassa.projetAndroid.LevelChoiceActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".FlagActivity"
+            android:name="com.example.cassa.projetAndroid.FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".ReverseFlagActivity"
+        <activity android:name="com.example.cassa.projetAndroid.ReverseFlagActivity"
                   android:launchMode="singleTask"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".geographie.GeographyTag"
+        <activity android:name="com.example.cassa.projetAndroid.geographie.GeographyTag"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>
