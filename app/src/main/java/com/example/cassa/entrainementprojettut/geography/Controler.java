@@ -15,7 +15,7 @@ public class Controler {
     public Controler(int difficulte) {
 
         Factory factory = new Factory();
-        newLevel = factory.createNouveauNiveau(difficulte);
+        newLevel = factory.createNewLevel(difficulte);
 
     }
 

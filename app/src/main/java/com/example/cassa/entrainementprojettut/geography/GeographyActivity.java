@@ -17,8 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.cassa.entrainementprojettut.GameActivity;
 import com.example.cassa.entrainementprojettut.R;
 
@@ -45,7 +43,7 @@ public class GeographyActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         music = R.raw.geography_music;
-        modePleinEcran();
+        fullScreenMode();
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
@@ -59,12 +57,12 @@ public class GeographyActivity extends GameActivity {
                                                 controler = new Controler(levelChosen);
                                                 tagList = controler.getTagList();
 
-                                                genererImageDeFond();
-                                                genererEmplacementsSurImage();
+                                                setBackgroundImage();
+                                                setRectanglesOnMap();
 
-                                                genererTextView();
-                                                genererNomEtiquette();
-                                                genererTagEtiquette();
+                                                generateTextView();
+                                                setNameTextView();
+                                                setTagTextView();
                                             } else {
                                                 afficherChoixNiveaux(GeographyActivity.this, "", 3);
                                             }
@@ -105,18 +103,21 @@ public class GeographyActivity extends GameActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
+                   /*
+                   TO SHOW TAG LOCATION ON SCREEN
+
                     Toast toast;
                     toast=Toast.makeText(getApplicationContext(),"x="+((x- deltaX)*12)/retourTailleEcran()+"/12 y="+((y- deltaY)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
-                    toast.show();
+                    toast.show();*/
 
-                    int coordonneesEtiquette[] = new int[2];
-                    view.getLocationOnScreen(coordonneesEtiquette);
-                    float coteGauche = coordonneesEtiquette[0];
-                    float coteDroit = coteGauche + view.getWidth();
-                    float coteSuperieur = coordonneesEtiquette[1];
-                    float coteInferieur = coteSuperieur + view.getHeight();
+                    int tagCoord[] = new int[2];
+                    view.getLocationOnScreen(tagCoord);
+                    float leftSide = tagCoord[0];
+                    float rightSide = leftSide + view.getWidth();
+                    float upperSide = tagCoord[1];
+                    float downSide = upperSide + view.getHeight();
 
-                    if (verifierZone((float[])view.getTag(),coteGauche, coteDroit, coteSuperieur, coteInferieur)){
+                    if (checkVictoryArea((float[])view.getTag(),leftSide, rightSide, upperSide, downSide)){
                        view.setEnabled(false);
 
                        view.setBackgroundColor(Color.GREEN);
@@ -131,14 +132,14 @@ public class GeographyActivity extends GameActivity {
         };
     }
 
-    private boolean verifierZone(float[]zoneVictoireEtiquette, float coteGaucheTxtView, float coteDroitTxtView,
-                                 float coteSuperieurTxtView, float coteInferieurTxtView){
+    private boolean checkVictoryArea(float[]victoryBox, float leftSideTextView, float rightSideTextView,
+                                     float upperSideTextView, float lowerSideTextView){
 
 
-        if( coteGaucheTxtView >= zoneVictoireEtiquette[0] && coteGaucheTxtView <= zoneVictoireEtiquette[1]
-                && coteDroitTxtView >= zoneVictoireEtiquette[0] && coteDroitTxtView <= zoneVictoireEtiquette[1]
-                && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
-                && coteInferieurTxtView >= zoneVictoireEtiquette[2] && coteInferieurTxtView <= zoneVictoireEtiquette[3]){
+        if( leftSideTextView >= victoryBox[0] && leftSideTextView <= victoryBox[1]
+                && rightSideTextView >= victoryBox[0] && rightSideTextView <= victoryBox[1]
+                && upperSideTextView >= victoryBox[2] && upperSideTextView <= victoryBox[3]
+                && lowerSideTextView >= victoryBox[2] && lowerSideTextView <= victoryBox[3]){
          afficherTexte("Bravo!");
             rightAnswerCounter++;
             if(rightAnswerCounter == tagList.size()){
@@ -150,9 +151,9 @@ public class GeographyActivity extends GameActivity {
         return false;
     }
 
-    private void genererTextView(){
-        int nbEtiquetteColonne = recupererNombreMaxEtiquetteParColonne();
-        int numeroColonne = 0;
+    private void generateTextView(){
+        int maxTagInAColumn = getMaxTagInAColumn();
+        int columnNumber = 0;
 
         textViewTab = new TextView[tagList.size()];
 
@@ -163,10 +164,10 @@ public class GeographyActivity extends GameActivity {
             textViewTab[i] = new TextView(this);
             textViewTab[i].setPadding(10,10,10,10);
 
-            if (((i+1) % nbEtiquetteColonne) == 0 ) {
-                numeroColonne +=1;
+            if (((i+1) % maxTagInAColumn) == 0 ) {
+                columnNumber +=1;
             }
-            textViewParams.setMargins((numeroColonne*350)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
+            textViewParams.setMargins((columnNumber*350)+10, ((i-(columnNumber*(maxTagInAColumn-1))) * 100) + 10, 0, 0);
 
             textViewTab[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             textViewTab[i].setLayoutParams(textViewParams);
@@ -177,25 +178,25 @@ public class GeographyActivity extends GameActivity {
         }
     }
 
-    private void genererTagEtiquette() {
+    private void setTagTextView() {
         for(int i = 0; i< tagList.size(); i++){
             textViewTab[i].setTag(tagList.get(i).getVictoryBox());
         }
     }
 
-    private void genererNomEtiquette() {
+    private void setNameTextView() {
         for(int i = 0; i< tagList.size(); i++){
             textViewTab[i].setText(tagList.get(i).getName());
         }
     }
 
-    private void genererImageDeFond() {
+    private void setBackgroundImage() {
 
             mainLayout.setBackgroundResource(controler.getBackgroundImage());
 
     }
 
-    private void genererEmplacementsSurImage(){
+    private void setRectanglesOnMap(){
         Paint paint = new Paint();
         paint.setColor(Color.GRAY);
         paint.setAlpha(85);
@@ -210,36 +211,34 @@ public class GeographyActivity extends GameActivity {
 
         Canvas canvas = new Canvas(b);
         RectF rect;
-        float[] etiquetteCoordonnees;
+        float[] tagCoords;
 
         for(Tag tag : tagList){
 
-            etiquetteCoordonnees = redimentionerEtiquette(tag.getVictoryBox());
+            tagCoords = resizeVictoryBox(tag.getVictoryBox());
 
-            rect = new RectF(etiquetteCoordonnees[0], etiquetteCoordonnees[2], etiquetteCoordonnees[1],
-                    etiquetteCoordonnees[3]);
+            rect = new RectF(tagCoords[0], tagCoords[2], tagCoords[1],
+                    tagCoords[3]);
 
             canvas.drawRect(rect, paint);
 
         }
     }
 
-    private float[] redimentionerEtiquette(float[] tabValeurEtiquette) {
+    private float[] resizeVictoryBox(float[] victoryBox) {
+
+        victoryBox[0] = victoryBox[0] * retourTailleEcran();
+        victoryBox[1] = victoryBox[1] * retourTailleEcran();
+        victoryBox[2]  = victoryBox[2] * getHauteurEcran();
+        victoryBox[3]  = victoryBox[3] * getHauteurEcran();
 
 
-
-        tabValeurEtiquette[0] = tabValeurEtiquette[0] * retourTailleEcran();
-        tabValeurEtiquette[1] = tabValeurEtiquette[1] * retourTailleEcran();
-        tabValeurEtiquette[2]  = tabValeurEtiquette[2] * getHauteurEcran();
-        tabValeurEtiquette[3]  = tabValeurEtiquette[3] * getHauteurEcran();
-
-
-        return  tabValeurEtiquette;
+        return  victoryBox;
 
 
     }
 
-    private int recupererNombreMaxEtiquetteParColonne(){
+    private int getMaxTagInAColumn(){
         int mNombreEtiquetteParColonne = 0;
         while(mNombreEtiquetteParColonne*100<= getHauteurEcran() * 0.8){
             mNombreEtiquetteParColonne++;
@@ -251,10 +250,10 @@ public class GeographyActivity extends GameActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        modePleinEcran();
+        fullScreenMode();
     }
 
-    private void modePleinEcran(){
+    private void fullScreenMode(){
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
