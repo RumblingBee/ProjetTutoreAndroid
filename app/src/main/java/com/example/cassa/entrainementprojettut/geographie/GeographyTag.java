@@ -17,12 +17,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.cassa.entrainementprojettut.GameActivity;
 import com.example.cassa.entrainementprojettut.R;
-
+import java.util.Collections;
 import java.util.List;
+
 
 /**
  * Created by clement on 07/12/17.
@@ -105,9 +104,9 @@ public class GeographyTag extends GameActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    Toast toast;
+                    /*Toast toast;
                     toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
-                    toast.show();
+                    toast.show();*/
 
                     int coordonneesEtiquette[] = new int[2];
                     view.getLocationOnScreen(coordonneesEtiquette);
@@ -131,28 +130,11 @@ public class GeographyTag extends GameActivity {
         };
     }
 
-    private boolean verifierZone(float[]zoneVictoireEtiquette, float coteGaucheTxtView, float coteDroitTxtView,
-                                 float coteSuperieurTxtView, float coteInferieurTxtView){
-
-
-        if( coteGaucheTxtView >= zoneVictoireEtiquette[0] && coteGaucheTxtView <= zoneVictoireEtiquette[1]
-                && coteDroitTxtView >= zoneVictoireEtiquette[0] && coteDroitTxtView <= zoneVictoireEtiquette[1]
-                && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
-                && coteInferieurTxtView >= zoneVictoireEtiquette[2] && coteInferieurTxtView <= zoneVictoireEtiquette[3]){
-         afficherTexte("Bravo!");
-            nbBonneReponse++;
-            if(nbBonneReponse==etiquetteList.size()){
-                afficherEcranFin(GeographyTag.this,true,false,0);
-            }
-            return true;
-        }
-
-        return false;
-    }
-
     private void genererTextView(){
         int nbEtiquetteColonne = getNombreMaxEtiquetteParColonne();
         int numeroColonne = 0;
+
+        Collections.shuffle(etiquetteList);
 
         tabTextView = new TextView[etiquetteList.size()];
 
@@ -161,20 +143,28 @@ public class GeographyTag extends GameActivity {
             RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             tabTextView[i] = new TextView(this);
-            tabTextView[i].setPadding(10,10,10,10);
 
-            if (((i+1) % nbEtiquetteColonne) == 0 ) {
+
+
+            if (isPlacedInTheNextCol(nbEtiquetteColonne, numeroColonne, i) == true){
                 numeroColonne +=1;
             }
-            textViewParams.setMargins((numeroColonne*350)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
+            textViewParams.setMargins((numeroColonne*150)+10, ((i-(numeroColonne*(nbEtiquetteColonne-1))) * 100) + 10, 0, 0);
 
             tabTextView[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             tabTextView[i].setLayoutParams(textViewParams);
-            tabTextView[i].setBackgroundColor(Color.BLUE);
+            tabTextView[i].setBackgroundColor(Color.parseColor("#f3f0e8"));
+            tabTextView[i].setTextSize(getHauteurEcran()*0.02F);
+
             tabTextView[i].setOnTouchListener(onTouchListener());
 
             mainLayout.addView(tabTextView[i],textViewParams);
         }
+    }
+
+    private Boolean isPlacedInTheNextCol(int nbEtiquetteColonne, int numeroColonne, int idTag) {
+        return (((((idTag + 1) + numeroColonne) % (nbEtiquetteColonne)) == 0));
+
     }
 
     private void genererTagEtiquette() {
@@ -224,6 +214,35 @@ public class GeographyTag extends GameActivity {
         }
     }
 
+    private boolean verifierZone(float[]zoneVictoireEtiquette, float coteGaucheTxtView, float coteDroitTxtView,
+                                 float coteSuperieurTxtView, float coteInferieurTxtView){
+
+        zoneVictoireEtiquette = toleranceVictoryBox(zoneVictoireEtiquette); //victoryBox
+
+        if( coteGaucheTxtView >= zoneVictoireEtiquette[0] && coteGaucheTxtView <= zoneVictoireEtiquette[1]
+                && coteDroitTxtView >= zoneVictoireEtiquette[0] && coteDroitTxtView <= zoneVictoireEtiquette[1]
+                && coteSuperieurTxtView >= zoneVictoireEtiquette[2] && coteSuperieurTxtView <= zoneVictoireEtiquette[3]
+                && coteInferieurTxtView >= zoneVictoireEtiquette[2] && coteInferieurTxtView <= zoneVictoireEtiquette[3]){
+            afficherTexte("Bravo!");
+            nbBonneReponse++;
+            if(nbBonneReponse==etiquetteList.size()){
+                afficherEcranFin(GeographyTag.this,true,false,0);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    private float[] toleranceVictoryBox(float[] zoneVictoireEtiquette) {
+        zoneVictoireEtiquette[0] -= 8;
+        zoneVictoireEtiquette[1] += 8;
+        zoneVictoireEtiquette[2] -= 8;
+        zoneVictoireEtiquette[3] += 8;
+
+        return zoneVictoireEtiquette;
+    }
+
     private float[] resizeEtiquette(float[] tabValeurEtiquette) {
 
 
@@ -241,7 +260,7 @@ public class GeographyTag extends GameActivity {
 
     private int getNombreMaxEtiquetteParColonne(){
         int i = 0;
-        while(i*100<= getHauteurEcran() * 0.8){
+        while(i*100<= getHauteurEcran() * 0.9){
             i++;
         }
 
@@ -249,20 +268,6 @@ public class GeographyTag extends GameActivity {
     }
 
 
-    @Override
-    public void onBackPressed()
-    {
-        bgPlayer.stop();
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-
-    }
 
     @Override
     protected void onResume() {

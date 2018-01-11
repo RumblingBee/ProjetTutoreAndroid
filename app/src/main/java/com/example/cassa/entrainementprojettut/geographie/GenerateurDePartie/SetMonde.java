@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class SetMonde implements I_Set {
-    int imageFond;
+    private int imageFond;
     private List<Etiquette> listEtiquette;
 
     public SetMonde(){
@@ -34,7 +34,7 @@ public class SetMonde implements I_Set {
 
     @Override
     public void setImageFond() {
-        imageFond = R.drawable.continent;
+        imageFond = R.drawable.carte_continent;
     }
 
     @Override
