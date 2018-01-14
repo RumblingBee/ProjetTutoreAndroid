@@ -10,38 +10,38 @@ import java.util.List;
  * Created by clement on 05/01/18.
  */
 
-public class WordBankCM2 extends OutilsWordBank implements I_WordBank {
+public class WordBankCM2 extends ToolsWordBank implements I_WordBank {
 
-    private static String listeMotsLongs[] = {"vendre", "violet", "voisin", "dauphin", "patate",
+    private static String longWords[] = {"vendre", "violet", "voisin", "dauphin", "patate",
             "requin", "baleine", "laitue", "maison", "triangle", "tambour", "sucette", "crayon",
             "poisson", "cercle", "robinet", "fantome", "lunette", "guitare", "canard", "manger",
             "jardin", "volant", "souris", "quatre"};
 
     public WordBankCM2() {
-        genererListeMots();
+        generateWordsList();
     }
 
     @Override
-    public void genererListeMots() {
+    public void generateWordsList() {
 
         List<I_Word> words = new ArrayList<>();
-        String mot;
-        List<String> motSelectionne=new ArrayList<>();
+        String word;
+        List<String> selectedWords=new ArrayList<>();
 
         while (words.size()<5){
-            mot = selectionnerMotDansLaListe(listeMotsLongs);
-            if (motDejaSelectionne(mot, motSelectionne)) {
+            word = selectWordInList(longWords);
+            if (alreadySelectedWord(word, selectedWords)) {
                 continue;
             }
-            words.add(genererMot(mot));
-            motSelectionne.add(mot);
+            words.add(generateWords(word));
+            selectedWords.add(word);
         }
-        motSelectionne.clear();
-        this.setMots=words;
+        selectedWords.clear();
+        this.mWordSet =words;
     }
 
 
-    private I_Word genererMot(String mot) {
-        return new WordCM2(mot);
+    private I_Word generateWords(String words) {
+        return new WordCM2(words);
     }
 }

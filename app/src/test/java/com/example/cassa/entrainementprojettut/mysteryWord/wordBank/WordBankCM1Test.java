@@ -26,10 +26,10 @@ public class WordBankCM1Test {
     public void testPasDeDoublon() throws Exception {
         for (int j = 0; j <1000; j++) {
             List<String> liste=new ArrayList<>();
-            wordBankCM1.genererListeMots();
-            List<I_Word> words= wordBankCM1.getSetMots();
+            wordBankCM1.generateWordsList();
+            List<I_Word> words= wordBankCM1.getWordSet();
             for (I_Word word:words) {
-                liste.add(word.getMot());
+                liste.add(word.getWord());
             }
 
             for (String mot:liste){
@@ -48,8 +48,8 @@ public class WordBankCM1Test {
     public void testTailleDesWordsBank() throws Exception {
         List<I_Word> list;
         for (int i = 0; i <1000; i++) {
-            wordBankCM1.genererListeMots();
-            list= wordBankCM1.getSetMots();
+            wordBankCM1.generateWordsList();
+            list= wordBankCM1.getWordSet();
             assertEquals (5,list.size());
         }
     }
@@ -58,15 +58,15 @@ public class WordBankCM1Test {
     public void testFonctionnementStandard() throws Exception {
 
         for (int i = 0; i <1000; i++) {
-            wordBankCM1.genererListeMots();
-            List<I_Word>list= wordBankCM1.getSetMots();
+            wordBankCM1.generateWordsList();
+            List<I_Word>list= wordBankCM1.getWordSet();
             for (I_Word word:list) {
                 StringBuilder codedWord = new StringBuilder();
-                for (char c:word.getMot().toCharArray()) {
+                for (char c:word.getWord().toCharArray()) {
                     c+=1;
-                    codedWord.append((char)word.ajustementValeurDuCaractere(c));
+                    codedWord.append((char)word.adjustCharValue(c));
                 }
-                assertEquals(codedWord.toString(),word.getMotCode());
+                assertEquals(codedWord.toString(),word.getCodedWord());
             }
         }
     }
@@ -78,12 +78,12 @@ public class WordBankCM1Test {
         int motLongs=0;
 
         for (int i = 0; i <1000; i++) {
-            wordBankCM1.genererListeMots();
-            List<I_Word>list= wordBankCM1.getSetMots();
+            wordBankCM1.generateWordsList();
+            List<I_Word>list= wordBankCM1.getWordSet();
             for (I_Word word:list) {
-                if(word.getMot().length()==4){
+                if(word.getWord().length()==4){
                     motCourts++;
-                }else if (word.getMot().length()==5){
+                }else if (word.getWord().length()==5){
                     motMoyens++;
                 }else{
                     motLongs++;

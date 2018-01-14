@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.ControleurWordBank;
+import com.example.cassa.entrainementprojettut.mysteryWord.WordBankController;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 
 public class MysteryWordActivity extends GameActivity {
@@ -26,7 +25,7 @@ public class MysteryWordActivity extends GameActivity {
     private ToggleButton gKeyboard[];
     float gPositionImageJoueur;
 
-    private ControleurWordBank controleurWordBank;
+    private WordBankController wordBankController;
     private I_Word motEnCour;
 
     private char gSelectedCharaAnswer;
@@ -51,20 +50,24 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
-        mMusique = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, mMusique);
+        music = R.raw.bensound_cute;
+        startBackgroundMusic(MysteryWordActivity.this, music);
+
+
 
         gKeyboard= new ToggleButton[26];
-        controleurWordBank =new ControleurWordBank(niveauChoisi);
+
+        wordBankController =new WordBankController(levelChosen);
 
 
-        afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
+        displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
+
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
             @Override
             public void onDismiss(DialogInterface dialogInterface){
-                if (niveauChoisi != 0) {
+                if (levelChosen != 0) {
                     lancerPartie();
                 }
                 else {
@@ -123,8 +126,8 @@ public class MysteryWordActivity extends GameActivity {
     private void displayWord(I_Word pWord) {
 
         int i = 0;
-        final int wordLength = pWord.getMotCode().length();
-        for (char c : pWord.getMotCode().toCharArray()) {
+        final int wordLength = pWord.getCodedWord().length();
+        for (char c : pWord.getCodedWord().toCharArray()) {
             final int tmp = i;
             final ToggleButton button = (ToggleButton) this.getLayoutInflater().inflate(R.layout.mystery_word_button, gBtnLayout, false);
             button.setText(String.valueOf(c));
@@ -135,7 +138,7 @@ public class MysteryWordActivity extends GameActivity {
                 public void onClick(View pView) {
                     reinitClavier();
                     gTxtAnswer.setText("");
-                    gSelectedCharaAnswer = motEnCour.getMot().charAt(tmp);
+                    gSelectedCharaAnswer = motEnCour.getWord().charAt(tmp);
                     gSelectedLetter = (ToggleButton)pView;
                     pView.setClickable(false);
                     for (int j = 0; j < wordLength; j++) {
@@ -150,7 +153,7 @@ public class MysteryWordActivity extends GameActivity {
             gBtnLayout.addView(button);
             ToggleButton firstLetter = (ToggleButton) gBtnLayout.getChildAt(0);
             firstLetter.setChecked(true);
-            gSelectedCharaAnswer = motEnCour.getMot().charAt(0);
+            gSelectedCharaAnswer = motEnCour.getWord().charAt(0);
             gSelectedLetter = firstLetter;
             i++;
         }
@@ -172,7 +175,7 @@ public class MysteryWordActivity extends GameActivity {
     }
 
     public boolean motFini(I_Word sMotActuel, int i) {
-        return (sMotActuel.getMot().length() == i);
+        return (sMotActuel.getWord().length() == i);
     }
 
     public void reinitClavier() {
@@ -212,14 +215,16 @@ public class MysteryWordActivity extends GameActivity {
         if (motFini(pWord, pInt)) {
             pReponse.setText("Bravo !");
             gNbReponsesCorrectes++;
-            float largeurEcran = retourTailleEcran();
-            bougerImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+
+            float largeurEcran = getScreenWidth();
+            moveImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+
             gPositionImageJoueur = gPositionImageJoueur + (largeurEcran / 5);
             partieFinie(5);
         } else {
             int indexCurrentLetter = gBtnLayout.indexOfChild(gSelectedLetter);
             int indexNextLetter;
-            if (indexCurrentLetter == motEnCour.getMotCode().length() - 1 ||
+            if (indexCurrentLetter == motEnCour.getCodedWord().length() - 1 ||
                     !gBtnLayout.getChildAt(indexCurrentLetter + 1).isEnabled()) {
                 int j = 0;
                 while (!gBtnLayout.getChildAt(j).isEnabled()) {
@@ -231,7 +236,7 @@ public class MysteryWordActivity extends GameActivity {
             }
             ToggleButton nextLetter = (ToggleButton) gBtnLayout.getChildAt(indexNextLetter);
             nextLetter.setChecked(true);
-            gSelectedCharaAnswer = motEnCour.getMot().charAt(indexNextLetter);
+            gSelectedCharaAnswer = motEnCour.getWord().charAt(indexNextLetter);
             gSelectedLetter = nextLetter;
             nextLetter.setClickable(false);
         }
@@ -239,7 +244,9 @@ public class MysteryWordActivity extends GameActivity {
 
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
-            afficherEcranFin(MysteryWordActivity.this, true, false, 0);
+
+            showResultScreen(MysteryWordActivity.this, true, false, 0);
+
         }
         else {
             motEnCour = motSuivant();
@@ -247,14 +254,14 @@ public class MysteryWordActivity extends GameActivity {
     }
 
     public void lancerPartie() {
-        //On récupère le mot et on l'affiche, ainsi que la consigne associée
-        motEnCour = controleurWordBank.getUnMot(0);
+        //On récupère le mWord et on l'affiche, ainsi que la mOrder associée
+        motEnCour = wordBankController.getWord(0);
         gNbLettreOk = 0;
         displayWord(motEnCour);
-        gTxtOrder.setText(motEnCour.getConsigne());
+        gTxtOrder.setText(motEnCour.getOrder());
 
         int duree;
-        switch(niveauChoisi)
+        switch(levelChosen)
         {
             case 1: case 2: case 3:
                 duree = 120000;
@@ -266,7 +273,7 @@ public class MysteryWordActivity extends GameActivity {
                 duree = 120000;
                 break;
         }
-        lancerCourse(MysteryWordActivity.this,
+        launchTimer(MysteryWordActivity.this,
                 duree, R.id.activity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
 
     }
@@ -276,10 +283,10 @@ public class MysteryWordActivity extends GameActivity {
      */
 
     public I_Word motSuivant() {
-        I_Word motSuivant = controleurWordBank.getUnMot(gNbReponsesCorrectes);
+        I_Word motSuivant = wordBankController.getWord(gNbReponsesCorrectes);
         gNbLettreOk = 0;
         gHandler.postDelayed(gDisplayWord, 1000);
-        gTxtOrder.setText(motSuivant.getConsigne());
+        gTxtOrder.setText(motSuivant.getOrder());
         return motSuivant;
     }
 }

@@ -26,10 +26,10 @@ public class WordBankCE2Test {
     public void testPasDeDoublon() throws Exception {
         for (int j = 0; j <1000; j++) {
             List<String> liste=new ArrayList<>();
-            wordBankCE2.genererListeMots();
-            List<I_Word> words= wordBankCE2.getSetMots();
+            wordBankCE2.generateWordsList();
+            List<I_Word> words= wordBankCE2.getWordSet();
             for (I_Word word:words) {
-                liste.add(word.getMot());
+                liste.add(word.getWord());
             }
 
             for (String mot:liste){
@@ -48,8 +48,8 @@ public class WordBankCE2Test {
     public void testTailleDesWordsBank() throws Exception {
         List<I_Word> list;
         for (int i = 0; i <1000; i++) {
-            wordBankCE2.genererListeMots();
-            list= wordBankCE2.getSetMots();
+            wordBankCE2.generateWordsList();
+            list= wordBankCE2.getWordSet();
             assertEquals (5,list.size());
         }
     }
@@ -58,15 +58,15 @@ public class WordBankCE2Test {
     public void testFonctionnementStandard() throws Exception {
 
         for (int i = 0; i <1000; i++) {
-            wordBankCE2.genererListeMots();
-            List<I_Word>list= wordBankCE2.getSetMots();
+            wordBankCE2.generateWordsList();
+            List<I_Word>list= wordBankCE2.getWordSet();
             for (I_Word word:list) {
                 StringBuilder codedWord = new StringBuilder();
-                for (char c:word.getMot().toCharArray()) {
+                for (char c:word.getWord().toCharArray()) {
                     c-=3;
-                    codedWord.append((char)word.ajustementValeurDuCaractere(c));
+                    codedWord.append((char)word.adjustCharValue(c));
                 }
-                assertEquals(codedWord.toString(),word.getMotCode());
+                assertEquals(codedWord.toString(),word.getCodedWord());
             }
         }
     }
@@ -78,12 +78,12 @@ public class WordBankCE2Test {
         int motLongs=0;
 
         for (int i = 0; i <1000; i++) {
-            wordBankCE2.genererListeMots();
-            List<I_Word>list= wordBankCE2.getSetMots();
+            wordBankCE2.generateWordsList();
+            List<I_Word>list= wordBankCE2.getWordSet();
             for (I_Word word:list) {
-                if(word.getMot().length()==4){
+                if(word.getWord().length()==4){
                     motCourts++;
-                }else if (word.getMot().length()==5){
+                }else if (word.getWord().length()==5){
                     motMoyens++;
                 }else{
                     motLongs++;

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.cassa.entrainementprojettut.MainActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask">
             <intent-filter>
@@ -20,29 +20,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdditionActivity"
+            android:name="com.example.cassa.entrainementprojettut.AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResultActivity"
+            android:name="com.example.cassa.entrainementprojettut.ResultActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MysteryWordActivity"
+            android:name="com.example.cassa.entrainementprojettut.MysteryWordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LevelChoiceActivity"
+            android:name="com.example.cassa.entrainementprojettut.LevelChoiceActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".FlagActivity"
+            android:name="com.example.cassa.entrainementprojettut.FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".ReverseFlagActivity"
+        <activity android:name="com.example.cassa.entrainementprojettut.ReverseFlagActivity"
                   android:launchMode="singleTask"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".geographie.GeographyTag"
+
+        <activity android:name=".geography.GeographyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>

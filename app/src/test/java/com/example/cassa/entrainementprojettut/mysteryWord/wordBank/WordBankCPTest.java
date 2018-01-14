@@ -27,10 +27,10 @@ public class WordBankCPTest {
     public void testPasDeDoublon() throws Exception {
         for (int j = 0; j <1000; j++) {
             List<String> liste=new ArrayList<>();
-            wordBankCP.genererListeMots();
-            List<I_Word> words= wordBankCP.getSetMots();
+            wordBankCP.generateWordsList();
+            List<I_Word> words= wordBankCP.getWordSet();
             for (I_Word word:words) {
-                liste.add(word.getMot());
+                liste.add(word.getWord());
             }
 
             for (String mot:liste){
@@ -49,8 +49,8 @@ public class WordBankCPTest {
     public void testTailleDesWordsBank() throws Exception {
         List<I_Word> list;
         for (int i = 0; i <1000; i++) {
-            wordBankCP.genererListeMots();
-            list= wordBankCP.getSetMots();
+            wordBankCP.generateWordsList();
+            list= wordBankCP.getWordSet();
             assertEquals (5,list.size());
         }
     }
@@ -59,15 +59,15 @@ public class WordBankCPTest {
     public void testFonctionnementStandard() throws Exception {
 
         for (int i = 0; i <1000; i++) {
-            wordBankCP.genererListeMots();
-            List<I_Word>list= wordBankCP.getSetMots();
+            wordBankCP.generateWordsList();
+            List<I_Word>list= wordBankCP.getWordSet();
             for (I_Word word:list) {
                 StringBuilder codedWord = new StringBuilder();
-                for (char c:word.getMot().toCharArray()) {
+                for (char c:word.getWord().toCharArray()) {
                     c-=1;
-                    codedWord.append((char)word.ajustementValeurDuCaractere(c));
+                    codedWord.append((char)word.adjustCharValue(c));
                 }
-                assertEquals(codedWord.toString(),word.getMotCode());
+                assertEquals(codedWord.toString(),word.getCodedWord());
             }
         }
 

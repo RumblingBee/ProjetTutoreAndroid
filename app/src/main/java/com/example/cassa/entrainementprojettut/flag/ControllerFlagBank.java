@@ -8,9 +8,9 @@ public class ControllerFlagBank {
 
     private I_FlagBank flagBank;
 
-    public ControllerFlagBank(int niveauChoisi) {
+    public ControllerFlagBank(int selectedLevel) {
         FactoryFlagBank factoryFlagBank = new FactoryFlagBank();
-        flagBank = factoryFlagBank.genererFlagBank(niveauChoisi);
+        flagBank = factoryFlagBank.genererFlagBank(selectedLevel);
     }
 
     public I_FlagBank getFlagBank(){

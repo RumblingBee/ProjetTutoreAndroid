@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface I_FlagBank {
 
-    public Flag getFlag(int i);
-
-    public List<Flag> getChoixFlag();
+    Flag getFlag(int i);
 
 }

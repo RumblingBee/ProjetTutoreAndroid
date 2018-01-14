@@ -3,15 +3,8 @@ package com.example.cassa.entrainementprojettut;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
 import com.example.cassa.entrainementprojettut.flag.Flag;
-import com.example.cassa.entrainementprojettut.flag.FlagBank;
-import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
-import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -37,110 +30,6 @@ public class ExampleUnitTest {
     public void flagGetRessource() {
         Flag flag = new Flag("France", R.drawable.france);
         assertEquals(2131099758, flag.getmRessource());
-    }
-
-    @Test
-    public void flagBankGetFlag(){
-        ArrayList<Flag> listFlag = new ArrayList<>();
-        Flag france = new Flag("France", R.drawable.france);
-        Flag allemagne = new Flag("Allemagne", R.drawable.allemagne);
-        listFlag.add(france);
-        listFlag.add(allemagne);
-
-        FlagBank flagBank = new FlagBank(listFlag);
-        Flag flag = flagBank.getFlag(1);
-
-        assertEquals(flag.getmNameCountry(), allemagne.getmNameCountry());
-        assertEquals(flag.getmRessource(), allemagne.getmRessource());
-    }
-
-    @Test
-    public void flagBankLvl1NotEmpty() {
-        I_FlagBank flagBank = new FlagBankFacile();
-
-        assertTrue(flagBank.getChoixFlag().size() >=0);
-    }
-
-
-    @Test
-    public void flagBankLvl2NotEmpty() {
-        I_FlagBank flagBank = new FlagBankMoyenne();
-
-        assertTrue(flagBank.getChoixFlag().size() >=0);
-    }
-    @Test
-    public void flagBankLvl3NotEmpty() {
-        I_FlagBank flagBank = new FlagBankDifficile();
-
-        assertTrue(flagBank.getChoixFlag().size() >=0);
-    }
-
-    @Test
-    public void showOnly4FlagsLvl1() {
-        I_FlagBank flagBank = new FlagBankFacile();
-        assertEquals(4,flagBank.getChoixFlag().size());
-    }
-
-
-    @Test
-    public void showOnly4FlagsLvl2() {
-        I_FlagBank flagBank = new FlagBankMoyenne();
-        assertEquals(4,flagBank.getChoixFlag().size());
-    }
-
-    @Test
-    public void showOnly4FlagsLvl3() {
-        I_FlagBank flagBank = new FlagBankDifficile();
-        assertEquals(4,flagBank.getChoixFlag().size());
-    }
-
-    @Test
-    public void controllerGetFlagBank(){
-        ControllerFlagBank controllerFlagBank = new ControllerFlagBank(1);
-        I_FlagBank flagBank = controllerFlagBank.getFlagBank();
-        assertTrue(flagBank.getFlag(3) != null);
-    }
-
-    @Test
-    public void controllerNiveau1GetFlagBankNotEmpty(){
-        for (int i=0; i<1000; i++) {
-
-            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(1);
-            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
-
-            assertTrue(flagBank.getFlag(0) != null);
-            assertTrue(flagBank.getFlag(1) != null);
-            assertTrue(flagBank.getFlag(2) != null);
-            assertTrue(flagBank.getFlag(3) != null);
-        }
-    }
-
-    @Test
-    public void controllerNiveau2GetFlagBankNotEmpty(){
-        for (int i=0; i<1000; i++) {
-
-            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(2);
-            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
-
-            assertTrue(flagBank.getFlag(0) != null);
-            assertTrue(flagBank.getFlag(1) != null);
-            assertTrue(flagBank.getFlag(2) != null);
-            assertTrue(flagBank.getFlag(3) != null);
-        }
-    }
-
-    @Test
-    public void controllerNiveau3GetFlagBankNotEmpty(){
-        for (int i=0; i<1000; i++) {
-
-            ControllerFlagBank controllerFlagBank = new ControllerFlagBank(3);
-            I_FlagBank flagBank = controllerFlagBank.getFlagBank();
-
-            assertTrue(flagBank.getFlag(0) != null);
-            assertTrue(flagBank.getFlag(1) != null);
-            assertTrue(flagBank.getFlag(2) != null);
-            assertTrue(flagBank.getFlag(3) != null);
-        }
     }
 
     @Test

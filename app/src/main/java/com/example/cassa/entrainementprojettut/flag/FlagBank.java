@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut.flag;
 
 import com.example.cassa.entrainementprojettut.R;
-import com.example.cassa.entrainementprojettut.flag.Flag;
 
 import java.util.ArrayList;
 import java.util.Collections;

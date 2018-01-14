@@ -1,8 +1,5 @@
 package com.example.cassa.entrainementprojettut.flag;
 
-import android.media.Image;
-import android.widget.ImageView;
-
 /**
  * Created by prax on 23/11/17.
  */
@@ -16,10 +13,10 @@ public class Flag {
 
 
 
-    public Flag(String name, int adresseImage){
+    public Flag(String name, int pictureAdress){
         if(name != null) {
             this.mNameCountry = name;
-            this.mRessource = adresseImage;
+            this.mRessource = pictureAdress;
         }
     }
 

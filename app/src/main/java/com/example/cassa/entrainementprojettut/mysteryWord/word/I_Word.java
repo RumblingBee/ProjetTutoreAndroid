@@ -6,11 +6,11 @@ package com.example.cassa.entrainementprojettut.mysteryWord.word;
 
 public interface I_Word {
 
-    String getMot();
-    String getMotCode();
-    int ajustementValeurDuCaractere(int ascii);
+    String getWord();
+    String getCodedWord();
+    int adjustCharValue(int ascii);
 
-    void coderMot(int i);
+    void codeWord(int i);
 
-    String getConsigne();
+    String getOrder();
 }

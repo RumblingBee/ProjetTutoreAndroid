@@ -1,14 +1,11 @@
 package com.example.cassa.entrainementprojettut.mysteryWord;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.I_WordBank;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.WordBankCE1;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.WordBankCE2;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.WordBankCM1;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.WordBankCM2;
 import com.example.cassa.entrainementprojettut.mysteryWord.wordBank.WordBankCP;
-
-import java.util.List;
 
 /**
  * Created by clement on 04/01/18.

@@ -8,10 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
-import com.example.cassa.entrainementprojettut.flag.FlagBankDifficile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankFacile;
-import com.example.cassa.entrainementprojettut.flag.FlagBankMoyenne;
-import com.example.cassa.entrainementprojettut.flag.I_FlagBank;
 
 import java.util.Random;
 
@@ -34,18 +30,23 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
-        mMusique = R.raw.bensound_goinghigher;
-        lancerBgMusique(ReverseFlagActivity.this, mMusique);
+
+        music = R.raw.bensound_goinghigher;
+
+        startBackgroundMusic(ReverseFlagActivity.this, music);
+
 
         initialisationNomPays();
 
         initialisationReponseEtScore();
 
-        afficherChoixNiveaux(ReverseFlagActivity.this, "listeNiveau", 3);
+
+        displayLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if(niveauChoisi != 0){
+                if(levelChosen != 0){
                     genererPartie();
                 }else{
                     ReverseFlagActivity.this.onStop();
@@ -84,7 +85,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     protected void genererPartie(){
 
-        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+        controllerFlagBank = new ControllerFlagBank(levelChosen);
 
 
         Button[] mListeButton = {mNomPays1, mNomPays2, mNomPays3, mNomPays4};
@@ -128,16 +129,20 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
-            afficherTexte("Bravo");
+
+            showText("Bravo");
+
             gScore+=5;
             gNbBonneReponse+=1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10){
-                afficherEcranFin(ReverseFlagActivity.this, true, true, gScore);
+
+                showResultScreen(ReverseFlagActivity.this, true, true, gScore);
             }
         }else{
-            afficherTexte("Dommage");
+            showText("Dommage");
+
             gScore-=2;
             button.setEnabled(false);
             mScore.setText(""+gScore);
