@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2015 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.example.cassa.entrainementprojettut;
 
@@ -20,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -31,7 +16,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -45,10 +29,7 @@ import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity implements AppCompatCallback,
         TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {
-
-    private AppCompatDelegate mDelegate;
-    private int mThemeId = 0;
-    private Resources mResources;
+    
     Toast toast;
 
     public GameActivity() {
@@ -56,13 +37,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
 
-    public float retourTailleEcran(){
+    public float getScreenWidth(){
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.x;
     }
-    public float getHauteurEcran(){
+    public float getScreenHeight(){
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -70,13 +51,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
     final Handler handler = new Handler();
-    float positionImageJoueur;
-    protected ImageView mImagePos1;
-    protected ImageView mImageOrdi;
-    protected Runnable perdreActivite;
+    float playerImagePosition;
+    protected ImageView playerImage;
+    protected ImageView IAImage;
+    protected Runnable looseActivity;
 
 
-    protected  void afficherTexte(String text){
+    protected  void showText(String text){
 
 
         Context context = getApplicationContext();
@@ -99,13 +80,15 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected AlertDialog dialog;
 
-    protected void initialiserPartie(){
+
+    protected void initializeGame(){
+
         levelChosen = 0;
 
     }
 
 
-    protected void afficherChoixNiveaux(final Activity activite,String typeDeNiveau,int nombreNiveau) {
+    protected void showLevelChoice(final Activity activite, String typeDeNiveau, int idLevel) {
 
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
@@ -113,21 +96,21 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
         View lvlChoiceView = getLayoutInflater().inflate(R.layout.level_choice_popup, null);
 
-        String tabClasses[] = {"CP", "CE1", "CE2", "CM1", "CM2"};
-        String tabNiveaux[] = {"Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4", "Niveau 5"};
-        String tabCouleurs[] = {"#77dd6c", "#eebf38", "#ee3838", "#c847ea", "#47aaea"};
+        String classTab[] = {"CP", "CE1", "CE2", "CM1", "CM2"};
+        String lvlTab[] = {"Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4", "Niveau 5"};
+        String colorsTab[] = {"#77dd6c", "#eebf38", "#ee3838", "#c847ea", "#47aaea"};
 
-        LinearLayout conteneur = (LinearLayout)lvlChoiceView.findViewById(R.id.level_popup_activity_linearlayout);
-        for(int i = 0; i < nombreNiveau; i++){
-            final Button lvlButton = (Button)this.getLayoutInflater().inflate(R.layout.level_choice_button, conteneur, false);
+        LinearLayout container = (LinearLayout)lvlChoiceView.findViewById(R.id.level_popup_activity_linearlayout);
+        for(int i = 0; i < idLevel; i++){
+            final Button lvlButton = (Button)this.getLayoutInflater().inflate(R.layout.level_choice_button, container, false);
             if(typeDeNiveau.equalsIgnoreCase( "listeClasse")){
-                lvlButton.setText(tabClasses[i]);
+                lvlButton.setText(classTab[i]);
             }
             else{
-                lvlButton.setText(tabNiveaux[i]);
+                lvlButton.setText(lvlTab[i]);
             }
             lvlButton.setTag(i + 1);
-            lvlButton.getBackground().setColorFilter(Color.parseColor(tabCouleurs[i]), PorterDuff.Mode.MULTIPLY);
+            lvlButton.getBackground().setColorFilter(Color.parseColor(colorsTab[i]), PorterDuff.Mode.MULTIPLY);
             lvlButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
@@ -135,12 +118,12 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
                     dialog.dismiss();
                 }
             });
-            if(conteneur != null) {
-                conteneur.addView(lvlButton);
+            if(container != null) {
+                container.addView(lvlButton);
             }
         }
 
-        TextView mMessage = (TextView) lvlChoiceView.findViewById(R.id.level_popup_message_textView);
+        TextView message = (TextView) lvlChoiceView.findViewById(R.id.level_popup_message_textView);
 
         mBuilder.setView(lvlChoiceView);
         dialog = mBuilder.create();
@@ -170,16 +153,18 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         });
     }
 
-    protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
+
+    protected void showResultScreen(final Activity activity, boolean win, boolean hasAScore, int score){
         levelChosen = 0;
-        final boolean[] peutQuitter = {false};
-        if(perdreActivite != null) {
-            handler.removeCallbacks(perdreActivite);
+        final boolean[] canLeave = {false};
+        if(looseActivity != null) {
+            handler.removeCallbacks(looseActivity);
+
         }
 
         levelChosen = 0;
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
 
 
         View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
@@ -205,8 +190,8 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
 
         //Affichage du message
-         if(aUnScore == false) {
-            if (gagne == true) {
+         if(hasAScore == false) {
+            if (win == true) {
                 mTextViewMessage.setText("Bravo, tu as gagné!");
             } else {
                 mTextViewMessage.setText("Dommage, tu as perdu.");
@@ -218,7 +203,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if (peutQuitter[0] == true) {
+                if (canLeave[0] == true) {
                     dialog.dismiss();
 
                 }
@@ -231,8 +216,8 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
                 mButtonRejouer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        peutQuitter[0] = true;
-                        activite.recreate();
+                        canLeave[0] = true;
+                        activity.recreate();
                         dialog.dismiss();
 
                     }
@@ -240,17 +225,17 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
                 mButtonMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        peutQuitter[0] = true;
-                        Intent additionIntent = new Intent(activite, MainActivity.class);
+                        canLeave[0] = true;
+                        Intent additionIntent = new Intent(activity, MainActivity.class);
                         startActivity(additionIntent);
-                        activite.finish();
+                        activity.finish();
 
                         }
                 });
 
     }
 
-    protected void bougerImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart){
+    protected void moveImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart){
 
         TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
@@ -261,7 +246,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected int music = 0;
 
-    protected void lancerBgMusique(Activity selfActivity, int idMusic){
+    protected void startBackgroundMusic(Activity selfActivity, int idMusic){
 
         if(bgPlayer != null){ bgPlayer.stop();}
 
@@ -271,43 +256,43 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
 
-    protected void lancerCourse(final Activity srcActivity,int dureeArriveeRobot,int imageJoueur,int imageOrdinateur){
+    protected void launchTimer(final Activity srcActivity, int arrivalTime, int playerImage, int IAImage){
 
 
-        lancerDecompteFinPartie(srcActivity,dureeArriveeRobot);
+        startChrono(srcActivity,arrivalTime);
 
-        mImagePos1 = (ImageView)findViewById(imageJoueur);
-        mImageOrdi = (ImageView)findViewById(imageOrdinateur);
+        this.playerImage = (ImageView)findViewById(playerImage);
+        this.IAImage = (ImageView)findViewById(IAImage);
         //On récupère la taille de l'écran
 
-        float largeurEcran = retourTailleEcran();
-        int largeurImageOrdi = mImageOrdi.getDrawable().getIntrinsicWidth();
+        float screenWidth = getScreenWidth();
+        int IApictureWidth = this.IAImage.getDrawable().getIntrinsicWidth();
 
 
 
         //On lance le chrono, l'enfant perd s'il arrive au bout
 
-        positionImageJoueur = mImagePos1.getX();
+        playerImagePosition = this.playerImage.getX();
 
 
 
         // On anime l'image représentant l'ordinateur
 
-        bougerImage(mImageOrdi,largeurEcran-largeurImageOrdi,dureeArriveeRobot,0);
+        moveImage(this.IAImage,screenWidth-IApictureWidth,arrivalTime,0);
     }
 
 
-    protected void lancerDecompteFinPartie(final Activity srcActivity,int temps){
-        perdreActivite = new Runnable() {
+    protected void startChrono(final Activity srcActivity, int temps){
+        looseActivity = new Runnable() {
             @Override
             public void run() {
-                afficherEcranFin(srcActivity,false,false,0);
+                showResultScreen(srcActivity,false,false,0);
 
             }
         };
 
 
-        handler.postDelayed(perdreActivite,temps);
+        handler.postDelayed(looseActivity,temps);
     }
 
 
@@ -340,7 +325,9 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     @Override
     protected void onResume() {
         if(bgPlayer != null){
-            lancerBgMusique(GameActivity.this, music);
+
+            startBackgroundMusic(GameActivity.this, music);
+
         }
         super.onResume();
     }

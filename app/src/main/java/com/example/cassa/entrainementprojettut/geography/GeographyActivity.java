@@ -47,7 +47,7 @@ public class GeographyActivity extends GameActivity {
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
-        afficherChoixNiveaux(GeographyActivity.this,"",3);
+        showLevelChoice(GeographyActivity.this,"",3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                         @Override
@@ -64,14 +64,14 @@ public class GeographyActivity extends GameActivity {
                                                 setNameTextView();
                                                 setTagTextView();
                                             } else {
-                                                afficherChoixNiveaux(GeographyActivity.this, "", 3);
+                                                showLevelChoice(GeographyActivity.this, "", 3);
                                             }
                                         }
                                     });
 
         rightAnswerCounter =0;
 
-        lancerBgMusique(GeographyActivity.this, R.raw.geography_music);
+        startBackgroundMusic(GeographyActivity.this, R.raw.geography_music);
         mediaPlayer =MediaPlayer.create(GeographyActivity.this,R.raw.envent_sound);
 
 
@@ -140,10 +140,10 @@ public class GeographyActivity extends GameActivity {
                 && rightSideTextView >= victoryBox[0] && rightSideTextView <= victoryBox[1]
                 && upperSideTextView >= victoryBox[2] && upperSideTextView <= victoryBox[3]
                 && lowerSideTextView >= victoryBox[2] && lowerSideTextView <= victoryBox[3]){
-         afficherTexte("Bravo!");
+         showText("Bravo!");
             rightAnswerCounter++;
             if(rightAnswerCounter == tagList.size()){
-                afficherEcranFin(GeographyActivity.this,true,false,0);
+                showResultScreen(GeographyActivity.this,true,false,0);
             }
             return true;
         }
@@ -201,7 +201,7 @@ public class GeographyActivity extends GameActivity {
         paint.setColor(Color.GRAY);
         paint.setAlpha(85);
 
-        Bitmap b = Bitmap.createBitmap((int)retourTailleEcran(), (int)getHauteurEcran(), Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap((int)getScreenWidth(), (int)getScreenHeight(), Bitmap.Config.ARGB_8888);
 
         View conteneurRect = getLayoutInflater().inflate(R.layout.geographytag_conteneur_rect, mainLayout, false);
         mainLayout.addView(conteneurRect);
@@ -227,10 +227,10 @@ public class GeographyActivity extends GameActivity {
 
     private float[] resizeVictoryBox(float[] victoryBox) {
 
-        victoryBox[0] = victoryBox[0] * retourTailleEcran();
-        victoryBox[1] = victoryBox[1] * retourTailleEcran();
-        victoryBox[2]  = victoryBox[2] * getHauteurEcran();
-        victoryBox[3]  = victoryBox[3] * getHauteurEcran();
+        victoryBox[0] = victoryBox[0] * getScreenWidth();
+        victoryBox[1] = victoryBox[1] * getScreenWidth();
+        victoryBox[2]  = victoryBox[2] * getScreenHeight();
+        victoryBox[3]  = victoryBox[3] * getScreenHeight();
 
 
         return  victoryBox;
@@ -240,7 +240,7 @@ public class GeographyActivity extends GameActivity {
 
     private int getMaxTagInAColumn(){
         int maxTagInACol = 0;
-        while(maxTagInACol*100<= getHauteurEcran() * 0.8){
+        while(maxTagInACol*100<= getScreenHeight() * 0.8){
             maxTagInACol++;
         }
 

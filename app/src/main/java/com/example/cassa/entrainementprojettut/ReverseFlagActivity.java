@@ -31,13 +31,15 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
         music = R.raw.bensound_goinghigher;
-        lancerBgMusique(ReverseFlagActivity.this, music);
+
+        startBackgroundMusic(ReverseFlagActivity.this, music);
+
 
         initialisationNomPays();
 
         initialisationReponseEtScore();
 
-        afficherChoixNiveaux(ReverseFlagActivity.this, "listeNiveau", 3);
+        showLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -124,16 +126,16 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
-            afficherTexte("Bravo");
+            showText("Bravo");
             gScore+=5;
             gNbBonneReponse+=1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10){
-                afficherEcranFin(ReverseFlagActivity.this, true, true, gScore);
+                showResultScreen(ReverseFlagActivity.this, true, true, gScore);
             }
         }else{
-            afficherTexte("Dommage");
+            showText("Dommage");
             gScore-=2;
             button.setEnabled(false);
             mScore.setText(""+gScore);

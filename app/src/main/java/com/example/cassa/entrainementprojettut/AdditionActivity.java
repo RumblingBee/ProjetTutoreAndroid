@@ -40,10 +40,12 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
 
-        initialiserPartie();
+
+        initializeGame();
         music = R.raw.bensound_retrosoul;
-        lancerBgMusique(AdditionActivity.this, music);
-        afficherChoixNiveaux(AdditionActivity.this,"listeClasse",5);
+        startBackgroundMusic(AdditionActivity.this, music);
+        showLevelChoice(AdditionActivity.this,"listeClasse",5);
+
 
 
 
@@ -53,7 +55,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
             if (levelChosen != 0) {
 
                 genererAddition();
-                lancerCourse(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
+                launchTimer(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
             } else {
                 AdditionActivity.this.onStop();
                dialog.show();
@@ -133,20 +135,20 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
     public boolean verifierReponse(int reponseEnvoyee){
 
-        float largeurEcran = retourTailleEcran();
+        float largeurEcran = getScreenWidth();
 
 
         if(ctrl.verifierReponse(reponseEnvoyee)){
 
             gNbReponsesCorectes++;
-            afficherTexte("Bravo!");
+            showText("Bravo!");
             playerEvent.start();
 
-            bougerImage(mImagePos1,positionImageJoueur+(largeurEcran/10),600,positionImageJoueur);
-            positionImageJoueur = positionImageJoueur + (largeurEcran/10);
+            moveImage(playerImage, playerImagePosition +(largeurEcran/10),600, playerImagePosition);
+            playerImagePosition = playerImagePosition + (largeurEcran/10);
 
             if(gNbReponsesCorectes == 10){
-                afficherEcranFin(AdditionActivity.this,true,false,0);
+                showResultScreen(AdditionActivity.this,true,false,0);
             }
             else{
                 genererAddition();
@@ -156,7 +158,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         }
         else{
-            afficherTexte("Dommage, la réponse était " + ctrl.getReponse());
+            showText("Dommage, la réponse était " + ctrl.getReponse());
             genererAddition();
             return false;
         }

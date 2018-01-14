@@ -31,13 +31,14 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
         music = R.raw.bensound_funnysong;
-        lancerBgMusique(FlagActivity.this, music);
+        startBackgroundMusic(FlagActivity.this, music);
+
 
         initialisationDrapeaux();
 
         initialisationNomPaysEtScore();
 
-        afficherChoixNiveaux(FlagActivity.this,"listeNiveau",3);
+        showLevelChoice(FlagActivity.this,"listeNiveau",3);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -136,17 +137,17 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected  void verifierReponse(ImageView v,String pPays){
 
         if(pPays == gBonneReponse ){
-            afficherTexte("Bravo");
+            showText("Bravo");
             gScore = gScore + 5;
             gNbBonneReponse = gNbBonneReponse + 1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10 ){
-                afficherEcranFin(FlagActivity.this,true,true,gScore);
+                showResultScreen(FlagActivity.this,true,true,gScore);
             }
         }
         else{
-            afficherTexte("Dommage");
+            showText("Dommage");
             gScore = gScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);

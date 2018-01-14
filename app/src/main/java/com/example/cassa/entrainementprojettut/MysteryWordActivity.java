@@ -51,13 +51,14 @@ public class MysteryWordActivity extends GameActivity {
         setContentView(R.layout.activity_mystery_word);
 
         music = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, music);
+        startBackgroundMusic(MysteryWordActivity.this, music);
+
 
         gKeyboard= new ToggleButton[26];
         controleurWordBank =new ControleurWordBank(levelChosen);
 
 
-        afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
+        showLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
@@ -211,8 +212,8 @@ public class MysteryWordActivity extends GameActivity {
         if (motFini(pWord, pInt)) {
             pReponse.setText("Bravo !");
             gNbReponsesCorrectes++;
-            float largeurEcran = retourTailleEcran();
-            bougerImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+            float largeurEcran = getScreenWidth();
+            moveImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
             gPositionImageJoueur = gPositionImageJoueur + (largeurEcran / 5);
             partieFinie(5);
         } else {
@@ -238,7 +239,7 @@ public class MysteryWordActivity extends GameActivity {
 
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
-            afficherEcranFin(MysteryWordActivity.this, true, false, 0);
+            showResultScreen(MysteryWordActivity.this, true, false, 0);
         }
         else {
             motEnCour = motSuivant();
@@ -265,7 +266,7 @@ public class MysteryWordActivity extends GameActivity {
                 duree = 120000;
                 break;
         }
-        lancerCourse(MysteryWordActivity.this,
+        launchTimer(MysteryWordActivity.this,
                 duree, R.id.activity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
 
     }
