@@ -10,9 +10,9 @@ import java.util.List;
  * Created by clement on 05/01/18.
  */
 
-public class WordBankCE1 extends OutilsWordBank implements I_WordBank {
+public class WordBankCE1 extends ToolsWordBank implements I_WordBank {
 
-    private static String listeMotsCourtsEtMoyens[] = {"film", "doux", "defi", "flou", "fond", "epis", "epee",
+    private static String shortsAndNormalWords[] = {"film", "doux", "defi", "flou", "fond", "epis", "epee",
             "fete", "fil", "gris", "bleu", "loup", "lune", "dent", "chez", "cent", "sol", "toi",
             "roi", "cle", "six", "coq", "dos", "jus", "ici", "lit", "vis", "noir", "sac", "kiwi",
             "huit", "cube", "robe", "ours", "rue", "bras", "main", "bus", "nez", "rire","livre", "epine", "ferme", "finir", "fleur", "drole",
@@ -22,30 +22,30 @@ public class WordBankCE1 extends OutilsWordBank implements I_WordBank {
 
 
     public WordBankCE1() {
-        genererListeMots();
+        generateWordsList();
     }
 
     @Override
-    public void genererListeMots() {
+    public void generateWordsList() {
 
         List<I_Word> words = new ArrayList<>();
-        String mot;
-        List<String> motSelectionne=new ArrayList<>();
+        String word;
+        List<String> selectedWords=new ArrayList<>();
 
         while (words.size()<5){
-            mot = selectionnerMotDansLaListe(listeMotsCourtsEtMoyens);
-            if (motDejaSelectionne(mot, motSelectionne)) {
+            word = selectWordInList(shortsAndNormalWords);
+            if (alreadySelectedWord(word, selectedWords)) {
                 continue;
             }
-            words.add(genererMot(mot));
-            motSelectionne.add(mot);
+            words.add(generateWord(word));
+            selectedWords.add(word);
         }
-        motSelectionne.clear();
-        this.setMots=words;
+        selectedWords.clear();
+        this.mWordSet =words;
     }
 
 
-    protected I_Word genererMot(String mot) {
-        return new WordCE1(mot);
+    protected I_Word generateWord(String word) {
+        return new WordCE1(word);
     }
 }

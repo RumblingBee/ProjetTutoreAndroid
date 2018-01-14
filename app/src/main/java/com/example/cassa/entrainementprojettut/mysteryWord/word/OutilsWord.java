@@ -6,35 +6,35 @@ package com.example.cassa.entrainementprojettut.mysteryWord.word;
 
 public abstract class OutilsWord implements I_Word {
 
-    protected String mot;
-    protected String motCode;
-    protected String consigne;
+    protected String mWord;
+    protected String mCodedWord;
+    protected String mOrder;
 
-    public String getMot() {
-        return mot;
+    public String getWord() {
+        return mWord;
     }
-    public String getMotCode() {
-        return motCode;
+    public String getCodedWord() {
+        return mCodedWord;
     }
-    public String getConsigne() {
-        return consigne;
+    public String getOrder() {
+        return mOrder;
     }
 
-    protected char coderLettreEnNegatif(char c, int i) {
+    protected char codeLetterDownward(char c, int i) {
         int ascii=(int)c;
         ascii-=i;
-        ascii = ajustementValeurDuCaractere(ascii);
+        ascii = adjustCharValue(ascii);
         return (char)ascii;
     }
 
-    protected char coderLettreEnPositif(char c, int i) {
+    protected char codeLetterUpward(char c, int i) {
         int ascii=(int)c;
         ascii+=i;
-        ascii = ajustementValeurDuCaractere(ascii);
+        ascii = adjustCharValue(ascii);
         return (char)ascii;
     }
 
-    public int ajustementValeurDuCaractere(int ascii) {
+    public int adjustCharValue(int ascii) {
         if(ascii > 122){
             ascii = ascii - 26;
         }

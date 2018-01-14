@@ -15,16 +15,16 @@ public class WordCPTest {
     public void testFonctionnementStandard() throws Exception {
         wordCP =new WordCP("test");
         StringBuilder codedWord = new StringBuilder();
-        for (char c: wordCP.getMot().toCharArray()) {
+        for (char c: wordCP.getWord().toCharArray()) {
             c-=1;
-            codedWord.append((char) wordCP.ajustementValeurDuCaractere(c));
+            codedWord.append((char) wordCP.adjustCharValue(c));
         }
-        assertEquals(codedWord.toString(), wordCP.getMotCode());
+        assertEquals(codedWord.toString(), wordCP.getCodedWord());
     }
 
     @Test
     public void TestBouclageDeLalphabet() throws Exception {
         wordCP =new WordCP("abaa");
-        assertEquals(wordCP.getMotCode(),"zazz");
+        assertEquals(wordCP.getCodedWord(),"zazz");
     }
 }

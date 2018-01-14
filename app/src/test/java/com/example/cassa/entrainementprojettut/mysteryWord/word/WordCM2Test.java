@@ -15,17 +15,17 @@ public class WordCM2Test {
     public void testFonctionnementStandard() throws Exception {
         wordCM2 = new WordCM2("test");
         StringBuilder codedWord = new StringBuilder();
-        for (char c: wordCM2.getMot().toCharArray()) {
+        for (char c: wordCM2.getWord().toCharArray()) {
             c+=2;
-            codedWord.append((char) wordCM2.ajustementValeurDuCaractere(c));
+            codedWord.append((char) wordCM2.adjustCharValue(c));
         }
-        assertEquals(codedWord.toString(), wordCM2.getMotCode());
+        assertEquals(codedWord.toString(), wordCM2.getCodedWord());
     }
 
     @Test
     public void TestBouclageDeLalphabet() throws Exception {
         wordCM2 = new WordCM2("yyzy");
-        assertEquals(wordCM2.getMotCode(),"aaba");
+        assertEquals(wordCM2.getCodedWord(),"aaba");
     }
 
 }

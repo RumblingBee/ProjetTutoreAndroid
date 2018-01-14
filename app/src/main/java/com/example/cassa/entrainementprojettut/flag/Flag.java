@@ -1,8 +1,5 @@
 package com.example.cassa.entrainementprojettut.flag;
 
-import android.media.Image;
-import android.widget.ImageView;
-
 /**
  * Created by prax on 23/11/17.
  */
