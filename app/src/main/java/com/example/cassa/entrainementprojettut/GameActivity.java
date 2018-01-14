@@ -17,55 +17,29 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.CallSuper;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.VectorEnabledTintResources;
-import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,13 +94,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         }, 500);
     }
 
-    protected int niveauChoisi = 0;
+    protected int levelChosen = 0;
     protected MediaPlayer bgPlayer;
 
     protected AlertDialog dialog;
 
     protected void initialiserPartie(){
-        niveauChoisi = 0;
+        levelChosen = 0;
 
     }
 
@@ -157,7 +131,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
             lvlButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
-                    niveauChoisi = (int)view.getTag();
+                    levelChosen = (int)view.getTag();
                     dialog.dismiss();
                 }
             });
@@ -197,13 +171,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
     protected void afficherEcranFin(final Activity activite,boolean gagne,boolean aUnScore,int score){
-        niveauChoisi = 0;
+        levelChosen = 0;
         final boolean[] peutQuitter = {false};
         if(perdreActivite != null) {
             handler.removeCallbacks(perdreActivite);
         }
 
-        niveauChoisi = 0;
+        levelChosen = 0;
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
 
@@ -285,7 +259,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     }
 
-    protected int mMusique = 0;
+    protected int music = 0;
 
     protected void lancerBgMusique(Activity selfActivity, int idMusic){
 
@@ -366,7 +340,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     @Override
     protected void onResume() {
         if(bgPlayer != null){
-            lancerBgMusique(GameActivity.this, mMusique);
+            lancerBgMusique(GameActivity.this, music);
         }
         super.onResume();
     }

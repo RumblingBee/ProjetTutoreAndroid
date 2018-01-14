@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,11 +50,11 @@ public class MysteryWordActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
-        mMusique = R.raw.bensound_cute;
-        lancerBgMusique(MysteryWordActivity.this, mMusique);
+        music = R.raw.bensound_cute;
+        lancerBgMusique(MysteryWordActivity.this, music);
 
         gKeyboard= new ToggleButton[26];
-        controleurWordBank =new ControleurWordBank(niveauChoisi);
+        controleurWordBank =new ControleurWordBank(levelChosen);
 
 
         afficherChoixNiveaux(MysteryWordActivity.this, "listeClasse", 5);
@@ -64,7 +63,7 @@ public class MysteryWordActivity extends GameActivity {
 
             @Override
             public void onDismiss(DialogInterface dialogInterface){
-                if (niveauChoisi != 0) {
+                if (levelChosen != 0) {
                     lancerPartie();
                 }
                 else {
@@ -254,7 +253,7 @@ public class MysteryWordActivity extends GameActivity {
         gTxtOrder.setText(motEnCour.getConsigne());
 
         int duree;
-        switch(niveauChoisi)
+        switch(levelChosen)
         {
             case 1: case 2: case 3:
                 duree = 120000;

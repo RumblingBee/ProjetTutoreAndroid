@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.cassa.entrainementprojettut.geographie.GeographyTag;
+import com.example.cassa.entrainementprojettut.geography.GeographyActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                Intent geographyActivityIntent = new Intent(MainActivity.this, GeographyTag.class);
+                Intent geographyActivityIntent = new Intent(MainActivity.this, GeographyActivity.class);
                 startActivity(geographyActivityIntent);
 
                 playerEvent.start();

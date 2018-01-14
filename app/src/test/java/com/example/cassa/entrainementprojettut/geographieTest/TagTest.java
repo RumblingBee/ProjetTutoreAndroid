@@ -1,6 +1,6 @@
 package com.example.cassa.entrainementprojettut.geographieTest;
 
-import com.example.cassa.entrainementprojettut.geographie.Etiquette;
+import com.example.cassa.entrainementprojettut.geography.Tag;
 
 import org.junit.Test;
 
@@ -10,21 +10,21 @@ import static org.junit.Assert.assertEquals;
  * Created by prax on 09/01/2018.
  */
 
-public class EtiquetteTest {
-    //  Jeu Etiquette
+public class TagTest {
+    //  Jeu Tag
 
 
     @Test
     public void etiquetteGetNom(){
-        Etiquette etiquette = new Etiquette("nomEtiquette",10/12,10/12,1/12);
-        assertEquals("nomEtiquette",etiquette.getNom());
+        Tag tag = new Tag("nomEtiquette",10/12,10/12,1/12);
+        assertEquals("nomEtiquette", tag.getName());
     }
 
     @Test
     public void etiquetteGetZone(){
-        Etiquette etiquette = new Etiquette("nomEtiquette",10/12,10/12,1/12);
+        Tag tag = new Tag("nomEtiquette",10/12,10/12,1/12);
         float[]tabZoneVictoire;
-        tabZoneVictoire = etiquette.getZoneVictoire();
+        tabZoneVictoire = tag.getVictoryBox();
 
         assertEquals(10/12,tabZoneVictoire[0],0);
         assertEquals(11/12,tabZoneVictoire[1],0);

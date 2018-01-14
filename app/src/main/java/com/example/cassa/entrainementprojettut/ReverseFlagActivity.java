@@ -30,8 +30,8 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
-        mMusique = R.raw.bensound_goinghigher;
-        lancerBgMusique(ReverseFlagActivity.this, mMusique);
+        music = R.raw.bensound_goinghigher;
+        lancerBgMusique(ReverseFlagActivity.this, music);
 
         initialisationNomPays();
 
@@ -41,7 +41,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if(niveauChoisi != 0){
+                if(levelChosen != 0){
                     genererPartie();
                 }else{
                     ReverseFlagActivity.this.onStop();
@@ -80,7 +80,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     protected void genererPartie(){
 
-        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+        controllerFlagBank = new ControllerFlagBank(levelChosen);
 
 
         Button[] mListeButton = {mNomPays1, mNomPays2, mNomPays3, mNomPays4};

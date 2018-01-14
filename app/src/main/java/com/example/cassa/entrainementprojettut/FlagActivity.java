@@ -30,8 +30,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
-        mMusique = R.raw.bensound_funnysong;
-        lancerBgMusique(FlagActivity.this, mMusique);
+        music = R.raw.bensound_funnysong;
+        lancerBgMusique(FlagActivity.this, music);
 
         initialisationDrapeaux();
 
@@ -41,7 +41,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if (niveauChoisi != 0) {
+                if (levelChosen != 0) {
                     genererPartie();
                 } else {
                     FlagActivity.this.onStop();
@@ -84,7 +84,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     protected void genererPartie(){
 
-        controllerFlagBank = new ControllerFlagBank(niveauChoisi);
+        controllerFlagBank = new ControllerFlagBank(levelChosen);
 
         ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
 

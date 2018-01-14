@@ -42,7 +42,7 @@
         <activity android:name=".ReverseFlagActivity"
                   android:launchMode="singleTask"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".geographie.GeographyTag"
+        <activity android:name=".geography.GeographyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>
