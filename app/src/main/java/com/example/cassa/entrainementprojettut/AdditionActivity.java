@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.ControleurOperation;
+import com.example.cassa.entrainementprojettut.operationGame.OperationController;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
 
-    private TextView mNombre1;
-    private TextView mNombre2;
+    private TextView mNumber1;
+    private TextView mNumber2;
     private TextView mSigne;
 
     private Button mButton1;
@@ -22,16 +22,16 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     private Button mButton3;
     private Button mButton4;
 
-    private ControleurOperation ctrl;
+    private OperationController ctrl;
 
-    private int gNbReponsesCorectes;
+    private int gCorrectAnswers;
 
     private MediaPlayer playerEvent;
 
-    protected Runnable activerBoutons=new Runnable() {
+    protected Runnable activateButton=new Runnable() {
         @Override
         public void run() {
-            activerBoutons();
+            activateButtons();
         }
     };
 
@@ -41,10 +41,12 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         setContentView(R.layout.activity_addition);
 
 
+
         initializeGame();
         music = R.raw.bensound_retrosoul;
         startBackgroundMusic(AdditionActivity.this, music);
-        showLevelChoice(AdditionActivity.this,"listeClasse",5);
+        displayLevelChoice(AdditionActivity.this,"listeClasse",5);
+
 
 
 
@@ -54,8 +56,12 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         public void onDismiss(DialogInterface dialogInterface) {
             if (levelChosen != 0) {
 
-                genererAddition();
+
+                generateOperation();
                 launchTimer(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
+
+                generateOperation();
+
             } else {
                 AdditionActivity.this.onStop();
                dialog.show();
@@ -69,11 +75,11 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
-        gNbReponsesCorectes = 0;
+        gCorrectAnswers = 0;
 // On recupère les widgets
 
-        mNombre1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
-        mNombre2 = (TextView) findViewById(R.id.activity_addition_nombre2_textview);
+        mNumber1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
+        mNumber2 = (TextView) findViewById(R.id.activity_addition_nombre2_textview);
         mSigne =(TextView)findViewById(R.id.activity_addition_operateur_textview);
 
         mButton1 = (Button)findViewById(R.id.activity_addition_rep1_btn);
@@ -84,16 +90,18 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     }
 
     @SuppressLint("SetTextI18n")
-    protected void genererAddition(){
+    protected void generateOperation(){
 
-         ctrl = new ControleurOperation(levelChosen);
+
+         ctrl = new OperationController(levelChosen);
+
 
         //Affichage de l'opération
 
         int[] termesOperation=ctrl.getTermesOperation();
 
-        mNombre1.setText(""+termesOperation[0]);
-        mNombre2.setText(""+termesOperation[1]);
+        mNumber1.setText(""+termesOperation[0]);
+        mNumber2.setText(""+termesOperation[1]);
         mSigne.setText(""+ctrl.getSigneOperation());
 
         mButton1.setOnClickListener(this);
@@ -101,71 +109,76 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton3.setOnClickListener(this);
         mButton4.setOnClickListener(this);
 
-        melangerReponse();
+        shuffleAnswers();
 
     }
 
-    protected void melangerReponse(){
+    protected void shuffleAnswers(){
 
-        int positionReponse=(int)(Math.random() * 4);
+        int answerPosition=(int)(Math.random() * 4);
 
         Button tabButton[] = {mButton1,mButton2,mButton3,mButton4};
-        int tabReponse[] = new int[4];
+        int tabAnswer[] = new int[4];
         int i;
 
         for(i = 0;i<4;i++){
-            if(i< positionReponse){
-                tabReponse[i] = ctrl.getReponse() - (positionReponse - i);
+            if(i< answerPosition){
+                tabAnswer[i] = ctrl.getAnswer() - (answerPosition - i);
             }
-            else if(i == positionReponse){
-                tabReponse[i] = ctrl.getReponse();
+            else if(i == answerPosition){
+                tabAnswer[i] = ctrl.getAnswer();
             }
             else{
-               tabReponse[i] = ctrl.getReponse() + (i - positionReponse);
+               tabAnswer[i] = ctrl.getAnswer() + (i - answerPosition);
             }
         }
 
         for(i=0;i<4; i++) {
             //int indiceListe = (int) (Math.random() * listeReponses.size());
-            tabButton[i].setTag(tabReponse[i]);
-            tabButton[i].setText("" + tabReponse[i]);
+            tabButton[i].setTag(tabAnswer[i]);
+            tabButton[i].setText("" + tabAnswer[i]);
 
         }
     }
 
-    public boolean verifierReponse(int reponseEnvoyee){
-
-        float largeurEcran = getScreenWidth();
+    public boolean checkAnswer(int reponseEnvoyee){
 
 
-        if(ctrl.verifierReponse(reponseEnvoyee)){
+        float screenWidth = getScreenWidth();
 
-            gNbReponsesCorectes++;
+
+        if(ctrl.checkAnswer(reponseEnvoyee)){
+
+
+            gCorrectAnswers++;
             showText("Bravo!");
             playerEvent.start();
 
-            moveImage(playerImage, playerImagePosition +(largeurEcran/10),600, playerImagePosition);
-            playerImagePosition = playerImagePosition + (largeurEcran/10);
+            moveImage(playerImage,playerImagePosition+(screenWidth/10),600,playerImagePosition);
+            playerImagePosition = playerImagePosition + (screenWidth/10);
 
-            if(gNbReponsesCorectes == 10){
+            if(gCorrectAnswers == 10){
                 showResultScreen(AdditionActivity.this,true,false,0);
+
             }
             else{
-                genererAddition();
+                generateOperation();
             }
 
             return true;
 
         }
         else{
-            showText("Dommage, la réponse était " + ctrl.getReponse());
-            genererAddition();
+
+            showText("Dommage, la réponse était " + ctrl.getAnswer());
+            generateOperation();
+
             return false;
         }
 
     }
 
-    protected void griserBoutons(){
+    protected void disableButton(){
 
         mButton1.setEnabled(false);
         mButton2.setEnabled(false);
@@ -178,7 +191,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton4.setBackgroundColor(Color.rgb(99,99,99));
     }
 
-    protected void activerBoutons(){
+    protected void activateButtons(){
 
         mButton1.setEnabled(true);
         mButton2.setEnabled(true);
@@ -194,13 +207,13 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         int reponseEnvoyee = (int) view.getTag();
-        griserBoutons();
-       if(verifierReponse(reponseEnvoyee)) {
+        disableButton();
+       if(checkAnswer(reponseEnvoyee)) {
 
-           handler.postDelayed(activerBoutons, 800);
+           handler.postDelayed(activateButton, 800);
        }
        else{
-           handler.postDelayed(activerBoutons, 2100);
+           handler.postDelayed(activateButton, 2100);
 
        }
 

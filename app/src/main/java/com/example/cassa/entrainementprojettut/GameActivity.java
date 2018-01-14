@@ -57,7 +57,9 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     protected Runnable looseActivity;
 
 
+
     protected  void showText(String text){
+
 
 
         Context context = getApplicationContext();
@@ -81,14 +83,17 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     protected AlertDialog dialog;
 
 
+
     protected void initializeGame(){
 
         levelChosen = 0;
 
+
     }
 
 
-    protected void showLevelChoice(final Activity activite, String typeDeNiveau, int idLevel) {
+    protected void displayLevelChoice(final Activity activite, String typeDeNiveau, int idLevel) {
+
 
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
@@ -154,11 +159,13 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
 
+
     protected void showResultScreen(final Activity activity, boolean win, boolean hasAScore, int score){
         levelChosen = 0;
         final boolean[] canLeave = {false};
         if(looseActivity != null) {
             handler.removeCallbacks(looseActivity);
+
 
         }
 
@@ -237,6 +244,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected void moveImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart){
 
+
         TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
         animationTranslation.setDuration(pDuration);
@@ -246,7 +254,9 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected int music = 0;
 
+
     protected void startBackgroundMusic(Activity selfActivity, int idMusic){
+
 
         if(bgPlayer != null){ bgPlayer.stop();}
 
@@ -265,8 +275,10 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         this.IAImage = (ImageView)findViewById(IAImage);
         //On récupère la taille de l'écran
 
+
         float screenWidth = getScreenWidth();
         int IApictureWidth = this.IAImage.getDrawable().getIntrinsicWidth();
+
 
 
 
@@ -279,6 +291,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         // On anime l'image représentant l'ordinateur
 
         moveImage(this.IAImage,screenWidth-IApictureWidth,arrivalTime,0);
+
     }
 
 
@@ -286,7 +299,9 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         looseActivity = new Runnable() {
             @Override
             public void run() {
+
                 showResultScreen(srcActivity,false,false,0);
+
 
             }
         };
@@ -326,7 +341,9 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     protected void onResume() {
         if(bgPlayer != null){
 
+
             startBackgroundMusic(GameActivity.this, music);
+
 
         }
         super.onResume();

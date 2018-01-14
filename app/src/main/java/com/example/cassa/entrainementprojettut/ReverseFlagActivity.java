@@ -30,6 +30,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reverse_flag);
+
         music = R.raw.bensound_goinghigher;
 
         startBackgroundMusic(ReverseFlagActivity.this, music);
@@ -39,7 +40,9 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
         initialisationReponseEtScore();
 
-        showLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
+
+        displayLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -126,16 +129,20 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
+
             showText("Bravo");
+
             gScore+=5;
             gNbBonneReponse+=1;
             mScore.setText(""+gScore);
             genererPartie();
             if(gNbBonneReponse == 10){
+
                 showResultScreen(ReverseFlagActivity.this, true, true, gScore);
             }
         }else{
             showText("Dommage");
+
             gScore-=2;
             button.setEnabled(false);
             mScore.setText(""+gScore);

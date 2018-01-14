@@ -47,7 +47,7 @@ public class GeographyActivity extends GameActivity {
         setContentView(R.layout.activity_geographytag);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
-        showLevelChoice(GeographyActivity.this,"",3);
+        displayLevelChoice(GeographyActivity.this,"",3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                         @Override
@@ -64,7 +64,7 @@ public class GeographyActivity extends GameActivity {
                                                 setNameTextView();
                                                 setTagTextView();
                                             } else {
-                                                showLevelChoice(GeographyActivity.this, "", 3);
+                                                displayLevelChoice(GeographyActivity.this, "", 3);
                                             }
                                         }
                                     });

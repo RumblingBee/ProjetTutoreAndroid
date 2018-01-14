@@ -1,11 +1,11 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
 import android.support.annotation.NonNull;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Multiplication;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Addition;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Multiplication;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Soustraction;
 
 /**
  * Created by clement on 03/01/18.
@@ -16,7 +16,7 @@ public class SetOperationCM2 implements I_SetOperation {
     private I_Operation operation;
 
     public SetOperationCM2() {
-        this.operation = genererUneOperation();
+        this.operation = createAnOperation();
     }
 
     public I_Operation getOperation() {
@@ -39,43 +39,43 @@ public class SetOperationCM2 implements I_SetOperation {
     }
 
     @Override
-    public I_Operation genererUneOperation() {
+    public I_Operation createAnOperation() {
         I_Operation operation;
         int operateur=(int)(Math.random() * (5) + 1);
         if(operateur>2){
-            operation=genererMultiplication();
-        }else operation = genererOperationAleatoireHorsMultiplication(operateur);
+            operation= generateMultiplication();
+        }else operation = generateRandomOperationButMultiplication(operateur);
         return operation;
     }
 
-    private I_Operation genererMultiplication() {
+    private I_Operation generateMultiplication() {
         Multiplication multiplication=new Multiplication();
-        multiplication.genererOperation(10,1,10,1);
+        multiplication.generateOperation(10,1,10,1);
         return multiplication;
     }
 
     @NonNull
-    private I_Operation genererOperationAleatoireHorsMultiplication(int operateur) {
+    private I_Operation generateRandomOperationButMultiplication(int operateur) {
         I_Operation operation;
         if(operateur==2){
-            operation=genererSoustraction();
+            operation= generateSoustraction();
         }else{
-            operation=genererAddition();
+            operation= generateAddition();
         }
         return operation;
     }
 
     @NonNull
-    public I_Operation genererSoustraction() {
+    public I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.genererOperation(15,1,15,1);
+        soustraction.generateOperation(15,1,15,1);
         return soustraction;
     }
 
     @NonNull
-    public I_Operation genererAddition() {
+    public I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.genererOperation(15,1,15,1);
+        addition.generateOperation(15,1,15,1);
         return addition;
     }
 }

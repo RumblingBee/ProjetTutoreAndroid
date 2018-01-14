@@ -1,11 +1,11 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
 import android.support.annotation.NonNull;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Multiplication;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Addition;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Multiplication;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Soustraction;
 
 /**
  * Created by clement on 02/01/18.
@@ -16,7 +16,7 @@ public class SetOperationCE2 implements I_SetOperation {
     private I_Operation operation;
 
     public SetOperationCE2() {
-        this.operation = genererUneOperation();
+        this.operation = createAnOperation();
     }
 
     public I_Operation getOperation() {
@@ -40,21 +40,21 @@ public class SetOperationCE2 implements I_SetOperation {
 
 
     @Override
-    public I_Operation genererUneOperation() {
+    public I_Operation createAnOperation() {
         I_Operation operation;
         int operateur=(int)(Math.random() * (3) + 1);
         switch (operateur){
             case 1:
-                operation= genererAddition();
+                operation= generateAddition();
                 break;
             case 2:
-                operation= genererSoustraction();
+                operation= generateSoustraction();
                 break;
             case 3:
-                operation = genererMultiplicationSimple();
+                operation = generateSimpleMultiplication();
                 break;
             default:
-                operation=genererAddition();
+                operation= generateAddition();
                 break;
         }
 
@@ -62,14 +62,14 @@ public class SetOperationCE2 implements I_SetOperation {
     }
 
     @NonNull
-    private I_Operation genererMultiplicationSimple() {
-        int terme1=genererMultipleSimple();
+    private I_Operation generateSimpleMultiplication() {
+        int terme1= generateSimpleNumbers();
         Multiplication multiplication=new Multiplication();
-        multiplication.genererOperation(terme1,10,1);
+        multiplication.generateOperation(terme1,10,1);
         return multiplication;
     }
 
-    private int genererMultipleSimple() {
+    private int generateSimpleNumbers() {
         int tabProduit[] = new int[4];
         tabProduit[1] = 2;
         tabProduit[2] = 5;
@@ -79,16 +79,16 @@ public class SetOperationCE2 implements I_SetOperation {
     }
 
     @NonNull
-    public I_Operation genererSoustraction() {
+    public I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.genererOperation(10,1,10,1);
+        soustraction.generateOperation(10,1,10,1);
         return soustraction;
     }
 
     @NonNull
-    public I_Operation genererAddition() {
+    public I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.genererOperation(10,1,10,1);
+        addition.generateOperation(10,1,10,1);
         return addition;
     }
 }

@@ -1,6 +1,6 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +22,8 @@ public class SetIoperationCPTest {
     @Test
     public void testEtendueOperation() throws Exception {
         for (int i = 0; i <100; i++) {
-            I_Operation operation=setOperationCP.genererUneOperation();
-            int res= operation.afficherResultat();
+            I_Operation operation=setOperationCP.createAnOperation();
+            int res= operation.displayResult();
             assertEquals(true, 2<=res && res<=14);
         }
     }

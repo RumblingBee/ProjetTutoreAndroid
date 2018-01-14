@@ -30,15 +30,19 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
+
         music = R.raw.bensound_funnysong;
         startBackgroundMusic(FlagActivity.this, music);
+
 
 
         initialisationDrapeaux();
 
         initialisationNomPaysEtScore();
 
-        showLevelChoice(FlagActivity.this,"listeNiveau",3);
+
+        displayLevelChoice(FlagActivity.this,"listeNiveau",3);
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -137,7 +141,9 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected  void verifierReponse(ImageView v,String pPays){
 
         if(pPays == gBonneReponse ){
+
             showText("Bravo");
+
             gScore = gScore + 5;
             gNbBonneReponse = gNbBonneReponse + 1;
             mScore.setText(""+gScore);
@@ -148,6 +154,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         }
         else{
             showText("Dommage");
+
             gScore = gScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);

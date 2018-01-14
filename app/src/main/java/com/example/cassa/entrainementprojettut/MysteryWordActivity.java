@@ -54,11 +54,12 @@ public class MysteryWordActivity extends GameActivity {
         startBackgroundMusic(MysteryWordActivity.this, music);
 
 
+
         gKeyboard= new ToggleButton[26];
         controleurWordBank =new ControleurWordBank(levelChosen);
 
+        displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
-        showLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
@@ -212,8 +213,10 @@ public class MysteryWordActivity extends GameActivity {
         if (motFini(pWord, pInt)) {
             pReponse.setText("Bravo !");
             gNbReponsesCorrectes++;
+
             float largeurEcran = getScreenWidth();
             moveImage(gImgPlayer, gPositionImageJoueur + (largeurEcran / 5), 600, gPositionImageJoueur);
+
             gPositionImageJoueur = gPositionImageJoueur + (largeurEcran / 5);
             partieFinie(5);
         } else {
@@ -239,7 +242,9 @@ public class MysteryWordActivity extends GameActivity {
 
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
+
             showResultScreen(MysteryWordActivity.this, true, false, 0);
+
         }
         else {
             motEnCour = motSuivant();

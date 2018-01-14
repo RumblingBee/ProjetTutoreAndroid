@@ -1,8 +1,8 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Soustraction;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Addition;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Soustraction;
 
 /**
  * Created by clement on 02/01/18.
@@ -13,7 +13,7 @@ public class SetOperationCE1 implements I_SetOperation {
     private I_Operation operation;
 
     public SetOperationCE1() {
-        this.operation =genererUneOperation();
+        this.operation = createAnOperation();
     }
 
     public I_Operation getOperation() {
@@ -36,24 +36,24 @@ public class SetOperationCE1 implements I_SetOperation {
     }
 
     @Override
-    public I_Operation genererUneOperation() {
+    public I_Operation createAnOperation() {
         int operateur=(int)(Math.random() * (2) + 1);
         if(operateur==1){
-            return genererAddition();
+            return generateAddition();
         }else{
-            return genererSoustraction();
+            return generateSoustraction();
         }
     }
 
-    private I_Operation genererAddition() {
+    private I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.genererOperation(10,1,10,1);
+        addition.generateOperation(10,1,10,1);
         return addition;
     }
 
-    private I_Operation genererSoustraction() {
+    private I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.genererOperation(10,1,10,1);
+        soustraction.generateOperation(10,1,10,1);
         return soustraction;
     }
 }

@@ -1,7 +1,7 @@
-package com.example.cassa.entrainementprojettut.jeuDeCalcul.SetsOperation;
+package com.example.cassa.entrainementprojettut.operationGame.SetsOperation;
 
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.Addition;
-import com.example.cassa.entrainementprojettut.jeuDeCalcul.Operations.I_Operation;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.Addition;
+import com.example.cassa.entrainementprojettut.operationGame.Operations.I_Operation;
 
 
 /**
@@ -13,7 +13,7 @@ public class SetOperationCP implements I_SetOperation {
     private I_Operation operation;
 
     public SetOperationCP() {
-        this.operation = genererUneOperation();
+        this.operation = createAnOperation();
     }
 
     public I_Operation getOperation() {
@@ -35,13 +35,13 @@ public class SetOperationCP implements I_SetOperation {
         return operation.getSigne();
     }
 
-    public I_Operation genererUneOperation() {
-        return genererAddition();
+    public I_Operation createAnOperation() {
+        return generateAddition();
     }
 
-    public I_Operation genererAddition() {
+    public I_Operation generateAddition() {
         I_Operation ioperation =new Addition();
-        ioperation.genererOperation(10,1,4,1);
+        ioperation.generateOperation(10,1,4,1);
         return ioperation;
     }
 
