@@ -12,10 +12,10 @@
 #   public *;
 #}
 
-# Uncomment this to preserve the line operation information for
+# Uncomment this to preserve the line Operation information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line operation information, uncomment this to
+# If you keep the line Operation information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile

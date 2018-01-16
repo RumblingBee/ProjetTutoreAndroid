@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,9 +31,6 @@ public class LevelChoiceActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String activityToLaunch = intent.getStringExtra("Activity");
-
-        player= MediaPlayer.create(LevelChoiceActivity.this,R.raw.bensound_jazzyfrenchy);
-        player.start();
 
         playerEvent= MediaPlayer.create(LevelChoiceActivity.this,R.raw.envent_sound);
 
@@ -136,38 +132,6 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        player.stop();
-    }
-    @Override
-    public void onBackPressed()
-    {
-        player.stop();
-        Intent ecranMenu = new Intent(LevelChoiceActivity.this, MainActivity.class);
-        startActivity(ecranMenu);
-        super.onBackPressed();
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        player.stop();
-        LevelChoiceActivity.this.finish();
-
-
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        player.start();
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        player.start();
     }
 
 

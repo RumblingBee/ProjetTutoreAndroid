@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">entrainementProjetTut</string>
+    <string name="geography_conteneur_rect">conteneur rectangle</string>
 </resources>
