@@ -9,7 +9,7 @@ public class WordCM2 extends OutilsWord implements I_Word {
     public WordCM2(String mot) {
         this.mWord = mot;
         codeWord(2);
-        mOrder ="Décale les lettres du mWord codé de -2 lettre dans l'alphabet pour trouver le mWord caché";
+        mOrder ="Décale les lettres du mot codé de -2 lettre dans l'alphabet pour trouver le mot caché";
     }
 
     @Override
