@@ -16,6 +16,7 @@ public class Music {
     public Music(List<Note> notes) {
         this.notes = notes;
         this.sequence=new ArrayList<>();
+        this.position = 0;
     }
 
     public List<Note> generateSequence(int size){
@@ -32,5 +33,13 @@ public class Music {
         }
         position+=i;
         return sequence;
+    }
+
+    public List<Note> getSequence() {
+        return sequence;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
