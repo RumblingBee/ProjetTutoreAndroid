@@ -28,4 +28,12 @@ public class SetIoperationCPTest {
         }
     }
 
+    @Test
+    public void createAnOperation() throws Exception {
+        for (int i = 0; i < 1000; i++) {
+            I_Operation operation=setOperationCP.createAnOperation();
+            assertTrue(operation.displayResult()-3>=0);
+        }
+    }
+
 }

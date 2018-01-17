@@ -26,4 +26,12 @@ public class SetOperationCE1Test {
             assertEquals(true,operation.displayResult()>=0);
         }
     }
+
+    @Test
+    public void createAnOperation() throws Exception {
+        for (int i = 0; i < 1000; i++) {
+           I_Operation operation=setOperation.createAnOperation();
+            assertTrue(operation.displayResult()-3>=0);
+        }
+    }
 }
