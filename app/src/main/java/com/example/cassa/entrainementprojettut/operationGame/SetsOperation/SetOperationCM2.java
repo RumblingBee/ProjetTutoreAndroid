@@ -50,7 +50,9 @@ public class SetOperationCM2 implements I_SetOperation {
 
     private I_Operation generateMultiplication() {
         Multiplication multiplication=new Multiplication();
-        multiplication.generateOperation(10,1,10,1);
+        while (multiplication.displayResult()<3) {
+            multiplication.generateOperation(10, 1, 10, 1);
+        }
         return multiplication;
     }
 
@@ -68,14 +70,18 @@ public class SetOperationCM2 implements I_SetOperation {
     @NonNull
     public I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.generateOperation(15,1,15,1);
+        while (soustraction.displayResult()<3) {
+            soustraction.generateOperation(15, 1, 15, 1);
+        }
         return soustraction;
     }
 
     @NonNull
     public I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.generateOperation(15,1,15,1);
+        while (addition.displayResult()<3) {
+            addition.generateOperation(15, 1, 15, 1);
+        }
         return addition;
     }
 }

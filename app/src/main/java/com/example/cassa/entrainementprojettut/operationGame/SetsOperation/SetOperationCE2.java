@@ -65,7 +65,9 @@ public class SetOperationCE2 implements I_SetOperation {
     private I_Operation generateSimpleMultiplication() {
         int terme1= generateSimpleNumbers();
         Multiplication multiplication=new Multiplication();
-        multiplication.generateOperation(terme1,10,1);
+        while (multiplication.displayResult()<3){
+            multiplication.generateOperation(terme1,10,1);
+        }
         return multiplication;
     }
 
@@ -78,17 +80,23 @@ public class SetOperationCE2 implements I_SetOperation {
         return tabProduit[(int)(Math.random() * (3) + 1)];
     }
 
+    private void generatePositiveOperation(I_Operation addition) {
+        while (addition.displayResult()<3){
+            addition.generateOperation(10,1,10,1);
+        }
+    }
+
     @NonNull
     public I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.generateOperation(10,1,10,1);
+        generatePositiveOperation(soustraction);
         return soustraction;
     }
 
     @NonNull
     public I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.generateOperation(10,1,10,1);
+        generatePositiveOperation(addition);
         return addition;
     }
 }
