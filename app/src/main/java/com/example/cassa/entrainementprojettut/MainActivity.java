@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 player.stop();
-                Intent pianoIntent = new Intent(MainActivity.this, PianoActivity.class);
-                startActivity(pianoIntent);
+                Intent pianoActivityIntent = new Intent(MainActivity.this, PianoActivity.class);
+                startActivity(pianoActivityIntent);
 
                 playerEvent.start();
                 finish();
