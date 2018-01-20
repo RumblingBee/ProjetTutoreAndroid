@@ -49,35 +49,46 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         controlerMusic = new ControlerMusic();
         showSequence();
     }
+private Runnable runGray(final int pi){
 
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println(""+idKey);
+            buttonsTab[pi].setBackgroundColor(Color.GRAY);
+
+        }
+    };
+   return runnable;
+}
+    private Runnable runGreen(final int pi){
+
+
+        Runnable greenRunnable = new Runnable() {
+            @Override
+            public void run() {
+                buttonsTab[pi].setBackgroundColor(Color.GREEN);
+            }
+        };
+        return greenRunnable;
+    }
     private void showSequence() {
         List<Integer> listId = controlerMusic.getIdSequence();
         Handler handler = new Handler();
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-               /* System.out.println("debut runable");
-                buttonsTab[idKey].setBackgroundColor(Color.GREEN);
-                System.out.println("fin runable");*/
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+
+
 
         for (int id = 0; id<listId.size(); id++){
-            idKey = listId.get(id)-1;
-            System.out.println("debut runable");
-            buttonsTab[idKey].setBackgroundColor(Color.GREEN);
-            handler.postDelayed(runnable, 1000);
-            buttonsTab[idKey].setBackgroundColor(Color.GRAY);
-            System.out.println("fin runable");
-        }
 
-        System.out.println("runable fin boucle !");
+            idKey = listId.get(id)-1;
+            //On redéfinit les Runnables
+
+
+
+            handler.postDelayed(runGreen(idKey), (id+1)*1000);
+            handler.postDelayed(runGray(idKey), (id+1)*2000);}
+
     }
 
 
