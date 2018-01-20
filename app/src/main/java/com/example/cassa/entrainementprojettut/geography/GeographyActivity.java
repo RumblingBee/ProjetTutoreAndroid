@@ -154,6 +154,8 @@ public class GeographyActivity extends GameActivity {
             tabTextView[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             tabTextView[i].setLayoutParams(textViewParams);
             tabTextView[i].setBackgroundColor(Color.parseColor("#f3f0e8"));
+
+            //TODO: Changer la largeur des étiquettes
             tabTextView[i].setTextSize(getScreenHeight()*0.02F);
 
             tabTextView[i].setOnTouchListener(onTouchListener());

@@ -11,11 +11,11 @@ import android.widget.ImageView;
 
 import com.example.cassa.entrainementprojettut.geography.GeographyActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActivityUtil {
 
     private AnimationDrawable mAnimationChouettes;
 
-    MediaPlayer player;
+
     MediaPlayer playerEvent;
 
     @Override
@@ -31,16 +31,17 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgChouettes = findViewById(R.id.chouettes_menu);
         imgChouettes.setBackgroundResource(R.drawable.animation_chouettes_menu);
         mAnimationChouettes = (AnimationDrawable) imgChouettes.getBackground();
+        playerEvent = MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
+        music =R.raw.bensound_jazzyfrenchy;
+        startBackgroundMusic(MainActivity.this, music);
+        
 
-        player = MediaPlayer.create(MainActivity.this, R.raw.bensound_jazzyfrenchy);
-        player.start();
-        playerEvent = MediaPlayer.create(MainActivity.this, R.raw.envent_sound);
 
         mAddition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                player.stop();
+
                 Intent additionIntent = new Intent(MainActivity.this, AdditionActivity.class);
                 startActivity(additionIntent);
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnMysteryWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.stop();
+
                 Intent mysteryWordIntent = new Intent(MainActivity.this, MysteryWordActivity.class);
                 startActivity(mysteryWordIntent);
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnFlagActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.stop();
+
                 Intent flagActivityIntent = new Intent(MainActivity.this, FlagActivity.class);
                 startActivity(flagActivityIntent);
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         btnReverseFlagActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.stop();
+
                 Intent reverseFlagActivityIntent = new Intent(MainActivity.this, ReverseFlagActivity.class);
                 startActivity(reverseFlagActivityIntent);
                 finish();
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         btnGeographyTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.stop();
+
                 Intent geographyActivityIntent = new Intent(MainActivity.this, GeographyActivity.class);
                 startActivity(geographyActivityIntent);
 
@@ -106,32 +107,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        player.stop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        player.stop();
-
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        player.start();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(player != null) {
-            player.start();
-        }
-    }
-    
 }
