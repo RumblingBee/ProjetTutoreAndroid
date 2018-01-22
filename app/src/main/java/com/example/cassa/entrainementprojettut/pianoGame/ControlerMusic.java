@@ -1,6 +1,6 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
-import android.view.View;
+import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,24 @@ public class ControlerMusic {
 
     Music music;
     Note actualKey;
+    PlayerLifes lifes;
     int positionSequence;
+    private int size;
 
     public ControlerMusic() {
 
+        lifes=new PlayerLifes();
         List<Note> noteList = generateNotes();
         this.music = new Music(noteList);
-        music.generateSequence(3);
+        size = 3;
+        music.generateSequence(size);
         this.positionSequence = 0;
         actualKey = music.getSequence().get(positionSequence);
 
     }
 
     public ControlerMusic(Music music) {
+        lifes=new PlayerLifes();
         this.music = music;
         music.generateSequence(3);
         this.positionSequence = 0;
@@ -35,33 +40,41 @@ public class ControlerMusic {
     public boolean checkKey(int id){
         //Si touche correct
         if (id == actualKey.getId()){
-            //si pas encore derniere touche
-            if (positionSequence < music.getPosition()-1) {
-                System.out.println("valentin: Bravo !");
-                positionSequence++;
-                actualKey = music.getSequence().get(positionSequence);
+            if (sequenceNotFinished()) {
+                progressSequence();
                 return true;
-            }
-            //si derniere touche
-            else{
-                System.out.println("valentin: Gagné !");
+            }else{
+                size++;
+                music.generateSequence(size);
+                positionSequence=0;
+                actualKey = music.getSequence().get(0);
                 return true;
             }
         }
-        //si mauvaise touche
         else{
-            //loseLife();
-            //replaySequence();
-            System.out.println("valentin: Erreur !");
+            lifes.loseLife();
             positionSequence = 0;
             actualKey = music.getSequence().get(0);
             return false;
         }
     }
 
+    public boolean isDead() {
+        return lifes.isDead();
+    }
+
+    private boolean sequenceNotFinished() {
+        return positionSequence < music.getPosition()-1;
+    }
+
+    private void progressSequence() {
+        positionSequence++;
+        actualKey = music.getSequence().get(positionSequence);
+    }
+
     private List<Note> generateNotes() {
         List<Note>notes=new ArrayList<>();
-        for (int i = 0; i <100 ; i++) {
+        for (int i = 0; i <10 ; i++) {
             Note note=new Note((int)(Math.random() * (7) + 1),0);
             notes.add(note);
         }
@@ -77,6 +90,10 @@ public class ControlerMusic {
             listId.add(id);
         }
         return  listId;
+    }
+
+    public boolean songFinished(){
+        return music.musicEnded();
     }
 
 }

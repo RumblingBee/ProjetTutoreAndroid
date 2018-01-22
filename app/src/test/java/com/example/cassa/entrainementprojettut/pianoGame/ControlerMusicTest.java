@@ -47,6 +47,40 @@ public class ControlerMusicTest {
     @Test
     public void sequenceProgress() throws Exception {
         controlerMusic.checkKey(1);
-        assertTrue(controlerMusic.actualKey==notes.get(1));
+        assertEquals(controlerMusic.actualKey, notes.get(1));
+    }
+
+    @Test
+    public void sequenceReboot() throws Exception {
+        controlerMusic.checkKey(1);
+        controlerMusic.checkKey(2);
+        controlerMusic.checkKey(4);
+        assertEquals(controlerMusic.actualKey, notes.get(0));
+    }
+
+    @Test
+    public void sequenceFinishedReboot() throws Exception {
+        finishFirstSequence();
+        assertEquals(controlerMusic.actualKey, notes.get(0));
+    }
+
+    public void finishFirstSequence() {
+        controlerMusic.checkKey(1);
+        controlerMusic.checkKey(2);
+        controlerMusic.checkKey(3);
+    }
+
+    @Test
+    public void sequenceSizeAugmented() throws Exception {
+        finishFirstSequence();
+        assertEquals(controlerMusic.music.getSequence().size(),4);
+    }
+
+    @Test
+    public void finishSong() throws Exception {
+        finishFirstSequence();
+        finishFirstSequence();
+        controlerMusic.checkKey(4);
+        assertTrue(controlerMusic.songFinished());
     }
 }

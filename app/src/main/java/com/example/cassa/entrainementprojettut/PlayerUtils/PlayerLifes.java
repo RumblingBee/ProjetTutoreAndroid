@@ -21,6 +21,6 @@ public class PlayerLifes {
     }
 
     public boolean isDead(){
-        return life==3;
+        return life==0;
     }
 }

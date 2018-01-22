@@ -1,15 +1,11 @@
 package com.example.cassa.entrainementprojettut;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.cassa.entrainementprojettut.geography.Controler;
 import com.example.cassa.entrainementprojettut.pianoGame.ControlerMusic;
 
 import java.util.List;
@@ -115,7 +111,14 @@ private Runnable runGray(final int pi){
     @Override
     public void onClick(View v) {
         int keyId = Integer.parseInt((String) v.getTag());
-        boolean correctKey = controlerMusic.checkKey(keyId);
+        controlerMusic.checkKey(keyId);
+        showSequence();
+        if(controlerMusic.isDead()){
+            showResultScreen(this,false,false,0);
+        }
+        if (controlerMusic.songFinished()){
+            showResultScreen(this,true,false,0);
+        }
 
     }
 }

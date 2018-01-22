@@ -42,4 +42,8 @@ public class Music {
     public int getPosition() {
         return position;
     }
+
+    public boolean musicEnded(){
+        return notes.size()==sequence.size();
+    }
 }
