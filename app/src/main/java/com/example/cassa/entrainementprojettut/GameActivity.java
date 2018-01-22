@@ -60,8 +60,6 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected  void showText(String text){
 
-
-
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 

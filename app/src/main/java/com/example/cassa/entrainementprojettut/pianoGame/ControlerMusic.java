@@ -2,6 +2,9 @@ package com.example.cassa.entrainementprojettut.pianoGame;
 
 import android.view.View;
 
+import com.example.cassa.entrainementprojettut.GameActivity;
+import com.example.cassa.entrainementprojettut.PianoActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +12,7 @@ import java.util.List;
  * Created by LeBoss on 16/01/2018.
  */
 
-public class ControlerMusic {
+public class ControlerMusic extends GameActivity{
 
     Music music;
     Note actualKey;
@@ -25,30 +28,27 @@ public class ControlerMusic {
 
     }
 
-    public boolean checkKey(int id){
+    public int checkKey(int id){
         //Si touche correct
         if (id == actualKey.getId()){
             //si pas encore derniere touche
             if (positionSequence < music.getPosition()-1) {
-                System.out.println("valentin: Bravo !");
                 positionSequence++;
                 actualKey = music.getSequence().get(positionSequence);
-                return true;
+                return 0;
             }
             //si derniere touche
             else{
-                System.out.println("valentin: Gagné !");
-                return true;
+                return 1;
             }
         }
         //si mauvaise touche
         else{
             //loseLife();
             //replaySequence();
-            System.out.println("valentin: Erreur !");
             positionSequence = 0;
             actualKey = music.getSequence().get(0);
-            return false;
+            return -1;
         }
     }
 
@@ -72,4 +72,8 @@ public class ControlerMusic {
         return  listId;
     }
 
+    public void resetSequence() {
+        positionSequence = 0;
+        actualKey = music.getSequence().get(positionSequence);
+    }
 }

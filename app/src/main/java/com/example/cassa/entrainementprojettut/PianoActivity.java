@@ -29,6 +29,8 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     ControlerMusic controlerMusic;
 
+    private Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,20 +51,50 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         controlerMusic = new ControlerMusic();
         showSequence();
     }
-private Runnable runGray(final int pi){
 
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            System.out.println(""+idKey);
-            buttonsTab[pi].setBackgroundColor(Color.GRAY);
 
+
+    private void showSequence() {
+        enableButton(false);
+
+        List<Integer> listId = controlerMusic.getIdSequence();
+
+        for (int id = 0; id<listId.size(); id++) {
+            idKey = listId.get(id) - 1;
+
+            //On redéfinit les Runnables
+            int timeGreen = (id+1)*1000+200;
+            int timeGray = ((id+1)*2000)-(id*1000);
+
+            handler.postDelayed(runGreen(idKey), timeGreen);
+            handler.postDelayed(runGray(idKey), timeGray);
         }
-    };
-   return runnable;
-}
-    private Runnable runGreen(final int pi){
 
+        handler.postDelayed(enableButton(), listId.size() * 2000);
+
+    }
+
+    private void enableButton(boolean enable) {
+        for(Button button: buttonsTab){
+            button.setEnabled(enable);
+        }
+    }
+
+
+    private Runnable runGray(final int pi){
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                buttonsTab[pi].setBackgroundColor(Color.GRAY);
+
+            }
+        };
+        return runnable;
+    }
+
+
+    private Runnable runGreen(final int pi){
 
         Runnable greenRunnable = new Runnable() {
             @Override
@@ -72,23 +104,16 @@ private Runnable runGray(final int pi){
         };
         return greenRunnable;
     }
-    private void showSequence() {
-        List<Integer> listId = controlerMusic.getIdSequence();
-        Handler handler = new Handler();
 
+    private Runnable enableButton(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                enableButton(true);
+            }
+        };
 
-
-
-        for (int id = 0; id<listId.size(); id++){
-
-            idKey = listId.get(id)-1;
-            //On redéfinit les Runnables
-
-
-
-            handler.postDelayed(runGreen(idKey), (id+1)*1000);
-            handler.postDelayed(runGray(idKey), (id+1)*2000);}
-
+        return runnable;
     }
 
 
@@ -110,12 +135,28 @@ private Runnable runGray(final int pi){
         buttonsTab[5].setOnClickListener(this);
         buttonsTab[6].setOnClickListener(this);
 
+        for (Button button: buttonsTab){
+            button.setBackgroundColor(Color.GRAY);
+        }
     }
 
     @Override
     public void onClick(View v) {
         int keyId = Integer.parseInt((String) v.getTag());
-        boolean correctKey = controlerMusic.checkKey(keyId);
+        int answer = controlerMusic.checkKey(keyId);
+
+        v.setBackgroundColor(Color.YELLOW);
+
+        //Affiche le toast d'inquication
+        if (answer == 0){
+            showText("Bravo !");
+        }else if (answer == 1){
+            showResultScreen(PianoActivity.this, true, false, 0);
+        }else{
+            showText("Dommage !");
+            controlerMusic.resetSequence();
+            showSequence();
+        }
 
     }
 }
