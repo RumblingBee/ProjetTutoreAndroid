@@ -26,6 +26,13 @@ public class ControlerMusic {
         System.out.println("valentin pos: "+music.getPosition());
     }
 
+    public ControlerMusic(Music music) {
+        this.music = music;
+        music.generateSequence(3);
+        this.positionSequence = 0;
+        actualKey = music.getSequence().get(positionSequence);
+    }
+
     public boolean checkKey(int id){
         System.out.println("valentin posSeq: "+positionSequence);
         //Si touche correct
