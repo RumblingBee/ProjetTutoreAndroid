@@ -23,7 +23,6 @@ public class ControlerMusic {
         this.positionSequence = 0;
         actualKey = music.getSequence().get(positionSequence);
 
-        System.out.println("valentin pos: "+music.getPosition());
     }
 
     public ControlerMusic(Music music) {
@@ -34,7 +33,6 @@ public class ControlerMusic {
     }
 
     public boolean checkKey(int id){
-        System.out.println("valentin posSeq: "+positionSequence);
         //Si touche correct
         if (id == actualKey.getId()){
             //si pas encore derniere touche
