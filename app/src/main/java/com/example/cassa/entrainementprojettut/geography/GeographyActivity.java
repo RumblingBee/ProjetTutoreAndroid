@@ -79,14 +79,23 @@ public class GeographyActivity extends GameActivity {
     }
 
     private View.OnTouchListener onTouchListener(){
+
+
         return new View.OnTouchListener() {
 
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                int originalPositionX = 0;
+                int originalPositionY = 0;
+
+                float viewX = view.getX();
+                float viewY = view.getY();
+
 
             final int x=(int) motionEvent.getRawX();
             final int y=(int) motionEvent.getRawY();
+
 
             switch(motionEvent.getAction()){
                 case MotionEvent.ACTION_DOWN:
@@ -108,6 +117,7 @@ public class GeographyActivity extends GameActivity {
                     toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
                     toast.show();*/
 
+
                     int tagCoords[] = new int[2];
                     view.getLocationOnScreen(tagCoords);
                     float leftSide = tagCoords[0];
@@ -121,6 +131,14 @@ public class GeographyActivity extends GameActivity {
                        view.setBackgroundColor(Color.GREEN);
                        playerEvent.start();
 
+
+                    }
+
+                    else{
+
+                       int position = getPositionTag((float[])view.getTag());
+                       replaceTag(view,position);
+
                     }
 
             }
@@ -128,6 +146,29 @@ public class GeographyActivity extends GameActivity {
             return true;
             }
         };
+    }
+
+    private int getPositionTag(float[] victoryBox) {
+        int i =0;
+        for(Tag tag: tagList){
+            if(tag.getVictoryBox() == victoryBox){
+                return i;
+            }
+            i++;
+        }
+
+        return 0;
+    }
+
+    private void replaceTag(View view,int position) {
+
+        int maxTagInAColumn = getMaxTagInAColumn();
+        int column = ((position)/(maxTagInAColumn-1));
+        showText("Column"+column);
+        RelativeLayout.LayoutParams layoutP = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        layoutP.leftMargin= (column *150)+10;
+        layoutP.topMargin= ((position - (column*(maxTagInAColumn-1)))*100)+10;
+        view.setLayoutParams(layoutP);
     }
 
     private void generateTextView(){
