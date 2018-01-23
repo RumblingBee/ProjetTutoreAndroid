@@ -51,9 +51,8 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     private void showSequence() {
         enableButton(false);
-
         List<Integer> listId = controlerMusic.getIdSequence();
-
+        switchButtonGray();
         for (int id = 0; id<listId.size(); id++) {
             idKey = listId.get(id) - 1;
 
@@ -65,7 +64,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             handler.postDelayed(runGray(idKey), timeGray);
         }
 
-        handler.postDelayed(enableButton(), listId.size() * 1000);
+        handler.postDelayed(enableButton(), listId.size() * 1500);
 
     }
 
@@ -130,6 +129,10 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         buttonsTab[5].setOnClickListener(this);
         buttonsTab[6].setOnClickListener(this);
 
+        switchButtonGray();
+    }
+
+    private void switchButtonGray() {
         for (Button button: buttonsTab){
             button.setBackgroundColor(Color.GRAY);
         }
@@ -162,4 +165,5 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
 
     }
+
 }

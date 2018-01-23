@@ -1,5 +1,7 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
+import android.util.Log;
+
 import org.junit.Before;
 import org.junit.Test;
 
