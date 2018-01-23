@@ -1,9 +1,14 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
+import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.view.View;
+
 import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
 
 import com.example.cassa.entrainementprojettut.GameActivity;
 import com.example.cassa.entrainementprojettut.PianoActivity;
+import com.example.cassa.entrainementprojettut.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,11 +93,27 @@ public class ControlerMusic extends GameActivity{
 
     private List<Note> generateNotes() {
         List<Note>notes=new ArrayList<>();
+
+        Note[] notesTab = getNotesTab();
+
         for (int i = 0; i <5 ; i++) {
-            Note note=new Note((int)(Math.random() * (7) + 1),0);
-            notes.add(note);
+            //Note note=new Note((int)(Math.random() * (7)),0);
+            notes.add(notesTab[(int)(Math.random() * (7))]);
         }
         return notes;
+    }
+
+    @NonNull
+    private Note[] getNotesTab() {
+        Note noteDo = new Note(1, R.raw.note_do);
+        Note noteRe = new Note(2, R.raw.note_re);
+        Note noteMi = new Note(3, R.raw.note_mi);
+        Note noteFa = new Note(4, R.raw.note_fa);
+        Note noteSol= new Note(5, R.raw.note_sol);
+        Note noteLa = new Note(6, R.raw.note_la);
+        Note noteSi = new Note(7, R.raw.note_si);
+
+        return new Note[]{noteDo, noteRe, noteMi, noteFa, noteSol, noteLa, noteSi};
     }
 
     public List<Integer> getIdSequence(){
@@ -113,6 +134,13 @@ public class ControlerMusic extends GameActivity{
 
     public boolean songFinished(){
         return music.musicEnded();
+    }
+
+    public void playSong(Activity activity, View view){
+        String tmp = (String) view.getTag();
+        int key = Integer.parseInt(tmp)-1;
+        Note notesTab[] = getNotesTab();
+        notesTab[key].playSong(activity);
     }
 
 }

@@ -34,7 +34,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
 
         music = R.raw.geography_music;
-        startBackgroundMusic(PianoActivity.this, music);
+        //startBackgroundMusic(PianoActivity.this, music);
 
         setPianoButton();
 
@@ -61,7 +61,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             int timeGreen = (id+1)*1000+200;
             int timeGray = ((id+1)*2000)-(id*1000);
 
-            handler.postDelayed(runGreen(idKey), timeGreen);
+            handler.postDelayed(runGreen(idKey, (View) buttonsTab[idKey]), timeGreen);
             handler.postDelayed(runGray(idKey), timeGray);
         }
 
@@ -89,12 +89,13 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     }
 
 
-    private Runnable runGreen(final int pi){
+    private Runnable runGreen(final int pi, final View note){
 
         Runnable greenRunnable = new Runnable() {
             @Override
             public void run() {
                 buttonsTab[pi].setBackgroundColor(Color.GREEN);
+                controlerMusic.playSong(PianoActivity.this, note);
             }
         };
         return greenRunnable;
@@ -143,7 +144,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     public void onClick(View v) {
         int keyId = Integer.parseInt((String) v.getTag());
         int answer = controlerMusic.checkKey(keyId);
-
+        controlerMusic.playSong(PianoActivity.this, v);
         v.setBackgroundColor(Color.YELLOW);
 
         //Affiche le toast d'inquication

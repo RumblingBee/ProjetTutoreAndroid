@@ -16,6 +16,8 @@ public class PlayerLifes {
         life--;
     }
 
+    public int getLife(){return life;}
+
     public void resetLife(){
         life=3;
     }

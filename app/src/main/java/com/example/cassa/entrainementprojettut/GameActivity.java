@@ -255,11 +255,15 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected void startBackgroundMusic(Activity selfActivity, int idMusic){
 
+        if (idMusic != 0) {
+            if (bgPlayer != null) {
+                bgPlayer.stop();
+            }
 
-        if(bgPlayer != null){ bgPlayer.stop();}
-
-        bgPlayer = MediaPlayer.create(selfActivity,idMusic);
-        bgPlayer.start();
+            bgPlayer = MediaPlayer.create(selfActivity, idMusic);
+            bgPlayer.start();
+        }else
+            bgPlayer = null;
 
     }
 
@@ -312,12 +316,16 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     @Override
     protected void onPause() {
         super.onPause();
-        bgPlayer.stop();
+        if(bgPlayer != null) {
+            bgPlayer.stop();
+        }
     }
 
     @Override
     public void onBackPressed(){
-        bgPlayer.stop();
+        if(bgPlayer != null) {
+            bgPlayer.stop();
+        }
         Intent back = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(back);
         super.onBackPressed();
@@ -326,23 +334,23 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        bgPlayer.stop();
+        if(bgPlayer != null) {
+            bgPlayer.stop();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        bgPlayer.start();
+        if (bgPlayer != null) {
+            bgPlayer.start();
+        }
     }
 
     @Override
     protected void onResume() {
         if(bgPlayer != null){
-
-
             startBackgroundMusic(GameActivity.this, music);
-
-
         }
         super.onResume();
     }
