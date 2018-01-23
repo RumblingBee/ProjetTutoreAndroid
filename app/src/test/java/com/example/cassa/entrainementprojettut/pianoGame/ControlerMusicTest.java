@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class ControlerMusicTest {
 
-    private ControlerMusic controlerMusic ;
+    private IControlerMusic controlerMusic ;
     private List<Note> notes=new ArrayList<>();
 
     @Before
@@ -31,17 +31,17 @@ public class ControlerMusicTest {
 
         Music music=new Music(notes);
 
-        controlerMusic=new ControlerMusic(music);
+        controlerMusic=new ControlerMusicEasy(music);
     }
 
     @Test
     public void noteSaisieOk() throws Exception {
-        assertEquals(0, controlerMusic.checkKey(1));
+        assertEquals(2, controlerMusic.checkKey(1));
     }
 
     @Test
     public void noteSaisieFalse() throws Exception {
-        assertEquals(-1,controlerMusic.checkKey(3));
+        assertEquals(-1, controlerMusic.checkKey(3));
     }
 
     @Test
