@@ -166,28 +166,37 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         controlerMusic.playSong(PianoActivity.this, v);
         v.setBackgroundColor(Color.YELLOW);
 
+        checkAnswer(answer);
+
+
+    }
+
+    public void checkAnswer(int answer) {
         if (answer>=0){
-            showText("Bravo !");
-            if(controlerMusic.songFinished()){
-                showResultScreen(this,true,false,0);
-            }else{
-                if(answer==0){
-                    showSequence();
-                }
-            }
+            wrightAnswerConsequences(answer);
         }else{
-            showText("Dommage !");
-            controlerMusic.falseAnswerConsequences();
-            if(controlerMusic.isDead()){
-                controlerMusic.setLife(life);
-                showResultScreen(this,false,false,0);
-            }else {
-                controlerMusic.setLife(life);
+            wrongAnswerConsequences();
+        }
+    }
+
+    public void wrongAnswerConsequences() {
+        showText("Dommage !");
+        if(controlerMusic.isDead()){
+            showResultScreen(this,false,false,0);
+        }else {
+            showSequence();
+        }
+    }
+
+    public void wrightAnswerConsequences(int answer) {
+        showText("Bravo !");
+        if(controlerMusic.songFinished()){
+            showResultScreen(this,true,false,0);
+        }else{
+            if(answer==0){
                 showSequence();
             }
         }
-
-
     }
 
 }
