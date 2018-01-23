@@ -8,6 +8,21 @@
     android:orientation="horizontal"
     tools:context="com.example.cassa.entrainementprojettut.PianoActivity">
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/activity_piano_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="3"
+            android:textSize="50sp"/>
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/activity_piano_linear_button"
         android:layout_width="wrap_content"
@@ -15,7 +30,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/activity_piano_touche_do"
+            android:id="@+id/activity_piano_key_do"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DO"
@@ -23,7 +38,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_re"
+            android:id="@+id/activity_piano_key_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RE"
@@ -31,7 +46,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_mi"
+            android:id="@+id/activity_piano_key_mi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MI"
@@ -39,7 +54,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_fa"
+            android:id="@+id/activity_piano_key_fa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FA"
@@ -47,7 +62,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_sol"
+            android:id="@+id/activity_piano_key_sol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SOL"
@@ -55,7 +70,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_la"
+            android:id="@+id/activity_piano_key_la"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LA"
@@ -63,7 +78,7 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/activity_piano_touche_si"
+            android:id="@+id/activity_piano_key_si"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SI"

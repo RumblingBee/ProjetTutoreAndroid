@@ -10,7 +10,7 @@ import android.media.MediaPlayer;
 class Note {
     private int id;
     private int adressSound;
-    private static MediaPlayer song;
+    private MediaPlayer song = new MediaPlayer();
 
     public Note(int id, int adressSound) {
         this.id = id;
@@ -26,8 +26,10 @@ class Note {
     }
 
     public void playSong(Activity activity){
-        if (song != null){
+        if (song.isPlaying()){
             song.stop();
+            song.release();
+            song = new MediaPlayer();
         }
         song = MediaPlayer.create(activity, adressSound);
         song.start();

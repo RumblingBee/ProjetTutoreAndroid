@@ -1,13 +1,15 @@
 package com.example.cassa.entrainementprojettut;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.pianoGame.ControlerMusic;
-
+import com.example.cassa.entrainementprojettut.pianoGame.FactoryMusicControler;
+import com.example.cassa.entrainementprojettut.pianoGame.IControlerMusic;
 import java.util.List;
 
 public class PianoActivity extends GameActivity implements View.OnClickListener {
@@ -20,10 +22,12 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     private Button mButtonLa;
     private Button mButtonSi;
 
+    private TextView life;
+
     private Button[] buttonsTab = {mButtonDo, mButtonRe, mButtonMi, mButtonFa, mButtonSol, mButtonLa, mButtonSi};
     private int idKey;
 
-    ControlerMusic controlerMusic;
+    IControlerMusic controlerMusic;
 
     private Handler handler = new Handler();
 
@@ -38,13 +42,26 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
         setPianoButton();
 
-        generatParty();
+        displayLevelChoice(PianoActivity.this,"listeNiveau",3);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (levelChosen != 0) {
+                    generatParty();
+                } else {
+                    PianoActivity.this.onStop();
+                    dialog.show();
+                }
+
+            }
+        });
 
     }
 
     private void generatParty() {
-        //controlerMusic = new ControlerMusic(levelChosen);
-        controlerMusic = new ControlerMusic();
+        //controlerMusic = new ControlerMusicEasy(levelChosen);
+        controlerMusic = FactoryMusicControler.createControlerMusic(levelChosen);
         showSequence();
     }
 
@@ -115,13 +132,15 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     private void setPianoButton() {
 
-        buttonsTab[0] = (Button) findViewById(R.id.activity_piano_touche_do);
-        buttonsTab[1] = (Button) findViewById(R.id.activity_piano_touche_re);
-        buttonsTab[2] = (Button) findViewById(R.id.activity_piano_touche_mi);
-        buttonsTab[3] = (Button) findViewById(R.id.activity_piano_touche_fa);
-        buttonsTab[4] = (Button) findViewById(R.id.activity_piano_touche_sol);
-        buttonsTab[5] = (Button) findViewById(R.id.activity_piano_touche_la);
-        buttonsTab[6] = (Button) findViewById(R.id.activity_piano_touche_si);
+        life = (TextView) findViewById(R.id.activity_piano_life);
+
+        buttonsTab[0] = (Button) findViewById(R.id.activity_piano_key_do);
+        buttonsTab[1] = (Button) findViewById(R.id.activity_piano_key_re);
+        buttonsTab[2] = (Button) findViewById(R.id.activity_piano_key_mi);
+        buttonsTab[3] = (Button) findViewById(R.id.activity_piano_key_fa);
+        buttonsTab[4] = (Button) findViewById(R.id.activity_piano_key_sol);
+        buttonsTab[5] = (Button) findViewById(R.id.activity_piano_key_la);
+        buttonsTab[6] = (Button) findViewById(R.id.activity_piano_key_si);
 
         buttonsTab[0].setOnClickListener(this);
         buttonsTab[1].setOnClickListener(this);
@@ -147,23 +166,27 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         controlerMusic.playSong(PianoActivity.this, v);
         v.setBackgroundColor(Color.YELLOW);
 
-        //Affiche le toast d'inquication
-        if (answer == 0){
+        if (answer>=0){
             showText("Bravo !");
-        }
-        else if (answer == 1){
-            showResultScreen(PianoActivity.this, true, false, 0);
-        }
-        else{
-            showText("Dommage !");
-            if(answer<=-2){
-                showResultScreen(PianoActivity.this, false, false, 0);
+            if(controlerMusic.songFinished()){
+                showResultScreen(this,true,false,0);
+            }else{
+                if(answer==0){
+                    showSequence();
+                }
             }
-            else {
-                controlerMusic.resetSequence();
+        }else{
+            showText("Dommage !");
+            controlerMusic.falseAnswerConsequences();
+            if(controlerMusic.isDead()){
+                controlerMusic.setLife(life);
+                showResultScreen(this,false,false,0);
+            }else {
+                controlerMusic.setLife(life);
                 showSequence();
             }
         }
+
 
     }
 
