@@ -168,6 +168,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String paysSelectione = (String) view.getTag();
+        System.out.println("paysSelectione: "+paysSelectione);
 
         verifierReponse((ImageView) view,paysSelectione);
     }

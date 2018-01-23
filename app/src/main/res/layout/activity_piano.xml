@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.cassa.entrainementprojettut.PianoActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/activity_piano_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="3"
+            android:textSize="50sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_piano_linear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/activity_piano_key_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DO"
+            android:tag="1"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_re"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RE"
+            android:tag="2"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_mi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:tag="3"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_fa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FA"
+            android:tag="4"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_sol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SOL"
+            android:tag="5"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_la"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LA"
+            android:tag="6"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/activity_piano_key_si"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SI"
+            android:tag="7"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

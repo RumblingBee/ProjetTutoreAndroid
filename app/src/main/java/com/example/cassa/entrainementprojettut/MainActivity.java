@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnFlagActivity = findViewById(R.id.activity_main_flagActivity_btn);
         Button btnReverseFlagActivity = findViewById(R.id.activity_reverse_flagActivity_btn);
         Button btnGeographyTag = findViewById(R.id.acivity_main_geographyTag);
+        Button btnPiano = findViewById(R.id.acivity_main_piano);
         ImageView imgChouettes = findViewById(R.id.chouettes_menu);
         imgChouettes.setBackgroundResource(R.drawable.animation_chouettes_menu);
         mAnimationChouettes = (AnimationDrawable) imgChouettes.getBackground();
@@ -91,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
                 player.stop();
                 Intent geographyActivityIntent = new Intent(MainActivity.this, GeographyActivity.class);
                 startActivity(geographyActivityIntent);
+
+                playerEvent.start();
+                finish();
+            }
+        });
+
+        btnPiano.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.stop();
+                Intent pianoActivityIntent = new Intent(MainActivity.this, PianoActivity.class);
+                startActivity(pianoActivityIntent);
 
                 playerEvent.start();
                 finish();

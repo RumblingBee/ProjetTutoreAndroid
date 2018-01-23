@@ -48,4 +48,12 @@ public class SetOperationCE2Test {
         }
         assertEquals(true,nbAddition>0 && nbSoustraction>0 && nbMultiplication>0);
     }
+
+    @Test
+    public void createAnOperation() throws Exception {
+        for (int i = 0; i < 1000; i++) {
+            operation=setOperation.createAnOperation();
+            assertTrue(operation.displayResult()-3>=0);
+        }
+    }
 }
