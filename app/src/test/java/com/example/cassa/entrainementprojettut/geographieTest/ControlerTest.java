@@ -27,7 +27,7 @@ public class ControlerTest {
     @Test
     public void recupererImageNiveau2()  {
         Controler controler = new Controler(2);
-        I_Set niveau = new SetOccitanie();
+        I_Set niveau = new SetEurope();
 
         assertEquals(niveau.getBackgroundImage(), controler.getBackgroundImage());
 
@@ -35,7 +35,7 @@ public class ControlerTest {
     @Test
     public void recupererImageNiveau3()  {
         Controler controler = new Controler(3);
-        I_Set niveau = new SetEurope();
+        I_Set niveau = new SetOccitanie();
 
         assertEquals(niveau.getBackgroundImage(), controler.getBackgroundImage());
 
@@ -63,7 +63,7 @@ public class ControlerTest {
         int i = 0;
 
         Controler controler = new Controler(2);
-        I_Set niveau = new SetOccitanie();
+        I_Set niveau = new SetEurope();
 
         while (i < niveau.getTagList().size() && listeIdentique == true){
             if(niveau.getTagList().get(i).getName() != controler.getTagList().get(i).getName()){
@@ -80,7 +80,7 @@ public class ControlerTest {
         int i = 0;
 
         Controler controler = new Controler(3);
-        I_Set niveau = new SetEurope();
+        I_Set niveau = new SetOccitanie();
 
         while (i < niveau.getTagList().size() && listeIdentique == true){
             if(niveau.getTagList().get(i).getName() != controler.getTagList().get(i).getName()){
