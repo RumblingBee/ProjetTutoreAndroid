@@ -45,7 +45,6 @@ public class Music {
     }
 
     public boolean musicEnded(){
-        System.out.println("notes: "+notes.size()+" sequence: "+sequence.size());
         return notes.size()==sequence.size();
     }
 }
