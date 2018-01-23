@@ -73,7 +73,7 @@ public class ControlerMusicTest {
     @Test
     public void sequenceSizeAugmented() throws Exception {
         finishFirstSequence();
-        assertEquals(controlerMusic.music.getSequence().size(),4);
+        assertEquals(4,controlerMusic.music.getSequence().size());
     }
 
     @Test
@@ -83,4 +83,5 @@ public class ControlerMusicTest {
         controlerMusic.checkKey(4);
         assertTrue(controlerMusic.songFinished());
     }
+
 }

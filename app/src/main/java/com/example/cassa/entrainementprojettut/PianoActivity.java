@@ -150,7 +150,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             showResultScreen(PianoActivity.this, true, false, 0);
         }else{
             showText("Dommage !");
-            if(answer==-2){
+            if(answer<=-2){
                 showResultScreen(PianoActivity.this, false, false, 0);
             }else {
                 controlerMusic.resetSequence();
