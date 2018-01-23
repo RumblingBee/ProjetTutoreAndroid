@@ -2,6 +2,7 @@ package com.example.cassa.entrainementprojettut.geography;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,6 +40,9 @@ public class GeographyActivity extends GameActivity {
     private MediaPlayer playerEvent;
     private  TextView[] tabTextView;
     private Controler controler;
+    private int verticalSpaceBetweenTags;
+    private int horizontalSpaceBetweenTags;
+    private float fontSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class GeographyActivity extends GameActivity {
                                                 setRectangleOnMap();
 
                                                 generateTextView();
-                                                setNameTextView();
+
                                                 setTagTextView();
                                             } else {
                                                 displayLevelChoice(GeographyActivity.this, "", 3);
@@ -75,10 +79,32 @@ public class GeographyActivity extends GameActivity {
         startBackgroundMusic(GeographyActivity.this, R.raw.geography_music);
         playerEvent=MediaPlayer.create(GeographyActivity.this,R.raw.envent_sound);
 
+        if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE){
+            verticalSpaceBetweenTags = 200;
+            fontSize = 0.01F * getScreenHeight();
+
+        }
+        else if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE){
+            verticalSpaceBetweenTags = 200;
+            fontSize = 0.015F * getScreenHeight();
+
+        }
+        else {
+            verticalSpaceBetweenTags = 100;
+            fontSize = 0.02F * getScreenHeight();
+        }
+
+
 
     }
 
     private View.OnTouchListener onTouchListener(){
+
+
         return new View.OnTouchListener() {
 
             @SuppressLint("ClickableViewAccessibility")
@@ -87,6 +113,7 @@ public class GeographyActivity extends GameActivity {
 
             final int x=(int) motionEvent.getRawX();
             final int y=(int) motionEvent.getRawY();
+
 
             switch(motionEvent.getAction()){
                 case MotionEvent.ACTION_DOWN:
@@ -108,6 +135,7 @@ public class GeographyActivity extends GameActivity {
                     toast=Toast.makeText(getApplicationContext(),"x="+((x-xDelta)*12)/retourTailleEcran()+"/12 y="+((y-yDelta)*12)/getHauteurEcran()+"/12",Toast.LENGTH_SHORT);
                     toast.show();*/
 
+
                     int tagCoords[] = new int[2];
                     view.getLocationOnScreen(tagCoords);
                     float leftSide = tagCoords[0];
@@ -121,6 +149,14 @@ public class GeographyActivity extends GameActivity {
                        view.setBackgroundColor(Color.GREEN);
                        playerEvent.start();
 
+
+                    }
+
+                    else{
+
+                       int position = getPositionTag((float[])view.getTag());
+                       replaceTag(view,position);
+
                     }
 
             }
@@ -130,36 +166,102 @@ public class GeographyActivity extends GameActivity {
         };
     }
 
-    private void generateTextView(){
+    private int getPositionTag(float[] victoryBox) {
+        int i =0;
+        for(Tag tag: tagList){
+            if(tag.getVictoryBox() == victoryBox){
+                return i;
+            }
+            i++;
+        }
+
+        return 0;
+    }
+
+    private void replaceTag(View view,int position) {
+
+        int maxTagInAColumn = getMaxTagInAColumn();
+        int column = ((position)/(maxTagInAColumn-1));
+        showText("Column"+column);
+        RelativeLayout.LayoutParams layoutP = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        layoutP.leftMargin= (column *horizontalSpaceBetweenTags);
+        layoutP.topMargin= ((position - (column*(maxTagInAColumn-1)))*verticalSpaceBetweenTags);
+        view.setLayoutParams(layoutP);
+    }
+
+        private void generateTextView(){
         int maxTagInAColumn = getMaxTagInAColumn();
         int columnID = 0;
+        int maxTagWidth = 0;
 
-        Collections.shuffle(tagList);
+            shuffleTagGroup();
 
-        tabTextView = new TextView[tagList.size()];
+            tabTextView = new TextView[tagList.size()];
 
         for(int i = 0; i< tagList.size(); i++){
 
-            RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
 
             tabTextView[i] = new TextView(this);
 
 
 
-            if (isPlacedInTheNextCol(maxTagInAColumn, columnID, i) == true){
-                columnID +=1;
-            }
-            textViewParams.setMargins((columnID*150)+10, ((i-(columnID*(maxTagInAColumn-1))) * 100) + 10, 0, 0);
 
             tabTextView[i].setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-            tabTextView[i].setLayoutParams(textViewParams);
+
             tabTextView[i].setBackgroundColor(Color.parseColor("#f3f0e8"));
-            tabTextView[i].setTextSize(getScreenHeight()*0.02F);
+            tabTextView[i].setTextSize(fontSize);
 
             tabTextView[i].setOnTouchListener(onTouchListener());
 
-            mainLayout.addView(tabTextView[i],textViewParams);
+
+
         }
+            setNameTextView();
+           // maxTagWidth = getMaxTagWidth(tabTextView,tagList.size());
+            int maxWidth = getMaxCharInTextView(tabTextView,tagList.size());
+            horizontalSpaceBetweenTags =(int)( maxWidth*(0.02F*getScreenHeight())+10);
+            for(int i = 0; i< tagList.size(); i++){
+                if (isPlacedInTheNextCol(maxTagInAColumn, columnID, i)){
+                    columnID +=1;
+                }
+
+
+                RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+                textViewParams.setMargins((columnID*horizontalSpaceBetweenTags), ((i-(columnID*(maxTagInAColumn-1))) * verticalSpaceBetweenTags), 0, 0);
+                tabTextView[i].setLayoutParams(textViewParams);
+                mainLayout.addView(tabTextView[i],textViewParams);
+            }
+
+
+    }
+
+    private int getMaxCharInTextView(TextView[] textViews,int size) {
+        int maxNumChar = 0;
+        for (TextView t : textViews) {
+            if(maxNumChar< getNumCharTextView(t)){
+                maxNumChar = getNumCharTextView(t);
+            }
+        }
+        return maxNumChar;
+    }
+
+    private int getNumCharTextView(TextView t) {
+            int i = 0;
+            String textOnTextView = (String) t.getText();
+            while (i < textOnTextView.length() &&   textOnTextView.charAt(i)!= '\n' && textOnTextView.charAt(i) != ' '){
+
+                    i++;
+
+            }
+        return i;
+    }
+
+
+    private void shuffleTagGroup() {
+        Collections.shuffle(tagList);
     }
 
     private Boolean isPlacedInTheNextCol(int maxTagInAColum, int columnID, int idTag) {
@@ -213,6 +315,16 @@ public class GeographyActivity extends GameActivity {
 
         }
     }
+    private int getMaxTagWidth(TextView[] tabTextView,int size) {
+        int maxTextViewWidth = 0;
+        for(int i = 0; i< size; i++){
+            if(maxTextViewWidth < tabTextView[i].getMeasuredWidth()){
+                maxTextViewWidth = tabTextView[i].getMeasuredWidth();
+            }
+        }
+        return maxTextViewWidth;
+    }
+
 
     private boolean checkVictoryBox(float[]victoryBox, float leftSideTxtView, float rightSideTxtView,
                                     float upperSideTxtView, float downSideTxtView){
@@ -260,7 +372,7 @@ public class GeographyActivity extends GameActivity {
 
     private int getMaxTagInAColumn(){
         int maxTagInAColumn = 0;
-        while(maxTagInAColumn*100<= getScreenHeight() * 0.9){
+        while(maxTagInAColumn*verticalSpaceBetweenTags<= getScreenHeight() * 0.9){
             maxTagInAColumn++;
         }
 

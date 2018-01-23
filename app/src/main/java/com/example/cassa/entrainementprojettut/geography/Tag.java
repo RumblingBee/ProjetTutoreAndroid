@@ -8,6 +8,7 @@ public class Tag {
 
     private String name;
     private float[] victoryBox =new float[4];
+    private int position;
 
 
     public float[] getVictoryBox() {
