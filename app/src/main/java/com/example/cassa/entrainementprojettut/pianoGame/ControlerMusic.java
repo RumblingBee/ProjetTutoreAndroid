@@ -35,7 +35,8 @@ public class ControlerMusic extends GameActivity{
     public ControlerMusic(Music music) {
         lifes=new PlayerLifes();
         this.music = music;
-        music.generateSequence(3);
+        size=3;
+        music.generateSequence(size);
         this.positionSequence = 0;
         actualKey = music.getSequence().get(positionSequence);
     }
@@ -50,11 +51,15 @@ public class ControlerMusic extends GameActivity{
             }
             //si derniere touche
             else{
-                size++;
-                music.generateSequence(size);
-                positionSequence=0;
-                actualKey = music.getSequence().get(0);
-                return 1;
+                if(songFinished()){
+                    return 2;
+                }else{
+                    size++;
+                    music.generateSequence(size);
+                    positionSequence=0;
+                    actualKey = music.getSequence().get(0);
+                    return 1;
+                }
             }
         }
         else{
@@ -83,7 +88,7 @@ public class ControlerMusic extends GameActivity{
 
     private List<Note> generateNotes() {
         List<Note>notes=new ArrayList<>();
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i <5 ; i++) {
             Note note=new Note((int)(Math.random() * (7) + 1),0);
             notes.add(note);
         }

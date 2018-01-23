@@ -20,6 +20,7 @@ public class Music {
     }
 
     public List<Note> generateSequence(int size){
+        sequence.clear();
         for (int j = 0; j <size ; j++) {
             sequence.add(notes.get(j));
         }
