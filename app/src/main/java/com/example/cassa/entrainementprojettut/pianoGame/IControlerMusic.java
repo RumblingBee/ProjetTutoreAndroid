@@ -30,6 +30,7 @@ public abstract class IControlerMusic {
         }
         else{
             res=-1;
+            falseAnswerConsequences();
         }
         return res;
     }
