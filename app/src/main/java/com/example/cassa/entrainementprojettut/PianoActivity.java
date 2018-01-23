@@ -1,15 +1,11 @@
 package com.example.cassa.entrainementprojettut;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.cassa.entrainementprojettut.geography.Controler;
 import com.example.cassa.entrainementprojettut.pianoGame.ControlerMusic;
 
 import java.util.List;
@@ -154,8 +150,12 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             showResultScreen(PianoActivity.this, true, false, 0);
         }else{
             showText("Dommage !");
-            controlerMusic.resetSequence();
-            showSequence();
+            if(answer==-2){
+                showResultScreen(PianoActivity.this, false, false, 0);
+            }else {
+                controlerMusic.resetSequence();
+                showSequence();
+            }
         }
 
     }

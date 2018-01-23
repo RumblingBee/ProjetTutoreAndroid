@@ -1,6 +1,6 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
-import android.view.View;
+import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
 
 import com.example.cassa.entrainementprojettut.GameActivity;
 import com.example.cassa.entrainementprojettut.PianoActivity;
@@ -16,45 +16,74 @@ public class ControlerMusic extends GameActivity{
 
     Music music;
     Note actualKey;
+    PlayerLifes lifes;
     int positionSequence;
+    private int size;
 
     public ControlerMusic() {
 
+        lifes=new PlayerLifes();
         List<Note> noteList = generateNotes();
         this.music = new Music(noteList);
-        music.generateSequence(3);
+        size = 3;
+        music.generateSequence(size);
         this.positionSequence = 0;
         actualKey = music.getSequence().get(positionSequence);
 
+    }
+
+    public ControlerMusic(Music music) {
+        lifes=new PlayerLifes();
+        this.music = music;
+        music.generateSequence(3);
+        this.positionSequence = 0;
+        actualKey = music.getSequence().get(positionSequence);
     }
 
     public int checkKey(int id){
         //Si touche correct
         if (id == actualKey.getId()){
             //si pas encore derniere touche
-            if (positionSequence < music.getPosition()-1) {
-                positionSequence++;
-                actualKey = music.getSequence().get(positionSequence);
+            if (sequenceNotFinished()) {
+                progressSequence();
                 return 0;
             }
             //si derniere touche
             else{
+                size++;
+                music.generateSequence(size);
+                positionSequence=0;
+                actualKey = music.getSequence().get(0);
                 return 1;
             }
         }
-        //si mauvaise touche
         else{
-            //loseLife();
-            //replaySequence();
+            lifes.loseLife();
+            if(isDead()){
+                return -2;
+            }
             positionSequence = 0;
             actualKey = music.getSequence().get(0);
             return -1;
         }
     }
 
+    public boolean isDead() {
+        return lifes.isDead();
+    }
+
+    private boolean sequenceNotFinished() {
+        return positionSequence < music.getPosition()-1;
+    }
+
+    private void progressSequence() {
+        positionSequence++;
+        actualKey = music.getSequence().get(positionSequence);
+    }
+
     private List<Note> generateNotes() {
         List<Note>notes=new ArrayList<>();
-        for (int i = 0; i <100 ; i++) {
+        for (int i = 0; i <10 ; i++) {
             Note note=new Note((int)(Math.random() * (7) + 1),0);
             notes.add(note);
         }
@@ -76,4 +105,9 @@ public class ControlerMusic extends GameActivity{
         positionSequence = 0;
         actualKey = music.getSequence().get(positionSequence);
     }
+
+    public boolean songFinished(){
+        return music.musicEnded();
+    }
+
 }
