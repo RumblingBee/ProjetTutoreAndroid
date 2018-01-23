@@ -86,6 +86,13 @@ public class GeographyActivity extends GameActivity {
             fontSize = 0.01F * getScreenHeight();
 
         }
+        else if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE){
+            verticalSpaceBetweenTags = 200;
+            fontSize = 0.015F * getScreenHeight();
+
+        }
         else {
             verticalSpaceBetweenTags = 100;
             fontSize = 0.02F * getScreenHeight();
@@ -103,12 +110,6 @@ public class GeographyActivity extends GameActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int originalPositionX = 0;
-                int originalPositionY = 0;
-
-                float viewX = view.getX();
-                float viewY = view.getY();
-
 
             final int x=(int) motionEvent.getRawX();
             final int y=(int) motionEvent.getRawY();
@@ -239,7 +240,6 @@ public class GeographyActivity extends GameActivity {
 
     private int getMaxCharInTextView(TextView[] textViews,int size) {
         int maxNumChar = 0;
-        String[] tabString = new String[size];
         for (TextView t : textViews) {
             if(maxNumChar< getNumCharTextView(t)){
                 maxNumChar = getNumCharTextView(t);

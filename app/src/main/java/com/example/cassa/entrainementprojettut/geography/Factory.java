@@ -19,10 +19,10 @@ public class Factory {
                 newLevel = new SetWorld();
                 break;
             case 2:
-                newLevel = new SetOccitanie();
+                newLevel = new SetEurope();
                 break;
             case 3:
-                newLevel = new SetEurope();
+                newLevel = new SetOccitanie();
                 break;
             default:
                 newLevel = new SetWorld();
