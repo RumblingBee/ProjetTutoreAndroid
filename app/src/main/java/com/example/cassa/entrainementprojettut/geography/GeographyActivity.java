@@ -212,6 +212,7 @@ public class GeographyActivity extends GameActivity {
             tabTextView[i].setBackgroundColor(Color.parseColor("#f3f0e8"));
             tabTextView[i].setTextSize(fontSize);
 
+
             tabTextView[i].setOnTouchListener(onTouchListener());
 
 
