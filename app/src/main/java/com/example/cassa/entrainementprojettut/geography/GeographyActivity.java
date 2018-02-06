@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class GeographyActivity extends GameActivity {
 
     private MediaPlayer playerEvent;
     private  TextView[] tabTextView;
+    private Chronometer chronometer;
     private Controler controler;
     private int verticalSpaceBetweenTags;
     private int horizontalSpaceBetweenCols;
@@ -49,6 +51,7 @@ public class GeographyActivity extends GameActivity {
         music = R.raw.geography_music;
         fullScreenMode(); // To avoid the top menu from appearing
         setContentView(R.layout.activity_geographytag);
+        chronometer = (Chronometer)findViewById(R.id.chronometer2);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
         displayLevelChoice(GeographyActivity.this,"",3);
@@ -76,7 +79,7 @@ public class GeographyActivity extends GameActivity {
                                                 setRectangleOnMap();
                                                 generateTextView();
                                                 setTagTextView();
-
+                                                chronometer.start();
                                                 rightAnswerCounter =0;
                                             } else {
                                                 displayLevelChoice(GeographyActivity.this, "", 3);
@@ -256,6 +259,7 @@ public class GeographyActivity extends GameActivity {
             showText("Bravo!");
             rightAnswerCounter++;
             if(rightAnswerCounter == tagList.size()){
+                chronometer.stop();
                 showResultScreen(GeographyActivity.this,true,false,0);
             }
             return true;
