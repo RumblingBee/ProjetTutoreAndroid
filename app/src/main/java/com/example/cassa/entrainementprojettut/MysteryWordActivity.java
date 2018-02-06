@@ -57,9 +57,6 @@ public class MysteryWordActivity extends GameActivity {
 
         gKeyboard= new ToggleButton[26];
 
-        wordBankController =new WordBankController(levelChosen);
-
-
         displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
 
@@ -255,6 +252,7 @@ public class MysteryWordActivity extends GameActivity {
 
     public void lancerPartie() {
         //On récupère le mWord et on l'affiche, ainsi que la mOrder associée
+        wordBankController =new WordBankController(levelChosen);
         motEnCour = wordBankController.getWord(0);
         gNbLettreOk = 0;
         displayWord(motEnCour);

@@ -57,6 +57,14 @@
             android:text="Géographie"
             android:background="#AEEE00"/>
 
+        <Button
+            android:id="@+id/acivity_main_piano"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Piano"
+            android:background="#AEEE00"/>
+
     </LinearLayout>
 
     <ImageView

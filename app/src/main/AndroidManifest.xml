@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.cassa.entrainementprojettut.MainActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask">
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,30 +20,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.cassa.entrainementprojettut.AdditionActivity"
+            android:name=".AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.example.cassa.entrainementprojettut.ResultActivity"
+            android:name=".ResultActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.example.cassa.entrainementprojettut.MysteryWordActivity"
+            android:name=".MysteryWordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.example.cassa.entrainementprojettut.LevelChoiceActivity"
+            android:name=".LevelChoiceActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.example.cassa.entrainementprojettut.FlagActivity"
+            android:name=".FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name="com.example.cassa.entrainementprojettut.ReverseFlagActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="landscape"/>
-
-        <activity android:name=".geography.GeographyActivity"
+        <activity
+            android:name=".ReverseFlagActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".geography.GeographyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity android:name=".PianoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>

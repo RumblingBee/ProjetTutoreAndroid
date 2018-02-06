@@ -47,13 +47,19 @@ public class SetOperationCE1 implements I_SetOperation {
 
     private I_Operation generateAddition() {
         Addition addition=new Addition();
-        addition.generateOperation(10,1,10,1);
+        generatePositiveOperation(addition);
         return addition;
+    }
+
+    private void generatePositiveOperation(I_Operation addition) {
+        while (addition.displayResult()<3){
+            addition.generateOperation(10,1,10,1);
+        }
     }
 
     private I_Operation generateSoustraction() {
         Soustraction soustraction=new Soustraction();
-        soustraction.generateOperation(10,1,10,1);
+        generatePositiveOperation(soustraction);
         return soustraction;
     }
 }

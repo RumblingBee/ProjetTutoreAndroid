@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by clement on 03/01/18.
@@ -36,6 +37,14 @@ public class SetOperationCM1Test {
             }
         }
         assertEquals(true,nbAddition>0 && nbSoustraction>0 && nbMultiplication>0);
+    }
+
+    @Test
+    public void createAnOperation() throws Exception {
+        for (int i = 0; i < 1000; i++) {
+            operation=setOperation.createAnOperation();
+            assertTrue(operation.displayResult()-3>=0);
+        }
     }
 
 }

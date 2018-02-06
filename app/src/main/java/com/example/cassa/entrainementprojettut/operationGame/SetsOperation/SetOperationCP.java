@@ -41,7 +41,9 @@ public class SetOperationCP implements I_SetOperation {
 
     public I_Operation generateAddition() {
         I_Operation ioperation =new Addition();
-        ioperation.generateOperation(10,1,4,1);
+        while (ioperation.displayResult()<3) {
+            ioperation.generateOperation(10, 1, 4, 1);
+        }
         return ioperation;
     }
 

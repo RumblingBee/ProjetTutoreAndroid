@@ -9,12 +9,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.view.Display;
 import android.view.View;
@@ -27,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameActivity extends AppCompatActivity implements AppCompatCallback,
+public class GameActivity extends ActivityUtil implements AppCompatCallback,
         TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {
     
     Toast toast;
@@ -60,8 +58,6 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     protected  void showText(String text){
 
-
-
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 
@@ -78,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
     }
 
     protected int levelChosen = 0;
-    protected MediaPlayer bgPlayer;
+
 
     protected AlertDialog dialog;
 
@@ -252,20 +248,6 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
 
     }
 
-    protected int music = 0;
-
-
-    protected void startBackgroundMusic(Activity selfActivity, int idMusic){
-
-
-        if(bgPlayer != null){ bgPlayer.stop();}
-
-        bgPlayer = MediaPlayer.create(selfActivity,idMusic);
-        bgPlayer.start();
-
-    }
-
-
     protected void launchTimer(final Activity srcActivity, int arrivalTime, int playerImage, int IAImage){
 
 
@@ -310,42 +292,4 @@ public class GameActivity extends AppCompatActivity implements AppCompatCallback
         handler.postDelayed(looseActivity,temps);
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        bgPlayer.stop();
-    }
-
-    @Override
-    public void onBackPressed(){
-        bgPlayer.stop();
-        Intent back = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(back);
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        bgPlayer.stop();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        bgPlayer.start();
-    }
-
-    @Override
-    protected void onResume() {
-        if(bgPlayer != null){
-
-
-            startBackgroundMusic(GameActivity.this, music);
-
-
-        }
-        super.onResume();
-    }
 }
