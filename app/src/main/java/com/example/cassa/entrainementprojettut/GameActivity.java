@@ -53,6 +53,9 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     protected ImageView playerImage;
     protected ImageView IAImage;
     protected Runnable looseActivity;
+    protected Runnable scoreMode;
+    protected int scoreNumerique;
+    protected long scoreTemps;
 
 
 
@@ -275,21 +278,32 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         moveImage(this.IAImage,screenWidth-IApictureWidth,arrivalTime,0);
 
     }
+    protected void unableLoose(){
+        handler.removeCallbacks(looseActivity);
+    }
 
 
     protected void startChrono(final Activity srcActivity, int temps){
         looseActivity = new Runnable() {
             @Override
             public void run() {
-
+                handler.removeCallbacks(scoreMode);
                 showResultScreen(srcActivity,false,false,0);
 
 
             }
         };
+        scoreMode = new Runnable() {
+            @Override
+            public void run() {
+                handler.removeCallbacks(looseActivity);
+                showResultScreen(srcActivity,true,true,scoreNumerique);
 
 
+            }
+        };
         handler.postDelayed(looseActivity,temps);
+        handler.postDelayed(scoreMode,temps+100);
     }
 
 }
