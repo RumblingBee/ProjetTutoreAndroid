@@ -11,43 +11,43 @@ import java.util.List;
  */
 
 public class SetWorld implements I_Set {
-    int imageFond;
-    private List<Tag> listTag;
+    int backgroundImage;
+    private List<Tag> tagList;
 
-    public SetWorld(){
+    public SetWorld(float tailleCote){
 
-        listTag = new ArrayList<>();
+        tagList = new ArrayList<>();
         setBackgroundImage();
-        setTagList();
+        setTagList(tailleCote);
 
 
 
     }
     public List<Tag> getTagList(){
 
-        return listTag;
+        return tagList;
     }
     public int getBackgroundImage(){
 
-        return imageFond;
+        return backgroundImage;
     }
 
     @Override
     public void setBackgroundImage() {
-        imageFond = R.drawable.carte_continent;
+        backgroundImage = R.drawable.carte_continent;
     }
 
     @Override
-    public void setTagList() {
-        float tailleCote = 1/12F;
+    public void setTagList(float tailleCote) {
 
-        listTag.add(new Tag("Amerique \n du Nord",10/48F,5/24F,tailleCote));
-        listTag.add(new Tag("Afrique",1/2F,9/24F,tailleCote));
-        listTag.add(new Tag("Europe",25/48F,7/48F,tailleCote));
-        listTag.add(new Tag("Asie",33/48F,4/24F,tailleCote));
-        listTag.add(new Tag("Amerique\n du Sud",15/48F,13/24F,tailleCote));
-        listTag.add(new Tag("Océanie",10/12F,15/24F,tailleCote));
-        listTag.add(new Tag("Antarctique",6/12F,11/12F,tailleCote));
+
+        tagList.add(new Tag("Amerique \n du Nord",10/48F,5/24F,tailleCote));
+        tagList.add(new Tag("Afrique",1/2F,9/24F,tailleCote));
+        tagList.add(new Tag("Europe",25/48F,7/48F,tailleCote));
+        tagList.add(new Tag("Asie",33/48F,4/24F,tailleCote));
+        tagList.add(new Tag("Amerique\n du Sud",15/48F,13/24F,tailleCote));
+        tagList.add(new Tag("Océanie",10/12F,15/24F,tailleCote));
+        tagList.add(new Tag("Antarctique",6/12F,11/12F,tailleCote));
 
     }
 }

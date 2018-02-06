@@ -15,7 +15,7 @@ public interface I_Set {
     //SETTERS
 
     void setBackgroundImage();
-    void setTagList();
+    void setTagList(float tailleCote);
 
     List <Tag> getTagList();
     int getBackgroundImage();
