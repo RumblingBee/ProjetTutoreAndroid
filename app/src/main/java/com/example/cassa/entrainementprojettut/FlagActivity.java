@@ -12,19 +12,19 @@ import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
 import java.util.Random;
 
 public class FlagActivity extends GameActivity implements View.OnClickListener {
-    private  ImageView mDrapeau1;
-    private ImageView mDrapeau2;
-    private ImageView mDrapeau3;
-    private ImageView mDrapeau4;
+    private  ImageView mFlag1;
+    private ImageView mFlag2;
+    private ImageView mFlag3;
+    private ImageView mFlag4;
 
-    private  TextView mNomPays;
+    private  TextView mCountryName;
     private TextView mScore;
 
-    private String gBonneReponse;
+    private String gGoodAnswer;
 
     private ControllerFlagBank controllerFlagBank;
 
-    private int gScore,gNbBonneReponse;
+    private int gScore, gNumberGoodAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,9 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         music = R.raw.bensound_funnysong;
         startBackgroundMusic(FlagActivity.this, music);
 
+        initializeFlag();
 
-
-        initialisationDrapeaux();
-
-        initialisationNomPaysEtScore();
-
+        initializeCountryNameAndScore();
 
         displayLevelChoice(FlagActivity.this,"listeNiveau",3);
 
@@ -47,7 +44,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (levelChosen != 0) {
-                    genererPartie();
+                    generateParty();
                 } else {
                     FlagActivity.this.onStop();
                     dialog.show();
@@ -60,95 +57,90 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     }
 
 
-
-    private void initialisationNomPaysEtScore() {
-        mNomPays = (TextView)findViewById(R.id.activity_flag_name01_txt);
+    private void initializeCountryNameAndScore() {
+        mCountryName = (TextView)findViewById(R.id.activity_flag_name01_txt);
         mScore = (TextView)findViewById(R.id.activity_flag_score_txt);
 
         // On initialise le score à 0
         gScore = 0;
-        gNbBonneReponse = 0;
+        gNumberGoodAnswer = 0;
         mScore.setText("0");
     }
 
 
+    private void initializeFlag() {
+        mFlag1 = (ImageView)findViewById(R.id.activity_flag_flag01);
+        mFlag2 = (ImageView)findViewById(R.id.activity_flag_flag02);
+        mFlag3 = (ImageView)findViewById(R.id.activity_flag_flag03);
+        mFlag4 = (ImageView)findViewById(R.id.activity_flag_flag04);
 
-    private void initialisationDrapeaux() {
-        mDrapeau1 = (ImageView)findViewById(R.id.activity_flag_flag01);
-        mDrapeau2 = (ImageView)findViewById(R.id.activity_flag_flag02);
-        mDrapeau3 = (ImageView)findViewById(R.id.activity_flag_flag03);
-        mDrapeau4 = (ImageView)findViewById(R.id.activity_flag_flag04);
-
-        mDrapeau1.setOnClickListener(this);
-        mDrapeau2.setOnClickListener(this);
-        mDrapeau3.setOnClickListener(this);
-        mDrapeau4.setOnClickListener(this);
+        mFlag1.setOnClickListener(this);
+        mFlag2.setOnClickListener(this);
+        mFlag3.setOnClickListener(this);
+        mFlag4.setOnClickListener(this);
     }
 
 
-
-    protected void genererPartie(){
+    protected void generateParty(){
 
         controllerFlagBank = new ControllerFlagBank(levelChosen);
 
-        ImageView listeDrapeau[] = {mDrapeau1,mDrapeau2,mDrapeau3,mDrapeau4};
+        ImageView listeDrapeau[] = {mFlag1, mFlag2, mFlag3, mFlag4};
 
-        //On réactive tous les drapeaux
-        reactivationDrapeaux();
-        //On génère le nom du pays à trouver
-        generationPaysATrouver(controllerFlagBank);
+        enableFlag();
 
-        //On génère les drapeaux
-        generationChoixDrapeaux(controllerFlagBank, listeDrapeau);
+        generateCountryToFind(controllerFlagBank);
+
+        generateFlagChoice(controllerFlagBank, listeDrapeau);
 
     }
 
 
 
-    private void generationChoixDrapeaux(ControllerFlagBank controllerFlagBank, ImageView[] listeDrapeau) {
+    private void generateFlagChoice(ControllerFlagBank controllerFlagBank, ImageView[] flagList) {
         for(int i=0; i <4;i++) {
-            listeDrapeau[i].setImageResource(controllerFlagBank.getFlag(i).getmRessource());
-            listeDrapeau[i].setTag(controllerFlagBank.getFlag(i).getmNameCountry());
+            flagList[i].setImageResource(controllerFlagBank.getFlag(i).getmRessource());
+            flagList[i].setTag(controllerFlagBank.getFlag(i).getmNameCountry());
         }
     }
 
 
 
-    private void generationPaysATrouver(ControllerFlagBank controllerFlagBank) {
+    private void generateCountryToFind(ControllerFlagBank controllerFlagBank) {
         Random rand = new Random();
         int numPaysMystere = rand.nextInt(4);
 
-        mNomPays.setText(controllerFlagBank.getFlag(numPaysMystere).getmNameCountry());
-        gBonneReponse = controllerFlagBank.getFlag(numPaysMystere).getmNameCountry();
+        mCountryName.setText(controllerFlagBank.getFlag(numPaysMystere).getmNameCountry());
+        gGoodAnswer = controllerFlagBank.getFlag(numPaysMystere).getmNameCountry();
     }
 
 
 
-    private void reactivationDrapeaux() {
-        mDrapeau1.setEnabled(true);
-        mDrapeau2.setEnabled(true);
-        mDrapeau3.setEnabled(true);
-        mDrapeau4.setEnabled(true);
+    private void enableFlag() {
+        mFlag1.setEnabled(true);
+        mFlag2.setEnabled(true);
+        mFlag3.setEnabled(true);
+        mFlag4.setEnabled(true);
 
-        mDrapeau1.setColorFilter(0);
-        mDrapeau2.setColorFilter(0);
-        mDrapeau3.setColorFilter(0);
-        mDrapeau4.setColorFilter(0);
+        mFlag1.setColorFilter(0);
+        mFlag2.setColorFilter(0);
+        mFlag3.setColorFilter(0);
+        mFlag4.setColorFilter(0);
     }
 
 
 
-    protected  void verifierReponse(ImageView v,String pPays){
+    protected  void checkAnswer(ImageView v, String country){
 
-        if(pPays == gBonneReponse ){
+        if(country == gGoodAnswer){
 
             showText("Bravo");
 
             gScore = gScore + 5;
-            gNbBonneReponse = gNbBonneReponse + 1;
+            gNumberGoodAnswer = gNumberGoodAnswer + 1;
             mScore.setText(""+gScore);
-            genererPartie();
-            if(gNbBonneReponse == 10 ){
+            generateParty();
+            if(gNumberGoodAnswer == 10 ){
                 showResultScreen(FlagActivity.this,true,true,gScore);
             }
         }
@@ -170,6 +162,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         String paysSelectione = (String) view.getTag();
         System.out.println("paysSelectione: "+paysSelectione);
 
-        verifierReponse((ImageView) view,paysSelectione);
+        checkAnswer((ImageView) view,paysSelectione);
     }
 }
