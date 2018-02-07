@@ -29,7 +29,7 @@ public class ExampleUnitTest {
     @Test
     public void flagGetRessource() {
         Flag flag = new Flag("France", R.drawable.france);
-        assertEquals(2131099758, flag.getmRessource());
+        assertEquals(R.drawable.france, flag.getmRessource());
     }
 
     @Test

@@ -18,24 +18,24 @@ import static junit.framework.Assert.assertTrue;
 public class ControlerTest {
     @Test
     public void recupererImageNiveau1()  {
-        Controler controler = new Controler(1);
-        I_Set niveau = new SetWorld();
+        Controler controler = new Controler(1,10);
+        I_Set niveau = new SetWorld(10);
 
         assertEquals(niveau.getBackgroundImage(), controler.getBackgroundImage());
 
     }
     @Test
     public void recupererImageNiveau2()  {
-        Controler controler = new Controler(2);
-        I_Set niveau = new SetEurope();
+        Controler controler = new Controler(2,10);
+        I_Set niveau = new SetEurope(10);
 
         assertEquals(niveau.getBackgroundImage(), controler.getBackgroundImage());
 
     }
     @Test
     public void recupererImageNiveau3()  {
-        Controler controler = new Controler(3);
-        I_Set niveau = new SetOccitanie();
+        Controler controler = new Controler(3,10);
+        I_Set niveau = new SetOccitanie(10);
 
         assertEquals(niveau.getBackgroundImage(), controler.getBackgroundImage());
 
@@ -45,8 +45,8 @@ public class ControlerTest {
         boolean listeIdentique = true;
         int i = 0;
 
-        Controler controler = new Controler(1);
-        I_Set niveau = new SetWorld();
+        Controler controler = new Controler(1,10);
+        I_Set niveau = new SetWorld(10);
 
         while (i < niveau.getTagList().size() && listeIdentique == true){
             if(niveau.getTagList().get(i).getName() != controler.getTagList().get(i).getName()){
@@ -62,8 +62,8 @@ public class ControlerTest {
         boolean listeIdentique = true;
         int i = 0;
 
-        Controler controler = new Controler(2);
-        I_Set niveau = new SetEurope();
+        Controler controler = new Controler(2,10);
+        I_Set niveau = new SetEurope(10);
 
         while (i < niveau.getTagList().size() && listeIdentique == true){
             if(niveau.getTagList().get(i).getName() != controler.getTagList().get(i).getName()){
@@ -79,8 +79,8 @@ public class ControlerTest {
         boolean listeIdentique = true;
         int i = 0;
 
-        Controler controler = new Controler(3);
-        I_Set niveau = new SetOccitanie();
+        Controler controler = new Controler(3,10);
+        I_Set niveau = new SetOccitanie(10);
 
         while (i < niveau.getTagList().size() && listeIdentique == true){
             if(niveau.getTagList().get(i).getName() != controler.getTagList().get(i).getName()){

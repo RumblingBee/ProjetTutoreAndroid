@@ -24,13 +24,14 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     private ControllerFlagBank controllerFlagBank;
 
-    private int gScore,gNbBonneReponse;
+    private int gNbBonneReponse;
+
+    private float screenWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
-
         music = R.raw.bensound_funnysong;
         startBackgroundMusic(FlagActivity.this, music);
 
@@ -48,6 +49,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
             public void onDismiss(DialogInterface dialogInterface) {
                 if (levelChosen != 0) {
                     genererPartie();
+                    launchTimer(FlagActivity.this,30000,R.id.acivity_flag_player_img,R.id.activity_flag_IA_img);
+
                 } else {
                     FlagActivity.this.onStop();
                     dialog.show();
@@ -59,14 +62,12 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     }
 
-
-
     private void initialisationNomPaysEtScore() {
         mNomPays = (TextView)findViewById(R.id.activity_flag_name01_txt);
         mScore = (TextView)findViewById(R.id.activity_flag_score_txt);
 
         // On initialise le score à 0
-        gScore = 0;
+        scoreNumerique = 0;
         gNbBonneReponse = 0;
         mScore.setText("0");
     }
@@ -141,24 +142,27 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected  void verifierReponse(ImageView v,String pPays){
 
         if(pPays == gBonneReponse ){
-
+            moveImage(playerImage,playerImagePosition+(getScreenWidth()/10),600,playerImagePosition);
+            playerImagePosition = playerImagePosition + (getScreenWidth()/10);
             showText("Bravo");
 
-            gScore = gScore + 5;
+            scoreNumerique = scoreNumerique + 5;
             gNbBonneReponse = gNbBonneReponse + 1;
-            mScore.setText(""+gScore);
+            mScore.setText(""+scoreNumerique);
             genererPartie();
             if(gNbBonneReponse == 10 ){
-                showResultScreen(FlagActivity.this,true,true,gScore);
+                showText("Bravo tu as gagné!");
+                unableLoose();
+                //showResultScreen(FlagActivity.this,true,true,gScore);
             }
         }
         else{
             showText("Dommage");
 
-            gScore = gScore - 2;
+            scoreNumerique = scoreNumerique - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);
-            mScore.setText(""+gScore);
+            mScore.setText(""+scoreNumerique);
             v.setColorFilter(R.color.material_grey_600);
         }
 

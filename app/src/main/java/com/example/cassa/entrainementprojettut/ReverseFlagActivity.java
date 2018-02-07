@@ -22,7 +22,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     private Button mNomPays4;
 
     private String gBonneReponse;
-    private int gScore, gNbBonneReponse;
+    private int gNbBonneReponse;
 
     private ControllerFlagBank controllerFlagBank;
 
@@ -32,6 +32,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         setContentView(R.layout.activity_reverse_flag);
 
         music = R.raw.bensound_goinghigher;
+
 
         startBackgroundMusic(ReverseFlagActivity.this, music);
 
@@ -48,6 +49,8 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
             public void onDismiss(DialogInterface dialogInterface) {
                 if(levelChosen != 0){
                     genererPartie();
+                    launchTimer(ReverseFlagActivity.this,35000,R.id.acivity_flag_player_img,R.id.activity_flag_IA_img);
+
                 }else{
                     ReverseFlagActivity.this.onStop();
                     dialog.show();
@@ -62,7 +65,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         mFlag = (ImageView) findViewById(R.id.activity_reverse_flag_drapeau);
         mScore = (TextView) findViewById(R.id.activity_reverse_flag_score);
 
-        gScore=0;
+        scoreNumerique=0;
         gNbBonneReponse=0;
         mScore.setText("0");
     }
@@ -129,23 +132,24 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     public void verifierReponse(Button button, String mNomPays){
         if(gBonneReponse.equals(mNomPays)){
-
+            moveImage(playerImage,playerImagePosition+(getScreenWidth()/10),600,playerImagePosition);
+            playerImagePosition = playerImagePosition + (getScreenWidth()/10);
             showText("Bravo");
 
-            gScore+=5;
+            scoreNumerique+=5;
             gNbBonneReponse+=1;
-            mScore.setText(""+gScore);
+            mScore.setText(""+scoreNumerique);
             genererPartie();
             if(gNbBonneReponse == 10){
-
-                showResultScreen(ReverseFlagActivity.this, true, true, gScore);
+                unableLoose();
+                //showResultScreen(ReverseFlagActivity.this, true, true, scoreNumerique);
             }
         }else{
             showText("Dommage");
 
-            gScore-=2;
+            scoreNumerique-=2;
             button.setEnabled(false);
-            mScore.setText(""+gScore);
+            mScore.setText(""+scoreNumerique);
 
         }
     }
