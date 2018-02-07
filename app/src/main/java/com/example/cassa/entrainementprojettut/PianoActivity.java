@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.pianoGame.FactoryMusicControler;
@@ -23,7 +24,13 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     private Button mButtonLa;
     private Button mButtonSi;
 
-    private TextView life;
+    private ImageView mHeartOne;
+    private ImageView mHeartTwo;
+    private ImageView mHeartThree;
+
+    private ImageView[] mHeartList = {mHeartOne, mHeartTwo, mHeartThree};
+    private int mHeartPosition = 2;
+
 
     private Button[] buttonsTab = {mButtonDo, mButtonRe, mButtonMi, mButtonFa, mButtonSol, mButtonLa, mButtonSi};
     private int idKey;
@@ -133,7 +140,10 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     private void setPianoButton() {
 
-        life = (TextView) findViewById(R.id.activity_piano_number_life);
+        mHeartList[0] = findViewById(R.id.activity_piano_heart_1);
+        mHeartList[1] = findViewById(R.id.activity_piano_heart_2);
+        mHeartList[2] = findViewById(R.id.activity_piano_heart_3);
+
 
         buttonsTab[0] = (Button) findViewById(R.id.activity_piano_key_do);
         buttonsTab[1] = (Button) findViewById(R.id.activity_piano_key_re);
@@ -187,7 +197,10 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     public void wrongAnswerConsequences() {
         showText("Dommage !");
-        controlerMusic.setLife(life);
+
+        controlerMusic.setLife(mHeartList[mHeartPosition]);
+        mHeartPosition -= 1;
+
         if(controlerMusic.isDead()){
             if (controlerMusic.controlerType().equals("score") && controlerMusic.getSequenceSize()>=controlerMusic.getEndSong()){
                 showResultScreen(this, true, true, controlerMusic.getSequenceSize()-1);
@@ -201,7 +214,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     public void rightAnswerConsequences(int answer) {
         if(controlerMusic.songFinished()){
-            firework(R.id.activity_piano_number_life);
+            firework(R.id.activity_piano_life);
 
             showText("Bravo tu as gagné !");
             if (!controlerMusic.controlerType().equals("score")) {

@@ -90,14 +90,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="vie : "
-            android:textSize="50sp"/>
+            android:textSize="70sp"/>
 
-        <TextView
-            android:id="@+id/activity_piano_number_life"
+        <ImageView
+            android:id="@+id/activity_piano_heart_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
-            android:textSize="50sp" />
+            android:src="@drawable/heart"/>
+        <ImageView
+            android:id="@+id/activity_piano_heart_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart"/>
+        <ImageView
+            android:id="@+id/activity_piano_heart_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart"/>
+
 
     </LinearLayout>
 

@@ -21,7 +21,7 @@ public class Music {
 
     public List<Note> generateSequence(int size){
         sequence.clear();
-        if (size>=notes.size())
+        if (size>notes.size())
             addRandomNote();
 
         for (int j = 0; j <size ; j++) {
@@ -52,6 +52,7 @@ public class Music {
     }
 
     public boolean musicEnded(){
+        System.out.println("notes: "+notes.size() + " sequence: "+sequence.size());
         return notes.size()==sequence.size();
     }
 
