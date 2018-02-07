@@ -5,11 +5,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.cassa.entrainementprojettut.PlayerUtils.Score;
+import com.example.cassa.entrainementprojettut.database.DAOscore;
 import com.example.cassa.entrainementprojettut.geography.GeographyActivity;
+
+import java.util.List;
 
 public class MainActivity extends ActivityUtil {
 
@@ -35,6 +40,13 @@ public class MainActivity extends ActivityUtil {
         playerEvent = MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
         music =R.raw.bensound_jazzyfrenchy;
         startBackgroundMusic(MainActivity.this, music);
+        DAOscore.getInstance(this).open();
+        List<Score> test=DAOscore.getInstance(this).findScoreForAGame("operation",1);
+        for (Score s:test
+             ) {
+            Log.d("score",s.toString());
+        }
+        DAOscore.getInstance(this).close();
         
 
 
