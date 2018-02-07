@@ -118,6 +118,16 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         return greenRunnable;
     }
 
+    private Runnable runRed(final int pi){
+        Runnable redRunnable = new Runnable() {
+            @Override
+            public void run() {
+                buttonsTab[pi].setBackgroundColor(Color.RED);
+            }
+        };
+        return redRunnable;
+    }
+
     private Runnable enableButton(){
         Runnable runnable = new Runnable() {
             @Override
@@ -164,23 +174,29 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         int keyId = Integer.parseInt((String) v.getTag());
         int answer = controlerMusic.checkKey(keyId);
         controlerMusic.playSong(PianoActivity.this, v);
-        v.setBackgroundColor(Color.YELLOW);
 
-        checkAnswer(answer);
+        checkAnswer(answer, v);
 
 
     }
 
-    public void checkAnswer(int answer) {
+    public void checkAnswer(int answer, View view) {
         if (answer>=0){
-            wrightAnswerConsequences(answer);
+            rightAnswerConsequences(answer);
+            view.setBackgroundColor(Color.YELLOW);
+            int id = Integer.parseInt(String.valueOf(view.getTag()));
+            handler.postDelayed(runGray(id-1), 500);
         }else{
             wrongAnswerConsequences();
+            view.setBackgroundColor(Color.RED);
+            int id = Integer.parseInt(String.valueOf(view.getTag()));
+            handler.postDelayed(runGray(id-1), 500);
         }
     }
 
     public void wrongAnswerConsequences() {
         showText("Dommage !");
+
         if(controlerMusic.isDead()){
             showResultScreen(this,false,false,0);
         }else {
@@ -188,8 +204,9 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         }
     }
 
-    public void wrightAnswerConsequences(int answer) {
+    public void rightAnswerConsequences(int answer) {
         showText("Bravo !");
+        controlerMusic.setLife(life);
         if(controlerMusic.songFinished()){
             showResultScreen(this,true,false,0);
         }else{
