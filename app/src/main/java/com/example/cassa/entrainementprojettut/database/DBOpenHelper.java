@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 /**
  * Created by clement on 07/02/18.
@@ -26,6 +27,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         public static final String SECOND_TABLE = "Difficulties";
 
         public static final String COL_ID_TABLE_2 = "idDifficulty";
+
+        public static final String COL_VALUE_2 = "difficultyValue";
 
         public static final String THIRD_TABLE = "gameSet";
 
@@ -52,12 +55,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         private static final String DATABASE_CREATE_SECOND_TABLE = "create table "
                 + Constants.SECOND_TABLE + "(" + Constants.COL_ID_TABLE_2
-                + " integer primary key autoincrement)";
+                + " integer primary key autoincrement, "+Constants.COL_VALUE_2+" INTEGER)";
 
         private static final String DATABASE_CREATE_THIRD_TABLE = "create table "
                 + Constants.THIRD_TABLE + "(" + Constants.COL_ID_TABLE_3
                 + " integer primary key autoincrement, " + Constants.COL_GAME_TABLE_3
-                + " INTEGER, "+Constants.COL_DIFFICULTY_TABLE_3+"INTEGER," +
+                + " INTEGER, "+Constants.COL_DIFFICULTY_TABLE_3+" INTEGER," +
                 "FOREIGN KEY("+Constants.COL_GAME_TABLE_3+") references "+Constants.FIRST_TABLE+"("+
                 Constants.COL_ID_TABLE_1+")," +
                 "FOREIGN KEY("+Constants.COL_DIFFICULTY_TABLE_3+") references "+Constants.SECOND_TABLE+"("+
@@ -69,15 +72,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 + " INTEGER, "+Constants.COL_PLAYER_TABLE_4+"TEXT DEFAULT 'DEV',"
                 +Constants.COL_SCORE_TABLE_4+" INTEGER DEFAULT 0,"+
                 "FOREIGN KEY("+Constants.COL_GAMESET_TABLE_4+") references "+Constants.THIRD_TABLE+"("+
-                Constants.COL_ID_TABLE_3+"),";
+                Constants.COL_ID_TABLE_3+"))";
 
         private static final String DATABASE_INIT_FIRST_TABLE="insert into "+FIRST_TABLE+
                 "("+COL_NAME_TABLE_1+") VALUES ('operation')" +
                 ",('MysteryWord'),('flag'),('invertFlag'),('geography'),('piano')";
 
         private static final String DATABASE_INIT_SECOND_TABLE="insert into "+SECOND_TABLE+
-                "("+COL_ID_TABLE_2+") VALUES (default)" +
-                ",(default),(default),(default),(default)";
+                "("+COL_VALUE_2+") VALUES (1)" +
+                ",(2),(3),(4),(5)";
 
         private static final String DATABASE_INIT_THIRD_TABLE="insert into "+THIRD_TABLE+
                 "("+COL_GAME_TABLE_3+","+COL_DIFFICULTY_TABLE_3+") VALUES (1,1)" +
@@ -106,14 +109,30 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        sqLiteDatabase.execSQL(Constants.DROP_FOURTH_TABLE);
+        sqLiteDatabase.execSQL(Constants.DROP_THIRD_TABLE);
+        sqLiteDatabase.execSQL(Constants.DROP_FIRST_TABLE);
+        sqLiteDatabase.execSQL(Constants.DROP_SECOND_TABLE);
+
+        Log.d("score","initDatabase");
+
+
         sqLiteDatabase.execSQL(Constants.DATABASE_CREATE_FIRST_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_CREATE_SECOND_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_CREATE_THIRD_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_CREATE_FOURTH_TABLE);
+
+        Log.d("score","create table");
+
+        Log.d("score",Constants.DATABASE_INIT_FIRST_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FIRST_TABLE);
+        Log.d("score",Constants.DATABASE_INIT_SECOND_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_SECOND_TABLE);
+        Log.d("score",Constants.DATABASE_INIT_THIRD_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_THIRD_TABLE);
+        Log.d("score",Constants.DATABASE_INIT_FOURTH_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FOURTH_TABLE);
+        Log.d("score","populateTable");
 
 
     }

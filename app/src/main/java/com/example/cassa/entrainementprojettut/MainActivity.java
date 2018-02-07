@@ -40,8 +40,11 @@ public class MainActivity extends ActivityUtil {
         playerEvent = MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
         music =R.raw.bensound_jazzyfrenchy;
         startBackgroundMusic(MainActivity.this, music);
+
         DAOscore.getInstance(this).open();
+
         List<Score> test=DAOscore.getInstance(this).findScoreForAGame("operation",1);
+        
         for (Score s:test
              ) {
             Log.d("score",s.toString());

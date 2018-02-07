@@ -20,7 +20,6 @@ public class DAOscore extends DAOconnection {
 
 
     private DAOscore(Context context) {
-
         super(context);
     }
 
@@ -33,7 +32,8 @@ public class DAOscore extends DAOconnection {
 
     public List<Score> findScoreForAGame(String gameName,int difficulty){
         List<Score> resultSet=new ArrayList<>();
-        String query="select player,score from "+Constants.FOURTH_TABLE+
+        String query="select "+Constants.COL_PLAYER_TABLE_4+","+Constants.COL_SCORE_TABLE_4+
+                " from "+Constants.FOURTH_TABLE+
                 " NATURAL JOIN "+Constants.THIRD_TABLE+" NATURAL JOIN "+Constants.FIRST_TABLE+
                 " WHERE "+Constants.COL_NAME_TABLE_1+" =? and "+Constants.COL_DIFFICULTY_TABLE_3+"=?";
         Log.d("score",query);
