@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 public class GameActivity extends ActivityUtil implements AppCompatCallback,
         TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {
     
@@ -290,6 +292,20 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
 
         handler.postDelayed(looseActivity,temps);
+    }
+
+    protected void firework(int view) {
+        new ParticleSystem(this, 32, R.drawable.confeti_blanc, 5000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
+                .setRotationSpeed(150)
+                .setAcceleration(0.00005f, 90)
+                .oneShot(findViewById(view), 64);
+
+        new ParticleSystem(this, 32, R.drawable.confeti_violet, 5000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
+                .setRotationSpeed(150)
+                .setAcceleration(0.00005f, 90)
+                .oneShot(findViewById(view), 64);
     }
 
 }

@@ -14,6 +14,8 @@ public class FactoryMusicControler {
                 return new ControlerMusicNormal();
             case 3:
                 return new ControlerMusicHard();
+            case 4:
+                return new ControlerMusicScore();
             default:
                 return new ControlerMusicEasy();
         }

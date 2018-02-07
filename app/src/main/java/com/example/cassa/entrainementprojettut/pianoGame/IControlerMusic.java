@@ -132,4 +132,16 @@ public abstract class IControlerMusic {
     public void setLife(TextView life) {
         life.setText(""+lifes.getLife());
     }
+
+    public String controlerType(){
+        return "normal";
+    }
+
+    public int getSequenceSize(){
+        return music.getSequence().size();
+    }
+
+    public int getEndSong(){
+        return 8;
+    }
 }

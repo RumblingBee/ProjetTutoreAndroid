@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.pianoGame.FactoryMusicControler;
 import com.example.cassa.entrainementprojettut.pianoGame.IControlerMusic;
+
 import java.util.List;
 
 public class PianoActivity extends GameActivity implements View.OnClickListener {
@@ -42,7 +43,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
         setPianoButton();
 
-        displayLevelChoice(PianoActivity.this,"listeNiveau",3);
+        displayLevelChoice(PianoActivity.this,"listeNiveau",4);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -82,7 +83,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             handler.postDelayed(runGray(idKey), timeGray);
         }
 
-        handler.postDelayed(enableButton(), listId.size() * 1500);
+        handler.postDelayed(enableButton(), listId.size() * 1300);
 
     }
 
@@ -118,16 +119,6 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         return greenRunnable;
     }
 
-    private Runnable runRed(final int pi){
-        Runnable redRunnable = new Runnable() {
-            @Override
-            public void run() {
-                buttonsTab[pi].setBackgroundColor(Color.RED);
-            }
-        };
-        return redRunnable;
-    }
-
     private Runnable enableButton(){
         Runnable runnable = new Runnable() {
             @Override
@@ -142,7 +133,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     private void setPianoButton() {
 
-        life = (TextView) findViewById(R.id.activity_piano_life);
+        life = (TextView) findViewById(R.id.activity_piano_number_life);
 
         buttonsTab[0] = (Button) findViewById(R.id.activity_piano_key_do);
         buttonsTab[1] = (Button) findViewById(R.id.activity_piano_key_re);
@@ -185,7 +176,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             rightAnswerConsequences(answer);
             view.setBackgroundColor(Color.YELLOW);
             int id = Integer.parseInt(String.valueOf(view.getTag()));
-            handler.postDelayed(runGray(id-1), 500);
+            handler.postDelayed(runGray(id-1), 350);
         }else{
             wrongAnswerConsequences();
             view.setBackgroundColor(Color.RED);
@@ -196,21 +187,31 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     public void wrongAnswerConsequences() {
         showText("Dommage !");
-
+        controlerMusic.setLife(life);
         if(controlerMusic.isDead()){
-            showResultScreen(this,false,false,0);
+            if (controlerMusic.controlerType().equals("score") && controlerMusic.getSequenceSize()>=controlerMusic.getEndSong()){
+                showResultScreen(this, true, true, controlerMusic.getSequenceSize()-1);
+            }else {
+                showResultScreen(this, false, false, 0);
+            }
         }else {
             showSequence();
         }
     }
 
     public void rightAnswerConsequences(int answer) {
-        showText("Bravo !");
-        controlerMusic.setLife(life);
         if(controlerMusic.songFinished()){
-            showResultScreen(this,true,false,0);
+            firework(R.id.activity_piano_number_life);
+
+            showText("Bravo tu as gagné !");
+            if (!controlerMusic.controlerType().equals("score")) {
+                showResultScreen(this, true, false, 0);
+            }else {
+                showSequence();
+            }
         }else{
             if(answer==0){
+                showText("Bravo !");
                 showSequence();
             }
         }
