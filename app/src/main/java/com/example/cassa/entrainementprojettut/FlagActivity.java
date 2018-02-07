@@ -12,6 +12,7 @@ import com.example.cassa.entrainementprojettut.flag.ControllerFlagBank;
 import java.util.Random;
 
 public class FlagActivity extends GameActivity implements View.OnClickListener {
+
     private  ImageView mDrapeau1;
     private ImageView mDrapeau2;
     private ImageView mDrapeau3;
@@ -24,8 +25,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     private ControllerFlagBank controllerFlagBank;
 
-    private int gNbBonneReponse;
-
     private float screenWidth;
 
     @Override
@@ -33,16 +32,12 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag);
         music = R.raw.bensound_funnysong;
-        startBackgroundMusic(FlagActivity.this, music);
-
-
-
+        startBackgroundMusic(this, music);
+        showMenu();
+        initializeGame();
         initialisationDrapeaux();
-
         initialisationNomPaysEtScore();
 
-
-        displayLevelChoice(FlagActivity.this,"listeNiveau",3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -67,8 +62,8 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         mScore = (TextView)findViewById(R.id.activity_flag_score_txt);
 
         // On initialise le score à 0
-        scoreNumerique = 0;
-        gNbBonneReponse = 0;
+        numericalScore = 0;
+        numericalScore = 0;
         mScore.setText("0");
     }
 
@@ -146,11 +141,10 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
             playerImagePosition = playerImagePosition + (getScreenWidth()/10);
             showText("Bravo");
 
-            scoreNumerique = scoreNumerique + 5;
-            gNbBonneReponse = gNbBonneReponse + 1;
-            mScore.setText(""+scoreNumerique);
+            numericalScore = numericalScore + 5;
+            mScore.setText(""+ numericalScore);
             genererPartie();
-            if(gNbBonneReponse == 10 ){
+            if(numericalScore >= 50 ){
                 showText("Bravo tu as gagné!");
                 unableLoose();
                 //showResultScreen(FlagActivity.this,true,true,gScore);
@@ -159,13 +153,20 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         else{
             showText("Dommage");
 
-            scoreNumerique = scoreNumerique - 2;
+            numericalScore = numericalScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
             v.setEnabled(false);
-            mScore.setText(""+scoreNumerique);
+            mScore.setText(""+ numericalScore);
             v.setColorFilter(R.color.material_grey_600);
         }
 
+    }
+    private void showMenu(){
+        String[] menu = new String[3];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        displayLevelchoice(this,menu);
     }
 
 
@@ -176,4 +177,5 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
         verifierReponse((ImageView) view,paysSelectione);
     }
+
 }

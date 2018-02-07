@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,7 +55,9 @@ public class GeographyActivity extends GameActivity {
         chronometer = (Chronometer)findViewById(R.id.chronometer2);
         mainLayout = (RelativeLayout) findViewById(R.id.geographyTag_relativeLayout);
 
-        displayLevelChoice(GeographyActivity.this,"",3);
+        initializeGame();
+        showMenu();
+
         initializeSizeOfATag();
         initializeGameAfterMenuDismiss();
         startBackgroundMusic(GeographyActivity.this, R.raw.geography_music);
@@ -79,10 +82,11 @@ public class GeographyActivity extends GameActivity {
                                                 setRectangleOnMap();
                                                 generateTextView();
                                                 setTagTextView();
+                                                chronometer.setBase(SystemClock.elapsedRealtime());
                                                 chronometer.start();
                                                 rightAnswerCounter =0;
                                             } else {
-                                                displayLevelChoice(GeographyActivity.this, "", 3);
+                                                showMenu();
                                             }
                                         }
                                     });
@@ -260,7 +264,8 @@ public class GeographyActivity extends GameActivity {
             rightAnswerCounter++;
             if(rightAnswerCounter == tagList.size()){
                 chronometer.stop();
-                showResultScreen(GeographyActivity.this,true,false,0);
+                timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
+                showResultScreen(this);
             }
             return true;
         }
@@ -295,7 +300,13 @@ public class GeographyActivity extends GameActivity {
 
         return maxTagInAColumn;
     }
-
+    private void showMenu(){
+        String[] menu = new String[3];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        displayLevelchoice(this,menu);
+    }
     @Override
     protected void onResume() {
         super.onResume();

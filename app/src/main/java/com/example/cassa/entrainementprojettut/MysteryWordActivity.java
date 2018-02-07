@@ -53,11 +53,11 @@ public class MysteryWordActivity extends GameActivity {
         music = R.raw.bensound_cute;
         startBackgroundMusic(MysteryWordActivity.this, music);
 
-
+initializeGame();
+showMenu();
 
         gKeyboard= new ToggleButton[26];
 
-        displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -242,7 +242,8 @@ public class MysteryWordActivity extends GameActivity {
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
 
-            showResultScreen(MysteryWordActivity.this, true, false, 0);
+            showResultScreen(this);
+            unableLoose();
 
         }
         else {
@@ -286,5 +287,12 @@ public class MysteryWordActivity extends GameActivity {
         gHandler.postDelayed(gDisplayWord, 1000);
         gTxtOrder.setText(motSuivant.getOrder());
         return motSuivant;
+    }
+    private void showMenu(){
+        String[] menu = new String[3];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        displayLevelchoice(this,menu);
     }
 }

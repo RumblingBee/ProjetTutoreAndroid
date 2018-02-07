@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.operationGame.OperationController;
@@ -22,11 +24,13 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     private Button mButton3;
     private Button mButton4;
 
+    private Chronometer chronometer;
+
     private OperationController ctrl;
 
-    private int gCorrectAnswers;
-
     private MediaPlayer playerEvent;
+
+    private int rightAnswerCounter;
 
     protected Runnable activateButton=new Runnable() {
         @Override
@@ -39,28 +43,21 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addition);
-
-
-
+        showMenu();
         initializeGame();
         music = R.raw.bensound_retrosoul;
-        startBackgroundMusic(AdditionActivity.this, music);
-        displayLevelChoice(AdditionActivity.this,"listeClasse",5);
-
-
-
-
+        startBackgroundMusic(this,music);
 
     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
         @Override
         public void onDismiss(DialogInterface dialogInterface) {
             if (levelChosen != 0) {
 
-
                 generateOperation();
                 launchTimer(AdditionActivity.this,60000,R.id.acivity_addition_pos1_img,R.id.activity_addition_ordi_img);
-
                 generateOperation();
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
 
             } else {
                 AdditionActivity.this.onStop();
@@ -70,12 +67,9 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
     });
 
-
-
-
         playerEvent= MediaPlayer.create(AdditionActivity.this,R.raw.envent_sound);
 
-        gCorrectAnswers = 0;
+        rightAnswerCounter = 0;
 // On recupère les widgets
 
         mNumber1 = (TextView) findViewById(R.id.activity_addition_nombre1_textview);
@@ -86,6 +80,8 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         mButton2 = (Button)findViewById(R.id.activity_addition_rep2_btn);
         mButton3 = (Button)findViewById(R.id.activity_addition_rep3_btn);
         mButton4 = (Button)findViewById(R.id.activity_addition_rep4_btn);
+
+        chronometer = (Chronometer)findViewById(R.id.chronometer2);
 
     }
 
@@ -142,23 +138,23 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     }
 
     public boolean checkAnswer(int reponseEnvoyee){
-
-
         float screenWidth = getScreenWidth();
-
 
         if(ctrl.checkAnswer(reponseEnvoyee)){
 
 
-            gCorrectAnswers++;
+            rightAnswerCounter++;
             showText("Bravo!");
             playerEvent.start();
 
             moveImage(playerImage,playerImagePosition+(screenWidth/10),600,playerImagePosition);
             playerImagePosition = playerImagePosition + (screenWidth/10);
 
-            if(gCorrectAnswers == 10){
-                showResultScreen(AdditionActivity.this,true,false,0);
+            if(rightAnswerCounter == 10){
+                unableLoose();
+                chronometer.stop();
+                timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
+                showResultScreen(this);
 
             }
             else{
@@ -217,5 +213,13 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
        }
 
+    }
+
+    private void showMenu(){
+        String[] menu = new String[3];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        displayLevelchoice(this,menu);
     }
 }
