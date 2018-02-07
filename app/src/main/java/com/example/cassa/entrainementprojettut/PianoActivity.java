@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.cassa.entrainementprojettut.pianoGame.FactoryMusicControler;
 import com.example.cassa.entrainementprojettut.pianoGame.IControlerMusic;
@@ -74,7 +73,6 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     }
 
 
-
     private void showSequence() {
         enableButton(false);
         List<Integer> listId = controlerMusic.getIdSequence();
@@ -93,6 +91,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         handler.postDelayed(enableButton(), listId.size() * 1300);
 
     }
+
 
     private void enableButton(boolean enable) {
         for(Button button: buttonsTab){
@@ -144,7 +143,6 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         mHeartList[1] = findViewById(R.id.activity_piano_heart_2);
         mHeartList[2] = findViewById(R.id.activity_piano_heart_3);
 
-
         buttonsTab[0] = (Button) findViewById(R.id.activity_piano_key_do);
         buttonsTab[1] = (Button) findViewById(R.id.activity_piano_key_re);
         buttonsTab[2] = (Button) findViewById(R.id.activity_piano_key_mi);
@@ -184,16 +182,27 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     public void checkAnswer(int answer, View view) {
         if (answer>=0){
             rightAnswerConsequences(answer);
-            view.setBackgroundColor(Color.YELLOW);
-            int id = Integer.parseInt(String.valueOf(view.getTag()));
-            handler.postDelayed(runGray(id-1), 350);
+            colorCorrect(view);
         }else{
             wrongAnswerConsequences();
-            view.setBackgroundColor(Color.RED);
-            int id = Integer.parseInt(String.valueOf(view.getTag()));
-            handler.postDelayed(runGray(id-1), 500);
+            colorError(view);
         }
     }
+
+
+    private void colorCorrect(View view) {
+        view.setBackgroundColor(Color.YELLOW);
+        int id = Integer.parseInt(String.valueOf(view.getTag()));
+        handler.postDelayed(runGray(id-1), 350);
+    }
+
+
+    private void colorError(View view) {
+        view.setBackgroundColor(Color.RED);
+        int id = Integer.parseInt(String.valueOf(view.getTag()));
+        handler.postDelayed(runGray(id-1), 500);
+    }
+
 
     public void wrongAnswerConsequences() {
         showText("Dommage !");
