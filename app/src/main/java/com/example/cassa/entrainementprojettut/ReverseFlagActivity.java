@@ -133,16 +133,16 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     public void checkAnswer(Button button, String mNomPays){
         if(gGoodAnswer.equals(mNomPays)){
 
-            showText("Bravo");
-
             scoreNumerique+=5;
             mScore.setText(""+scoreNumerique);
             generateParty();
-            if(scoreNumerique == 50){
+            if(scoreNumerique >= 50){
                 showText("Bravo, tu as gagné!");
                 unableLoose();
+                showResultScreen(ReverseFlagActivity.this,true,true,scoreNumerique);
 
-
+            }else {
+                showText("Bravo");
             }
         }else{
             showText("Dommage");

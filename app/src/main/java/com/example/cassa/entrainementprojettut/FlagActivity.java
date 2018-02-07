@@ -139,7 +139,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
             scoreNumerique = scoreNumerique + 5;
             mScore.setText(""+scoreNumerique);
             generateParty();
-            if(scoreNumerique == 50 ){
+            if(scoreNumerique >= 50 ){
                 unableLoose();
                 showText("Bravo, tu as gagné!");
                 showResultScreen(FlagActivity.this,true,true,scoreNumerique);
