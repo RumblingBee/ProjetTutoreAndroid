@@ -284,11 +284,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
                 showResultScreen(srcActivity,false,false,0);
 
-
             }
         };
-
-
         handler.postDelayed(looseActivity,temps);
     }
 

@@ -11,21 +11,21 @@ import com.example.cassa.entrainementprojettut.geography.gameSetter.SetOccitanie
 
 public class Factory {
 
-    public I_Set createNewLevel(int difficulte){
+    public I_Set createNewLevel(int difficulte,float sideSizeOfATag){
 
         I_Set newLevel;
         switch (difficulte){
             case 1:
-                newLevel = new SetWorld();
+                newLevel = new SetWorld(sideSizeOfATag);
                 break;
             case 2:
-                newLevel = new SetEurope();
+                newLevel = new SetEurope(sideSizeOfATag);
                 break;
             case 3:
-                newLevel = new SetOccitanie();
+                newLevel = new SetOccitanie(sideSizeOfATag);
                 break;
             default:
-                newLevel = new SetWorld();
+                newLevel = new SetWorld(sideSizeOfATag);
                 break;
         }
         return newLevel;
