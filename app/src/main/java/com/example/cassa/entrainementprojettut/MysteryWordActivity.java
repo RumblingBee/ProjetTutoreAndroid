@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import android.widget.Chronometer;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,8 @@ public class MysteryWordActivity extends GameActivity {
     private ToggleButton gSelectedLetter;
 
     private long startingTime;
+
+    private Chronometer chronometer;
 
     final Handler gHandler = new Handler();
 
@@ -69,6 +72,8 @@ public class MysteryWordActivity extends GameActivity {
             public void onDismiss(DialogInterface dialogInterface){
                 if (levelChosen != 0) {
                     lancerPartie();
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    chronometer.start();
 
                 }
                 else {
@@ -111,6 +116,8 @@ public class MysteryWordActivity extends GameActivity {
         gImgPlayer = (ImageView) findViewById(R.id.activity_mysteryWord_pos1_img);
 
         gBtnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
+
+        chronometer = (Chronometer)findViewById(R.id.activity_mystery_word_chronometer);
 
         for (int i = 0; i < gKeyboard.length; i++) {
             final int tmp = i;
@@ -246,7 +253,8 @@ public class MysteryWordActivity extends GameActivity {
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
             unableLoose();
-            timeScore =  (System.currentTimeMillis() - startingTime)/1000;
+            chronometer.stop();
+            timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
             showResultScreen(this);
 
 

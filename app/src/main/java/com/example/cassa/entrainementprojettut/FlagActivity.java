@@ -26,7 +26,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
     private ControllerFlagBank controllerFlagBank;
 
-    private float screenWidth;
+    private boolean hasWon = false;
 
 
     @Override
@@ -47,7 +47,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
             public void onDismiss(DialogInterface dialogInterface) {
                 if (levelChosen != 0) {
 
-                    generateParty();
+                    generateNewGame();
                     launchTimer(FlagActivity.this,30000,R.id.acivity_flag_player_img,R.id.activity_flag_IA_img);
 
                 } else {
@@ -84,7 +84,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     }
 
 
-    protected void generateParty(){
+    protected void generateNewGame(){
 
         controllerFlagBank = new ControllerFlagBank(levelChosen);
         ImageView listeDrapeau[] = {mFlag1, mFlag2, mFlag3, mFlag4};
@@ -126,13 +126,19 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
 
         if(country == gGoodAnswer){
 
+            moveImage(playerImage,playerImagePosition+(getScreenWidth()/10),600,playerImagePosition);
+            playerImagePosition = playerImagePosition + (getScreenWidth()/10);
+
+
             showText(getString(R.string.Well_played));
             numericalScore = numericalScore + 5;
             mScore.setText(""+ numericalScore);
-            generateParty();
-            if(numericalScore >= 50 ){
+            generateNewGame();
+            if(numericalScore >= 50 && hasWon == false){
                 unableLoose();
+                firework(R.id.flag_activity_layout);
                 showText(getString(R.string.You_have_win));
+                hasWon = true;
 
             }
         }

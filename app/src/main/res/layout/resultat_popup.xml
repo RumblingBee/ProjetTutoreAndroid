@@ -42,13 +42,4 @@
         android:text="Retour au menu" />
 
 
-
-    <ImageView
-
-        app:srcCompat="@android:drawable/star_on"
-        android:layout_row="1"
-        android:layout_column="5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
 </GridLayout>
