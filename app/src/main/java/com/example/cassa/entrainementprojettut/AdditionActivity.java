@@ -152,6 +152,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
             if(rightAnswerCounter == 10){
                 unableLoose();
+                unableScoreMode();
                 chronometer.stop();
                 timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
                 showResultScreen(this);

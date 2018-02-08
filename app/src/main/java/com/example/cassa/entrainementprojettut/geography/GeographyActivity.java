@@ -263,6 +263,8 @@ public class GeographyActivity extends GameActivity {
             showText("Bravo!");
             rightAnswerCounter++;
             if(rightAnswerCounter == tagList.size()){
+                unableLoose();
+                unableScoreMode();
                 chronometer.stop();
                 timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
                 showResultScreen(this);

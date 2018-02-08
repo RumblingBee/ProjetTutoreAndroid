@@ -246,6 +246,7 @@ public class MysteryWordActivity extends GameActivity {
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
             unableLoose();
+            unableScoreMode();
             timeScore =  (System.currentTimeMillis() - startingTime)/1000;
             showResultScreen(this);
 
