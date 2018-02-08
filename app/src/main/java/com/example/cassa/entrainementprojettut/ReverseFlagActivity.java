@@ -23,7 +23,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
     private String gGoodAnswer;
 
-
+    private boolean hasWon = false;
 
     private ControllerFlagBank controllerFlagBank;
 
@@ -45,7 +45,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if(levelChosen != 0){
-                    generateParty();
+                    generateNewGame();
                     launchTimer(ReverseFlagActivity.this,35000,R.id.acivity_flag_player_img,R.id.activity_flag_IA_img);
 
                 }else{
@@ -83,7 +83,7 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
 
 
-    protected void generateParty(){
+    protected void generateNewGame(){
 
         controllerFlagBank = new ControllerFlagBank(levelChosen);
 
@@ -131,13 +131,19 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     public void checkAnswer(Button button, String mNomPays){
         if(gGoodAnswer.equals(mNomPays)){
 
+            moveImage(playerImage,playerImagePosition+(getScreenWidth()/10),600,playerImagePosition);
+            playerImagePosition = playerImagePosition + (getScreenWidth()/10);
 
             numericalScore+=5;
             mScore.setText(""+numericalScore);
-            generateParty();
-            if(numericalScore >= 50){
+            generateNewGame();
+            if(numericalScore >= 50 && hasWon == false){
+
+                firework(R.id.activity_reverse_flag_layout);
                 showText(getString(R.string.You_have_win));
+                hasWon = true;
                 unableLoose();
+
 
 
             }else {

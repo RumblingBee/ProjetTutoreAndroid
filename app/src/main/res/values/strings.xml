@@ -16,4 +16,7 @@
     <string name="fourth_year_of_primary_school">CM1</string>
     <string name="fifth_year_of_primary_school">CM2</string>
     <string name="Level_score">niveau record</string>
+    <string name="Your_score_is">Ton score est de </string>
+    <string name="Well_played_you_succedeed">Bravo, tu as réussi en </string>
+    <string name="seconds">secondes!</string>
 </resources>

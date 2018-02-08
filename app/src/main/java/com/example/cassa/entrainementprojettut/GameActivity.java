@@ -160,9 +160,9 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
 
             if (numericalScore > 0)
-                mTextViewMessage.setText("Ton score est de " + numericalScore);
+                mTextViewMessage.setText(getString(R.string.Your_score_is) + numericalScore);
             else if (timeScore > 0)
-                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + "secondes!");
+                mTextViewMessage.setText(getString(R.string.Well_played_you_succedeed) + timeScore + getString(R.string.seconds));
 
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
@@ -328,17 +328,18 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     }
 
     protected void firework(int view) {
-        new ParticleSystem(this, 32, R.drawable.confeti_blanc, 5000)
-                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
-                .setRotationSpeed(150)
-                .setAcceleration(0.00005f, 90)
-                .oneShot(findViewById(view), 64);
 
-        new ParticleSystem(this, 32, R.drawable.confeti_violet, 5000)
-                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
-                .setRotationSpeed(150)
-                .setAcceleration(0.00005f, 90)
-                .oneShot(findViewById(view), 64);
-    }
+            new ParticleSystem(this, 32, R.drawable.confeti_blanc, 5000)
+                    .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
+                    .setRotationSpeed(150)
+                    .setAcceleration(0.00005f, 90)
+                    .oneShot(findViewById(view), 64);
+
+            new ParticleSystem(this, 32, R.drawable.confeti_violet, 5000)
+                    .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 180)
+                    .setRotationSpeed(150)
+                    .setAcceleration(0.00005f, 90)
+                    .oneShot(findViewById(view), 64);
+        }
 
 }
