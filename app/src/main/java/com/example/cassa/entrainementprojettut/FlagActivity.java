@@ -66,8 +66,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         mCountryName = (TextView)findViewById(R.id.activity_flag_name01_txt);
         mScore = (TextView)findViewById(R.id.activity_flag_score_txt);
 
-        // On initialise le score à 0
-
         numericalScore = 0;
         mScore.setText("0");
     }
@@ -89,15 +87,10 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     protected void generateParty(){
 
         controllerFlagBank = new ControllerFlagBank(levelChosen);
-
         ImageView listeDrapeau[] = {mFlag1, mFlag2, mFlag3, mFlag4};
-
         enableFlag();
-
         generateCountryToFind(controllerFlagBank);
-
         generateFlagChoice(controllerFlagBank, listeDrapeau);
-
     }
 
 
@@ -109,8 +102,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         }
     }
 
-
-
     private void generateCountryToFind(ControllerFlagBank controllerFlagBank) {
         Random rand = new Random();
         int numPaysMystere = rand.nextInt(4);
@@ -118,8 +109,6 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         mCountryName.setText(controllerFlagBank.getFlag(numPaysMystere).getmNameCountry());
         gGoodAnswer = controllerFlagBank.getFlag(numPaysMystere).getmNameCountry();
     }
-
-
 
     private void enableFlag() {
         mFlag1.setEnabled(true);
@@ -133,25 +122,22 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
         mFlag4.setColorFilter(0);
     }
 
-
-
     protected  void checkAnswer(ImageView v, String country){
 
         if(country == gGoodAnswer){
 
-
-            showText("Bravo");
+            showText(getString(R.string.Well_played));
             numericalScore = numericalScore + 5;
             mScore.setText(""+ numericalScore);
             generateParty();
             if(numericalScore >= 50 ){
                 unableLoose();
-                showText("Bravo, tu as gagné!");
+                showText(getString(R.string.You_have_win));
 
             }
         }
         else{
-            showText("Dommage");
+            showText(getString(R.string.Too_bad));
 
             numericalScore = numericalScore - 2;
             v.setBackgroundColor(Color.argb(150,200,200,200));
@@ -163,9 +149,9 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     }
     private void showMenu(){
         String[] menu = new String[3];
-        menu[0]= "niveau 1";
-        menu[1]= "niveau 2";
-        menu[2]= "niveau 3";
+        menu[0]= getString(R.string.Level_1);
+        menu[1]= getString(R.string.Level_2);
+        menu[2]= getString(R.string.Level_3);
         displayLevelchoice(this,menu);
     }
 
@@ -173,7 +159,7 @@ public class FlagActivity extends GameActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String paysSelectione = (String) view.getTag();
-        System.out.println("paysSelectione: "+paysSelectione);
+        System.out.println(getString(R.string.Selectionned_country)+paysSelectione);
 
         checkAnswer((ImageView) view,paysSelectione);
     }

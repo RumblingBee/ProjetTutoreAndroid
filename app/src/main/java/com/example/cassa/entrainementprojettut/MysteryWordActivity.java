@@ -169,9 +169,9 @@ public class MysteryWordActivity extends GameActivity {
         boolean res = false;
         if (pString.equalsIgnoreCase(String.valueOf(gSelectedCharaAnswer))) {
             res = true;
-            gTxtAnswer.setText("Bonne réponse, continue !");
+            gTxtAnswer.setText(R.string.Well_played);
         } else {
-            gTxtAnswer.setText("Essaye encore !");
+            gTxtAnswer.setText(R.string.Try_again);
         }
         return res;
     }
@@ -194,7 +194,6 @@ public class MysteryWordActivity extends GameActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    //TODO Placer en classe mère
     public void desactiverBouton(Button pBtn, String pString) {
         pBtn.setText(pString);
         pBtn.setEnabled(false);
@@ -297,9 +296,9 @@ public class MysteryWordActivity extends GameActivity {
     }
     private void showMenu(){
         String[] menu = new String[3];
-        menu[0]= "niveau 1";
-        menu[1]= "niveau 2";
-        menu[2]= "niveau 3";
+        menu[0]= getString(R.string.Level_1);
+        menu[1]= getString(R.string.Level_2);
+        menu[2]= getString(R.string.Level_3);
         displayLevelchoice(this,menu);
     }
 }

@@ -136,15 +136,15 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
             mScore.setText(""+numericalScore);
             generateParty();
             if(numericalScore >= 50){
-                showText("Bravo, tu as gagné!");
+                showText(getString(R.string.You_have_win));
                 unableLoose();
 
 
             }else {
-                showText("Bravo");
+                showText(getString(R.string.Well_played));
             }
         }else{
-            showText("Dommage");
+            showText(getString(R.string.Too_bad));
 
             numericalScore -=2;
             button.setEnabled(false);
@@ -154,9 +154,9 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     }
     private void showMenu(){
         String[] menu = new String[3];
-        menu[0]= "niveau 1";
-        menu[1]= "niveau 2";
-        menu[2]= "niveau 3";
+        menu[0]= getString(R.string.Level_1);
+        menu[1]= getString(R.string.Level_2);
+        menu[2]= getString(R.string.Level_3);
         displayLevelchoice(this,menu);
     }
 

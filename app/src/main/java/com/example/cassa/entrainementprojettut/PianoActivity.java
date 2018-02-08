@@ -205,7 +205,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
 
     public void wrongAnswerConsequences() {
-        showText("Dommage !");
+        showText(getString(R.string.Too_bad));
 
         controlerMusic.setLife(mHeartList[mHeartPosition]);
         mHeartPosition -= 1;
@@ -229,7 +229,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
             firework(R.id.activity_piano_life);
 
-            showText("Bravo tu as gagné !");
+            showText(getString(R.string.You_have_win));
             if (!controlerMusic.controlerType().equals("score")) {
                 showResultScreen(this);
             }else {
@@ -238,17 +238,17 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
         }else{
             if(answer==0){
-                showText("Bravo !");
+                showText(getString(R.string.Well_played));
                 showSequence();
             }
         }
     }
     private void showMenu(){
         String[] menu = new String[4];
-        menu[0]= "niveau 1";
-        menu[1]= "niveau 2";
-        menu[2]= "niveau 3";
-        menu[3]= "niveau record";
+        menu[0]= getString(R.string.Level_1);
+        menu[1]= getString(R.string.Level_2);
+        menu[2]= getString(R.string.Level_3);
+        menu[3]= getString(R.string.Level_score);
         displayLevelchoice(this,menu);
     }
 
