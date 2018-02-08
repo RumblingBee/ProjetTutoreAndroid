@@ -69,6 +69,12 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         levelChosen = 0;
         timeScore = 0;
         numericalScore = 0;
+        if(looseActivity != null) {
+            handler.removeCallbacks(looseActivity);
+        }
+        if(scoreMode != null) {
+            handler.removeCallbacks(scoreMode);
+        }
     }
 
     protected void displayLevelchoice(Context activityContext, String[] levelsNames){
@@ -189,6 +195,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
                 }
             });
+            numericalScore = 0;
+            timeScore = 0;
         }
     }
 
@@ -291,6 +299,9 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     protected void unableLoose(){
         handler.removeCallbacks(looseActivity);
     }
+    protected void unableScoreMode(){
+        handler.removeCallbacks(scoreMode);
+    }
 
 
 
@@ -313,7 +324,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             }
         };
         handler.postDelayed(looseActivity,temps);
-        handler.postDelayed(scoreMode,temps+100);
+        handler.postDelayed(scoreMode,temps+500);
     }
 
     protected void firework(int view) {
