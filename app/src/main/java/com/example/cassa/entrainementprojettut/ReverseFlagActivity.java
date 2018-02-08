@@ -45,7 +45,9 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if(levelChosen != 0){
+
                     generateNewGame();
+                    initializeScoreValues("invertFlag",levelChosen);
                     launchTimer(ReverseFlagActivity.this,35000,R.id.acivity_flag_player_img,R.id.activity_flag_IA_img);
 
                 }else{

@@ -62,4 +62,8 @@ public class Score {
                 ", difficulty=" + difficulty +
                 '}';
     }
+
+    public String standardDisplay(){
+        return playerName+": "+value;
+    }
 }

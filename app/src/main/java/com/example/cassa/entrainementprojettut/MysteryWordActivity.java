@@ -71,9 +71,13 @@ public class MysteryWordActivity extends GameActivity {
             @Override
             public void onDismiss(DialogInterface dialogInterface){
                 if (levelChosen != 0) {
-                    lancerPartie();
+                    generateGame();
+
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
+
+                    initializeScoreValues("MysteryWord",levelChosen);
+
 
                 }
                 else {
@@ -265,7 +269,7 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
-    public void lancerPartie() {
+    public void generateGame() {
         //On récupère le mWord et on l'affiche, ainsi que la mOrder associée
         wordBankController =new WordBankController(levelChosen);
         motEnCour = wordBankController.getWord(0);

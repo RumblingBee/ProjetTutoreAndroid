@@ -63,11 +63,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         private static String DATABASE_INIT_FIRST_TABLE="insert into "+FIRST_TABLE+
                 "("+ COL_GAME_NAME_TABLE_1 +", "+COL_DIFFICULTY_TABLE_1+") VALUES ('operation', 1)" +
-                ",('MysteryWord', 1),('flag', 1),('invertFlag', 1),('geography', 1),('piano', 1)";
+                ",('MysteryWord', 1),('flag', 1),('invertFlag', 1),('geography', 1),('operation', 2)" +
+                ",('MysteryWord', 2),('flag', 2),('invertFlag', 2),('geography', 2),('operation', 3)" +
+                ",('MysteryWord', 3),('flag', 3),('invertFlag', 3),('geography', 3),('operation',4)," +
+                "('MysteryWord',4),('piano',4),('operation',5),('MysteryWord',5)";
 
 
         private static String DATABASE_INIT_FOURTH_TABLE="insert into "+FOURTH_TABLE+
-                "("+ COL_GAME_TABLE_4 +") VALUES (1),(2),(3),(4),(5),(6)";
+                "("+ COL_GAME_TABLE_4 +") VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20)";
 
 
 
@@ -79,10 +82,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                         int version) {
         super(context, name, factory, version);
     }
+    public void resetDatabase(SQLiteDatabase sqLiteDatabase ){
+        sqLiteDatabase.execSQL(Constants.DROP_FOURTH_TABLE);
+        sqLiteDatabase.execSQL(Constants.DROP_FIRST_TABLE);
+        sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FIRST_TABLE);
+        sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FOURTH_TABLE);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        System.out.println("tamère");
 
         sqLiteDatabase.execSQL(Constants.DROP_FOURTH_TABLE);
         sqLiteDatabase.execSQL(Constants.DROP_FIRST_TABLE);
@@ -97,7 +105,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         Log.d("score",Constants.DATABASE_INIT_FIRST_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FIRST_TABLE);
-        Log.d("score",Constants.DATABASE_INIT_FOURTH_TABLE);
         sqLiteDatabase.execSQL(Constants.DATABASE_INIT_FOURTH_TABLE);
         Log.d("score","populateTable");
 

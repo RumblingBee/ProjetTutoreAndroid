@@ -32,6 +32,7 @@ public class DAOscore extends DAOconnection {
     }
 
     public Score findScoreForAGame(String gameName,int difficulty){
+        open();
         Score res=null;
         String query="select player, score "+
                 " from "+Constants.FOURTH_TABLE+" score "+
@@ -51,28 +52,42 @@ public class DAOscore extends DAOconnection {
         return res;
     }
 
-    private void updateScore(Score score){
+    public void updateScore(Score score){
+        int gameId=getGameIdFromGameName(score.getGameName(),score.getDifficulty());
         ContentValues value = new ContentValues();
 
          value.put(Constants.COL_SCORE_TABLE_4, score.getValue());
          value.put(Constants.COL_PLAYER_TABLE_4,score.getPlayerName());
          sqLiteDatabase.update(Constants.FOURTH_TABLE,
                  value,
-                 Constants.COL_GAME_NAME_TABLE_1 + " = ? and "+Constants.COL_DIFFICULTY_TABLE_1+" = ?",
-                 new String[] {score.getGameName(),String.valueOf(score.getDifficulty())});
+                 Constants.COL_GAME_TABLE_4 + " = ?",
+                 new String[] {String.valueOf(gameId)});
     }
 
-    public void timeScoreBreaked(Score score){
+    public boolean timeScoreBreaked(Score score){
         Score actualScore=findScoreForAGame(score.getGameName(),score.getDifficulty());
-        if(actualScore.getValue()>score.getValue() || actualScore.getValue()==0){
-            updateScore(score);
-        }
+        return (actualScore.getValue()>score.getValue() || actualScore.getValue()==0);
     }
 
-    public void pointScoreBreaked(Score score){
+    public boolean pointScoreBreaked(Score score){
         Score actualScore=findScoreForAGame(score.getGameName(),score.getDifficulty());
-        if(actualScore.getValue()<score.getValue() || actualScore.getValue()==0){
-            updateScore(score);
+        return (actualScore.getValue()<score.getValue() || actualScore.getValue()==0);
+    }
+
+    public int getGameIdFromGameName(String gameName,int difficulty){
+        open();
+        int gameId=0;
+        String query="select idGame "+
+                " from "+Constants.FIRST_TABLE +
+                " WHERE "+Constants.COL_GAME_NAME_TABLE_1 +" =? and "+Constants.COL_DIFFICULTY_TABLE_1+" =?";
+        Log.d("score",query);
+        Cursor c=sqLiteDatabase.rawQuery(query,new String[]{gameName,String.valueOf(difficulty)});
+        while (c.moveToNext()){
+            gameId=c.getInt(0);
+
+
         }
+        c.close();
+        return gameId;
     }
 }
