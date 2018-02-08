@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">entrainementProjetTut</string>
     <string name="geography_conteneur_rect">conteneur rectangle</string>
+    <string name="to_bad">Dommage, la réponse était</string>
+    <string name="Well_played">Bravo!</string>
+    <string name="You_have_win">Bravo, tu as gagné!</string>
+    <string name="Level_1">niveau 1</string>
+    <string name="Level_2">niveau 2</string>
+    <string name="Level_3">niveau 3</string>
+    <string name="Selectionned_country">paysSelectione:</string>
+    <string name="Too_bad">Dommage</string>
+    <string name="Try_again">Essaye encore !</string>
+    <string name="first_year_of_primary_school">CP</string>
+    <string name="second_year_of_primary_school">CE1</string>
+    <string name="third_year_of_primary_school">CE2</string>
+    <string name="fourth_year_of_primary_school">CM1</string>
+    <string name="fifth_year_of_primary_school">CM2</string>
+    <string name="Level_score">niveau record</string>
 </resources>

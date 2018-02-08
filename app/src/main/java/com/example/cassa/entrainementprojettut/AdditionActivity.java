@@ -144,7 +144,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
 
 
             rightAnswerCounter++;
-            showText("Bravo!");
+            showText(getString(R.string.Well_played));
             playerEvent.start();
 
             moveImage(playerImage,playerImagePosition+(screenWidth/10),600,playerImagePosition);
@@ -166,7 +166,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
         }
         else{
 
-            showText("Dommage, la réponse était " + ctrl.getAnswer());
+            showText(getString(R.string.to_bad) + ctrl.getAnswer());
             generateOperation();
 
             return false;
@@ -216,10 +216,12 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
     }
 
     private void showMenu(){
-        String[] menu = new String[3];
-        menu[0]= "niveau 1";
-        menu[1]= "niveau 2";
-        menu[2]= "niveau 3";
+        String[] menu = new String[5];
+        menu[0]= getString(R.string.first_year_of_primary_school);
+        menu[1]= getString(R.string.second_year_of_primary_school);
+        menu[2]= getString(R.string.third_year_of_primary_school);
+        menu[3]= getString(R.string.fourth_year_of_primary_school);
+        menu[4]= getString(R.string.fifth_year_of_primary_school);
         displayLevelchoice(this,menu);
     }
 }
