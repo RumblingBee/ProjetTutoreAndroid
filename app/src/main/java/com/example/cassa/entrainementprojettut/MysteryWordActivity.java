@@ -69,6 +69,7 @@ public class MysteryWordActivity extends GameActivity {
             public void onDismiss(DialogInterface dialogInterface){
                 if (levelChosen != 0) {
                     lancerPartie();
+                    initializeScoreValues("MysteryWord",levelChosen);
 
                 }
                 else {

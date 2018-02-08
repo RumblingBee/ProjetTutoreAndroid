@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 
+import com.example.cassa.entrainementprojettut.database.DAOscore;
+
 /**
  * Created by prax on 16/01/2018.
  */
@@ -67,6 +69,7 @@ public class ActivityUtil extends AppCompatActivity {
         if (bgPlayer != null) {
             bgPlayer.stop();
         }
+
     }
 
     @Override

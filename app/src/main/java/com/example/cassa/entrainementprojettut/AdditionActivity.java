@@ -154,6 +154,7 @@ public class AdditionActivity extends GameActivity implements View.OnClickListen
                 unableLoose();
                 chronometer.stop();
                 timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
+                initializeScoreValues("operation",levelChosen);
                 showResultScreen(this);
 
             }

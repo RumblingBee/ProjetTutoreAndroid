@@ -2,6 +2,7 @@
 
 package com.example.cassa.entrainementprojettut;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,15 +14,20 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatCallback;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.cassa.entrainementprojettut.PlayerUtils.Score;
+import com.example.cassa.entrainementprojettut.database.DAOscore;
 import com.plattysoft.leonids.ParticleSystem;
 
 public class GameActivity extends ActivityUtil implements AppCompatCallback,
@@ -41,6 +47,9 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     protected Runnable scoreMode;
     protected int numericalScore;
     protected long timeScore;
+    protected String currentActivityName;
+    protected int currentLevel;
+    protected DAOscore daOscore=DAOscore.getInstance(this);
 
 
 
@@ -69,6 +78,11 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         levelChosen = 0;
         timeScore = 0;
         numericalScore = 0;
+    }
+
+    protected void initializeScoreValues(String gameName,int difficulty){
+        currentActivityName=gameName;
+        currentLevel=difficulty;
     }
 
     protected void displayLevelchoice(Context activityContext, String[] levelsNames){
@@ -101,6 +115,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         mBuilder.setView(lvlChoiceView);
         dialog = mBuilder.create();
         dialog.show();
+        alertDialog();
 
         //On prend les caracs de l'écran
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -124,6 +139,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         });
     }
     protected void showResultScreen(final Activity activity) {
+
+        Score score;
         if(looseActivity != null) {
             handler.removeCallbacks(looseActivity);
         }
@@ -153,11 +170,23 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             window.setAttributes(lp);
 
 
-            if (numericalScore > 0)
-                mTextViewMessage.setText("Ton score est de " + numericalScore);
-            else if (timeScore > 0)
-                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + "secondes!");
 
+            if (numericalScore > 0){
+                String highScore=daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
+                score=new Score(currentActivityName,playerName,numericalScore,currentLevel);
+                if(checkScore(currentActivityName,currentLevel)){
+                    highScore=score.standardDisplay();
+                }
+                mTextViewMessage.setText("Ton score est de " + numericalScore+ " Record actuel "+highScore);
+            }
+            else if (timeScore > 0){
+                String highScore=daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
+                score=new Score(currentActivityName,playerName,timeScore,currentLevel);
+                if(checkScore(currentActivityName,currentLevel)){
+                    highScore=score.standardDisplay();
+                }
+                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + " secondes! Record actuel "+highScore);
+            }
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialogInterface) {
@@ -308,6 +337,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             public void run() {
 
                 showResultScreen(srcActivity);
+                checkScore(currentActivityName,currentLevel);
 
 
             }
@@ -328,6 +358,58 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
                 .setRotationSpeed(150)
                 .setAcceleration(0.00005f, 90)
                 .oneShot(findViewById(view), 64);
+    }
+
+    protected boolean checkScore(String gameName,int difficulty){
+        System.out.println("--playerName: "+playerName);
+        Score score;
+        if (numericalScore > 0){
+            score=new Score(gameName,"",numericalScore,difficulty);
+            if (daOscore.pointScoreBreaked(score)){
+                daOscore.updateScore(score);
+                DAOscore.getInstance(this).close();
+                return true;
+            }else{
+                return false;
+            }
+        }
+        else if (timeScore > 0){
+            score=new Score(gameName,"",timeScore,difficulty);
+            if (daOscore.timeScoreBreaked(score)){
+                daOscore.updateScore(score);
+                DAOscore.getInstance(this).close();
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private String playerName;
+
+    private void setPlayerName(String name){
+        System.out.println("--name: "+name);
+        playerName = name;
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void alertDialog(){
+        final AlertDialog.Builder updateDialog = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Entre ton nom");
+        updateDialog.setView(input);
+
+        updateDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String m_Text = input.getText().toString();
+                System.out.println("--m_Text: "+m_Text);
+                setPlayerName(m_Text);
+            }
+        });
+        updateDialog.show();
     }
 
 }
