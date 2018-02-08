@@ -131,7 +131,14 @@ android:layout_marginTop="200dp"
 
         </GridLayout>
 
-
+    <Chronometer
+        android:id="@+id/chronometer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/acivity_addition_pos1_img"
+        android:layout_alignEnd="@+id/activity_addition_relativelayout"
+        android:layout_alignRight="@+id/activity_addition_relativelayout"
+        android:layout_marginBottom="11dp" />
 
 
 </RelativeLayout>

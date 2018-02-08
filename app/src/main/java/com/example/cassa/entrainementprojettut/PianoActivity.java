@@ -46,15 +46,15 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
         music = R.raw.geography_music;
         //startBackgroundMusic(PianoActivity.this, music);
-
+        initializeGame();
+        showMenu();
         setPianoButton();
-
-        displayLevelChoice(PianoActivity.this,"listeNiveau",4);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (levelChosen != 0) {
+                    showText(""+levelChosen);
                     generatParty();
                 } else {
                     PianoActivity.this.onStop();
@@ -211,11 +211,14 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         mHeartPosition -= 1;
 
         if(controlerMusic.isDead()){
+
             if (controlerMusic.controlerType().equals("score") && controlerMusic.getSequenceSize()>=controlerMusic.getEndSong()){
-                showResultScreen(this, true, true, controlerMusic.getSequenceSize()-1);
+    numericalScore = controlerMusic.getSequenceSize()-1;
+                showResultScreen(this);
             }else {
-                showResultScreen(this, false, false, 0);
+                showLooseScreen(this);
             }
+
         }else {
             showSequence();
         }
@@ -223,20 +226,30 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
 
     public void rightAnswerConsequences(int answer) {
         if(controlerMusic.songFinished()){
+
             firework(R.id.activity_piano_life);
 
             showText("Bravo tu as gagné !");
             if (!controlerMusic.controlerType().equals("score")) {
-                showResultScreen(this, true, false, 0);
+                showResultScreen(this);
             }else {
                 showSequence();
             }
+
         }else{
             if(answer==0){
                 showText("Bravo !");
                 showSequence();
             }
         }
+    }
+    private void showMenu(){
+        String[] menu = new String[4];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        menu[3]= "niveau record";
+        displayLevelchoice(this,menu);
     }
 
 }

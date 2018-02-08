@@ -7,14 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatCallback;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.plattysoft.leonids.ParticleSystem;
 
 public class GameActivity extends ActivityUtil implements AppCompatCallback,
@@ -36,28 +33,14 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         dialog = null;
     }
 
-
-    public float getScreenWidth(){
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size.x;
-    }
-    public float getScreenHeight(){
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size.y;
-    }
-
     final Handler handler = new Handler();
     float playerImagePosition;
     protected ImageView playerImage;
     protected ImageView IAImage;
     protected Runnable looseActivity;
     protected Runnable scoreMode;
-    protected int scoreNumerique;
-    protected long scoreTemps;
+    protected int numericalScore;
+    protected long timeScore;
 
 
 
@@ -79,42 +62,26 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     }
 
     protected int levelChosen = 0;
-
-
     protected AlertDialog dialog;
 
 
-
     protected void initializeGame(){
-
         levelChosen = 0;
-
-
+        timeScore = 0;
+        numericalScore = 0;
     }
 
+    protected void displayLevelchoice(Context activityContext, String[] levelsNames){
 
-    protected void displayLevelChoice(final Activity activite, String typeDeNiveau, int idLevel) {
-
-
-
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activite);
-
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activityContext);
+        String colorsTab[] = {"#77dd6c", "#eebf38", "#ee3838", "#c847ea", "#47aaea"};
 
         View lvlChoiceView = getLayoutInflater().inflate(R.layout.level_choice_popup, null);
 
-        String classTab[] = {"CP", "CE1", "CE2", "CM1", "CM2"};
-        String lvlTab[] = {"Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4", "Niveau 5"};
-        String colorsTab[] = {"#77dd6c", "#eebf38", "#ee3838", "#c847ea", "#47aaea"};
-
         LinearLayout container = (LinearLayout)lvlChoiceView.findViewById(R.id.level_popup_activity_linearlayout);
-        for(int i = 0; i < idLevel; i++){
-            final Button lvlButton = (Button)this.getLayoutInflater().inflate(R.layout.level_choice_button, container, false);
-            if(typeDeNiveau.equalsIgnoreCase( "listeClasse")){
-                lvlButton.setText(classTab[i]);
-            }
-            else{
-                lvlButton.setText(lvlTab[i]);
-            }
+        for(int i = 0; i < levelsNames.length; i++) {
+            final Button lvlButton = (Button) this.getLayoutInflater().inflate(R.layout.level_choice_button, container, false);
+            lvlButton.setText(levelsNames[i]);
             lvlButton.setTag(i + 1);
             lvlButton.getBackground().setColorFilter(Color.parseColor(colorsTab[i]), PorterDuff.Mode.MULTIPLY);
             lvlButton.setOnClickListener(new View.OnClickListener() {
@@ -151,34 +118,94 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             public void onCancel(DialogInterface dialogInterface) {
 
                 Context c = getApplicationContext();
-
-
                 Intent ecranMenu = new Intent(c, MainActivity.class);
                 startActivity(ecranMenu);
             }
         });
     }
-
-
-
-    protected void showResultScreen(final Activity activity, boolean win, boolean hasAScore, int score){
-        levelChosen = 0;
-        final boolean[] canLeave = {false};
+    protected void showResultScreen(final Activity activity) {
         if(looseActivity != null) {
             handler.removeCallbacks(looseActivity);
+        }
+        if (levelChosen != 0) {
+            final boolean[] canLeave = {false};
+
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
+
+            View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
+
+            Button replayButton = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
+            Button menuButton = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
+            TextView mTextViewMessage = (TextView) resultView.findViewById(R.id.resultat_popup_messace_textView);
+
+            mBuilder.setView(resultView);
+            dialog = mBuilder.create();
+            dialog.show();
+
+            //On prend les caracs de l'écran
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            Window window = dialog.getWindow();
+            lp.copyFrom(window.getAttributes());
+
+            //On l'applique au dialogue
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
 
 
+            if (numericalScore > 0)
+                mTextViewMessage.setText("Ton score est de " + numericalScore);
+            else if (timeScore > 0)
+                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + "secondes!");
+
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    if (canLeave[0] == true) {
+                        dialog.dismiss();
+
+                    } else {
+                        dialog.show();
+                    }
+
+                }
+            });
+            replayButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    canLeave[0] = true;
+                    activity.recreate();
+                    dialog.dismiss();
+
+                }
+            });
+            menuButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    canLeave[0] = true;
+                    Intent additionIntent = new Intent(activity, MainActivity.class);
+                    startActivity(additionIntent);
+                    activity.finish();
+
+                }
+            });
+        }
+    }
+
+    protected void showLooseScreen(final Activity activity){
+        final boolean[] canLeave = {false};
+        if(scoreMode!= null) {
+            handler.removeCallbacks(scoreMode);
         }
 
         levelChosen = 0;
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
 
-
         View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
 
-        Button mButtonRejouer = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
-        Button mButtonMenu = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
+        Button replayButton = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
+        Button menuButton = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
         TextView mTextViewMessage = (TextView)resultView.findViewById(R.id.resultat_popup_messace_textView);
 
         mBuilder.setView(resultView);
@@ -196,18 +223,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         window.setAttributes(lp);
 
 
-
-        //Affichage du message
-         if(hasAScore == false) {
-            if (win == true) {
-                mTextViewMessage.setText("Bravo, tu as gagné!");
-            } else {
                 mTextViewMessage.setText("Dommage, tu as perdu.");
-            }
-        }
-        else{
-            mTextViewMessage.setText("Ton score est de " +score);
-        }
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -221,30 +238,30 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
             }
         });
-                mButtonRejouer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        canLeave[0] = true;
-                        activity.recreate();
-                        dialog.dismiss();
+        replayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canLeave[0] = true;
+                activity.recreate();
+                dialog.dismiss();
 
-                    }
-                });
-                mButtonMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        canLeave[0] = true;
-                        Intent additionIntent = new Intent(activity, MainActivity.class);
-                        startActivity(additionIntent);
-                        activity.finish();
+            }
+        });
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canLeave[0] = true;
+                Intent additionIntent = new Intent(activity, MainActivity.class);
+                startActivity(additionIntent);
+                activity.finish();
 
-                        }
-                });
+            }
+        });
+        }
 
-    }
+
 
     protected void moveImage(ImageView pImage, float pDestination, int pDuration, float pPosDepart){
-
 
         TranslateAnimation animationTranslation=new TranslateAnimation(pPosDepart,pDestination,0,0);
         animationTranslation.setFillAfter(true);
@@ -255,27 +272,18 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
     protected void launchTimer(final Activity srcActivity, int arrivalTime, int playerImage, int IAImage){
 
-
         startChrono(srcActivity,arrivalTime);
 
         this.playerImage = (ImageView)findViewById(playerImage);
         this.IAImage = (ImageView)findViewById(IAImage);
-        //On récupère la taille de l'écran
 
 
         float screenWidth = getScreenWidth();
         int IApictureWidth = this.IAImage.getDrawable().getIntrinsicWidth();
 
 
-
-
-        //On lance le chrono, l'enfant perd s'il arrive au bout
-
         playerImagePosition = this.playerImage.getX();
 
-
-
-        // On anime l'image représentant l'ordinateur
 
         moveImage(this.IAImage,screenWidth-IApictureWidth,arrivalTime,0);
 
@@ -285,12 +293,12 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     }
 
 
+
     protected void startChrono(final Activity srcActivity, int temps){
         looseActivity = new Runnable() {
             @Override
             public void run() {
-                handler.removeCallbacks(scoreMode);
-                showResultScreen(srcActivity,false,false,0);
+                showLooseScreen(srcActivity);
 
             }
         };
@@ -298,8 +306,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         scoreMode = new Runnable() {
             @Override
             public void run() {
-                handler.removeCallbacks(looseActivity);
-                showResultScreen(srcActivity,true,true,scoreNumerique);
+
+                showResultScreen(srcActivity);
 
 
             }

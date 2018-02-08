@@ -34,16 +34,12 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
 
         music = R.raw.bensound_goinghigher;
         initializeGame();
-
-        startBackgroundMusic(ReverseFlagActivity.this, music);
-
-
+        startBackgroundMusic(this, music);
+        showMenu();
         initializeCountryNames();
-
         initializeAnswersAndScore();
 
 
-        displayLevelChoice(ReverseFlagActivity.this, "listeNiveau", 3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -66,6 +62,8 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         mFlag = (ImageView) findViewById(R.id.activity_reverse_flag_drapeau);
         mScore = (TextView) findViewById(R.id.activity_reverse_flag_score);
 
+
+        numericalScore =0;
         mScore.setText("0");
     }
 
@@ -133,13 +131,14 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
     public void checkAnswer(Button button, String mNomPays){
         if(gGoodAnswer.equals(mNomPays)){
 
-            scoreNumerique+=5;
-            mScore.setText(""+scoreNumerique);
+
+            numericalScore+=5;
+            mScore.setText(""+numericalScore);
             generateParty();
-            if(scoreNumerique >= 50){
+            if(numericalScore >= 50){
                 showText("Bravo, tu as gagné!");
                 unableLoose();
-                showResultScreen(ReverseFlagActivity.this,true,true,scoreNumerique);
+
 
             }else {
                 showText("Bravo");
@@ -147,13 +146,19 @@ public class ReverseFlagActivity extends GameActivity implements View.OnClickLis
         }else{
             showText("Dommage");
 
-            scoreNumerique-=2;
+            numericalScore -=2;
             button.setEnabled(false);
-            mScore.setText(""+scoreNumerique);
+            mScore.setText(""+ numericalScore);
 
         }
     }
-
+    private void showMenu(){
+        String[] menu = new String[3];
+        menu[0]= "niveau 1";
+        menu[1]= "niveau 2";
+        menu[2]= "niveau 3";
+        displayLevelchoice(this,menu);
+    }
 
 
     @Override

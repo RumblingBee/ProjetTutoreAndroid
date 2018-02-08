@@ -34,7 +34,7 @@ public class MainActivity extends ActivityUtil {
         mAnimationChouettes = (AnimationDrawable) imgChouettes.getBackground();
         playerEvent = MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
         music =R.raw.bensound_jazzyfrenchy;
-        startBackgroundMusic(MainActivity.this, music);
+        startBackgroundMusic(this, music);
         
 
 
