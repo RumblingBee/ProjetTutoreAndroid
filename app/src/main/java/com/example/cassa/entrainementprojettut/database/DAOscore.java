@@ -1,5 +1,6 @@
 package com.example.cassa.entrainementprojettut.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -30,20 +31,48 @@ public class DAOscore extends DAOconnection {
         return instance;
     }
 
-    public List<Score> findScoreForAGame(String gameName,int difficulty){
-        List<Score> resultSet=new ArrayList<>();
-        String query="select "+Constants.COL_PLAYER_TABLE_4+","+Constants.COL_SCORE_TABLE_4+
-                " from "+Constants.FOURTH_TABLE+
-                " NATURAL JOIN "+Constants.THIRD_TABLE+" NATURAL JOIN "+Constants.FIRST_TABLE+
-                " WHERE "+Constants.COL_NAME_TABLE_1+" =? and "+Constants.COL_DIFFICULTY_TABLE_3+"=?";
+    public Score findScoreForAGame(String gameName,int difficulty){
+        Score res=null;
+        String query="select player, score "+
+                " from "+Constants.FOURTH_TABLE+" score "+
+                " JOIN "+Constants.FIRST_TABLE+" game on game.idGame=score.idGame "+
+                " WHERE "+Constants.COL_GAME_NAME_TABLE_1 +" =? and "+Constants.COL_DIFFICULTY_TABLE_1+"=?";
         Log.d("score",query);
         Cursor c=sqLiteDatabase.rawQuery(query,new String[]{gameName,String.valueOf(difficulty)});
         while (c.moveToNext()){
-            String playerName=c.getColumnName(1);
-            long score=c.getLong(2);
-            resultSet.add(new Score(gameName,playerName,score,difficulty));
+            String playerName=c.getString(0);
+            long score=c.getLong(1);
+            res=new Score(gameName,playerName,score,difficulty);
+            for (int i = 0; i<c.getColumnCount(); i++) {
+                Log.d("score_db_col", c.getColumnName(i));
+            }
         }
         c.close();
-        return resultSet;
+        return res;
+    }
+
+    private void updateScore(Score score){
+        ContentValues value = new ContentValues();
+
+         value.put(Constants.COL_SCORE_TABLE_4, score.getValue());
+         value.put(Constants.COL_PLAYER_TABLE_4,score.getPlayerName());
+         sqLiteDatabase.update(Constants.FOURTH_TABLE,
+                 value,
+                 Constants.COL_GAME_NAME_TABLE_1 + " = ? and "+Constants.COL_DIFFICULTY_TABLE_1+" = ?",
+                 new String[] {score.getGameName(),String.valueOf(score.getDifficulty())});
+    }
+
+    public void timeScoreBreaked(Score score){
+        Score actualScore=findScoreForAGame(score.getGameName(),score.getDifficulty());
+        if(actualScore.getValue()>score.getValue() || actualScore.getValue()==0){
+            updateScore(score);
+        }
+    }
+
+    public void pointScoreBreaked(Score score){
+        Score actualScore=findScoreForAGame(score.getGameName(),score.getDifficulty());
+        if(actualScore.getValue()<score.getValue() || actualScore.getValue()==0){
+            updateScore(score);
+        }
     }
 }

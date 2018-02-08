@@ -52,4 +52,14 @@ public class Score {
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "gameName='" + gameName + '\'' +
+                ", playerName='" + playerName + '\'' +
+                ", value=" + value +
+                ", difficulty=" + difficulty +
+                '}';
+    }
 }
