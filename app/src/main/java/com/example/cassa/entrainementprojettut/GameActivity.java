@@ -309,18 +309,18 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         looseActivity = new Runnable() {
             @Override
             public void run() {
-                showLooseScreen(srcActivity);
-
+                if(srcActivity != null){
+                    showLooseScreen(srcActivity);
+                }
             }
         };
 
         scoreMode = new Runnable() {
             @Override
             public void run() {
-
-                showResultScreen(srcActivity);
-
-
+                if(srcActivity != null){
+                    showResultScreen(srcActivity);
+                };
             }
         };
         handler.postDelayed(looseActivity,temps);
