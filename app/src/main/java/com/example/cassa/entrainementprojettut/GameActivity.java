@@ -188,7 +188,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
                 String highScore = actualHigscore();
                 score=new Score(currentActivityName,playerName,timeScore,currentLevel);
                 highScore = checkScore(score, highScore);
-                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + " secondes! Record actuel "+highScore);
+                mTextViewMessage.setText("Bravo, tu as réussi en " + timeScore + " secondes! Record actuel "+highScore);
+
             }
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
