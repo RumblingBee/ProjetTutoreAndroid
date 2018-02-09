@@ -228,7 +228,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     public void rightAnswerConsequences(int answer) {
         if(controlerMusic.songFinished()){
 
-            firework(R.id.activity_piano_life);
+            firework(R.id.activity_piano_layout_life);
 
             showText(getString(R.string.You_have_win));
             if (!controlerMusic.controlerType().equals("score")) {
