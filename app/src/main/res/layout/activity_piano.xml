@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.cassa.entrainementprojettut.PianoActivity">
+    tools:context="com.example.cassa.entrainementprojettut.PianoActivity"
+    android:background="@color/pink">
 
 
     <LinearLayout
@@ -46,69 +47,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="100dp"
+        android:background="@color/black"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/activity_piano_key_do"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DO"
-            android:tag="1"
+            android:layout_height="match_parent"
             android:layout_marginRight="10dp"
-            android:textSize="40sp"
-            android:shadowColor="@color/colorPrimaryDark"/>
+            android:shadowColor="@color/colorPrimaryDark"
+            android:tag="1"
+            android:text="DO"
+            android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_re"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RE"
+            android:layout_height="300dp"
+            android:layout_marginRight="10dp"
             android:tag="2"
-            android:textSize="40sp"
-            android:layout_marginRight="10dp"/>
+            android:text="RE"
+            android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_mi"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MI"
-            android:tag="3"
+            android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:tag="3"
+            android:text="MI"
             android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_fa"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FA"
-            android:tag="4"
+            android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:tag="4"
+            android:text="FA"
             android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_sol"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SOL"
-            android:tag="5"
+            android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:tag="5"
+            android:text="SOL"
             android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_la"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LA"
-            android:tag="6"
+            android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:tag="6"
+            android:text="LA"
             android:textSize="40sp" />
 
         <Button
             android:id="@+id/activity_piano_key_si"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SI"
+            android:layout_height="300dp"
             android:tag="7"
+            android:text="SI"
             android:textSize="40sp" />
 
     </LinearLayout>
