@@ -192,7 +192,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
                 if(checkScore(currentActivityName,currentLevel)){
                     highScore=score.standardDisplay();
                 }
-                mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + " secondes! Record actuel "+highScore);
+                mTextViewMessage.setText("Bravo, tu as réussi en " + timeScore + " secondes! Record actuel "+highScore);
             }
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override

@@ -308,10 +308,12 @@ public class MysteryWordActivity extends GameActivity {
         return motSuivant;
     }
     private void showMenu(){
-        String[] menu = new String[3];
+        String[] menu = new String[5];
         menu[0]= getString(R.string.Level_1);
         menu[1]= getString(R.string.Level_2);
         menu[2]= getString(R.string.Level_3);
+        menu[3]= getString(R.string.Level_4);
+        menu[4]= getString(R.string.Level_5);
         displayLevelchoice(this,menu);
     }
 }
