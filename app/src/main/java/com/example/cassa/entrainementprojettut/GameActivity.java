@@ -376,10 +376,9 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         }
 
     protected boolean checkScore(String gameName,int difficulty){
-        System.out.println("--playerName: "+playerName);
         Score score;
         if (numericalScore > 0){
-            score=new Score(gameName,"",numericalScore,difficulty);
+            score=new Score(gameName,playerName,numericalScore,difficulty);
             if (daOscore.pointScoreBreaked(score)){
                 daOscore.updateScore(score);
                 DAOscore.getInstance(this).close();
@@ -389,7 +388,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             }
         }
         else if (timeScore > 0){
-            score=new Score(gameName,"",timeScore,difficulty);
+            score=new Score(gameName,playerName,timeScore,difficulty);
             if (daOscore.timeScoreBreaked(score)){
                 daOscore.updateScore(score);
                 DAOscore.getInstance(this).close();
@@ -402,7 +401,6 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
     }
 
     private void setPlayerName(String name){
-        System.out.println("--name: "+name);
         playerName = name;
     }
 
@@ -418,7 +416,6 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
-                System.out.println("--m_Text: "+m_Text);
                 setPlayerName(m_Text);
             }
         });
