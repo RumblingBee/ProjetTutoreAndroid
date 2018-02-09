@@ -9,36 +9,49 @@
     tools:context="com.example.cassa.entrainementprojettut.PianoActivity"
     android:background="@color/pink">
 
-
     <LinearLayout
         android:id="@+id/activity_piano_layout_life"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:src="@drawable/elephant"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/elephant_picture" />
+
         <TextView
             android:id="@+id/activity_piano_life"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="vie : "
-            android:textSize="70sp"/>
+            android:text="@string/lives"
+            android:textSize="60sp"/>
 
         <ImageView
             android:id="@+id/activity_piano_heart_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/heart"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/heart"
+            android:contentDescription="@string/heart_picture" />
+
         <ImageView
             android:id="@+id/activity_piano_heart_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/heart"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/heart"
+            android:contentDescription="@string/heart_picture"/>
+
         <ImageView
             android:id="@+id/activity_piano_heart_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/heart"/>
-
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/heart"
+            android:contentDescription="@string/heart_picture"/>
 
     </LinearLayout>
 
@@ -47,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:background="@color/black"
         android:padding="10dp">
 
@@ -56,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:shadowColor="@color/colorPrimaryDark"
             android:tag="1"
             android:text="DO"
@@ -66,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:tag="2"
             android:text="RE"
             android:textSize="40sp" />
@@ -75,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:tag="3"
             android:text="MI"
             android:textSize="40sp" />
@@ -84,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:tag="4"
             android:text="FA"
             android:textSize="40sp" />
@@ -93,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:tag="5"
             android:text="SOL"
             android:textSize="40sp" />
@@ -102,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:tag="6"
             android:text="LA"
             android:textSize="40sp" />

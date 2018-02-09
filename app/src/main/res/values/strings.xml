@@ -34,4 +34,7 @@
     <string name="second_flag">Deuxième drapeau</string>
     <string name="third_flag">Troisième drapeau</string>
     <string name="fourth_flag">Quatrième drapeau</string>
+    <string name="lives">Vies :</string>
+    <string name="heart_picture">Image coeur</string>
+    <string name="elephant_picture">Image éléphant</string>
 </resources>
