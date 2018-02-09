@@ -3,22 +3,16 @@ package com.example.cassa.entrainementprojettut;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.cassa.entrainementprojettut.PlayerUtils.Score;
-import com.example.cassa.entrainementprojettut.database.DAOscore;
 import com.example.cassa.entrainementprojettut.geography.GeographyActivity;
-
-import java.util.List;
 
 public class MainActivity extends ActivityUtil {
 
-    private AnimationDrawable mAnimationChouettes;
+    private AnimationDrawable mOwlAnimation;
 
 
     MediaPlayer playerEvent;
@@ -34,9 +28,9 @@ public class MainActivity extends ActivityUtil {
         Button btnReverseFlagActivity = findViewById(R.id.activity_reverse_flagActivity_btn);
         Button btnGeographyTag = findViewById(R.id.acivity_main_geographyTag);
         Button btnPiano = findViewById(R.id.acivity_main_piano);
-        ImageView imgChouettes = findViewById(R.id.chouettes_menu);
-        imgChouettes.setBackgroundResource(R.drawable.animation_chouettes_menu);
-        mAnimationChouettes = (AnimationDrawable) imgChouettes.getBackground();
+        ImageView owlImg = findViewById(R.id.chouettes_menu);
+        owlImg.setBackgroundResource(R.drawable.animation_chouettes_menu);
+        mOwlAnimation = (AnimationDrawable) owlImg.getBackground();
         playerEvent = MediaPlayer.create(MainActivity.this,R.raw.envent_sound);
         music =R.raw.bensound_jazzyfrenchy;
 
@@ -123,7 +117,7 @@ public class MainActivity extends ActivityUtil {
     public void onWindowFocusChanged(boolean hasFocus){
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
-            mAnimationChouettes.start();
+            mOwlAnimation.start();
         }
     }
 

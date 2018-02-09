@@ -179,19 +179,15 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
 
             if (numericalScore > 0){
-                String highScore=daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
+                String highScore = actualHigscore();
                 score=new Score(currentActivityName,playerName,numericalScore,currentLevel);
-                if(checkScore(currentActivityName,currentLevel)){
-                    highScore=score.standardDisplay();
-                }
+                highScore = checkScore(score, highScore);
                 mTextViewMessage.setText("Ton score est de " + numericalScore+ " Record actuel "+highScore);
             }
             else if (timeScore > 0){
-                String highScore=daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
+                String highScore = actualHigscore();
                 score=new Score(currentActivityName,playerName,timeScore,currentLevel);
-                if(checkScore(currentActivityName,currentLevel)){
-                    highScore=score.standardDisplay();
-                }
+                highScore = checkScore(score, highScore);
                 mTextViewMessage.setText("Bravo, tu as réussi en" + timeScore + " secondes! Record actuel "+highScore);
             }
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -228,6 +224,17 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             numericalScore = 0;
             timeScore = 0;
         }
+    }
+
+    private String checkScore(Score score, String highScore) {
+        if(checkScore(currentActivityName,currentLevel)){
+            highScore=score.standardDisplay();
+        }
+        return highScore;
+    }
+
+    private String actualHigscore() {
+        return daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
     }
 
     protected void showLooseScreen(final Activity activity){
@@ -376,29 +383,36 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         }
 
     protected boolean checkScore(String gameName,int difficulty){
-        System.out.println("--playerName: "+playerName);
         Score score;
         if (numericalScore > 0){
-            score=new Score(gameName,"",numericalScore,difficulty);
-            if (daOscore.pointScoreBreaked(score)){
-                daOscore.updateScore(score);
-                DAOscore.getInstance(this).close();
-                return true;
-            }else{
-                return false;
-            }
+            score=new Score(gameName,playerName,numericalScore,difficulty);
+            return pointScoreBreaked(score);
         }
         else if (timeScore > 0){
-            score=new Score(gameName,"",timeScore,difficulty);
-            if (daOscore.timeScoreBreaked(score)){
-                daOscore.updateScore(score);
-                DAOscore.getInstance(this).close();
-                return true;
-            }else {
-                return false;
-            }
+            score=new Score(gameName,playerName,timeScore,difficulty);
+            return timeScoreBreaked(score);
         }
         return false;
+    }
+
+    private boolean timeScoreBreaked(Score score) {
+        if (daOscore.timeScoreBreaked(score)){
+            daOscore.updateScore(score);
+            DAOscore.getInstance(this).close();
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private boolean pointScoreBreaked(Score score) {
+        if (daOscore.pointScoreBreaked(score)){
+            daOscore.updateScore(score);
+            DAOscore.getInstance(this).close();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void setPlayerName(String name){
