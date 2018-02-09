@@ -77,7 +77,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     private void showSequence() {
         enableButton(false);
         List<Integer> listId = controlerMusic.getIdSequence();
-        switchButtonGray();
+        switchButtonWhite();
         for (int id = 0; id<listId.size(); id++) {
             idKey = listId.get(id) - 1;
 
@@ -86,7 +86,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
             int timeGray = ((id+1)*2000)-(id*1000);
 
             handler.postDelayed(runGreen(idKey, (View) buttonsTab[idKey]), timeGreen);
-            handler.postDelayed(runGray(idKey), timeGray);
+            handler.postDelayed(runWhite(idKey), timeGray);
         }
 
         handler.postDelayed(enableButton(), listId.size() * 1300);
@@ -101,12 +101,12 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     }
 
 
-    private Runnable runGray(final int pi){
+    private Runnable runWhite(final int pi){
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                buttonsTab[pi].setBackgroundColor(Color.GRAY);
+                buttonsTab[pi].setBackgroundColor(Color.WHITE);
 
             }
         };
@@ -160,12 +160,12 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
         buttonsTab[5].setOnClickListener(this);
         buttonsTab[6].setOnClickListener(this);
 
-        switchButtonGray();
+        switchButtonWhite();
     }
 
-    private void switchButtonGray() {
+    private void switchButtonWhite() {
         for (Button button: buttonsTab){
-            button.setBackgroundColor(Color.GRAY);
+            button.setBackgroundColor(Color.WHITE);
         }
     }
 
@@ -194,14 +194,14 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     private void colorCorrect(View view) {
         view.setBackgroundColor(Color.YELLOW);
         int id = Integer.parseInt(String.valueOf(view.getTag()));
-        handler.postDelayed(runGray(id-1), 350);
+        handler.postDelayed(runWhite(id-1), 350);
     }
 
 
     private void colorError(View view) {
         view.setBackgroundColor(Color.RED);
         int id = Integer.parseInt(String.valueOf(view.getTag()));
-        handler.postDelayed(runGray(id-1), 500);
+        handler.postDelayed(runWhite(id-1), 500);
     }
 
 
@@ -228,7 +228,7 @@ public class PianoActivity extends GameActivity implements View.OnClickListener 
     public void rightAnswerConsequences(int answer) {
         if(controlerMusic.songFinished()){
 
-            firework(R.id.activity_piano_life);
+            firework(R.id.activity_piano_layout_life);
 
             showText(getString(R.string.You_have_win));
             if (!controlerMusic.controlerType().equals("score")) {
