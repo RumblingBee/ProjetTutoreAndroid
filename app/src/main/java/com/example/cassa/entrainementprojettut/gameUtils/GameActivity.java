@@ -149,7 +149,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         });
     }
     protected void showResultScreen(final Activity activity) {
-if(activity != null) {
+if(!activity.isFinishing()) {
     Score score;
     if (looseActivity != null) {
         handler.removeCallbacks(looseActivity);
@@ -241,7 +241,7 @@ if(activity != null) {
     }
 
     protected void showLooseScreen(final Activity activity){
-        if(activity != null) {
+        if(!activity.isFinishing()) {
 
             final boolean[] canLeave = {false};
             if (scoreMode != null) {
