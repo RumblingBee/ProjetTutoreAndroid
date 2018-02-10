@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.example.cassa.entrainementprojettut.PlayerUtils.Score;
+import com.example.cassa.entrainementprojettut.playerUtils.Score;
 import com.example.cassa.entrainementprojettut.database.DBOpenHelper.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by clement on 07/02/18.

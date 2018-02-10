@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.pianoGame;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.cassa.entrainementprojettut.pianoGame.FactoryMusicControler;
-import com.example.cassa.entrainementprojettut.pianoGame.IControlerMusic;
+import com.example.cassa.entrainementprojettut.gameUtils.GameActivity;
+import com.example.cassa.entrainementprojettut.R;
 
 import java.util.List;
 

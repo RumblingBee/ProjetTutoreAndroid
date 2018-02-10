@@ -8,7 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.cassa.entrainementprojettut.flag.FlagActivity;
+import com.example.cassa.entrainementprojettut.flag.ReverseFlagActivity;
+import com.example.cassa.entrainementprojettut.gameUtils.ActivityUtil;
 import com.example.cassa.entrainementprojettut.geography.GeographyActivity;
+import com.example.cassa.entrainementprojettut.mysteryWord.MysteryWordActivity;
+import com.example.cassa.entrainementprojettut.operationGame.AdditionActivity;
+import com.example.cassa.entrainementprojettut.pianoGame.PianoActivity;
 
 public class MainActivity extends ActivityUtil {
 

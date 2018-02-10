@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.operationGame;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -11,7 +11,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.operationGame.OperationController;
+import com.example.cassa.entrainementprojettut.gameUtils.GameActivity;
+import com.example.cassa.entrainementprojettut.R;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
 
