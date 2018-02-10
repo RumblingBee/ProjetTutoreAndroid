@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.GameActivity;
+import com.example.cassa.entrainementprojettut.gameUtils.GameActivity;
 import com.example.cassa.entrainementprojettut.R;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 

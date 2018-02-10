@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut.PlayerUtils;
+package com.example.cassa.entrainementprojettut.playerUtils;
 
 /**
  * Created by clement on 07/02/18.

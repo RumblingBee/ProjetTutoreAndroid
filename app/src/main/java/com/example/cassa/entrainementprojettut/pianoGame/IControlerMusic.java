@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
 import com.example.cassa.entrainementprojettut.R;
-
+import com.example.cassa.entrainementprojettut.playerUtils.PlayerLifes;
 import java.util.ArrayList;
 import java.util.List;
 

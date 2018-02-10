@@ -1,6 +1,6 @@
 
 
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.gameUtils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -26,8 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cassa.entrainementprojettut.PlayerUtils.Score;
+import com.example.cassa.entrainementprojettut.MainActivity;
+import com.example.cassa.entrainementprojettut.R;
 import com.example.cassa.entrainementprojettut.database.DAOscore;
+import com.example.cassa.entrainementprojettut.playerUtils.Score;
 import com.plattysoft.leonids.ParticleSystem;
 
 public class GameActivity extends ActivityUtil implements AppCompatCallback,

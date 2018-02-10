@@ -24,15 +24,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResultActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".mysteryWord.MysteryWordActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".LevelChoiceActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity

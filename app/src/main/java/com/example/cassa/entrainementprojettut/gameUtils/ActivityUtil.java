@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.gameUtils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 
+import com.example.cassa.entrainementprojettut.MainActivity;
 import com.example.cassa.entrainementprojettut.database.DAOscore;
 
 /**
@@ -17,7 +18,6 @@ import com.example.cassa.entrainementprojettut.database.DAOscore;
 public class ActivityUtil extends AppCompatActivity {
     protected int music = 0;
     protected MediaPlayer bgPlayer;
-
 
     protected void startBackgroundMusic(Context activityContext, int idMusic) {
 

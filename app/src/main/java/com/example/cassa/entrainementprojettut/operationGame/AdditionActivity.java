@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.GameActivity;
+import com.example.cassa.entrainementprojettut.gameUtils.GameActivity;
 import com.example.cassa.entrainementprojettut.R;
 
 public class AdditionActivity extends GameActivity implements View.OnClickListener{
