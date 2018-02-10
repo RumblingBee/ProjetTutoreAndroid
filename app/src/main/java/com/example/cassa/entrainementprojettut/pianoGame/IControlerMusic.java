@@ -3,11 +3,9 @@ package com.example.cassa.entrainementprojettut.pianoGame;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.TextView;
-
-import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
+import android.widget.ImageView;
 import com.example.cassa.entrainementprojettut.R;
-
+import com.example.cassa.entrainementprojettut.playerUtils.PlayerLifes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +127,19 @@ public abstract class IControlerMusic {
         notesTab[key].playSong(activity);
     }
 
-    public void setLife(TextView life) {
-        life.setText(""+lifes.getLife());
+    public void setLife(ImageView imageView) {
+        imageView.setImageResource(R.drawable.empty_heart);
+    }
+
+    public String controlerType(){
+        return "normal";
+    }
+
+    public int getSequenceSize(){
+        return music.getSequence().size();
+    }
+
+    public int getEndSong(){
+        return 8;
     }
 }

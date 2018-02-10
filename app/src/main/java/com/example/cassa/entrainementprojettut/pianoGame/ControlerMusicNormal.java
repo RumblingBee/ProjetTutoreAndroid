@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
-import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
-
+import com.example.cassa.entrainementprojettut.playerUtils.PlayerLifes;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class ControlerMusicNormal extends IControlerMusic {
     public ControlerMusicNormal() {
 
         lifes=new PlayerLifes();
-        List<Note> noteList = generateNotes(8);
+        List<Note> noteList = generateNotes(14);
         this.music = new Music(noteList);
         size = 3;
         music.generateSequence(size);
@@ -43,6 +42,11 @@ public class ControlerMusicNormal extends IControlerMusic {
             progressSequence();
             return 2;
         }
+    }
+
+    @Override
+    public int getEndSong() {
+        return 14;
     }
 
 }

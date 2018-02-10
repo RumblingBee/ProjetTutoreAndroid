@@ -1,7 +1,6 @@
 package com.example.cassa.entrainementprojettut.pianoGame;
 
-import com.example.cassa.entrainementprojettut.PlayerUtils.PlayerLifes;
-
+import com.example.cassa.entrainementprojettut.playerUtils.PlayerLifes;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class ControlerMusicHard extends IControlerMusic {
     public ControlerMusicHard() {
 
         lifes=new PlayerLifes();
-        List<Note> noteList = generateNotes(10);
+        List<Note> noteList = generateNotes(20);
         this.music = new Music(noteList);
         size = 4;
         music.generateSequence(size);
@@ -43,5 +42,10 @@ public class ControlerMusicHard extends IControlerMusic {
             progressSequence();
             return 2;
         }
+    }
+
+    @Override
+    public int getEndSong() {
+        return 20;
     }
 }

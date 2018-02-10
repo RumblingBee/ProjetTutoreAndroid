@@ -12,10 +12,10 @@ public class Controler {
 
     private I_Set newLevel;
 
-    public Controler(int difficulte) {
+    public Controler(int difficulte, float sideSizeOfATag) {
 
         Factory factory = new Factory();
-        newLevel = factory.createNewLevel(difficulte);
+        newLevel = factory.createNewLevel(difficulte,sideSizeOfATag);
 
     }
 

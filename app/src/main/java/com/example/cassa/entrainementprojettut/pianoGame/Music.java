@@ -21,11 +21,18 @@ public class Music {
 
     public List<Note> generateSequence(int size){
         sequence.clear();
+        if (size>notes.size())
+            addRandomNote();
+
         for (int j = 0; j <size ; j++) {
             sequence.add(notes.get(j));
         }
         position=size;
         return sequence;
+    }
+
+    public void addRandomNote(){
+        notes.add(new Note((int)(Math.random() * (7) + 1),0));
     }
 
     public List<Note> incrementSequence(int i) {
@@ -45,6 +52,12 @@ public class Music {
     }
 
     public boolean musicEnded(){
+        System.out.println("notes: "+notes.size() + " sequence: "+sequence.size());
         return notes.size()==sequence.size();
     }
+
+    public boolean musicEnded(int size){
+        return sequence.size()== size;
+    }
+
 }

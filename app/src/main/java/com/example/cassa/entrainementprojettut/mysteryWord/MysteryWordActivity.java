@@ -1,20 +1,25 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.mysteryWord;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import android.widget.Chronometer;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.WordBankController;
+import com.example.cassa.entrainementprojettut.gameUtils.GameActivity;
+import com.example.cassa.entrainementprojettut.R;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
+
+
 
 public class MysteryWordActivity extends GameActivity {
     private TextView gTxtOrder;
@@ -33,6 +38,10 @@ public class MysteryWordActivity extends GameActivity {
     private int gNbLettreOk;
     private ToggleButton gSelectedLetter;
 
+    private long startingTime;
+
+    private Chronometer chronometer;
+
     final Handler gHandler = new Handler();
 
 
@@ -46,18 +55,16 @@ public class MysteryWordActivity extends GameActivity {
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystery_word);
 
         music = R.raw.bensound_cute;
-        startBackgroundMusic(MysteryWordActivity.this, music);
-
-
-
+        startBackgroundMusic(this, music);
+        initializeGame();
+        showMenu();
+        startingTime = System.currentTimeMillis();
         gKeyboard= new ToggleButton[26];
-
-        displayLevelChoice(MysteryWordActivity.this, "listeClasse", 5);
 
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -65,7 +72,14 @@ public class MysteryWordActivity extends GameActivity {
             @Override
             public void onDismiss(DialogInterface dialogInterface){
                 if (levelChosen != 0) {
-                    lancerPartie();
+                    generateGame();
+
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    chronometer.start();
+
+                    initializeScoreValues("MysteryWord",levelChosen);
+
+
                 }
                 else {
                     MysteryWordActivity.this.onStop();
@@ -108,6 +122,8 @@ public class MysteryWordActivity extends GameActivity {
 
         gBtnLayout = (LinearLayout) findViewById(R.id.activity_mysteryWord_word_linearlayout);
 
+        chronometer = (Chronometer)findViewById(R.id.activity_mystery_word_chronometer);
+
         for (int i = 0; i < gKeyboard.length; i++) {
             final int tmp = i;
             gKeyboard[i].setOnClickListener(new View.OnClickListener() {
@@ -121,6 +137,7 @@ public class MysteryWordActivity extends GameActivity {
     }
 
     private void displayWord(I_Word pWord) {
+
 
         int i = 0;
         final int wordLength = pWord.getCodedWord().length();
@@ -164,9 +181,9 @@ public class MysteryWordActivity extends GameActivity {
         boolean res = false;
         if (pString.equalsIgnoreCase(String.valueOf(gSelectedCharaAnswer))) {
             res = true;
-            gTxtAnswer.setText("Bonne réponse, continue !");
+            gTxtAnswer.setText(R.string.Well_played);
         } else {
-            gTxtAnswer.setText("Essaye encore !");
+            gTxtAnswer.setText(R.string.Try_again);
         }
         return res;
     }
@@ -189,7 +206,6 @@ public class MysteryWordActivity extends GameActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    //TODO Placer en classe mère
     public void desactiverBouton(Button pBtn, String pString) {
         pBtn.setText(pString);
         pBtn.setEnabled(false);
@@ -241,8 +257,12 @@ public class MysteryWordActivity extends GameActivity {
 
     public void partieFinie(int pNbMot) {
         if (gNbReponsesCorrectes == pNbMot) {
+            unableLoose();
+            unableScoreMode();
+            chronometer.stop();
+            timeScore =  (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
+            showResultScreen(this);
 
-            showResultScreen(MysteryWordActivity.this, true, false, 0);
 
         }
         else {
@@ -250,7 +270,7 @@ public class MysteryWordActivity extends GameActivity {
         }
     }
 
-    public void lancerPartie() {
+    public void generateGame() {
         //On récupère le mWord et on l'affiche, ainsi que la mOrder associée
         wordBankController =new WordBankController(levelChosen);
         motEnCour = wordBankController.getWord(0);
@@ -271,6 +291,7 @@ public class MysteryWordActivity extends GameActivity {
                 duree = 120000;
                 break;
         }
+
         launchTimer(MysteryWordActivity.this,
                 duree, R.id.activity_mysteryWord_pos1_img, R.id.activity_mysteryWord_ordi_img);
 
@@ -286,5 +307,14 @@ public class MysteryWordActivity extends GameActivity {
         gHandler.postDelayed(gDisplayWord, 1000);
         gTxtOrder.setText(motSuivant.getOrder());
         return motSuivant;
+    }
+    private void showMenu(){
+        String[] menu = new String[5];
+        menu[0]= getString(R.string.Level_1);
+        menu[1]= getString(R.string.Level_2);
+        menu[2]= getString(R.string.Level_3);
+        menu[3]= getString(R.string.Level_4);
+        menu[4]= getString(R.string.Level_5);
+        displayLevelchoice(this,menu);
     }
 }

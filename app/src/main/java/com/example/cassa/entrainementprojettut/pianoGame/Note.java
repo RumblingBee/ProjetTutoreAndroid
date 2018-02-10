@@ -15,6 +15,7 @@ class Note {
     public Note(int id, int adressSound) {
         this.id = id;
         this.adressSound = adressSound;
+        song = new MediaPlayer();
     }
 
     public int getId() {
@@ -29,7 +30,6 @@ class Note {
         if (song.isPlaying()){
             song.stop();
             song.release();
-            song = new MediaPlayer();
         }
         song = MediaPlayer.create(activity, adressSound);
         song.start();

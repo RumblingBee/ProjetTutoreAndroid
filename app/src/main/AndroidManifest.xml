@@ -6,7 +6,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -20,34 +19,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdditionActivity"
+            android:name=".operationGame.AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResultActivity"
+            android:name=".mysteryWord.MysteryWordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MysteryWordActivity"
+            android:name=".flag.FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LevelChoiceActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".FlagActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".ReverseFlagActivity"
+            android:name=".flag.ReverseFlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".geography.GeographyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".PianoActivity"
+        <activity android:name=".pianoGame.PianoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>
