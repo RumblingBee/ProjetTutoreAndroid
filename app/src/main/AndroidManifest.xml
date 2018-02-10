@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdditionActivity"
+            android:name=".operationGame.AdditionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
@@ -28,7 +28,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MysteryWordActivity"
+            android:name=".mysteryWord.MysteryWordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
@@ -36,18 +36,18 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".FlagActivity"
+            android:name=".flag.FlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ReverseFlagActivity"
+            android:name=".flag.ReverseFlagActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".geography.GeographyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".PianoActivity"
+        <activity android:name=".pianoGame.PianoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
     </application>

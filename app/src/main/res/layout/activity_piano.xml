@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.cassa.entrainementprojettut.PianoActivity"
+    tools:context="com.example.cassa.entrainementprojettut.pianoGame.PianoActivity"
     android:background="@color/pink">
 
     <LinearLayout

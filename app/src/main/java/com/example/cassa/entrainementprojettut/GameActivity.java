@@ -39,8 +39,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         dialog = null;
     }
 
-    final Handler handler = new Handler();
-    float playerImagePosition;
+    protected final Handler handler = new Handler();
+    protected float playerImagePosition;
     protected ImageView playerImage;
     protected ImageView IAImage;
     protected Runnable looseActivity;
@@ -147,13 +147,106 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
         });
     }
     protected void showResultScreen(final Activity activity) {
+if(activity != null) {
+    Score score;
+    if (looseActivity != null) {
+        handler.removeCallbacks(looseActivity);
+    }
+    if (levelChosen != 0) {
+        final boolean[] canLeave = {false};
 
-        Score score;
-        if(looseActivity != null) {
-            handler.removeCallbacks(looseActivity);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
+
+        View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
+
+        Button replayButton = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
+        Button menuButton = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
+        TextView mTextViewMessage = (TextView) resultView.findViewById(R.id.resultat_popup_messace_textView);
+
+        mBuilder.setView(resultView);
+        dialog = mBuilder.create();
+        dialog.show();
+
+        //On prend les caracs de l'écran
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+
+        //On l'applique au dialogue
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+
+        if (numericalScore > 0) {
+            String highScore = actualHigscore();
+            score = new Score(currentActivityName, playerName, numericalScore, currentLevel);
+            highScore = checkScore(score, highScore);
+            mTextViewMessage.setText("Ton score est de " + numericalScore + " Record actuel " + highScore);
+        } else if (timeScore > 0) {
+            String highScore = actualHigscore();
+            score = new Score(currentActivityName, playerName, timeScore, currentLevel);
+            highScore = checkScore(score, highScore);
+            mTextViewMessage.setText("Bravo, tu as réussi en " + timeScore + " secondes! Record actuel " + highScore);
+
         }
-        if (levelChosen != 0) {
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (canLeave[0] == true) {
+                    dialog.dismiss();
+
+                } else {
+                    dialog.show();
+                }
+
+            }
+        });
+        replayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canLeave[0] = true;
+                activity.recreate();
+                dialog.dismiss();
+
+            }
+        });
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canLeave[0] = true;
+                Intent additionIntent = new Intent(activity, MainActivity.class);
+                startActivity(additionIntent);
+                activity.finish();
+
+            }
+        });
+        numericalScore = 0;
+        timeScore = 0;
+    }
+}
+    }
+
+    private String checkScore(Score score, String highScore) {
+        if(checkScore(currentActivityName,currentLevel)){
+            highScore=score.standardDisplay();
+        }
+        return highScore;
+    }
+
+    private String actualHigscore() {
+        return daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
+    }
+
+    protected void showLooseScreen(final Activity activity){
+        if(activity != null) {
+
             final boolean[] canLeave = {false};
+            if (scoreMode != null) {
+                handler.removeCallbacks(scoreMode);
+            }
+
+            levelChosen = 0;
 
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
 
@@ -178,19 +271,8 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
             window.setAttributes(lp);
 
 
-            if (numericalScore > 0){
-                String highScore = actualHigscore();
-                score=new Score(currentActivityName,playerName,numericalScore,currentLevel);
-                highScore = checkScore(score, highScore);
-                mTextViewMessage.setText("Ton score est de " + numericalScore+ " Record actuel "+highScore);
-            }
-            else if (timeScore > 0){
-                String highScore = actualHigscore();
-                score=new Score(currentActivityName,playerName,timeScore,currentLevel);
-                highScore = checkScore(score, highScore);
-                mTextViewMessage.setText("Bravo, tu as réussi en " + timeScore + " secondes! Record actuel "+highScore);
+            mTextViewMessage.setText("Dommage, tu as perdu.");
 
-            }
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialogInterface) {
@@ -222,87 +304,7 @@ public class GameActivity extends ActivityUtil implements AppCompatCallback,
 
                 }
             });
-            numericalScore = 0;
-            timeScore = 0;
         }
-    }
-
-    private String checkScore(Score score, String highScore) {
-        if(checkScore(currentActivityName,currentLevel)){
-            highScore=score.standardDisplay();
-        }
-        return highScore;
-    }
-
-    private String actualHigscore() {
-        return daOscore.findScoreForAGame(currentActivityName,currentLevel).standardDisplay();
-    }
-
-    protected void showLooseScreen(final Activity activity){
-        final boolean[] canLeave = {false};
-        if(scoreMode!= null) {
-            handler.removeCallbacks(scoreMode);
-        }
-
-        levelChosen = 0;
-
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
-
-        View resultView = getLayoutInflater().inflate(R.layout.resultat_popup, null);
-
-        Button replayButton = (Button) resultView.findViewById(R.id.resultat_popup_rejouer_btn);
-        Button menuButton = (Button) resultView.findViewById(R.id.resultat_popup_menu_btn);
-        TextView mTextViewMessage = (TextView)resultView.findViewById(R.id.resultat_popup_messace_textView);
-
-        mBuilder.setView(resultView);
-        dialog = mBuilder.create();
-        dialog.show();
-
-        //On prend les caracs de l'écran
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-
-        //On l'applique au dialogue
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
-
-                mTextViewMessage.setText("Dommage, tu as perdu.");
-
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                if (canLeave[0] == true) {
-                    dialog.dismiss();
-
-                }
-                else{
-                    dialog.show();
-                }
-
-            }
-        });
-        replayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                canLeave[0] = true;
-                activity.recreate();
-                dialog.dismiss();
-
-            }
-        });
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                canLeave[0] = true;
-                Intent additionIntent = new Intent(activity, MainActivity.class);
-                startActivity(additionIntent);
-                activity.finish();
-
-            }
-        });
         }
 
 

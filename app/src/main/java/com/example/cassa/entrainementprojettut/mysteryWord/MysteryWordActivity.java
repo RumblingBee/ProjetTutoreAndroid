@@ -1,4 +1,4 @@
-package com.example.cassa.entrainementprojettut;
+package com.example.cassa.entrainementprojettut.mysteryWord;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cassa.entrainementprojettut.mysteryWord.WordBankController;
+import com.example.cassa.entrainementprojettut.GameActivity;
+import com.example.cassa.entrainementprojettut.R;
 import com.example.cassa.entrainementprojettut.mysteryWord.word.I_Word;
 
 

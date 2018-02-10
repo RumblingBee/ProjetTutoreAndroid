@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.cassa.entrainementprojettut.flag.FlagActivity;
+import com.example.cassa.entrainementprojettut.mysteryWord.MysteryWordActivity;
+import com.example.cassa.entrainementprojettut.operationGame.AdditionActivity;
+
 public class LevelChoiceActivity extends AppCompatActivity {
 
     private Button mButton1;
